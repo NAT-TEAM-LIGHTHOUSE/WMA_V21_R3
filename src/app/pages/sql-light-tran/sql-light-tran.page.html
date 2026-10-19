@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="primary"  class="ion-toolbar iosheight"  *ngIf="platform.is('ios')">
+    <ion-buttons slot="start">
+      <ion-button slot="start" (click)="closePage()" fill="clear" icon-only start>
+        <ion-icon name="arrow-back" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="pl-0">Sql Lite Entries</ion-title>
+</ion-toolbar>
+
+<ion-toolbar color="primary"  class="ion-toolbar" *ngIf="!platform.is('ios')">
+  <ion-buttons slot="start">
+    <ion-button slot="start" (click)="closePage()" fill="clear" icon-only start>
+      <ion-icon name="arrow-back" color="light"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title class="pl-0">Sql Lite Entries</ion-title>
+</ion-toolbar>
+</ion-header>

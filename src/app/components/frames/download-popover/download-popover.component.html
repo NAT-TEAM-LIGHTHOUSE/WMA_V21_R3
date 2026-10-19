@@ -1,0 +1,26 @@
+<div class="download-list-container">
+  <ion-list color="primary">
+
+    <ng-container *ngIf="!loading">
+
+      <ng-container *ngIf="localData.length > 0; else noData">
+        <ion-item *ngFor="let l of localData">
+          <ion-label>{{l.doc.lastUpdate | date:"dd MMM yyyy h:mm:ss"}} </ion-label>
+          <ion-icon name="create" color="primary" slot="end" (click)="uploadLocal(l)"></ion-icon>
+          <ion-icon name="trash" color="danger" slot="end" (click)="deleteLocal(l)"></ion-icon>
+        </ion-item>
+      </ng-container>
+
+      <ng-template #noData>
+        <p>No data for this object</p>
+      </ng-template>
+
+    </ng-container>
+
+    <ng-container *ngIf="loading">
+      <div class="text-center cent-loader">
+        <img src="../../../assets/dot.gif" width="10%">
+      </div>
+    </ng-container>
+  </ion-list>
+</div>

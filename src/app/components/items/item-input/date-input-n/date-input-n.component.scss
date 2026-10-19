@@ -1,0 +1,245 @@
+ion-item {
+    --padding-end: 0px;
+    --inner-padding-end: 0px;
+    overflow: inherit;
+    // here other custom CSS from documentation
+  }
+  input,
+ ion-input{
+    font-size: var(--font14);
+ } 
+
+.ion-input-item .input-buttons-container{
+ top:0 !important;
+ bottom:2px !important;
+ position:absolute !important;
+}
+     
+.m_time_input{
+display: flex;
+position: relative;
+width: 100%;
+border-bottom: 1px solid var(--common-border);
+
+ion-input{
+    border:0px !important;
+}
+.input-buttons-container{
+    position: relative !important;
+    top:unset !important;
+    bottom: unset !important;
+    right: unset !important;
+    display: flex;
+    align-items: center;
+}
+}
+
+
+.box_top_input{
+    border: 1px solid var(--grey-4); height: 30px;
+}
+
+.box_top_input_div{
+    border: 1px solid var(--grey-4);
+    border-radius: 3px;
+    display: flex;
+    // height: var(--inputh);
+    .box_top_input{
+        border:0px !important;
+    }
+    .input-buttons-container{
+     position: relative !important;
+    //  top:0;
+    //  bottom: 0;
+    //  right:5px;
+    }
+}
+
+.ul_flat_section{
+    display: flex;
+    width: 100%;
+     border-bottom: 1px solid var(--grey-4);
+}
+.box_flat_section{
+    display: flex;
+    width: 100%;
+     border: 1px solid var(--grey-4);
+}
+
+.ul_top_section{
+    display: flex;
+    width: 100%;
+    border: 1px solid var(--grey-4);
+}
+
+
+.un_input{
+    border-bottom: 0px solid var(--grey-4);
+     height: 30px; font-size: var(--font14);}
+app-items {
+    position: relative;
+	display: block;
+    .input-buttons-container {
+        // position: absolute;
+        // right: 2px;
+        // bottom: 2px;
+		button{
+			background: transparent;
+			padding-left: 0;
+
+            ion-icon{
+                font-size: var(--font14);
+            }
+		}
+    }
+}
+.input-type6-containter{
+.input-div{
+    border:1px solid  var(--common-border);
+}
+}
+.un_input{
+  height:var(--inputh);
+}
+.un_input_action{
+    // margin-top: 23px;
+    height:var(--inputha);
+}
+
+
+.text-right{
+    text-align: right;
+}
+
+.input-border-none {border:0 !important;}
+ion-label.label-floating{
+    z-index: 999;
+}
+ion-item.item-interactive-disabled ion-input.un_input {
+    background: transparent;
+    --color: #000;
+}
+
+ion-input[ng-reflect-disabled="true"]{
+    background-color: var(--grey-5) !important;
+}
+
+.input_box_3{
+    margin-top: 15px;
+    .form_wrap {background: var(--white); position:relative;}
+    .input_wrap{overflow: visible; --min-height:25px}
+    /* Input form Style */ 
+    ion-input { border-radius: 0px; min-height:25px; width:100%; color: #000000; font-size: var(--font14); --padding-start: 10px; box-shadow: none; outline: none; transition: 0.5s ease all; -moz-transition: 0.5s ease all; -webkit-transition: 0.5s ease all; --padding-bottom: 0; --padding-top: 0;}
+    ion-input[type="number"]{text-align: right; padding-left: 0px; padding-right: 15px;}
+    /* Label style after Input feild is in focus. Can also use input:focus ~ label to select sibling. */  
+    ion-input.has-focus + ion-label, ion-input.has-value + ion-label{font-size: var(--font12); color: #000; top: -20px; left:0px; padding: 0px 5px 0px 5px; opacity: 1;}  
+    .input_wrap {width:auto; height:auto; position:relative;}  
+    .input_wrap ion-label {font-family:'Roboto', sans-serif;; font-size:14px; color: #000;
+        position: relative;
+    top: 2px;
+    left: 10px;
+          transition:0.5s ease all;  -moz-transition:0.5s ease all;  -webkit-transition:0.5s ease all; pointer-events: none; font-weight: normal; z-index: 9; opacity: 1;}  
+    ion-input.has-focus {outline:none;}
+
+
+    .input-buttons-container{
+        top:0px !important;
+        background: transparent !important;
+    }
+}
+ion-item.item-interactive-disabled ion-label{opacity: 1;}
+.table-date-padding{--padding-top:3px; --padding-bottom:3px; --padding-start:5px; --padding-end:8px;}
+
+// .bg-input:read-only {} 
+.bg-input[readonly],.bg-input[disabled] {
+        background-color: var(--grey-5);
+}
+ion-input[readonly],ion-input[aria-disabled="true"], input[readonly],input[disabled] {
+    background-color: var(--grey-5) !important;
+    --padding-top:0px;
+    --padding-bottom:0px;
+}
+
+.ul_float_date_input{
+    ion-input{
+        --padding-top: 5px;
+       --padding-bottom: 0px;
+    }
+    ion-label.label-floating{
+        font-size: var(--font14);
+    }
+    .input-buttons-container {
+        position: relative;
+       
+    }
+    ion-icon[name="information-circle-outline"]{
+        margin: 0px 0px;
+    //    position: absolute;
+    }
+}
+
+.m_date_input{
+    display: flex;
+    height: var(--inputh);
+    border: 1px solid #dedede;
+    margin-top: 10px;
+    width: 100%;
+    align-items: center;
+    border-radius: 3px;
+ ion-input{
+    border-bottom: 0px !important;
+    height: var(--inputh);
+    margin-top: 0px !important;
+ }
+ ion-label{
+    font-size: var(--font14) !important;
+ }
+.input-buttons-container{
+    position: relative !important;
+    display: flex;
+    top: 0px;
+    bottom: 0px;
+    height: var(--inputha);
+    align-items: center;
+    .input-btn{
+        padding: 0px 5px 0px 0px !important;
+        display: flex;
+        align-items: center;
+        ion-icon{
+            font-size: var(--font14);
+        }
+    }
+
+}
+}
+
+@media screen and (max-width: 767px) {
+    .f.ion-input-item{
+     ion-label{
+    font-size: 18px !important;
+    display: inline-block !important;
+    margin: 3px 0 !important; 
+
+ } 
+}
+.d.ion-input-item{
+ ion-input{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    margin-top: 5px !important;
+        opacity: 1;
+ }  
+ ion-label{
+    font-size: 18px !important;
+    display: inline-block !important;
+    margin: 3px 0 !important;
+
+ }
+}
+     
+ion-label{
+    font-size: 18px !important;
+    display: inline-block;
+    margin: 3px 0;
+}
+}

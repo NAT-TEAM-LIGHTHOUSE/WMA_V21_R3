@@ -1,0 +1,217 @@
+
+
+.create_memo_section{
+    &_container{
+     padding: 15px 15px 15px 15px;
+     h3{
+        color: var(--secondary-text);
+        font-size: 16px;
+        margin: 0px 0px;;
+        font-weight: 500;
+     }
+     ion-textarea.memo_textarea{
+        border:0px 0px;
+        font-size: 14px;
+        color: var(--secondary-text);
+        background: var(--white);
+        --padding-top:0px;
+        --padding-bottom:0px;
+        --padding-left: 10px;
+        --padding-right: 10px;
+        height:15vh;
+
+        .textarea-wrapper .native-textarea {
+        overflow: auto;
+         height: 100% !important;
+         padding: 5px 10px;
+         min-height: inherit;
+     }
+    }
+     .memo_cheaps_area{
+        ion-chip{
+            background: var(--blue-light-4);
+            color:var(--secondary-text);
+            font-size: 13px;
+            --padding-top:2px;
+            --padding-bottom:2px;     
+            font-weight: 500;  
+        }
+     }
+    }
+   
+  .create_memo_section_button {
+     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    border-top:1px solid var(--common-border);
+     border-bottom:1px solid var(--common-border);
+
+}
+
+    ion-button{
+        box-shadow: none;
+        --box-shadow: none;
+        height:var(--inputhd);
+ --padding-top:2px;
+        --padding-bottom:2px;
+        --padding-left: 10px;
+        --padding-right: 10px;
+         font-size: 14px;        
+        font-weight: 500;
+        border-radius: 5px;
+        --background:var(--white);
+        background: var(--white);
+   
+   &.outline{
+       
+            border: 1px solid var(--common-border);
+            color: var(--secondary-text);
+        &:hover{
+            --background: var(--blue-new);
+             background: var(--blue-new);
+            color: var(--sidebar-primary-icon-bg);
+        }
+    }
+    &.fill{
+         --background: var(--blue-new) !important;
+          background: var(--blue-new) !important;
+        color:var(--sidebar-primary-icon-bg);
+        border:1px solid var(--blue-new);
+        &:hover{
+            background: var(--sidebar-primary-icon-bg);
+              --background: var(--sidebar-primary-icon-bg);
+            border:1px solid var(--blue-new);
+            color: var(--blue-new);
+        }
+    }
+}
+
+}
+
+.ng-select-new{
+    margin-right: 10px;
+    border: 1px solid var(--blue-new);
+    border-radius: 5px;
+    background: var(--white);
+    color: var(--secondary-text);
+    font-size: 13px;
+    width: 140px;
+}
+
+.input_div{
+
+ion-label{
+    font-size: 13px;
+    color: var(--secondary-text);
+    font-weight: 500;
+}
+    ion-input{
+        border-radius: 5px;
+        height:var(--inputhd);
+        font-size: 14px;
+        color: var(--secondary-text);
+        --padding-top: 0px;
+        --padding-bottom: 0px;
+        --padding-left: 5px;
+        --padding-right: 5px;
+        // border-radius: 5px;
+        border:none;
+        background: var(--white);
+    }
+    .input_div_container{
+        display: flex;
+        align-items: center;
+        border:1px solid var(--common-border);
+        border-radius: 5px;
+
+        ng-select,
+        ion-input{
+            width:100%;
+        }
+        .action_div{
+            ion-icon{
+              color:var(--secondary-text);
+              font-size: 13px;
+              padding: 0px 5px;
+            }
+        }
+    }
+}
+
+.ng-select.ng-select-single .ng-dropdown-panel .ng-dropdown-panel-items .ng-option span{
+    font-size: var(--font13);
+    display: flex;
+    align-items: center;
+    input{
+        margin-right: 5px;
+    }
+}
+
+
+.ng-select-dropdown {
+    width: 100%;
+    border-radius: 3px;
+    height: var(--inputhd) !important;
+    border-color: var(--common-border) !important;
+    color: var(--text-dark);
+    font-size: var(--font14);
+    padding: 0px 0px;  //1.2px 0px;
+    background: var(--white) !important;
+   
+}
+:host(.item-label-floating), :host(.item-label-stacked) {
+    --min-height:235px;
+}
+
+.ng-dropdown-panel {
+    padding: 5px 10px 5px;
+    border-radius: 3px;
+    margin-top: 5px;
+    z-index: 99999999 !important;
+    background: var(--white);
+}
+
+.ng-dropdown-panel .ng-option {
+    display: inline-flex
+;
+    align-items: center;
+    width: 100%;
+    padding: 0 0 0px !important;
+    background: var(--white);
+}
+
+ .ng-select.ng-select-single.ng-select-dropdown .ng-dropdown-panel .ng-dropdown-panel-items .ng-option-marked {
+    background-color: transparent !important;
+    color: var(--blue-new) !important;
+}
+ .ng-select.ng-select-single.ng-select-dropdown .ng-dropdown-panel .ng-dropdown-panel-items .ng-option-marked {
+    background-color: var(--blue-new) !important;
+    color: var(--primary-text-color);
+}
+.ng-select.ng-select-single.ng-select-dropdown .ng-dropdown-panel .ng-dropdown-panel-items .ng-option-selected {
+    background: var(--theadbg);
+}
+.btn-div_section{
+    padding-top: 20px;
+}
+.input_div_container {
+    .create_memo_button{
+        border:1px solid var(--common-border);
+        color:var(--secondary-text) ;
+         margin-right: 10px;
+         margin-top: 0px;
+         margin-bottom: 0px;;
+
+        &.active{
+           border:1px solid var(--blue-new) !important;
+        color:var(--blue-new);
+        }
+    }
+
+    &:has(.create_memo_button){
+        border:0px !important;
+        padding: 0px 0px;
+        margin: 0px 0px;
+    }
+}

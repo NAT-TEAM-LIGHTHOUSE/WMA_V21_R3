@@ -1,0 +1,537 @@
+@import '../../../../mixins';
+
+// :host {
+//     .app-button {
+//       &__contributors {
+//         border: 1px solid red;
+//       }
+//     }}
+.icon-btn
+{
+      --padding-start: 0em; //0.4em
+    --padding-end: 0em;
+    margin-right: 13px;
+    --ion-color-dark: var(--blue-new);
+    --background: transparent;
+    color: var(--blue);
+    --box-shadow: none;
+    vertical-align: middle;
+    margin: 0px 8px;  //0 0
+}
+// .select-container.ion-text-center .icon-btn{
+//   --padding-start: 0em;
+//     --padding-end: 0em;
+//     margin-right: 0;    
+// }
+.select-container.ion-text-center{ 
+  .icon-btn{
+    ion-icon{
+      color: var(--blackNew);
+      //font-size: var(--font20);
+    }
+ &:hover ion-icon{
+  color: var(--sidebar-primary-icon-hover-text);
+ }
+}
+
+}
+.iconText-btn{
+    border-radius: 11px;
+    font-size: var(--font16);
+    --padding-end: 7px;
+    --padding-start: 7px;
+    --padding-top: 0px;
+    height: 2em;
+
+}
+.small-btn{
+    font-size: var(--font11);
+
+}
+.form-button{
+    margin: 0px 2px;
+    height: 25px;
+    vertical-align: baseline;
+}
+.code-btn{
+    font-size: var(--font16);
+    vertical-align: middle;
+    cursor: pointer;
+}
+.globe-btn1-dimension,
+.globe-btn-dimension{
+  --padding-start: 15px;
+    --padding-end: 15px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --background: transparent !important;
+    background: transparent !important;
+    color: var(--blackNew);
+    --box-shadow: none;
+    margin: 0px 0px;
+    height: 22px;
+   
+ion-icon{
+  min-width: 20px;
+  color: var(--blackNew);
+  border-radius: 3px;
+  font-size: var(--font18);
+  border: 1px solid #b9b9b9;
+}
+}
+
+.globe-btn1-prompt,
+.globe-btn-prompt{
+ border: 1px solid #c1c1c1;
+    border-radius: 3px;
+    color: var(--blackNew);
+    height: 27px !important;
+    margin: 0px 4px;
+    padding: 0px 10px;
+    background: none;
+ion-icon{
+min-width: 20px;
+color: var(--blue-new);;
+border-radius: 3px;
+font-size: var(--font18);
+//border: 1px solid #b9b9b9;
+}
+
+&:hover{
+  --background: var(--blue-light-6) !important;
+  background: var(--blue-light-6) !important;
+}
+}
+
+.globe-btn{
+  margin-bottom: 0px !important;
+    white-space: normal ;
+    --border-radius: 0;
+    --box-shadow: 3px 3px 4px 0px rgba(73 144 226 / 40%);
+   
+}
+.globe-btn1{
+    margin-bottom: 0px !important;
+    padding: 5px 5px;
+    border-radius: 64px;
+    color: var(--white);
+    width:100%;
+    border-radius: 5px;
+   white-space: normal;
+    //transition: opacity .1s ease-out,background-color .1s ease-out;
+  }
+
+
+  /////// GTAB    /////
+
+
+
+  .tab-menu
+  { 
+    height: 100%;
+    position: relative;
+    padding-bottom:10px;
+    cursor: pointer;
+    .img-container {
+      
+      padding: 12px 0;
+      position: relative;
+      overflow: hidden;
+      &::before{
+        @include before-after;
+        width: 25px;
+        height: 70px;
+        background-size: 15px 11px;
+        background-position: 0 0, 10px 10px;
+        top: -24px;
+        left: 0;
+      }     
+ .img-circle{
+  width: 75px;
+  height: 75px;
+  margin: auto;
+  border-radius: 50%;
+  padding-top: 22px;
+  padding-left: 4px;
+  position: relative;
+
+  &::after{
+    @include before-after;
+    width: 63px;
+    height: 35px;
+    background-size: 15px 11px;
+    background-position: 0 0, 10px 10px;
+    left: 0px;
+    bottom: -31px;
+  }
+    img
+    {
+      width: 35px;
+      height: 35px;
+    }
+  }
+
+  }
+  .name-container{
+     padding: 0;
+    position: relative;
+
+    h6{
+      margin-bottom: 5px;
+      margin-top: 5px;
+      font-size:14px;
+      font-weight:500;
+    }
+  }
+  &::after
+  {
+    content:"";
+    position:absolute;
+    left:0px;
+    width:0px;
+    height:1px;
+    bottom:0px;
+    transition: width 0.1s ease;
+    z-index: 1;
+  }
+  &:active::after
+  {
+   
+    width:100%;
+ 
+  }
+  }
+
+  
+.tab-menu-large
+{ 
+  height: 100%;
+  position: relative;
+  padding-bottom:10px;
+  cursor: pointer;
+  .img-container {
+    
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    &::before{
+      @include before-after;
+      width: 25px;
+      height: 70px;
+      background-size: 15px 11px;
+      background-position: 0 0, 10px 10px;
+      top: -24px;
+      left: 0;
+    }     
+.img-circle{
+margin: auto;
+  border-radius: 10px;
+  padding-left: 4px;
+  position: relative;
+  box-shadow:none !important;
+&::after{
+  @include before-after;
+  width: 63px;
+  height: 35px;
+  background-size: 15px 11px;
+  background-position: 0 0, 10px 10px;
+  left: 0px;
+  bottom: -31px;
+}
+  img
+  {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+}
+.name-container{
+   padding: 0;
+  position: relative;
+
+  h6{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size:14px;
+    font-weight:500;
+  }
+}
+&::after
+{
+  content:"";
+  position:absolute;
+  left:0px;
+  width:0px;
+  height:1px;
+  bottom:0px;
+  transition: width 0.1s ease;
+  z-index: 1;
+}
+&:active::after
+{
+ 
+  width:100%;
+
+}
+}
+
+  // TAB START HERE
+.menu-list {
+  
+    padding: 0;
+    padding-left: 5px;
+    border-radius: 5px;
+    position: relative;
+    
+    ion-item {
+      --min-height: 56px;
+   
+     
+    }
+    ion-icon {
+      font-size: 1.5em;
+      margin-top: 12px;
+      background: none !important;
+      position: absolute;
+      right: 15px;
+    }
+  
+    .thumbnail-container {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      padding: 3px;
+      padding-top: 5px;
+    }
+    
+  
+    ion-thumbnail {
+      padding: 5px;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      padding-top: 5px;
+      border-radius: 50%;
+      z-index: 2;
+      margin-bottom: 10px;
+  
+      img {
+        width: 80% !important;
+        height: auto !important;
+      }
+    }
+  
+    h2 {
+      font-weight: 500;
+      font-size:14px;
+      margin-left: 0.7em;
+      margin-top: 10px;
+    }
+  
+    ion-label {
+      margin: 0px 10px !important;
+    }
+  
+    .item-native {
+  
+      --padding-start: 0px;
+    }
+  
+    .next-arrow {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+    &::before
+    {
+      content:"";
+      position:absolute;
+      left:0px;
+      width:0px;
+      height:1px;
+      bottom:0px;
+      transition: width 0.1s ease;
+      z-index: 1;
+    }
+    &:active::before
+    {
+     
+      width:100%;
+   
+    }
+  }
+  .ios.menu-list
+  {
+    margin-bottom:0px;
+  }
+
+  // TAB END HERE
+
+  // TAB_IMAGE START HERE
+  .new-menu-list {
+    margin-bottom: 1px;
+    padding: 0;
+    padding-left: 5px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+  
+    ion-item {
+      --min-height: 55px;
+      --background: transparent;
+     
+    }
+  
+    ion-icon {
+      font-size: 1.5em;
+      margin-top: 12px;
+      background: none !important;
+      position: absolute;
+      right: 15px;
+    
+    }
+ 
+    .thumbnail-container {
+      width: 55px;
+      height: 55px;
+      /* border-radius: 50%; */
+      text-align: center;
+      padding: 0.2em;
+    }
+    
+  
+    ion-thumbnail {
+      padding: 0px;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      z-index: 2;
+      border: none;
+      background: none;
+  
+      img {
+        
+      width: 100%;
+      height: auto ;
+      }
+    }
+  
+    h2 {
+      font-weight: 500;
+      font-size:14px;
+      margin-left: 0.7em;
+      margin-top: 10px;
+    }
+  
+    ion-label {
+      margin: 0px 10px !important;
+    }
+  
+    .item-native {
+  
+      --padding-start: 0px;
+    }
+  
+    .next-arrow {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+    &::before
+    {
+      content:"";
+      position:absolute;
+      left:0px;
+      width:0px;
+      height:1px;
+      bottom:0px;
+      transition: width 0.1s ease;
+      z-index: 1;
+    }
+    &:active::before
+    {
+     
+      width:100%;
+   
+    }
+  }
+  .inner-shadow{
+    box-shadow: inset -2px -5px 11px rgb(221 221 221 / 66%), inset 1px 1px 1px rgb(221 221 221 / 66%);
+  }
+  .inner-shadow-right{
+    box-shadow: inset -3px -4px 5px rgb(221 221 221 / 66%), inset 1px 1px 1px rgb(221 221 221 / 66%);
+  }
+  .ios.new-menu-list
+  {
+    margin-bottom:0px;
+  }
+
+  .menu-list2 {
+  
+    ion-item {
+      --min-height: 84px;
+     
+    }
+    .thumbnail-container2 {
+      width: 80px;
+      height: 80px;
+      border-radius:0;
+      text-align: center;
+      padding: 2px;
+      padding-top: 2px;
+      ion-thumbnail{
+        box-shadow: none;
+        height: 75px;
+        width: 75px;
+        img {
+          width:100% !important;
+        }
+      }
+    }
+  }
+  @media only screen and (min-width:1300px){
+    .menu-list {
+      ion-item {
+        --min-height:25px; 
+         
+      }
+      .thumbnail-container {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+
+  // TAB_IMAGE END HERE
+
+  .icon-btn_ios{
+    height: var(--globtn);
+    --border-radius: 3px;
+    --box-shadow: none;
+    padding: 0px 0px;
+    margin: 5px 5px 0px 0px;
+    color: var(--blackNew) ;
+    background: transparent;
+    ion-icon{
+      border: 1px solid #c1c1c1;
+      padding: 3px;
+      color: var(--blackNew) ;
+      border-radius: 4px !important;
+      background: #fff !important;
+      font-size: var(--font20);
+    }
+    &:hover{
+      ion-icon{
+        color: var(--blue-new);
+      }
+    }
+  }
+/* Target the focused state of the ion-button */
+ion-button:focus,
+ion-button.focused {
+  // /* Use Ionic custom properties to pierce the shadow DOM */
+    box-shadow:var(--blue-new) 0px 1px 2px, var(--blue-new) 0px 0px 0px 2px;
+}
+  

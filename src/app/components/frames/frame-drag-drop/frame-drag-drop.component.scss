@@ -1,0 +1,37 @@
+.drag-drop-container{
+    .column-text {
+        color: var(--white);
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    .container-drop {
+        background: var(--text-dark);
+        padding: 2px 5px;
+    }    
+        
+.main {
+      padding: 8px;
+}
+.group1{
+    
+    padding: 8px; 
+}
+.group2{
+    
+    padding: 8px; 
+}
+.group3{
+    
+    padding: 8px; 
+}
+.each-drop {
+    background: var(--text-dark) ;
+    color: var(--white);
+    text-align: center;
+    font-size: var(--font15);
+    padding: 2px;
+    margin: 5px 0;
+    cursor: pointer;
+
+}
+}

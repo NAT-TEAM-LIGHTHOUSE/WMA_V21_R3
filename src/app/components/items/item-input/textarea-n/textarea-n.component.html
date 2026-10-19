@@ -1,0 +1,361 @@
+<ng-container
+  *ngIf="frame_type != 'ENTRY_TABLE' && frame_type != 'HORIZONTAL_TABLE' && frame_type != 'TABLE' && ( textarea.datatype != 'DATE' &&  textarea.datatype != 'DATETIME' &&  textarea.datatype != 'TIME')">
+
+  <div class="input-type6-containter"
+    *ngIf=" textarea.item_sub_type == 'UL_LEFT' ||  textarea.item_sub_type == 'BOX_LEFT'">
+    <div class="newIp-type5" *ngIf=" textarea.item_sub_type == 'UL_LEFT'">
+      <ion-row>
+        <ion-col *ngIf=" textarea.prompt_name" [size]="col1" class="bg-prompt  d-flex">
+          <p class="input-group-label" [ngStyle]="textarea.display_setting_str"
+            [title]=" textarea.prompt_name">{{ textarea.prompt_name}}</p>
+            <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="frame.apps_item_seqid" class="code-btn developer_btn  me-2" (click)="showDeveloperData()">
+              <ion-icon class="code-btn" color="primary" style="position: absolute;left: 0;" name="information-circle-outline"></ion-icon>
+                              </ion-button>
+
+                              
+
+
+        </ion-col>
+        <ion-col [size]=" textarea.prompt_name ? col2 : '12'" class="input-container">
+          <div class="bg-input">
+
+            <!-- Div for multi lov data start -->
+            <div class="selected-value" *ngIf=" textarea.displayChips">
+              <a class="selected-chip" *ngFor="let e of  textarea.displayChips; let i = index;">
+                <span (click)="openLov()">{{e}}</span>
+                <ion-icon name="close" (click)="removeValue(i)"></ion-icon>
+              </a>
+            </div>
+            <!-- Div for multi lov data end -->
+
+            <!-- Normal Text Input start -->
+            <ng-container *ngIf="! textarea.displayChips &&  textarea.datatype != 'NUMBER'">
+              <ion-textarea rows="1" class="form-control" type="text"
+                [ngStyle]="textarea.display_setting_str" id="{{ textarea.item_name}}" autoGrow="true"
+                [(ngModel)]=" textarea.value" [maxlength]=" textarea.item_size" #textAreaname="ngModel"
+                [readonly]=" textarea.item_enable_flag &&  textarea.item_enable_flag=='F'" [placeholder]="placeholder"
+                (click)="itemClicked( textarea)" (ionBlur)="onBlur(textarea, $event)" title="{{ textarea.tool_tip}}"
+                autoGrow="true" (ionFocus)="onFocus()" (dblclick)="openLov()" title="{{textarea.tool_tip}}"
+                ></ion-textarea>
+            </ng-container>
+
+            <!-- Normal Text Input end -->
+
+            <!-- Number Input start -->
+            <ng-container *ngIf=" textarea.datatype == 'NUMBER'">
+              <ion-textarea rows="1" class="form-control text-right" type="number"
+                [ngStyle]="textarea.display_setting_str" id="{{ textarea.item_name}}"
+                [(ngModel)]=" textarea.value" #textAreaname="ngModel" autoGrow="true" [placeholder]="placeholder"
+                [readonly]=" textarea.item_enable_flag &&  textarea.item_enable_flag=='F'" (ionFocus)="onFocus()"
+                (click)="itemClicked( textarea)" (ionBlur)="onBlur(textarea, $event)" title="{{ textarea.tool_tip}}"
+                (dblclick)="openLov()" title="{{textarea.tool_tip}}" >
+              </ion-textarea>
+            </ng-container>
+            <!-- Number Input End -->
+
+            <div class="input-action-container">
+              <ion-icon color="secondary" name="eye" *ngIf="lovObj &&  textarea.item_enable_flag == 'T'"
+                (click)="openLovObject()"></ion-icon>
+              <ion-icon color="secondary" name="search" *ngIf=" textarea.lov_code &&  textarea.item_enable_flag == 'T'"
+                (click)="openLov()"></ion-icon>
+              <ion-icon color="secondary" name="close" (click)="clear()"
+                *ngIf=" textarea.value &&  textarea.item_enable_flag != 'F'"></ion-icon>
+            </div>
+          </div>
+        </ion-col>
+        <div class="error" *ngIf="! textarea.isValid &&  textarea.vadidateMsg">{{ textarea.vadidateMsg}}</div>
+        <div class="error" *ngIf=" textarea.msgError">{{ textarea.msgError}}</div>
+        <div class="error" *ngIf=" textarea.forced_error_msg">{{ textarea.forced_error_msg}}</div>
+      </ion-row>
+    </div>
+
+
+    <div class="newIp-type3" *ngIf=" textarea.item_sub_type == 'BOX_LEFT'">
+      <ion-row>
+        <ion-col [size]="col1" *ngIf=" textarea.prompt_name">
+          <ion-label class="input-group-label" [title]=" textarea.prompt_name">{{ textarea.prompt_name}}</ion-label>
+            <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="frame.apps_item_seqid" class="code-btn developer_btn me-2" (click)="showDeveloperData()">
+              <ion-icon class="code-btn" color="primary" style="position: absolute;left: 0;" name="information-circle-outline"></ion-icon>
+                              </ion-button>
+
+
+
+        </ion-col>
+        <ion-col [size]=" textarea.prompt_name ? col2 : '12'">
+          <div class="input-div d-block">
+            <!-- Div for multi lov data start -->
+            <div class="selected-value" *ngIf=" textarea.displayChips">
+              <a class="selected-chip" *ngFor="let e of  textarea.displayChips; let i = index;">
+                <span (click)="openLov()">{{e}}</span>
+                <ion-icon name="close" (click)="removeValue(i)"></ion-icon>
+              </a>
+            </div>
+            <!-- Div for multi lov data end -->
+
+            <!-- Normal Text Input start -->
+            <ng-container *ngIf="! textarea.displayChips">
+              <ion-textarea rows="1" [ngClass]=" textarea.datatype == 'NUMBER' ? 'bg-input text-right' : 'bg-input'"
+                type="text"
+                [ngStyle]="textarea.display_setting_str ? textarea.display_setting_str : {'min-height' : '75px'}"
+                id="{{ textarea.item_name}}" [(ngModel)]="textarea.value" [maxlength]=" textarea.item_size"
+                (ionFocus)="onFocus()" #textInputname="ngModel"
+                [readonly]=" textarea.item_enable_flag &&  textarea.item_enable_flag=='F'" [placeholder]="placeholder"
+                (click)="itemClicked(textarea)" (ionBlur)="onBlur(textarea, $event)" title="{{ textarea.tool_tip}}"
+                (dblclick)="openLov()" title="{{textarea.tool_tip}}"  autoGrow="true">
+              </ion-textarea>
+            </ng-container>
+
+            <div class="input-action-container">
+              <ion-icon color="secondary" name="eye" *ngIf="lovObj &&  textarea.item_enable_flag == 'T'"
+                (click)="openLovObject()"></ion-icon>
+              <ion-icon color="secondary" name="search" *ngIf=" textarea.lov_code &&  textarea.item_enable_flag == 'T'"
+                (click)="openLov()"></ion-icon>
+              <ion-icon color="secondary" name="close" (click)="clear()"
+                *ngIf=" textarea.value &&  textarea.item_enable_flag != 'F'"></ion-icon> 
+                <!-- <ng-container *ngIf="textarea.item_enable_flag=='T'"> -->
+            <div class="text_rich_model" (click)="textrichModel($event)" style="cursor: pointer;margin: 0px;display: flex;"><ion-icon name="expand-outline"></ion-icon></div>
+        
+            </div>
+           
+          </div>
+
+        </ion-col>
+        <div class="error" *ngIf="! textarea.isValid &&  textarea.vadidateMsg">{{ textarea.vadidateMsg}}</div>
+        <div class="error" *ngIf=" textarea.msgError">{{ textarea.msgError}}</div>
+        <div class="error" *ngIf=" textarea.forced_error_msg">{{ textarea.forced_error_msg}}</div>
+
+      </ion-row>
+    </div>
+  </div>
+
+  <ng-container *ngIf=" textarea.item_sub_type == 'BOX_TOP'">
+       <ion-label class="d-flex">{{ textarea.prompt_name}} <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="frame.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+                        </ion-button>
+         </ion-label>
+    <div class="textarea_textrich_input">
+    <!-- Div for multi lov data start -->
+    <div class="selected-value" *ngIf=" textarea.displayChips">
+      <a class="selected-chip" *ngFor="let e of  textarea.displayChips; let i = index;">
+        <span (click)="openLov()">{{e}}</span>
+        <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+      </a>
+    </div>
+    <!-- Div for multi lov data end -->
+
+    <!-- Normal Text Input start -->
+    <ng-container *ngIf="! textarea.displayChips">
+      <ion-textarea rows="1" [ngClass]=" textarea.datatype == 'NUMBER' ? 'box_top_input un_textarea text-right' : 'box_top_input un_textarea'"
+        type="text" [ngStyle]="textarea.display_setting_str ? textarea.display_setting_str : {'min-height' : '75px'}"
+        (ionFocus)="onFocus()" id="{{ textarea.item_name}}" [(ngModel)]=" textarea.value" #textInputname="ngModel"
+        [maxlength]=" textarea.item_size" [placeholder]="placeholder"
+        [readonly]="textarea.item_enable_flag &&  textarea.item_enable_flag=='F'" (click)="itemClicked( textarea)"
+        (ionBlur)="onBlur(textarea, $event)" title="{{ textarea.tool_tip}}" (dblclick)="openLov()" autoGrow="true"
+        >
+      </ion-textarea>
+      <!-- <ng-container *ngIf="textarea.item_enable_flag=='T'"> -->
+  
+
+     
+
+      <!-- </ng-container> -->
+    </ng-container>
+
+   
+    <div class="input-buttons-container"> 
+      <ng-container *ngIf="! textarea.displayChips">
+          <div class="text_rich_model box-top" (click)="textrichModel($event)" style="cursor: pointer;margin: 0px;display: flex;">
+        <ion-icon name="expand-outline"></ion-icon>
+      </div>
+      </ng-container>
+
+      <ng-container *ngIf="( textarea.value ||  textarea.lov_code)  &&  textarea.item_enable_flag == 'T'">
+      <button *ngIf=" textarea.lov_code &&  textarea.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+        icon-only small (click)="openLov()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button *ngIf=" textarea.value  &&  textarea.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+        icon-only small (click)="clear()">
+        <ion-icon color="secondary" name="close"></ion-icon>
+      </button>
+    </ng-container>
+    </div>
+  </div>
+
+    <div class="error" *ngIf="! textarea.isValid &&  textarea.vadidateMsg">{{ textarea.vadidateMsg}}</div>
+    <div class="error" *ngIf=" textarea.msgError">{{ textarea.msgError}}</div>
+    <div class="error" *ngIf=" textarea.forced_error_msg">{{ textarea.forced_error_msg}}</div>
+  </ng-container>
+
+  <ng-container *ngIf=" textarea.item_sub_type == 'UL_FLOATING'">
+    <ion-item lines="none">
+      <ion-label position="floating">{{ textarea.prompt_name}}</ion-label>
+      <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="frame.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn" color="primary" style="position: absolute;left: 0;" name="information-circle-outline"></ion-icon>
+                        </ion-button>
+      <div class="floattop_inputcontainer">
+      <!-- Div for multi lov data start -->
+      <div class="selected-value" *ngIf=" textarea.displayChips">
+        <a class="selected-chip" *ngFor="let e of  textarea.displayChips; let i = index;">
+          <span (click)="openLov()">{{e}}</span>
+          <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+        </a>
+      </div>
+      <!-- Div for multi lov data end -->
+
+      <!-- Normal Text Input start -->
+      <ng-container *ngIf="! textarea.displayChips">
+
+        <ion-textarea rows="1" [ngClass]=" textarea.datatype == 'NUMBER' ? 'un_input text-right' : 'un_input'"
+          type="text" [ngStyle]="textarea.display_setting_str ? textarea.display_setting_str : {'min-height' : '75px'}"
+          (ionFocus)="onFocus()" id="{{ textarea.item_name}}" [(ngModel)]=" textarea.value" #textInputname="ngModel"
+          [maxlength]=" textarea.item_size" [readonly]=" textarea.item_enable_flag &&  textarea.item_enable_flag=='F'"
+          (click)="itemClicked( textarea)" autoGrow="true" (ionBlur)="onBlur(textarea, $event)" title="{{ textarea.tool_tip}}"
+          (dblclick)="openLov()" >
+        </ion-textarea>
+      </ng-container>
+
+      <div class="input-buttons-container"
+        *ngIf="( textarea.value ||  textarea.lov_code)  &&  textarea.item_enable_flag == 'T'">
+        <button *ngIf=" textarea.lov_code &&  textarea.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+          icon-only small (click)="openLov()">
+          <ion-icon name="search"></ion-icon>
+        </button>
+        <button *ngIf=" textarea.value  &&  textarea.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+          icon-only small (click)="clear()">
+          <ion-icon color="secondary" name="close"></ion-icon>
+        </button>
+      </div>
+    </div>
+    </ion-item>
+    <div class="error" *ngIf="! textarea.isValid &&  textarea.vadidateMsg">{{ textarea.vadidateMsg}}</div>
+    <div class="error" *ngIf=" textarea.msgError">{{ textarea.msgError}}</div>
+    <div class="error" *ngIf=" textarea.forced_error_msg">{{ textarea.forced_error_msg}}</div>
+  </ng-container>
+
+  <ng-container *ngIf=" textarea.item_sub_type == 'UL_TOP'">
+
+    <ion-label  class="d-inline-block">{{ textarea.prompt_name}}</ion-label>
+    <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="frame.apps_item_seqid" class="code-btn developer_btn d-inline-block" (click)="showDeveloperData()">
+      <ion-icon class="code-btn" color="primary" style="position: absolute;left: 0;" name="information-circle-outline"></ion-icon>
+                      </ion-button>
+     <div class="ultop_inputcontainer">
+    <div class="selected-value" *ngIf=" textarea.displayChips">
+      <a class="selected-chip" *ngFor="let e of  textarea.displayChips; let i = index;">
+        <span (click)="openLov()">{{e}}</span>
+        <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+      </a>
+    </div>
+
+
+    <ng-container *ngIf="! textarea.displayChips">
+      <ion-textarea rows="1" [ngClass]=" textarea.datatype == 'NUMBER' ? 'un_input un_textarea text-right b' : 'un_input un_textarea b'" type="text"
+        [ngStyle]="textarea.display_setting_str ? textarea.display_setting_str : {'min-height' : '75px'}"
+        (ionFocus)="onFocus()" id="{{ textarea.item_name}}" [(ngModel)]=" textarea.value" #textInputname="ngModel"
+        [maxlength]=" textarea.item_size" [placeholder]="placeholder"
+        [readonly]=" textarea.item_enable_flag &&  textarea.item_enable_flag=='F'" (click)="itemClicked(textarea)"
+        autoGrow="true" (ionBlur)="onBlur(textarea, $event)" title="{{ textarea.tool_tip}}" (dblclick)="openLov()"
+        >
+      </ion-textarea>
+    </ng-container>
+
+    <div class="input-buttons-container"
+      *ngIf="( textarea.value ||  textarea.lov_code)  &&  textarea.item_enable_flag == 'T'">
+      <button *ngIf=" textarea.lov_code &&  textarea.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+        icon-only small (click)="openLov()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button *ngIf=" textarea.value  &&  textarea.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+        icon-only small (click)="clear()">
+        <ion-icon color="secondary" name="close"></ion-icon>
+      </button>
+    </div>
+  </div>
+    <div class="error" *ngIf="! textarea.isValid &&  textarea.vadidateMsg">{{ textarea.vadidateMsg}}</div>
+    <div class="error" *ngIf=" textarea.msgError">{{ textarea.msgError}}</div>
+    <div class="error" *ngIf=" textarea.forced_error_msg">{{ textarea.forced_error_msg}}</div>
+  </ng-container>
+
+  <ng-container *ngIf=" textarea.item_sub_type == 'BOX_LEFT_TEXT_BOX'">
+
+    <div class="input-type6-containter">
+      <div class="newIp-type3">
+        <ion-row>
+          <ion-col *ngIf=" textarea.prompt_name" [size]="col1" class="d-flex">
+            <p class="input-group-label">{{ textarea.prompt_name}}</p>
+            <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="frame.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+              <ion-icon class="code-btn" color="primary" style="position: absolute;left: 0;" name="information-circle-outline"></ion-icon>
+                              </ion-button>
+          </ion-col>
+          <ion-col [size]="textarea.prompt_name ? col2 : '12'">
+            <div class="input-div">
+              <ion-textarea rows="1" class="bg-input" type="text"
+                [ngStyle]="textarea.display_setting_str ? textarea.display_setting_str : {'min-height' : '75px'}"
+                id="{{ textarea.item_name}}" [(ngModel)]=" textarea.value" #textInputname="ngModel"
+                [maxlength]=" textarea.item_size" (ionFocus)="onFocus()"
+                [readonly]=" textarea.item_enable_flag &&  textarea.item_enable_flag=='F'"
+                (click)="itemClicked( textarea)" autoGrow="true" (ionBlur)="onBlur(textarea)"
+                title="{{ textarea.tool_tip}}" (dblclick)="openLov()" [placeholder]="placeholder"
+                >
+              </ion-textarea>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </ng-container>
+
+</ng-container>
+
+
+<ng-container
+  *ngIf="(frame_type == 'ENTRY_TABLE' || frame_type == 'TABLE' || frame_type == 'HORIZONTAL_TABLE') && ( textarea.datatype != 'DATE' &&  textarea.datatype != 'DATETIME' &&  textarea.datatype != 'TIME')">
+  <!-- Normal Text Input start -->
+<div class="table_txetareadiv ">
+  <ng-container *ngIf="!textarea.displayChips">
+    <ion-textarea rows="1" [ngClass]=" textarea.datatype == 'NUMBER' ? 'box_top_input text-right' : 'box_top_input'"
+      type="text" [ngStyle]="textarea.display_setting_str" id="{{ textarea.item_name}}"
+      [(ngModel)]=" textarea.value" #textInputname="ngModel" [maxlength]=" textarea.item_size" (ionFocus)="onFocus()"
+      [readonly]=" textarea.item_enable_flag &&  textarea.item_enable_flag=='F'" (click)="itemClicked( textarea)"
+          [placeholder]="placeholder" (ionBlur)="onBlur(textarea, $event)" title="{{textarea.tool_tip ? textarea.tool_tip : textarea.value}}" (dblclick)="openLov()"
+      autoGrow="true" >
+    </ion-textarea>
+  </ng-container>
+
+
+  <div class="input-buttons-container" *ngIf="textarea.item_enable_flag == 'T'">
+      <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="frame.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn" color="primary"  name="information-circle-outline"></ion-icon>
+                        </ion-button>
+
+    <button *ngIf="lovObj &&  textarea.item_enable_flag == 'T'" class="input-btn float-right" ion-button icon-only small
+      (click)="openLovObject()">
+      <ion-icon color="secondary" name="eye"></ion-icon>
+    </button>
+    <button *ngIf="(textarea.lov_code) &&  textarea.item_enable_flag == 'T'"
+      class="input-btn float-right" ion-button icon-only small (click)="openLov()">
+      <ion-icon name="search"></ion-icon>
+    </button>
+    <button *ngIf=" textarea.value  &&  textarea.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+      icon-only small (click)="clear()">
+      <ion-icon color="secondary" name="close"></ion-icon>
+    </button>
+    <button (click)="textrichModel($event)" class="input-btn float-right" ion-button
+      icon-only small >
+      <ion-icon name="expand-outline"></ion-icon>
+    </button>
+
+
+     
+  </div>
+</div>
+
+  <div class="error" *ngIf="! textarea.isValid &&  textarea.vadidateMsg">{{ textarea.vadidateMsg}}</div>
+  <div class="error" *ngIf=" textarea.msgError">{{ textarea.msgError}}</div>
+  <div class="error" *ngIf=" textarea.forced_error_msg">{{ textarea.forced_error_msg}}</div>
+</ng-container>
+<ng-container *ngIf=" textarea.datatype == 'DATE' ||  textarea.datatype == 'DATETIME' ||  textarea.datatype == 'TIME'">
+  <app-date-input-n [dateinput]=" textarea" [frame_type]="frame_type" (emitPass)="itemClicked(textarea)"
+    (emitOnChange)="onBlur(textarea)">
+  </app-date-input-n>
+</ng-container>

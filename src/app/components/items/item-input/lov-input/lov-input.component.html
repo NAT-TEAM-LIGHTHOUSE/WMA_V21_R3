@@ -1,0 +1,617 @@
+<ng-container
+  *ngIf="lovinput.item_sub_type!='LV' && lovinput.item_sub_type !='L_T' && lovinput.item_sub_type !='M' && lovinput.item_sub_type !='LIST_COMBO_BOX' && lovinput.item_sub_type !='M' && lovinput.item_sub_type !='COMBO_BOX' && lovinput.item_sub_type != 'LOV_ON_CHOICE' && lovinput.item_sub_type !='BROWSER' && lovinput.item_sub_type != 'CODE_LOV' && lovinput.item_sub_type != 'M_BROWSER' && lovinput.item_sub_type != 'BROWSER1' && lovinput.item_sub_type != 'BROWSER2' && lovinput.item_sub_type != 'M_BROWSER1' && lovinput.item_sub_type != 'M_BROWSER2'">
+  <div class="{{lovObjFlag ? 'lov-append' : ''}}">
+    <ion-item class="{{(lovinput.css_class == null) ? 'ion-input-item ion-input-item-border' : lovinput.css_class}}">
+      <ion-label position="{{(lovinput.position == null) ? 'stacked' : lovinput.position}}">{{lovinput.prompt_name}}
+      </ion-label> 
+  <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+    <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                    </ion-button>
+
+      <ion-input class="append-input" style="overflow-x: auto;padding: 2px 33px 6px 0px !important;" type="text" id="{{lovinput.item_name ? lovinput.item_name : lovinput.apps_item_seqid}}" (click)="itemClicked('lov')"
+        [(ngModel)]="lovinput.value" [readonly]="true" [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+          (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+          ||lovinput.data_required_flag=='T' 
+          ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1] =='*')"
+        (ionChange)="lovinput.isValid=lovInputName.valid;onChange('ionChange');"
+         #lovInputName='ngModel' (keyup)="checkKey($event)">
+      </ion-input>
+      <div class="input-buttons-container">
+
+        <button class="input-btn float-right" (click)="itemClicked('lov')" ion-button icon-only small>
+          <ion-icon  name="chevron-forward-outline" ></ion-icon>
+        </button>
+        <button style="z-index: 9999;" *ngIf="lovinput.value && lovinput.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+          icon-only small (click)="cleardata()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </div>
+
+
+    </ion-item>
+  </div>
+  <ion-button color="primary" size="small" class="lov-append-button" *ngIf="lovObjFlag" (click)="itemClicked('objLov')">
+    <ion-icon slot="icon-only" name="eye"></ion-icon>
+  </ion-button>
+  <div class="error" *ngIf="lovInputName.hasError('required') && lovinput.touched"> Please Enter
+    {{lovinput.prompt_name}}
+  </div>
+  <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+  <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+</ng-container>
+
+
+
+<div class="table-input-container" *ngIf="lovinput.item_sub_type=='L_T'">
+  <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+    <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                    </ion-button>
+  <div class="input-group table-lov-input">
+    <ion-input [title]="lovinput.prompt_name" class="table-input" type="text" (click)="itemClicked('lov')" [(ngModel)]="lovinput.value" [readonly]="true"
+      [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+          (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+          ||lovinput.data_required_flag=='T' 
+          ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1] =='*')"
+      (ionChange)="lovinput.isValid=lovInputName.valid"
+       #lovInputName='ngModel' (keyup)="checkKey($event)"
+      ></ion-input>
+    <div class="input-group-append">
+      <button class="lov-btn" (click)="itemClicked('lov')" ion-button icon-only small>
+        <ion-icon name="chevron-forward-outline" ></ion-icon>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- below item item type is shown becuase of shashank sir told to vijay sir -->
+<!-- we have to type related word which is present in lov list then click on lov side button to chose like options -->
+<ng-container *ngIf="lovinput.item_sub_type=='LV'">
+  <ion-item class="{{lovinput.css_class}}">
+    <ion-label position="{{(lovinput.position == null) ? 'stacked' : lovinput.position}}">{{lovinput.prompt_name}}
+    </ion-label>
+    <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+      <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                      </ion-button>
+    <ion-input [title]="lovinput.prompt_name" type="text" id="{{lovinput.item_name ? lovinput.item_name : lovinput.apps_item_seqid}}" [(ngModel)]="lovinput.value" [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+            (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+            ||lovinput.data_required_flag=='T' 
+            || (lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1] =='*')"
+      (ionChange)="onChange('ionChange');lovinput.isValid=lovInputName.valid"
+      (ngInit)="lovinput.isValid=lovInputName.valid" #lovInputName='ngModel' (keyup)="checkKey($event)"
+     ></ion-input>
+    <div class="input-buttons-container">
+
+      <button class="input-btn float-right" (click)="itemClicked('lov')" ion-button icon-only small>
+        <ion-icon  name="chevron-forward-outline" ></ion-icon>
+      </button>
+      <button *ngIf="lovinput.value && lovinput.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+        icon-only small (click)="cleardata()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+  </ion-item>
+  <div class="error" *ngIf="lovInputName.hasError('required') && lovinput.touched"> Please Enter
+    {{lovinput.prompt_name}}
+  </div>
+  <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+  <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+</ng-container>
+
+<ng-container *ngIf="lovinput.item_sub_type=='M'">
+  <ion-item class="{{(lovinput.css_class == null) ? 'ion-input-item ion-input-item-border' : lovinput.css_class}}"  >
+    <ion-label position="{{(lovinput.position == null) ? 'stacked' : lovinput.position}}"
+      [ngStyle]="lovinput.labelStyle">{{lovinput.prompt_name}}
+    </ion-label>
+    <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+      <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                      </ion-button>
+    <div class="selected-value"  >
+      <a class="selected-chip" *ngFor="let e of chips; let i = index;">
+        <span (click)="itemClicked('lov')">{{e}}</span>
+        <ion-icon name="close" (click)="removeItemCombo(i)"></ion-icon>
+      </a>
+    </div>
+
+    <div class="input-buttons-container {{ lovObjFlag ? 'eye-btn-shifter' : ''}}">
+
+      <button class="input-btn float-right" (click)="itemClicked('lov')" ion-button icon-only small>
+        <ion-icon  name="chevron-forward-outline" ></ion-icon>
+      </button>
+      <button *ngIf="chips.length > 0 && lovinput.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+        icon-only small (click)="cleardata()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+    <ion-button color="primary" size="small" (click)="itemClicked('objLov')" class="lov-append-button" *ngIf="lovObjFlag">
+      <ion-icon slot="icon-only" name="eye"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <div class="error"
+    *ngIf="lovinput.data_required_flag=='T' && lovinput.touched && (lovinput.value && lovinput.value.length == 0)">
+    Please Enter
+    {{lovinput.prompt_name}}
+  </div>
+  <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+  <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+</ng-container>
+
+<!-- bdhfksdfashdsf -->
+<ng-container *ngIf="lovinput.item_sub_type=='COMBO_BOX'">
+  <ion-item class="{{(lovinput.css_class == null) ? 'ion-input-item ion-input-item-border' : lovinput.css_class}}">
+    <ion-label position="{{(lovinput.position == null) ? 'stacked' : lovinput.position}}"
+      [ngStyle]="lovinput.labelStyle">{{lovinput.prompt_name}}
+    </ion-label>
+    <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+      <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                      </ion-button>
+
+    <div class="selected-value" style="position: relative;">
+      <div style="overflow: auto;width: 100%;">
+        <div style="float: left;width: 100%;">
+          <a class="selected-chip" *ngFor="let e of chips; let i = index;">
+            <span>{{e}}</span>
+            <ion-icon name="close" (click)="removeItemCombo(i)"></ion-icon>
+          </a>
+        </div>
+        <div style="float: left;width: 100%;">
+          <ion-input type="text" style="padding: 0 !important;" [(ngModel)]="lovinput.value" (keydown)="keyDown($event)"
+          (ionFocus)="showDD();" [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+       (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+       ||lovinput.data_required_flag=='T' 
+       ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1] =='*')"
+          (ionChange)="onChangeFirst(autoValue);lovinput.isValid=lovinputName.valid"
+          (ngInit)="lovinput.isValid=lovinputName.valid" #lovinputName='ngModel'
+          (click)="itemClickedPreEvent()" (keyup)="checkKey($event)"></ion-input>
+          
+        </div>
+      </div>     
+      </div>
+       <div class="input-buttons-container {{ lovObjFlag ? 'eye-btn-shifter' : ''}}">
+      <button class="input-btn float-right butn" ion-button icon-only small style="right: 35px;"
+        (click)="lovinput.flag=true">
+        <ion-icon name="ios-arrow-down"></ion-icon>
+      </button>
+      <button class="input-btn float-right butn" ion-button icon-only small (click)="onClear()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+    <div class="select-dropdown-new" *ngIf="lovinput.flag">
+      <ng-container>
+        <ion-list *ngFor="let object of objectList | lovComboSearch:lovinput.value;let i=index">
+
+          <ion-item tappable (click)="getModeCombo(i)" [ngClass]="i == arrowkeyLocation ? 'active':''">
+            <ng-container *ngFor="let key of keyList ">
+              {{object[key.key]}}
+            </ng-container>
+          </ion-item>
+        </ion-list>
+      </ng-container>
+    </div>
+  </ion-item>
+  <div class="error"
+    *ngIf="lovinput.data_required_flag=='T' && lovinput.touched && (lovinput.value && lovinput.value.length == 0)">
+    Please Enter
+    {{lovinput.prompt_name}}
+  </div>
+  <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+  <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+</ng-container>
+<!--  bhfahssdhfpaodhfopdasf sidfposdfip  -->
+
+<ng-container *ngIf="lovinput.item_sub_type=='LIST_COMBO_BOX'">
+  <ion-item class="{{(lovinput.css_class == null) ? 'ion-input-item ion-input-item-border' : lovinput.css_class}}">
+    <ion-label position="{{(lovinput.position == null) ? 'stacked' : lovinput.position}}"
+      [ngStyle]="lovinput.labelStyle">{{lovinput.prompt_name}}
+    </ion-label>
+    <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+      <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                      </ion-button>
+    <div class="selected-value" style="position: inherit;" (click)="showDD()">
+      <div style="white-space: nowrap;height: 35px;">
+        <div style="white-space: nowrap;height: 35px;">
+          <a class="selected-chip" *ngFor="let e of chips; let i = index;">
+            <span>{{e}}</span>
+            <ion-icon name="close" (click)="removeItemCombo(i)"></ion-icon>
+          </a>
+          <div style="max-width: fit-content;min-width: fit-content;width: unset;display: contents;">
+          <ion-input type="text" style="width: 100%;display: contents;padding: 0 !important;" (click)="showDD()" [(ngModel)]="searchText" (keyup)="checkEndOfString($event)" (click)="itemClickedPreEvent()" (ionBlur)="onChange('')"
+          (keyup)="checkKey($event)">
+          </ion-input>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-buttons-container {{ lovObjFlag ? 'eye-btn-shifter' : ''}}">
+      <button class="input-btn float-right" (click)="itemClicked('lov')" ion-button icon-only small>
+        <ion-icon  name="chevron-forward-outline" ></ion-icon>
+      </button>
+      <button *ngIf="chips.length > 0 && lovinput.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+        icon-only small (click)="cleardata()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+      <button *ngIf="lovinput.flag && chips.length > 0" class="input-btn float-right" ion-button icon-only small
+        (click)="cleardata()">
+        <ion-icon name="ios-arrow-up"></ion-icon>
+      </button>
+    </div>
+
+    <div class="select-dropdown-new" *ngIf="lovinput.flag" tabindex="1" (onblur)="alert()">
+   
+        <ion-list *ngFor="let object of objectList |  lovComboSearch:searchText ;let i=index">
+          <ion-item tappable (keydown)="keyDown($event)" (click)="selectval(object, i)">
+            <ion-checkbox [(ngModel)]="object.isChecked" style="margin: 2px 5px;"></ion-checkbox>
+            
+            <label for=""><ng-container *ngFor="let key of keyList ">
+             {{object[key.key]}}
+            </ng-container> 
+          </label>
+          </ion-item>
+        </ion-list>
+    </div>
+  </ion-item>
+  <div class="error"
+    *ngIf="lovinput.data_required_flag=='T' && lovinput.touched && (lovinput.value && lovinput.value.length == 0)">
+    Please Enter
+    {{lovinput.prompt_name}}
+  </div>
+  <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+  <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+</ng-container>
+
+
+
+<ng-container *ngIf="lovinput.item_sub_type=='LOV_ON_CHOICE'">
+  <ion-item class="{{(lovinput.css_class == null) ? 'ion-input-item ion-input-item-border' : lovinput.css_class}}">
+    <ion-label position="{{(lovinput.position == null) ? 'stacked' : lovinput.position}}"
+      [ngStyle]="lovinput.labelStyle">{{lovinput.prompt_name}}
+    </ion-label>
+    <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+      <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                      </ion-button>
+      <div class="selected-value" style="position: inherit;" (click)="showDD()">
+        <div style="white-space: nowrap;height: 35px;">
+          <div style="white-space: nowrap;height: 35px;">
+            <a class="selected-chip" *ngFor="let e of chips; let i = index;">
+              <span>{{e}}</span>
+              <ion-icon name="close" (click)="removeItemCombo(i)"></ion-icon>
+            </a>
+            <div style="max-width: fit-content;
+            min-width: fit-content;
+            width: unset;
+            display: contents;">
+            <ion-input type="text" style="width: 100%;
+            display: contents;
+            padding: 0 !important;" (keyup)="checkEndOfString($event)" [(ngModel)]="chipValue"  (click)="itemClickedPreEvent()" (ionBlur)="onChange('')"
+            (keyup)="checkKey($event)">
+            </ion-input>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="input-buttons-container {{ lovObjFlag ? 'eye-btn-shifter' : ''}}">
+      <button class="input-btn float-right" (click)="itemClicked('lov')" ion-button icon-only small>
+        <ion-icon  name="chevron-forward-outline" ></ion-icon>
+      </button>
+      <button *ngIf="chips.length > 0 && lovinput.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+        icon-only small (click)="cleardata()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+
+  </ion-item>
+  <div class="error"
+    *ngIf="lovinput.data_required_flag=='T' && lovinput.touched && (lovinput.value && lovinput.value.length == 0)">
+    Please Enter
+    {{lovinput.prompt_name}}
+  </div>
+  <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+  <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+</ng-container>
+
+
+<div *ngIf="lovinput.item_sub_type == 'M_BROWSER'" class="new-input-item-type">
+
+      <ion-row>
+        <ion-col [size]="col1" class="text-left">
+          <span>{{lovinput.prompt_name}}</span>
+          <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+            <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                            </ion-button>
+        </ion-col>
+    
+        <ion-col [size]="lovinput.prompt_name ? col2 : (col1 + col2)">
+          <div class="input-group input-group-sm">
+            <ion-input class="form-control form-control-sm" type="text" [ngStyle]="lovinput.display_setting_str"
+              type="text" id="{{lovinput.item_name ? lovinput.item_name : lovinput.apps_item_seqid}}" [(ngModel)]="lovinput.value" [maxlength]="lovinput.item_size"
+              #lovInputName="ngModel"
+              [readonly]="lovinput.item_enable_flag && (!(lovinput.item_enable_flag.indexOf(current_page_parameter.MODE)>-1)||(lovinput.item_enable_flag=='F'))"
+              [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+        (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+        ||lovinput.data_required_flag=='T' 
+        ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1]) =='*'"
+              [pattern]="lovinput.input_pattern"
+              (ionChange)="lovinput.isValid=lovInputName.valid; lovinput.touched=true;onChange('ionChange')"
+              (ionBlur)="lovinput.isValid=lovInputName.valid;lovinput.touched=true;"
+              (ngInit)="lovinput.isValid=lovInputName.valid" title="{{lovinput.tool_tip}}"
+              (dblclick)="doubleClickFun($event)" (click)="itemClicked('lov')" (keyup)="checkKey($event)"
+              ></ion-input>
+            
+          <button class="btn btn-secondary" type="button" *ngIf="lovObjFlag" ion-button (click)="itemClicked('objLov')">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-secondary" type="button" ion-button (click)="cleardata()"
+          *ngIf="lovinput.value && lovinput.item_enable_flag == 'T'">
+          <i class="fa fa-close" aria-hidden="true"></i>
+        </button>
+        <button class="btn btn-secondary" type="button" ion-button (click)="itemClicked('lov')">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </button>
+          </div>
+        </ion-col>
+              <div class="error" *ngIf="lovInputName.hasError('required') && lovinput.touched">Please Enter
+                {{lovinput.prompt_name}}
+              </div>
+              <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+              <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+      </ion-row>
+</div>
+
+<div *ngIf="lovinput.item_sub_type == 'BROWSER'" class="new-input-item-type">
+  <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+    <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                    </ion-button>
+  <ion-row>
+    <ion-col [size]="col1" class="text-left">
+      <span>{{lovinput.prompt_name}}</span>
+    </ion-col>
+
+    <ion-col [size]="col2">
+      <div class="input-group input-group-sm">
+        <ion-input class="form-control form-control-sm" type="text" [ngStyle]="lovinput.display_setting_str"
+          type="text" id="{{lovinput.item_name ? lovinput.item_name : lovinput.apps_item_seqid}}" [(ngModel)]="lovinput.value" [maxlength]="lovinput.item_size"
+          #lovInputName="ngModel"
+          [readonly]="lovinput.item_enable_flag && (!(lovinput.item_enable_flag.indexOf(current_page_parameter.MODE)>-1)||(lovinput.item_enable_flag=='F'))"
+          [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+    (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+    ||lovinput.data_required_flag=='T' 
+    ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1]) =='*'"
+          [pattern]="lovinput.input_pattern"
+          (ionChange)="lovinput.isValid=lovInputName.valid; lovinput.touched=true;"
+          (ionBlur)="lovinput.isValid=lovInputName.valid;lovinput.touched=true;"
+          (ngInit)="lovinput.isValid=lovInputName.valid" title="{{lovinput.tool_tip}}"
+          (dblclick)="doubleClickFun($event)" (click)="itemClicked('lov')" (keyup)="checkKey($event)"
+          ></ion-input>
+        
+      <button class="btn btn-secondary" type="button" *ngIf="lovObjFlag" ion-button (click)="itemClicked('objLov')">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-secondary" type="button" ion-button (click)="cleardata()"
+      *ngIf="lovinput.value && lovinput.item_enable_flag == 'T'">
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </button>
+    <button class="btn btn-secondary" type="button" ion-button (click)="itemClicked('lov')">
+      <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    </button>
+      </div>
+    </ion-col>
+          <div class="error" *ngIf="lovInputName.hasError('required') && lovinput.touched">Please Enter
+            {{lovinput.prompt_name}}
+          </div>
+          <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+          <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+  </ion-row>
+</div>
+
+
+
+<ng-container *ngIf="lovinput.item_sub_type == 'CODE_LOV'">
+  <div class="new-input-item-type">
+    <ion-row>
+      <ion-col size="3" class="text-left">
+      <span >{{lovinput.prompt_name}}
+      </span>
+      </ion-col>
+      <ion-col size="9">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                          </ion-button>
+        <div style="width: 100%;position: relative;display: flex;align-items: flex-end;justify-content: center;height: 25px;">
+      <ion-input class="form-control form-control-sm" type="text" id="{{lovinput.item_name ? lovinput.item_name : lovinput.apps_item_seqid}}" (click)="itemClicked('lov')"
+        [(ngModel)]="lovinput.value" [readonly]="true" [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+          (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+          ||lovinput.data_required_flag=='T' 
+          ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1] =='*')"
+        (ionChange)="onChange('ionChange');lovinput.isValid=lovInputName.valid"
+        (ngInit)="lovinput.isValid=lovInputName.valid" #lovInputName='ngModel' (keyup)="checkKey($event)">
+      </ion-input>
+      <div class="input-buttons-container" style="top:5px !important;">
+
+        <button class="input-btn float-right" (click)="itemClicked('lov')" ion-button icon-only small>
+          <ion-icon  name="chevron-forward-outline" ></ion-icon>
+        </button>
+        <button *ngIf="lovinput.value && lovinput.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+          icon-only small (click)="cleardata()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </div>
+
+<button type="button" class="code-btn1" style="width: 95px;height: 20px;">
+  {{lovinput.codeOfValues}}
+</button>
+</div>
+</ion-col>
+</ion-row>
+  </div>
+  <ion-button color="primary" size="small" class="lov-append-button" *ngIf="lovObjFlag" (click)="itemClicked('objLov')">
+    <ion-icon slot="icon-only" name="eye"></ion-icon>
+  </ion-button>
+  <div class="error" *ngIf="lovInputName.hasError('required') && lovinput.touched"> Please Enter
+    {{lovinput.prompt_name}}
+  </div>
+  <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+  <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+
+</ng-container>
+
+
+<div class="input-type6-containter" *ngIf="lovinput.item_sub_type == 'BROWSER1' || lovinput.item_sub_type == 'BROWSER2' || lovinput.item_sub_type == 'M_BROWSER1' || lovinput.item_sub_type == 'M_BROWSER2'" >
+  <div class="newIp-type3" *ngIf="lovinput.item_sub_type == 'BROWSER1'">
+    <ion-row>
+      <ion-col  [size]="lovinput.promptCol ? lovinput.promptCol : col1"  *ngIf="lovinput.prompt_name">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                          </ion-button>
+        <p class="input-group-label" [title]="lovinput.prompt_name">{{lovinput.prompt_name}}</p>
+      </ion-col>
+      <ion-col  [size]="lovinput.prompt_name ? col2 : (col1 + col2)">
+        <div class="input-div">
+          <ion-input class="bg-input" type="text"
+          id="{{lovinput.item_name ? lovinput.item_name : lovinput.apps_item_seqid}}" (click)="itemClicked('lov')"
+          [(ngModel)]="lovinput.value" [readonly]="true" [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+          (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+          ||lovinput.data_required_flag=='T' 
+          ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1] =='*')"
+            (ionChange)="lovinput.isValid=lovInputName.valid"
+            (ngInit)="lovinput.isValid=lovInputName.valid" #lovInputName='ngModel' (keyup)="checkKey($event)">
+          </ion-input>
+
+          <div class="input-action-container">
+            <ion-icon color="secondary" name="close"  *ngIf="lovinput.value && lovinput.item_enable_flag == 'T'" (click)="cleardata()"></ion-icon>
+            <ion-icon color="secondary" name="search" (click)="itemClicked('lov')"></ion-icon>
+          <ion-icon color="secondary" name="eye" *ngIf="lovObjFlag" (click)="itemClicked('objLov')"></ion-icon>
+          </div>
+        </div>
+
+      <div class="error" *ngIf="lovInputName.hasError('required') && lovinput.touched"> Please Enter
+          {{lovinput.prompt_name}}
+      </div>
+
+      <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+      <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="newIp-type3" *ngIf="lovinput.item_sub_type == 'M_BROWSER1'">
+    <ion-row>
+      <ion-col  [size]="lovinput.promptCol ? lovinput.promptCol : col1"  *ngIf="lovinput.prompt_name">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                          </ion-button>
+        <p class="input-group-label" [title]="lovinput.prompt_name">{{lovinput.prompt_name}}</p>
+      </ion-col>
+      <ion-col  [size]="lovinput.prompt_name ? col2 : (col1 + col2)">
+        <div class="input-div">
+          <ion-input  class="bg-input" type="text" [ngStyle]="lovinput.display_setting_str"
+          type="text" id="{{lovinput.item_name ? lovinput.item_name : lovinput.apps_item_seqid}}" [(ngModel)]="lovinput.value" [maxlength]="lovinput.item_size"
+          #lovInputName="ngModel"
+          [readonly]="lovinput.item_enable_flag && (!(lovinput.item_enable_flag.indexOf(current_page_parameter.MODE)>-1)||(lovinput.item_enable_flag=='F'))"
+          [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+    (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+    ||lovinput.data_required_flag=='T' 
+    ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1]) =='*'"
+          [pattern]="lovinput.input_pattern"
+          (ionChange)="lovinput.isValid=lovInputName.valid; lovinput.touched=true;"
+          (ionBlur)="lovinput.isValid=lovInputName.valid;lovinput.touched=true;"
+          (ngInit)="lovinput.isValid=lovInputName.valid" title="{{lovinput.tool_tip}}"
+          (dblclick)="doubleClickFun($event)" (click)="itemClicked('lov')" (keyup)="checkKey($event)"
+          ></ion-input>
+
+          <div class="input-action-container">
+            <ion-icon color="secondary" name="close"  *ngIf="lovinput.value && lovinput.item_enable_flag == 'T'" (click)="cleardata()"></ion-icon>
+            <ion-icon color="secondary" name="search" (click)="itemClicked('lov')"></ion-icon>
+          <ion-icon color="secondary" name="eye" *ngIf="lovObjFlag" (click)="itemClicked('objLov')"></ion-icon>
+          </div>
+        </div>
+        <div class="error" *ngIf="lovInputName.hasError('required') && lovinput.touched"> Please Enter
+          {{lovinput.prompt_name}}
+      </div>
+
+      <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+      <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="newIp-type5" *ngIf="lovinput.item_sub_type == 'BROWSER2'">
+    <ion-row>
+      <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                        </ion-button>
+      <ion-col  [size]="lovinput.promptCol ? lovinput.promptCol : col1"  class="bg-prompt" *ngIf="lovinput.prompt_name">
+        <p class="input-group-label" [title]="lovinput.prompt_name">{{lovinput.prompt_name}}</p>
+      </ion-col>
+      <ion-col [size]="lovinput.prompt_name ? col2 : (col1 + col2)" class="input-container">
+        <div class="bg-input">
+         <ion-input class="form-control" type="text"
+         id="{{lovinput.item_name ? lovinput.item_name : lovinput.apps_item_seqid}}" (click)="itemClicked('lov')"
+         [(ngModel)]="lovinput.value" [readonly]="true" [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+         (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+         ||lovinput.data_required_flag=='T' 
+         ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1] =='*')"
+           (ionChange)="onChange('ionChange');lovinput.isValid=lovInputName.valid"
+           (ngInit)="lovinput.isValid=lovInputName.valid" #lovInputName='ngModel' (keyup)="checkKey($event)">
+         </ion-input>
+         <div class="input-action-container">
+          <ion-icon color="secondary" name="close" cleck="cleardata()" *ngIf="lovinput.value && lovinput.item_enable_flag == 'T'" ></ion-icon>
+          <ion-icon color="secondary" name="search" (click)="itemClicked('lov')"></ion-icon>
+        <ion-icon color="secondary" name="eye" *ngIf="lovObjFlag" (click)="itemClicked('objLov')"></ion-icon>
+         </div>
+        </div>
+        <div class="error" *ngIf="lovInputName.hasError('required') && lovinput.touched"> Please Enter
+          {{lovinput.prompt_name}}
+      </div>
+
+      <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+      <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+
+  </div>
+  <div class="newIp-type5" *ngIf="lovinput.item_sub_type == 'M_BROWSER2'">
+    <ion-row>
+     <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="lovinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+    <ion-icon class="code-btn"  color="primary" name="information-circle-outline"  slot="end"></ion-icon>
+                    </ion-button>
+      <ion-col [size]="lovinput.promptCol ? lovinput.promptCol : col1" class="bg-prompt" *ngIf="lovinput.prompt_name">
+        <p class="input-group-label" [title]="lovinput.prompt_name">{{lovinput.prompt_name}}</p>
+      </ion-col>
+      <ion-col [size]="lovinput.prompt_name ? col2 : (col1 + col2)" class="input-container">
+        <div class="bg-input">
+         <ion-input class="form-control"  type="text" [ngStyle]="lovinput.display_setting_str"
+         type="text" id="{{lovinput.item_name ? lovinput.item_name : lovinput.apps_item_seqid}}" [(ngModel)]="lovinput.value" [maxlength]="lovinput.item_size"
+         #lovInputName="ngModel"
+         [readonly]="lovinput.item_enable_flag && (!(lovinput.item_enable_flag.indexOf(current_page_parameter.MODE)>-1)||(lovinput.item_enable_flag=='F'))"
+         [required]="(current_page_parameter.MODE && (lovinput.data_required_flag && 
+   (lovinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+   ||lovinput.data_required_flag=='T' 
+   ||(lovinput.prompt_name && lovinput.prompt_name[lovinput.prompt_name.length -1]) =='*'"
+         [pattern]="lovinput.input_pattern"
+         (ionChange)="lovinput.isValid=lovInputName.valid; lovinput.touched=true;onChange('ionChange')"
+         (ionBlur)="lovinput.isValid=lovInputName.valid;lovinput.touched=true;"
+         (ngInit)="lovinput.isValid=lovInputName.valid" title="{{lovinput.tool_tip}}"
+         (dblclick)="doubleClickFun($event)" (click)="itemClicked('lov')" (keyup)="checkKey($event)"
+         ></ion-input>
+
+         <div class="input-action-container">
+          <ion-icon color="secondary" name="close" cleck="cleardata()" *ngIf="lovinput.value && lovinput.item_enable_flag == 'T'" ></ion-icon>
+          <ion-icon color="secondary" name="search" (click)="itemClicked('lov')"></ion-icon>
+        <ion-icon color="secondary" name="eye" *ngIf="lovObjFlag" (click)="itemClicked('objLov')"></ion-icon>
+         </div>
+        </div>
+        <div class="error" *ngIf="lovInputName.hasError('required') && lovinput.touched"> Please Enter
+          {{lovinput.prompt_name}}
+      </div>
+
+      <div class="error" *ngIf="lovinput.msgError">{{lovinput.msgError}}</div>
+      <div class="error" *ngIf="lovinput.forced_error_msg">{{lovinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+</div>

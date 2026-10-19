@@ -1,0 +1,40 @@
+<h1 class="frame-name position-relative" style="width: 100%;"><span
+    style="display: inline-block;width: 75%;">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;width: 100%;"
+      *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+      <ion-icon class="code-btn" color="primary" name="information-circle-outline" (click)="showDeveloperData()">
+      </ion-icon>
+    </span> </span>
+</h1>
+
+<section class="ps-timeline-sec" *ngIf="frame && frame.tableRows && frame.tableRows.length > 0">
+  <div class="container"
+    [ngStyle]="{'justify-content':(frame.tableRows && frame.tableRows.length < 9) ? 'center' : ''}">
+    <ol class="ps-timeline ">
+      <ng-container *ngFor="let row of frame.tableRows;let i = index">
+
+        <li *ngIf="i==0">
+          <ng-container *ngFor="let item of row[1].Level5">
+            <div class="ps-bot" (click)="itemClicked(item,row,i)">
+              <p>{{item.value }}</p>
+            </div>
+          </ng-container>
+          <ng-container *ngFor="let item of row[0].Level5">
+            <span class="psp-top" (click)="itemClicked(item,row,i)">{{item.value }}</span>
+          </ng-container>
+        </li>
+
+        <li *ngIf="i!=0 ">
+          <ng-container *ngFor="let item of row[1].Level5">
+            <div [class]="i%2 == 0 ? 'ps-bot ' : 'ps-bot even-timeline'" (click)="itemClicked(item,row,i)">
+              <p>{{item.value }}</p>
+            </div>
+          </ng-container>
+          <ng-container *ngFor="let item of row[0].Level5">
+            <span class="psp-top" (click)="itemClicked(item,row,i)">{{item.value }}</span>
+          </ng-container>
+        </li>
+      </ng-container>
+
+    </ol>
+  </div>
+</section>

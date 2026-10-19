@@ -1,0 +1,264 @@
+.noteslink-container {
+    margin-top: 15px;
+
+    .search-note-sbar {
+        display: flex;
+        border: 1px solid #cbcbcb;
+        padding: 0px 5px;
+        align-items: center;
+        border-radius: 5px;
+
+        ion-input {
+            --padding-top: 0.5rem !important;
+            --padding-bottom: 0.5rem !important;
+        }
+    }
+    .col-md-7{
+        padding-top: 0 !important;
+    }
+
+    .notes-container {
+        margin: 5px 0px;
+        // overflow: auto;
+        // height: 74vh;
+
+        .notes-meeting {
+            padding: 10px 10px 10px 0;
+            border-bottom: 1px solid #E4E4E4;
+
+            .notes-header {
+                display: block;
+
+
+
+                .notes-header-btn {
+                    display: flex;
+                    float: right;
+                    align-items: center;
+
+                    .notes-datetime {
+                        color: var(--blackNew);
+                    }
+
+                    ion-icon {
+                        font-size: var(--font18);
+                        cursor: pointer;
+                        color: #8C8C8C;
+
+                        &:first-child {
+                            margin-right: 6px;
+                        }
+
+                        &:hover {
+                            color: var(--blue-new);
+                        }
+                    }
+                }
+            }
+
+            .notes-body {
+                margin: 12px 0px 0px 4px;
+
+                h3 {
+                    font-size: var(--font13);
+                    font-weight: 600;
+                    color: var(--blackNew);
+                    margin: 0px 0px 7px;
+                    padding: 0px 0px;
+                }
+
+                p {
+                    color: #606060;
+                    margin: 0px 0px;
+                    padding: 0px 0px;
+                    font-size: var(--font13);
+                }
+            }
+        }
+    }
+    
+
+
+    .meet-btn {
+        display: inline;
+        padding: 4px 10px;
+        font-size: var(--font12);
+        border-radius: 24px;
+        color: var(--blackNew);
+    }
+
+    .meet-btn.meeting {
+        background: #FFE7C2;
+    }
+
+    .meet-btn.planing {
+        background: #E1FFC2;
+    }
+
+    .meet-btn.personal {
+        background: #C4C2FF;
+    }
+
+    .meet-btn.office {
+        background: #FFC2C2;
+    }
+
+    .meet-btn.calls {
+        background: #C2D7FF;
+    }
+
+    .notes-datetime {
+        font-size: var(--font12);
+        font-weight: 600;
+        color: #787878;
+        margin: 6px 0 0 10px;
+    }
+
+    .notes-entry-form {
+        .notes-detail-content {
+            border-bottom: 1px solid var(--common-border);
+        }
+        .details-area{
+            margin-top: 20px;
+            span{
+                font-size: var(--font14);
+                font-weight: 600;
+                margin-top: 6px;
+                display: block;
+                color: var(--blackNew);
+            }
+            p{
+                font-size: var(--font13);
+                margin-top: 4px;
+                line-height: 25px;
+            }
+        }
+
+        .title-btn-conatiner {
+            h1 {
+                display: inline;
+                font-size: var(--font20);
+                font-weight: 600;
+                color: var(--blackNew);
+            }
+
+            .form-btn-container {
+                display: flex;
+                float: right;
+
+                ion-button {
+                    height: 28px;
+                    margin: 0px 5px;
+                }
+
+                ion-button.cancel {
+                    --background: #c6c6c6;
+                    color: rgb(37, 37, 37);
+                }
+
+                ion-button.save {
+                    --background: var(--blue-new);
+                    color: #ffffff;
+                }
+            }
+        }
+
+        .agenda-date-area {
+            display: flex;
+            margin: 10px 0 20px;
+
+        }
+    }
+
+    .notes-entry {
+
+        select,
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid silver;
+            color: gray;
+            border-radius: 3px;
+
+        }
+    }
+}
+
+.calender-area {
+    text-align: center;
+    height: calc(100vh - 30vh);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        font-size: 90px;
+        font-weight: 600;
+        color: #d9d9d9;
+    }
+}
+
+
+.notes-container{
+    ion-col:nth-child(odd){
+        .notes .notes_header{
+            height:35px;
+         background-color: #FFE7C2;
+        }
+    }
+    ion-col:nth-child(even){
+        .notes .notes_header{
+            height:35px;
+         background-color: #E1FFC2;
+        }
+    }
+    .notes{
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+        .notes_header{
+            height:35px;
+            &_btn{
+                    float: right;
+                    color:var(--blackNew);
+                    opacity: 0;
+                    padding: 7px 7px;
+                    ion-icon{
+                        margin:0px 0px 0px 7px;
+                        cursor: pointer;
+                    }
+            }
+           
+        }
+        .notes_content{
+            padding:15px;
+            h4{
+         margin:5px 0px 0px 0px;
+         font-size: var(--font14);
+         font-weight: 500;
+         width:90%;
+         white-space: nowrap;
+         overflow: hidden;
+         text-overflow: ellipsis;
+            }
+            p{
+          margin:5px 0px 0px 0px;
+          font-size: var(--font13);
+         font-weight: 400;
+            }
+        }
+        &:hover{
+            .notes_header_btn{
+                opacity: 1;
+            }
+        }
+    }
+}
+@media only screen and (min-width:1024px) and (max-width:1199px) {
+    .calender-area {
+        h1 {
+            font-size: 50px;
+        }
+    }
+}

@@ -1,0 +1,342 @@
+
+<h1 class="canavs_title">Updates</h1>
+
+
+
+
+<div class="announce-tab">
+   <div class="tabs">
+    <ul>
+     <li 
+    (click)="Onupdates('Global')" 
+    [class.active]="selectedTab === 'Global'">
+   <ion-icon name="globe-outline"></ion-icon> Global Updates
+  </li>
+
+  <li 
+    (click)="Onupdates('Local')" 
+    [class.active]="selectedTab === 'Local'">
+   <ion-icon name="location-outline"></ion-icon> Release Notes (Development)
+  </li>
+    </ul>
+   </div>  
+   <div class="announce-container" *ngIf="selectedTab === 'Global'">
+
+  <div class="d-flex align-items-center justify-content-end">
+
+    <span style="font-size: 14px;">
+      Search Year : &nbsp;
+    </span>
+
+    <select class="announce-select">
+
+      <option value="all">All</option>
+
+      <option
+        *ngFor="let item of globalList"
+        [value]="item.lastupdate">
+
+        {{ item.lastupdate | date:'yyyy' }}
+
+      </option>
+
+    </select>
+
+  </div>
+
+  <div
+    class="announce-meeting"
+    *ngFor="let item of globalList">
+
+    <div class="announce-header">
+
+      <div class="announce-header-btn">
+
+        <div class="announce-datetime">
+
+          {{ item.lastupdate }}
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="announce-body">
+
+      <h3>
+
+        {{ item.release_name }}
+
+        <div class="announce-btn meeting">
+
+          {{ item.build_version }}
+
+        </div>
+
+      </h3>
+
+      <p class="content">
+
+        {{ item.release_desc }}
+
+      </p>
+
+      <input
+        type="checkbox"
+        [id]="'toggleGlobal' + item.release_id">
+
+      <label
+        [for]="'toggleGlobal' + item.release_id"
+        class="see-more">
+
+      </label>
+
+    </div>
+
+  </div>
+
+</div>
+  <!-- <div class="announce-container"  *ngIf="selectedTab === 'Global'">
+   <div class="d-flex align-items-center justify-content-end">
+    
+  <span style="font-size: 14px;">Search Year : &nbsp;</span>
+   
+    <select class="announce-select">
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    </select>
+</div>
+   
+<div class="announce-meeting">
+      <div class="announce-header">
+        <div class="announce-header-btn">
+         <div class="announce-datetime">
+          March 26, 2024  10:30AM
+         </div>
+        </div>
+        <div></div>
+      </div>
+      <div class="announce-body">
+        <h3>Lighthouse launched new version of ERP V7C.</h3>
+        <p class="content">In the new version of V7C ERP, lighthouse introducing modern trending UI with efficient user experience. New layout has been introduced in the new update having functionalities like changing theme layout, Color options, zoom in zoom out option. New left nav bar is also been added which give features easy to access like help & support, developer mode, announcement, notes, reminders and release notes.</p>
+
+      <input type="checkbox" id="toggle1" [(ngModel)]="isChecked" [title]="isChecked">
+      <label for="toggle1" class="see-more"></label>
+      </div>
+    </div>
+
+
+    <div class="announce-meeting">
+      <div class="announce-header">
+        <div class="announce-header-btn">
+         <div class="announce-datetime">
+          March 26, 2024  10:30AM
+         </div>
+        </div>
+        <div></div>
+      </div>
+      <div class="announce-body">
+       <h3>Lighthouse launched new version of ERP V7C. 
+        <div class="announce-btn meeting"> V 0.3 </div>
+       </h3>
+        <p class="content">In the new version of V7C ERP, lighthouse introducing modern trending UI with efficient user experience. New layout has been introduced in the new update having functionalities like changing theme layout, Color options, zoom in zoom out option. New left nav bar is also been added which give features easy to access like help & support, developer mode, announcement, notes, reminders and release notes.</p>
+
+        <hr>
+
+         <h3>Lighthouse launched new version of ERP V7C. 
+        <div class="announce-btn meeting"> V 0.4 </div>
+       </h3>
+        <p class="content">In the new version of V7C ERP, lighthouse introducing modern trending UI with efficient user experience. New layout has been introduced in the new update having functionalities like changing theme layout, Color options, zoom in zoom out option. New left nav bar is also been added which give features easy to access like help & support, developer mode, announcement, notes, reminders and release notes.</p>
+
+        <hr>
+         <h3>Lighthouse launched new version of ERP V7C. 
+        <div class="announce-btn meeting"> V 0.5 </div>
+       </h3>
+        <p class="content">In the new version of V7C ERP, lighthouse introducing modern trending UI with efficient user experience. New layout has been introduced in the new update having functionalities like changing theme layout, Color options, zoom in zoom out option. New left nav bar is also been added which give features easy to access like help & support, developer mode, announcement, notes, reminders and release notes.</p>
+
+ 
+
+      </div>
+    </div>
+
+    <div class="announce-meeting">
+      <div class="announce-header">
+        <div class="announce-header-btn">
+         <div class="announce-datetime">
+          March 26, 2024  10:30AM
+         </div>
+        </div>
+        <div></div>
+      </div>
+      <div class="announce-body">
+        <h3>Lighthouse launched new version of ERP V7C. 
+        <div class="announce-btn meeting"> V 0.3 </div>
+       </h3>
+        <p class="content">In the new version of V7C ERP, lighthouse introducing modern trending UI with efficient user experience. New layout has been introduced in the new update having functionalities like changing theme layout, Color options, zoom in zoom out option. New left nav bar is also been added which give features easy to access like help & support, developer mode, announcement, notes, reminders and release notes.</p>
+   
+      </div>
+    </div>
+     
+
+
+   
+    </div> -->
+    <!-- <div class="announce-container"  *ngIf="selectedTab === 'Local'">
+   <div class="d-flex align-items-center justify-content-end">
+    <span style="font-size: 14px;">Search Version : &nbsp;</span>
+   
+    <select class="announce-select">
+    <option value="all">V 0.1</option>
+    <option value="all">V 0.2</option>
+    <option value="all">V 0.3</option>
+    <option value="all">V 0.4</option>
+    <option value="all">V 0.5</option>
+    <option value="all">V 0.6</option>
+    </select>
+
+    &nbsp;&nbsp;
+    <span style="font-size: 14px;">Search Year : &nbsp;</span>
+   
+    <select class="announce-select">
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    <option value="all">2026</option>
+    </select>
+     </div>
+
+     <div class="announce-meeting">
+      <div class="announce-header">
+        <div class="announce-btn meeting">
+         <ion-icon name="star-outline"></ion-icon> V 0.3
+        </div>
+        <div class="announce-header-btn">
+         <div class="announce-datetime" style="font-size: 14px;font-weight: 400;">
+          March 26, 2024  10:30AM
+         </div>
+        </div>
+       
+      </div>
+      <div class="announce-body">
+        <h3>Lighthouse launched new version of ERP V7C.</h3>
+        <p class="content">In the new version of V7C ERP, lighthouse introducing modern trending UI with efficient user experience. New layout has been introduced in the new update having functionalities like changing theme layout, Color options, zoom in zoom out option. New left nav bar is also been added which give features easy to access like help & support, developer mode, announcement, notes, reminders and release notes.</p>
+
+      <input type="checkbox" id="toggle1" [(ngModel)]="isChecked" [title]="isChecked">
+      <label for="toggle1" class="see-more"></label>
+      </div>
+    </div>
+    <div class="announce-meeting">
+      <div class="announce-header">
+        <div class="announce-btn meeting">
+         <ion-icon name="star-outline"></ion-icon> V 0.3
+        </div>
+        <div class="announce-header-btn">
+         <div class="announce-datetime" style="font-size: 14px;font-weight: 400;">
+          March 26, 2024  10:30AM
+         </div>
+        </div>
+       
+      </div>
+      <div class="announce-body">
+        <h3>Lighthouse launched new version of ERP V7C.</h3>
+        <p class="content">In the new version of V7C ERP, lighthouse introducing modern trending UI with efficient user experience. New layout has been introduced in the new update having functionalities like changing theme layout, Color options, zoom in zoom out option. New left nav bar is also been added which give features easy to access like help & support, developer mode, announcement, notes, reminders and release notes.</p>
+
+      <input type="checkbox" id="toggle1" [(ngModel)]="isChecked" [title]="isChecked">
+      <label for="toggle1" class="see-more"></label>
+      </div>
+    </div>
+    <div class="announce-meeting">
+      <div class="announce-header">
+        <div class="announce-btn meeting">
+         <ion-icon name="star-outline"></ion-icon> V 0.3
+        </div>
+        <div class="announce-header-btn">
+         <div class="announce-datetime" style="font-size: 14px;font-weight: 400;">
+          March 26, 2024  10:30AM
+         </div>
+        </div>
+       
+      </div>
+      <div class="announce-body">
+        <h3>Lighthouse launched new version of ERP V7C.</h3>
+        <p class="content">In the new version of V7C ERP, lighthouse introducing modern trending UI with efficient user experience. New layout has been introduced in the new update having functionalities like changing theme layout, Color options, zoom in zoom out option. New left nav bar is also been added which give features easy to access like help & support, developer mode, announcement, notes, reminders and release notes.</p>
+
+      <input type="checkbox" id="toggle1" [(ngModel)]="isChecked" [title]="isChecked">
+      <label for="toggle1" class="see-more"></label>
+      </div>
+    </div>
+   </div> -->
+   <div class="announce-container" *ngIf="selectedTab === 'Local'">
+
+  <div class="d-flex align-items-center justify-content-end">
+
+    <span style="font-size: 14px;">
+      Search Version : &nbsp;
+    </span>
+
+    <select class="announce-select">
+      <option value="all">All</option>
+
+      <option
+        *ngFor="let item of localList"
+        [value]="item.build_version">
+
+        {{item.build_version}}
+
+      </option>
+
+    </select>
+
+  </div>
+
+  <div
+    class="announce-meeting"
+    *ngFor="let item of localList">
+
+    <div class="announce-header">
+
+      <div class="announce-btn meeting">
+
+        <ion-icon name="star-outline"></ion-icon>
+
+        {{item.build_version}}
+
+      </div>
+
+      <div class="announce-header-btn">
+
+        <div
+          class="announce-datetime"
+          style="font-size: 14px;font-weight: 400;">
+
+          {{item.lastupdate}}
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="announce-body">
+
+      <h3>
+        {{item.release_name}}
+      </h3>
+
+      <p class="content">
+        {{item.release_desc}}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+</div>

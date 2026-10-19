@@ -1,0 +1,38 @@
+<ion-toolbar color="primary"  class="ion-toolbar iosheight"  *ngIf="platform.is('ios')">
+
+  <ion-buttons slot="start" (click)="closeLov()">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  </ion-buttons>
+  <ion-title>
+     {{modalData.prompt_name}}
+  </ion-title>
+</ion-toolbar>
+
+<ion-toolbar color="primary"  class="ion-toolbar" *ngIf="!platform.is('ios')">
+  <ion-buttons slot="start" (click)="closeLov()">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+  </ion-buttons>
+  <ion-title>
+     {{modalData.prompt_name}}
+  </ion-title>
+</ion-toolbar>
+<ion-content  class="bg-shrink"> 
+  <div class="shrinkMyscreen">
+  <div class="table-responsive">
+      <table>
+          <thead>
+              <tr>
+                  <th *ngFor="let head of heading">
+                      {{head}}
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let body of modalData.result" (click)="selectValue(body)">
+                  <td *ngFor="let obj of heading">{{body[obj]}}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  </div>
+</ion-content>

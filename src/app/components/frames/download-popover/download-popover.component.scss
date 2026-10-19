@@ -1,0 +1,18 @@
+.download-list-container {
+    background: var(--grey);
+    border-bottom: 5px
+ solid var(--grey);
+ion-item{
+    --min-height: 40px;
+}
+ion-icon{
+    font-size: var(--font18);
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-inline-start: 10px;
+}
+.highlight{
+    color: var(--dark-grey-0);
+}
+}

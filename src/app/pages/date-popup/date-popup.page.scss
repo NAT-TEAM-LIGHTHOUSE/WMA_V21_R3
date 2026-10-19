@@ -1,0 +1,155 @@
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}*
+
+
+
+
+input{
+  width: 100%;
+  border: 1px solid #c7c7c7;
+  border-radius: 3px;
+  margin-top: 5px;
+  padding:0px 10px;
+}
+
+
+
+.date-picker {
+display: inline-block;
+padding-top: 0px;
+text-align: center;
+border: 1px solid #dfdfdf !important;
+.head{
+  padding: 6px 0px 0px 0px;
+  background: #f9f9f9;
+}
+}
+
+.calendar {
+display: grid;
+grid-template-columns: repeat(7, 1fr);
+margin-top: 0px;
+min-height: 267px;
+
+// padding: 10px;
+direction: rtl;
+}
+
+.calendar-header, .calendar-body {
+display: contents;
+}
+
+.calendar-day {
+padding: 7px;
+  text-align: center;
+  cursor: pointer;
+  //border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.calendar-day.disabled {
+background-color: #f0f0f0;
+pointer-events: none;
+}
+
+.calendar-day.today {
+background-color: var(--blue-new); /* Highlight today with yellow background */
+font-weight: bold;
+}
+
+
+.calendar-day.selected {
+background-color: var(--blue-new); /* Highlight today with yellow background */
+font-weight: bold;
+}
+
+.calendar-day:not(.disabled):hover {
+background-color: #ddd;
+}
+
+.calendar_parent{
+// display: flex;
+// align-items: center;
+// justify-content: space-evenly;
+
+}
+.ok-btn{
+float: right;
+margin: 0px 8px 10px 0;
+--padding-end: 30px;
+--padding-start: 30px;
+}
+
+
+#year, #month{
+padding: 5px 20px;
+border-radius:4px;
+border-color: #ced4da;
+margin: 0 8px 0 0;
+}
+.date-picker{
+label{
+  margin-right: 5px;
+}
+}
+
+
+
+
+
+////////////////////////persian date 1112 /////////////
+.date-picker {
+display: inline-block;
+}
+
+.calendar-header, .calendar-body {
+display: contents;
+}
+
+.calendar-day {
+padding: 5.6px 0px;
+text-align: center;
+cursor: pointer;
+box-sizing: border-box;
+margin: 3px;
+
+box-sizing: border-box;
+}
+.calendar-header{
+ text-align: center;
+ background: #f9f9f9;
+  .calendar-day{
+    background: #f9f9f9;
+    border-bottom: 1px solid #ccc;
+    color: var(--blue-new) !important;
+    padding: 7px 3px !important;
+    margin: 0px !important;
+    
+  }
+}
+
+
+.calendar-day.disabled {
+background-color: #f0f0f0;
+pointer-events: none;
+}
+
+.calendar-day.today {
+background-color: var(--blue-new); /* Highlight today with yellow background */
+font-weight: bold;
+color:#fff;
+}
+
+.calendar-day.selected {
+background-color: var(--blue-new); /* Highlight selected date with teal background */
+font-weight: bold;
+color: white;
+}
+
+.calendar-day:not(.disabled):hover {
+background-color: #ddd;
+}

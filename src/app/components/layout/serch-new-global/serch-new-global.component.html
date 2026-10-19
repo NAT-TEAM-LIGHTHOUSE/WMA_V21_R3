@@ -1,0 +1,323 @@
+<ng-container *ngIf="frameArr">
+  <ng-container *ngFor="let frame of frameArr">
+    <div class="searchgloab-content" *ngIf="frame.apps_frame_sub_type == 'GLOBAL_SEARCH_HEAD'">
+      <div class="row  searchgloab-content-section">
+        <ng-container *ngFor="let data of frame.canvasRows">
+          <div class="col-xl-9 col-lg-8  col-md-8 col-11  p-0 searchgloab-content-input">
+            <div class="row m-0">
+              <ng-container *ngFor="let items of data">
+                <ng-container *ngFor="let item of items.Level5">
+                  <ng-container *ngIf="item.item_visible_flag=='T'">
+                    <ng-container *ngIf="item.item_name=='SYS_WHAT_TO_SEARCH'">
+                      <div class="search_input pl-2 pr-0 col-lg-6 col-md-6 col-12" style="border-top-left-radius: 6px;border-bottom-left-radius: 6px;">
+                        <ion-input [clearInput]="true" placeholder="{{item.prompt_name}}" #myInput
+                          (click)="itemClicked1(item,frame)" (ionChange)="checkValid(item)" [(ngModel)]="item.value">
+                        </ion-input>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <div class="pl-0 pr-0 col-lg-6 col-md-6 col-12" style="border-top-right-radius: 6px;border-bottom-right-radius: 6px;">
+                <ion-icon class="close_gs" name="close-outline" (click)=removeAll()></ion-icon>
+                <details class="searchgloab-content-dropdown">
+                  <summary>
+                    <p> Where to search </p>
+                    <ng-container *ngFor="let items of data">
+                      <ng-container *ngFor="let item of items.Level5">
+                        <ng-container *ngIf="item.item_visible_flag=='T'">
+                          <ng-container *ngIf="item.item_name=='SYS_WHERE_TO_SEARCH'">
+                            <div class="chip_container">
+
+                              <div class="chip" *ngFor="let selectedItem of item.displayChips" (click)="stop($event)">
+                                {{selectedItem.displayName}}
+                                <span class="chip-remove"></span>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </ng-container></ng-container></ng-container>
+
+                  </summary>
+
+                  <ul class="first_row">
+                    <ng-container *ngFor="let items of data">
+                      <ng-container *ngFor="let item of items.Level5">
+                        <ng-container *ngIf="item.item_visible_flag=='T'">
+                          <li *ngIf="item.item_name=='SYS_ALL'">
+                            <label> <input [(ngModel)]="item.isChecked" (change)="toggleCheck(item)" type="checkbox"
+                                [checked]="item.value=='Y'" /> {{item.prompt_name}}</label>
+                          </li>
+                          <li *ngIf="item.item_name=='SYS_MASTER'">
+                            <label><input [(ngModel)]="item.isChecked" [checked]="item.value=='Y'"
+                                (change)="toggleCheck(item)" type="checkbox" name="fc" />{{item.prompt_name}}</label>
+                          </li>
+                          <li *ngIf="item.item_name=='SYS_TRANSACTION'">
+                            <label><input [(ngModel)]="item.isChecked" [checked]="item.value=='Y'"
+                                (change)="toggleCheck(item)" type="checkbox" name="fc" />{{item.prompt_name}}</label>
+                          </li>
+                          <li *ngIf="item.item_name=='SYS_MENU'">
+                            <label><input [(ngModel)]="item.isChecked" [checked]="item.value=='Y'"
+                                (change)="toggleCheck(item)" type="checkbox" name="fc" />{{item.prompt_name}}</label>
+                          </li>
+                        </ng-container></ng-container></ng-container>
+                  </ul>
+                  <ul>
+                    <li style="position: sticky; top: -14px;background: #fff;padding: 10px 0px 0px 0px;">
+                      <ng-container *ngFor="let items of data">
+                        <ng-container *ngFor="let item of items.Level5">
+                          <ng-container *ngIf="item.item_visible_flag=='T'">
+                            <ng-container *ngIf="item.item_name=='SYS_WHERE_TO_SEARCH'">
+                              <div class="chip_container">
+                                <ion-input placeholder="{{item.prompt_name}}"  style="font-size: 16px;" (click)="itemClicked1(item,frame)"
+                                  (input)="checkValid(item)" [ngClass]="{'has-value':item.value}"
+                                  [(ngModel)]="searchText1"></ion-input>
+
+                              </div>
+                            </ng-container>
+                          </ng-container></ng-container></ng-container>
+                    </li>
+                    <ng-container *ngFor="let items of data">
+                      <ng-container *ngFor="let item of items.Level5">
+                        <ng-container *ngIf="item.item_visible_flag=='T'">
+                          <ng-container *ngIf="item.item_name=='SYS_WHERE_TO_SEARCH'">
+                            <li *ngFor="let itm of whereData | globalSearch: searchText1">
+                              <label><input type="checkbox" (change)="toggleItem(itm,item)" [(ngModel)]="itm.isChecked"
+                                  name="fc" />{{itm.displayName}}</label>
+                            </li>
+                          </ng-container>
+                        </ng-container></ng-container></ng-container>
+                  </ul>
+                </details>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-lg-4 col-md-4 col-12  searchgloab-content-btn">
+            <ng-container *ngFor="let items of data">
+              <ng-container *ngFor="let item of items.Level5">
+                <ng-container *ngIf="item.item_visible_flag=='T'">
+
+                  <ng-container *ngIf="item.item_name=='PB_SYS_SEARCH'">
+                    <div class="iconic-btn-search-component">
+                      <ion-button [disabled]="item.item_enable_flag == 'F'" class="iconic-btn-search"
+                        title="Search here ..." (click)="itemClicked(item)">
+                        <!-- <ion-icon name="search-outline" title="Search here ..."></ion-icon> &nbsp; -->
+                        <!-- Search All -->
+                        {{item.prompt_name}}
+                      </ion-button>
+                      <ion-icon class="code-btn" color="primary" name="information-circle-outline"
+                        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData($event)">
+                      </ion-icon>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="item.item_name=='PB_SYS_MENU'">
+                    <div class="iconic-btn-search-component">
+                      <ion-button [disabled]="item.item_enable_flag == 'F'" class="iconic-btn-search"
+                        title="Search here ..." (click)="itemClicked(item)">
+                        {{item.prompt_name}}
+                        <!-- Search Menu -->
+                      </ion-button>
+                      <ion-icon class="code-btn" color="primary" name="information-circle-outline"
+                        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData($event)">
+                      </ion-icon>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            <div class="iconic-btn-search-component">
+              <ion-button class="iconic-btn-search mobile_d" title="Close Search" (click)="modalDismiss()">
+                Cancel
+              </ion-button>
+            </div>
+
+          </div>
+
+        </ng-container>
+      </div>
+    </div>
+    <div class="searchglobe-recentaction" *ngIf="frame.apps_frame_sub_type == 'GLOBAL_SEARCH_BODY'">
+      <!-- <div class="global_search_table">
+        <ng-container *ngIf="frame.canvasRows && frame.canvasRows.length>0">
+          <ng-container *ngIf="frame.headers && frame.headers.length > 0s ">
+            <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport">
+            <table>
+              <tr>
+                <ng-container *ngFor="let framedata of frame.headers ">
+                  <ng-container *ngFor="let items of framedata.Level5">
+                    <ng-container *ngIf="items.item_visible_flag == 'T'">
+                      <th>
+                        <ng-container *ngIf="items.item_type !== 'BUTTON'">
+                          <ion-input [(ngModel)]="items.search" class="search_table_new"
+                            (ionChange)="getSearchResult(items.search,200,items,frame)"></ion-input>
+                        </ng-container>
+                      </th>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+                <th></th>
+                <th></th>
+              </tr>
+             
+              <tr *cdkVirtualFor="let data of frame.canvasRows; let i = index">
+                <ng-container *ngFor="let items of data">
+                  <ng-container *ngFor="let item of items.Level5 | globalSearch: searchText">
+                    <ng-container *ngIf="item.item_visible_flag == 'T'">
+                      <td>
+                        <ng-container *ngIf="item.item_type == 'BUTTON'; else noButton">
+                          <ion-button (click)="btnClick(item,i,frame)" [disabled]="item.item_enable_flag == 'F'"
+                            class="search_btn" *ngIf="item.value">{{item.value ? item.value :
+                            item.prompt_name}}</ion-button>
+                        </ng-container>
+
+                        <ng-template #noButton>
+                          {{item.value}}
+                        </ng-template>
+
+                      </td>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </table>
+          </cdk-virtual-scroll-viewport>
+          </ng-container>
+        </ng-container>
+      </div> -->
+     
+     
+   <div class="global_search_table"  style="background: #ffffff;">
+  <ng-container *ngIf="frame.tableData && frame.tableData.length > 0">
+    <ng-container *ngIf="frame.headers && frame.headers.length > 0">
+       
+           <table class="m-0 mt-3">
+             <thead>
+            <tr>
+            <ng-container *ngFor="let framedata of frame.headers">
+              <ng-container *ngFor="let items of framedata.Level5">
+                <ng-container *ngIf="items.item_visible_flag == 'T'">
+                  <th>
+                    <ng-container *ngIf="items.item_type !== 'BUTTON'">
+                      <ion-input [(ngModel)]="items.search" class="search_table_new"
+                        (ionChange)="getSearchResult(items.search, 200, items, frame)"></ion-input>
+                    </ng-container>
+                  </th>
+                </ng-container>
+              </ng-container>
+              </ng-container>
+              
+            </tr>
+          </thead>
+          </table>
+           <ng-container *ngIf="frame.canvasRows && frame.canvasRows.length>0">
+            <!-- <cdk-virtual-scroll-viewport itemSize="50" class="virtual-scroll-viewport"> -->
+              <table>
+          <tbody>
+             <tr *ngFor="let data of frame.canvasRows; let i = index">
+              <ng-container *ngFor="let items of data">
+                <ng-container *ngFor="let itemss of (items.Level5 | globalSearch: searchText) ">
+  
+                   @let item = itemss | mergeLevel5:frame.Level4;
+                  <ng-container *ngIf="item.item_visible_flag == 'T'">
+                    <td>
+                      <ng-container *ngIf="item.item_type == 'BUTTON'; else noButton">
+                        <ion-button (click)="btnClick(item, i, frame)" [disabled]="item.item_enable_flag == 'F'"
+                          class="search_btn" *ngIf="item.value">{{ item.value ? item.value : item.prompt_name }}</ion-button>
+                      </ng-container>
+                      <ng-template #noButton>
+                        {{ item.value }}
+                      </ng-template>
+                    </td>
+                  </ng-container>
+              
+                </ng-container>
+              </ng-container>
+            </tr>
+          </tbody>
+          
+        </table>
+       <!-- </cdk-virtual-scroll-viewport> -->
+       </ng-container>
+    </ng-container>
+  </ng-container>
+</div> 
+     
+
+
+
+<!-- <div class="global_search_table">
+
+<ng-container *ngIf="frame.canvasRows && frame.canvasRows.length>0">
+  <ng-container *ngIf="frame.headers && frame.headers.length > 0s ">
+    <cdk-virtual-scroll-viewport itemSize="100" class="virtual-scroll-viewport">
+    <table class="virtual-table">
+      <thead>
+      <tr>
+        <ng-container *ngFor="let framedata of frame.headers ">
+          <ng-container *ngFor="let items of framedata.Level5">
+            <ng-container *ngIf="items.item_visible_flag == 'T'">
+              <th>
+                <ng-container *ngIf="items.item_type !== 'BUTTON'">
+                  <ion-input [(ngModel)]="items.search" class="search_table_new"
+                    (ionChange)="getSearchResult(items.search,200,items,frame)"></ion-input>
+                </ng-container>
+              </th>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *cdkVirtualFor="let data of frame.canvasRows; let i = index">
+        <ng-container *ngFor="let items of data">
+          <ng-container *ngFor="let item of items.Level5 | globalSearch: searchText">
+            <ng-container *ngIf="item.item_visible_flag == 'T'">
+              <td>
+                <ng-container *ngIf="item.item_type == 'BUTTON'; else noButton">
+                  <ion-button (click)="btnClick(item,i,frame)" [disabled]="item.item_enable_flag == 'F'"
+                    class="search_btn" *ngIf="item.value">{{item.value ? item.value :
+                    item.prompt_name}}</ion-button>
+                </ng-container>
+
+                <ng-template #noButton>
+                  {{item.value}}
+                </ng-template>
+
+              </td>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </tr>
+      </tbody>
+    </table>
+  </cdk-virtual-scroll-viewport>
+  </ng-container>
+</ng-container>
+
+</div> -->
+
+
+
+
+
+       <div class="notfound-img-empty" style="z-index: 1;" *ngIf="!frame.no_data">
+       <div class="d-flex flex-column align-items-center justify-content-center" style="height: 100%;">
+        <div class="p-0 m-0 d-flex flex-column gap-3">
+          <div class="d-flex align-items-center justify-content-between">Open Global Search <div class="d-flex align-items-center"><span class="badge">Alt</span> + <span class="badge">Q</span></div></div>
+          <!-- <div class="d-flex align-items-center justify-content-between">Search Menu Button <div class="d-flex align-items-center"><span class="badge">Alt</span> + <span class="badge">M</span></div></div>
+          <div class="d-flex align-items-center justify-content-between">Search All Button <div class="d-flex align-items-center"><span class="badge">Alt</span> + <span class="badge">A</span></div></div> -->
+        </div>
+       </div>
+      </div>
+
+      <div class="notfound-img-empty" *ngIf="!frame.loading && frame.no_data">
+        <img src="../../../../assets/imgs/Nodata-found.svg">
+      </div>
+      <div class="center global_search_loading" *ngIf="frame.loading">
+        <div class="text-center">
+          <img src="../../../assets/dot.gif" width="20%">
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

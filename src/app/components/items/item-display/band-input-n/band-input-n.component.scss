@@ -1,0 +1,425 @@
+@import '../../../../mixins';
+$secondary-text:#423f3f;
+// TAB_3D START HERE
+.threeD-textband-container {
+    ion-col{
+        padding-bottom: 0 !important;
+        margin-bottom: 15px !important;
+    }
+
+ 
+    .threeD-textband-header
+    {
+        color: var(--text-dark);
+        font-size: 1.6rem;
+        margin-bottom: 4px;
+        margin-top: 0px;
+        &::after
+        {
+          @include before-after;
+          bottom: -4px;
+          left: 0px;
+         
+          width: 19px;
+          height: 3px;
+        }
+      
+    }
+  
+      
+        .threeD-textband-footer
+        {
+            
+               font-size: var(--font18);
+              margin: 5px 5px;
+        }
+        .threeD-textband-body
+        {
+          
+            h5 {
+                              font-size:14px;
+                              margin: 5px 5px
+            }
+        }
+
+
+
+    .threeD-textband-card:active{
+        &::after{
+            display: none;
+        }
+        &::before{
+            display: none;
+        }
+    }
+
+}
+.threeD-textband-container .threeD-green
+{
+
+background: var(--green);
+&::after{
+    background: #0a6b56;
+}
+&::before{
+    background: #1f967c;
+}
+}
+.threeD-textband-container .threeD-grey
+{
+    
+    background: var(--form-label);
+&::after{
+    background: var(--text-dark);
+}
+&::before{
+    background: var(--label-text);
+}
+
+}
+.threeD-textband-container .threeD-blue
+{
+
+background: var(--blue);
+&::after{
+    background: var(--blue-new);
+}
+&::before{
+    background: var(--blue-new);
+}
+}
+.threeD-textband-container .threeD-yellow
+{
+
+    background: var(--yellow);
+&::after{
+    background: var(--dark-red);
+}
+&::before{
+    background: var(--dark-red);
+}
+}
+
+.threeD-textband-card {
+    width: 90%;
+    height: 100%;
+    padding: 3px;
+   color: var(--white);
+    position: relative;
+    
+    transition:  all 0.1s;
+    &::after{
+        @include before-after;
+        width: 100%;
+    height: 12px;
+    -webkit-transform: skewX(48deg);
+    transform: skewX(46deg);
+    bottom: -12px;
+    left: 6.2px;
+    }
+    &::before{
+        @include before-after;
+        width: 12px;
+        height: 100%;
+        right: -12px;
+        top: 6px;
+        -webkit-transform: skewY(36deg);
+        transform: skewY(44deg);
+    }
+}
+
+// TAB_3D END HERE
+
+
+// TAB_COUNT START HERE
+.count-list{
+    .approval-body {
+        ion-item{
+            --min-height: 47px;
+            --inner-padding-end: 0px;
+            --padding-start: 10px;
+            --border-color: none;
+            --border-style: none;
+            margin:0px 0;
+            padding-left:3px;
+            overflow: hidden;
+            &::before{
+                content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            z-index: 11;
+            border-radius: 50%;
+            right: -28px;
+            top: -4px;   
+            }
+            .count{
+                width: 78px;
+                height: 57px;
+                border-radius: 50%;
+                position: absolute;
+                right: -20px;
+                overflow: hidden;
+                font-size: var(--font16);
+                font-weight: bold;
+            p{
+                z-index: 9999;
+                position: relative;
+                margin-left: 11px;
+                margin-top: 17px;
+                }
+               &::before{
+                content: "";
+                position: absolute;
+                width: 44px;
+                height: 44px;
+                z-index: 3;
+                border-radius: 50%;
+                right: 1px;
+                top: -20px;
+            
+               }  
+            }
+        }
+        ion-label {
+            color: #423f3f;
+            
+            font-size: var(--font14) !important;
+            padding-right: 45px;
+            text-overflow: unset;
+            white-space: normal;
+            overflow: visible;
+        }
+    }
+}
+// TAB_COUNT END HERE
+
+// TAB START HERE
+.menu-list {
+  
+    padding: 0;
+    padding-left: 5px;
+    border-radius: 5px;
+    position: relative;
+    
+    ion-item {
+      --min-height: 56px;
+   
+     
+    }
+    ion-icon {
+      font-size: 1.5em;
+      margin-top: 12px;
+      background: none !important;
+      position: absolute;
+      right: 15px;
+    }
+  
+    .thumbnail-container {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      padding: 3px;
+      padding-top: 5px;
+    }
+    
+  
+    ion-thumbnail {
+      padding: 5px;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      padding-top: 5px;
+      border-radius: 50%;
+      z-index: 2;
+      margin-bottom: 10px;
+  
+      img {
+        width: 80% !important;
+        height: auto !important;
+      }
+    }
+  
+    h2 {
+      font-weight: 500;
+      font-size:14px;
+      margin-left: 0.7em;
+      margin-top: 10px;
+    }
+  
+    ion-label {
+      margin: 0px 10px !important;
+    }
+  
+    .item-native {
+  
+      --padding-start: 0px;
+    }
+  
+    .next-arrow {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+    &::before
+    {
+      content:"";
+      position:absolute;
+      left:0px;
+      width:0px;
+      height:1px;
+      bottom:0px;
+      transition: width 0.1s ease;
+      z-index: 1;
+    }
+    &:active::before
+    {
+     
+      width:100%;
+   
+    }
+  }
+  .ios.menu-list
+  {
+    margin-bottom:0px;
+  }
+
+  // TAB END HERE
+
+  // TAB_IMAGE START HERE
+  .new-menu-list {
+    margin-bottom: 1px;
+    padding: 0;
+    padding-left: 5px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+  
+    ion-item {
+      --min-height: 55px;
+      --background: transparent;
+     
+    }
+  
+    ion-icon {
+      font-size: 1.5em;
+      margin-top: 12px;
+      background: none !important;
+      position: absolute;
+      right: 15px;
+    
+    }
+ 
+    .thumbnail-container {
+      width: 55px;
+      height: 55px;
+      /* border-radius: 50%; */
+      text-align: center;
+      padding: 0.2em;
+    }
+    
+  
+    ion-thumbnail {
+      padding: 0px;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      z-index: 2;
+      border: none;
+      background: none;
+  
+      img {
+        
+      width: 100%;
+      height: auto ;
+      }
+    }
+  
+    h2 {
+      font-weight: 500;
+      font-size:14px;
+      margin-left: 0.7em;
+      margin-top: 10px;
+    }
+  
+    ion-label {
+      margin: 0px 10px !important;
+    }
+  
+    .item-native {
+  
+      --padding-start: 0px;
+    }
+  
+    .next-arrow {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+    &::before
+    {
+      content:"";
+      position:absolute;
+      left:0px;
+      width:0px;
+      height:1px;
+      bottom:0px;
+      transition: width 0.1s ease;
+      z-index: 1;
+    }
+    &:active::before
+    {
+     
+      width:100%;
+   
+    }
+  }
+  .inner-shadow{
+    box-shadow: inset -2px -5px 11px rgb(221 221 221 / 66%), inset 1px 1px 1px rgb(221 221 221 / 66%);
+  }
+  .inner-shadow-right{
+    box-shadow: inset -3px -4px 5px rgb(221 221 221 / 66%), inset 1px 1px 1px rgb(221 221 221 / 66%);
+  }
+  .ios.new-menu-list
+  {
+    margin-bottom:0px;
+  }
+
+  .menu-list2 {
+  
+    ion-item {
+      --min-height: 84px;
+     
+    }
+    .thumbnail-container2 {
+      width: 80px;
+      height: 80px;
+      border-radius:0;
+      text-align: center;
+      padding: 2px;
+      padding-top: 2px;
+      ion-thumbnail{
+        box-shadow: none;
+        height: 75px;
+        width: 75px;
+        img {
+          width:100% !important;
+        }
+      }
+    }
+  }
+  @media only screen and (min-width:1300px){
+    .menu-list {
+      ion-item {
+        --min-height:25px; 
+         
+      }
+      .thumbnail-container {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+
+  // TAB_IMAGE END HERE

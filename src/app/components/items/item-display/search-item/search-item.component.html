@@ -1,0 +1,19 @@
+<div class="search-input-container">
+  <div class="search">
+    <ion-icon name="search" *ngIf="show"></ion-icon>
+  <ion-input [placeholder]="searchinput.prompt_name" [ngStyle]="searchinput.display_setting_str" type="text" id="{{searchinput.item_name}}"
+  [(ngModel)]="searchinput.value" [maxlength]="searchinput.item_size" #textInputname="ngModel"
+  [readonly]="searchinput.item_enable_flag && (!(searchinput.item_enable_flag.indexOf(current_page_parameter.MODE)>-1)||(searchinput.item_enable_flag=='F'))"
+  [required]="(current_page_parameter.MODE && (searchinput.data_required_flag && 
+  (searchinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+  ||searchinput.data_required_flag=='T' 
+  ||(searchinput.prompt_name && searchinput.prompt_name[searchinput.prompt_name.length -1]) =='*'"
+  (click)="itemClicked()"
+  (ionFocus)="autoPopulate($event)" [pattern]="searchinput.input_pattern"
+  (ionChange)="searchinput.isValid=textInputname.valid; searchinput.touched=true;onChange()"
+  (ionBlur)="searchinput.isValid=textInputname.valid;searchinput.touched=true;onBlur('ionChange')"
+  title="{{searchinput.tool_tip}}" (dblclick)="doubleClickFun($event)" (keyup)="checkKey($event)">
+</ion-input>
+
+  </div>
+</div>

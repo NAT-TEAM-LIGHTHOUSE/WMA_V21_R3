@@ -1,0 +1,299 @@
+<ng-container *ngIf="frame.apps_frame_sub_type=='APPLICATION'">
+
+  <ion-grid>
+    <ion-row >
+    <ion-col size="12" class="mt-2" style="background: #ffffff;border-radius: 3px;border:1px solid rgb(212, 212, 212);">
+      <div class="frame-head">
+        <div class="frame-name" style="margin-left:7px; padding: 11px 0px !important;font-size: 16px !important;">
+         <ion-icon class="frame_head_icon" name="grid"></ion-icon> {{frame.apps_page_frame_name}}<ion-icon
+          class="code-btn" color="primary" name="information-circle-outline" *ngIf="globalObjects.toggleDevloperMode()"
+          (click)="showDeveloperData1()"></ion-icon>
+          </div>
+          </div>
+          <ion-row >
+    <!-- <ion-icon class="code-btn" color="primary" name="information-circle-outline"
+    (click)="showDeveloperData()"></ion-icon> -->
+      <ion-col size="12" size-md="4" size-lg="2"  *ngFor="let tableData of frame.tableRows; let i = index">
+       
+        <div class="application-card" >
+          <ng-container *ngFor="let itemGrp of tableData">
+            <ng-container *ngFor="let item of itemGrp.Level5">
+              <ng-container *ngIf="item.item_name == 'PHOTO'">
+                <div class="application-card-image">
+                  <img [src]="item.blobImg">
+                </div>
+              </ng-container>
+                <ng-container *ngIf="item.item_name == 'APPS_NAME'">
+                <h3>{{item.value }}
+                </h3>
+              </ng-container>
+              
+            </ng-container>
+          </ng-container>
+          <ng-container *ngFor="let itemGrp of tableData">
+            <ng-container *ngFor="let item of itemGrp.Level5">
+              <ng-container *ngIf="item.item_name == 'PB_OBJECT_CODE'">
+          <div class="VisitNowbtn" >
+            <ion-button class="external_app_btn" (click)="itemClicked(item)">
+                 <img src="assets/imgs/app_external.svg" />
+               </ion-button>
+          </div>
+              </ng-container>
+              <ng-container *ngIf="item.item_name == 'SYS_CLICK_EVENT'">
+                <div class="VisitNowbtn">
+              
+                   <ion-button class="external_app_btn" (click)="itemClicked(item)">
+                 <img src="assets/imgs/app_external.svg" />
+               </ion-button>
+                </div>
+                    </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row >
+    </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ng-container>
+<ng-container *ngIf="frame.apps_frame_sub_type=='COMING_SOON'">
+  <div class="row">
+    <div class="col-md-12 p-2">
+      <div class="calender-area">
+        <h1>Coming Soon</h1>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="frame.apps_frame_sub_type=='CALENDAR'">
+  <!-- <app-frame-desktop-clendar [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+    [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)"></app-frame-desktop-clendar> -->
+     <app-frame-desktop-clendar [frame]="frame" [wsdp]="wsdp"
+    [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)"></app-frame-desktop-clendar>
+</ng-container>
+
+
+<ng-container *ngIf="frame.apps_frame_sub_type=='REMINDER' || frame.apps_frame_sub_type=='RELEASE_NOTES'">
+  <div *ngFor="let framedata of frame.canvasRows">
+    <ion-row *ngFor="let itemGroup of framedata">
+      <ion-col *ngFor="let item of itemGroup.Level5;let i=index" style="padding: 1px 2px;">
+        <ng-container *ngIf="item.item_type != 'FRAME_SEPARATOR'">
+          <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event)" [frame]="frame"></app-items>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="frame.apps_frame_sub_type=='REMINDER_LISTING' ">
+  <div class="reminder_search">
+    <ion-searchbar (ionChange)="searchAllData()" [(ngModel)]="frame.search"
+      placeholder="Search Reminder"></ion-searchbar>
+  </div>
+
+  <div class="remindar-container" style="padding: 1px 2px;">
+
+    <ng-container *ngFor="let itemGroup of frame.Level4">
+      <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+        <div class="new-reminder" *ngIf="item.item_name=='SYS_ADD' && item.item_visible_flag == 'T'"
+          (click)="itemClicked(item)">
+          {{item.prompt_name}}
+        </div>
+      </ng-container>
+    </ng-container>
+    
+    
+    
+    <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
+        <div class="reminder-section">
+        <ng-container *ngFor="let itemGroup of framedata">
+          <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+            <div class="action-btnreminder" >
+              <ion-icon  *ngIf="item.item_name=='SYS_DELETE'" (click)="itemClicked(item)" name="trash-outline"></ion-icon>
+
+            </div>
+            <div class="action-btnreminder_edit" >
+           <ion-icon   *ngIf="item.item_name=='SYS_EDIT'" (click)="itemClicked(item)"  name="create-outline"></ion-icon>
+            </div>
+            <ion-icon class="code-btn" name="information-circle-outline" style="position: absolute;right: 0;"
+              color="primary" *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+          </ng-container></ng-container>
+
+
+        <ng-container *ngFor="let itemGroup of framedata">
+          <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+            <h3 *ngIf="item.item_name=='SYS_SUBJECT'">{{item.prompt_name}}: {{item.value}}</h3>
+            <p *ngIf="item.item_name=='SYS_BODY'">{{item.prompt_name}}: {{item.value}}</p>
+            <div class="header-reminder" *ngIf="item.item_name=='SYS_DATE'">
+              <ul>
+                <li>{{item.prompt_name}}: {{item.value}}</li>
+              </ul>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+        </ng-container>
+  </div>
+</ng-container>
+
+
+
+
+
+
+<!-- //////////////////////////////NOTES LINK////////////////// -->
+<ng-container *ngIf="frame.apps_frame_sub_type=='NOTES'">
+  <app-noteslink (emitPass)="itemClicked($event)" [frame]="frame"></app-noteslink>
+</ng-container>
+<!-- //////////////////////////////Form tabsK////////////////// -->
+<ng-container *ngIf="frame.apps_frame_sub_type=='FORM_TABS'">
+  <app-form-tabs [frame]="frame" (emitPass)="itemClicked($event)"></app-form-tabs>
+</ng-container>
+
+<!-- //////////////////////////////Notify LINK////////////////// -->
+<ng-container *ngIf="frame.apps_frame_sub_type=='NOTIFY'">
+  <app-notificationlink [frame]="frame"></app-notificationlink>
+</ng-container>
+
+<!-- <ng-container *ngIf="frame.apps_frame_sub_type=='HELP_VIDEO'">
+<app-ai-assitant [frame]="frame" (emitPass)="itemClicked($event)"></app-ai-assitant>
+
+</ng-container> -->
+
+
+
+
+
+<!-- <ng-container *ngIf="frame.apps_frame_sub_type=='RULE_BOOK'">
+
+<ng-container *ngFor="let frm of frame.Level4">
+    <ng-container *ngFor="let item of frm.Level5">
+      
+      <ng-container *ngIf="item.item_name=='CB_SELECT'">
+        
+        <div class="glob_chip_item">
+        <ion-checkbox></ion-checkbox>
+        <ion-label>{{item.prompt_name}}</ion-label>
+        
+      </div>
+
+      <ng-container *ngIf="item.item_name =='RULE_CODE'">
+        
+      </ng-container>
+      </ng-container>
+    <ng-container>
+    </ng-container>
+  </ng-container>  
+</ng-container>
+
+ 
+
+</ng-container> -->
+
+
+<!-- -----------------------------Report Engine------------------------------- -->
+  <ng-container *ngIf="frame.apps_frame_sub_type=='ENGINE'">
+  <app-frame-report-engine [frame]="frame" [object_mast]="object_mast"
+    (emitPass)="itemClicked($event)"></app-frame-report-engine>
+</ng-container>
+
+
+  <div class="form-seq-menu pl-2 pr-2">
+    <ng-container *ngIf="frame.apps_frame_sub_type=='OBJECT_INFO'">
+    <div class="form-seq-menu-title">
+      About this page
+    </div>
+    <div class="form-seq-menu-desc">
+      {{object_text}}
+    </div>
+    <!-- this is html div -->
+     
+    <div class="html_area" *ngIf="htmltag">
+      <span [innerHtml]="htmltag"></span>
+    </div>
+
+    </ng-container>
+     <!-- <ng-container *ngIf="frame.apps_frame_sub_type=='RELATED_LINKS'">
+    <div class="form-seq-menu-title">
+      Related links
+    </div>
+    <div class="form-seq-menu-chips">
+
+
+      
+     <div class="form-seq-menu-chips-container">
+        Sales Enquiry Cost Estimation
+      </div>
+      <div class="form-seq-menu-chips-container">
+        Manage Details
+      </div>
+      <div class="form-seq-menu-chips-container">
+        Sales Contract
+      </div>
+      <div class="form-seq-menu-chips-container">
+        Sales Quotation
+      </div> 
+    </div>
+    </ng-container>-->
+
+    <ng-container *ngIf="frame.apps_frame_sub_type=='RELATED_LINKS'">
+      <!-- <div class="form-seq-menu pl-2 pr-2"> -->
+      <div class="form-seq-menu-title">
+        Related links
+      </div>
+      <div class="form-seq-menu-chips">
+      
+          <ng-container *ngIf="frame.tableRows">
+            <ng-container *ngFor="let itemGroup of frame.tableRows">
+              <ng-container *ngFor="let items of itemGroup">
+              <ng-container *ngFor="let item of items.Level5">
+                <ng-container *ngIf="item.item_type == 'BUTTON' && item.item_visible_flag == 'T'">
+           
+              <ion-button class="form-seq-menu-chips-container" (click)="itemClicked(item)" [disabled]="item.item_enable_flag == 'F'"> 
+              {{item.prompt_name}}
+            </ion-button>
+           
+                </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+    
+      </div>
+    </ng-container>
+
+
+
+  </div>
+
+<!-- </ng-container> -->
+
+<!-- -----------------------------Global Search------------------------------ -->
+<ng-container *ngIf="frame.apps_frame_sub_type=='GLOBAL_SEARCH_HEAD'">
+  <app-serch-new-global [frameArr]="object_mast.globalSearchArr" [object_mast]="object_mast"
+    (emitPass)="itemClicked($event)"></app-serch-new-global>
+</ng-container>
+<!-- -----------------------------API_INTEGRATION------------------------------ -->
+<ng-container *ngIf="frame.apps_frame_sub_type=='API_INTEGRATION'">
+  <app-frame-integration-component [frame]="frame" [wscp]="wscp" (emitPass)="itemClicked($event)"></app-frame-integration-component>
+</ng-container>
+
+
+
+<!-- Memo -->
+ <ng-container *ngIf="frame.apps_frame_sub_type=='MEMO'">
+  <app-create-memo [frame]="frame" [wscp]="wscp" (emitPass)="itemClicked($event)">
+
+  </app-create-memo>
+
+ </ng-container>
+<!--Dashboard-->
+ <ng-container *ngIf="frame.apps_frame_sub_type=='DEFAULT_LOGIN_DASHBOARD'">
+  <app-frame-dashboard-default [frame]="frame" [wscp]="wscp" (emitPass)="itemClicked($event)" (quickLinksemit)="quickLinks()">
+
+  </app-frame-dashboard-default>
+
+ </ng-container>

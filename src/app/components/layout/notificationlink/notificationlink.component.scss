@@ -1,0 +1,74 @@
+.notification-area{
+    .notes-container{
+     height:740px;
+     overflow-y: auto;
+    overflow-x: hidden;
+     margin-top: 13px;
+    }
+   
+    .event-day{
+        font-size: var(--font14);
+        color: #8C8C8C;
+        font-weight: 400;
+    }
+    h6{
+        font-size: var(--font14);
+        font-weight: 400;
+        color: var(--blackNew);
+        margin-bottom: 0;
+        position: fixed;
+        top: 12vh;
+        left: 16%;
+        margin-top: 0;
+        cursor: pointer;
+        &:hover{
+            color: var(--blue-new);
+        }
+    }
+    .notification-list{
+        margin-bottom: 10px;
+        .card{
+        border-color: #E4E4E4;
+        border-radius: 3px;
+       // width: 424px;
+        height: auto;
+        .card-body{
+        .card-title{
+            font-size: var(--font14);
+            color: var(--blackNew);
+            font-weight: 600;
+            margin: 4px 0 5px;
+            width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+    .card-text{
+        font-size: var(--font12);
+        color: #606060;
+        font-weight: 400;
+    }
+    span{
+        font-size: var(--font12);
+        color: #8C8C8C;
+        font-weight: 400;
+        text-align: end;
+    }
+    }
+    
+    }
+    
+    }
+    
+    
+}
+
+@media screen and (min-width:1280px) and (max-width:1366px){
+
+    .notification-area{
+        h6 {
+            top: 10.5%;
+            left: 23%;
+        }
+    }
+}

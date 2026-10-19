@@ -1,0 +1,362 @@
+@import '../../app/mixins';
+@import '../../app/variables';
+
+.font-color {
+    $colorDefault: var(--fontColorDark) !important;
+
+    .text-primary,
+    p,
+    .globe-btn1,
+    ion-button {
+     color: $colorDefault;
+    }
+
+    /* para-text component css start */
+    .timeline-p {
+     color: $colorDefault;
+    }
+
+    .name-value-text {
+
+        .label-name,
+        .label-value {
+          color: $colorDefault;
+        }
+
+        .label-name {
+          color: $colorDefault;
+        }
+    }
+
+    .item.sc-ion-label-md-h,
+    .item .sc-ion-label-md-h,
+    .block-text ion-label {
+     color: $colorDefault;
+    }
+
+    /* para-text component css start */
+    /* Frame Canvas component CSS Start*/
+    .frame-name {
+     color: $colorDefault;
+    }
+
+    /* Frame Canvas component CSS Start*/
+    /* Item Seperator component  CSS Start*/
+    .item-seperator {
+     color: $colorDefault;
+    }
+
+    /* Item Seperator component  CSS end*/
+    /* Menu List component  CSS Start*/
+    .menu-list {
+        h2 {
+        color: $colorDefault;
+        }
+
+        ion-icon {
+            color: $colorDefault;
+        }
+    }
+
+    /* Menu List  component  CSS End*/
+    /*new Menu List component  CSS Start*/
+    .new-menu-list {
+        h2 {
+        color: $colorDefault;
+        }
+
+        ion-icon {
+            color: $colorDefault;
+        }
+    }
+
+    /* New Menu List  component  CSS End*/
+    /*Collapse List /rep-card Css start*/
+    .collapse-list-container {
+        .collapse-list {
+        color: $colorDefault;
+
+            ion-label,
+            ion-icon,
+            .message-text {
+                                color: $colorDefault;
+            }
+
+            ion-icon {
+                color: $colorDefault;
+            }
+
+            h2.prompt-name {
+                color: $colorDefault;
+            }
+        }
+
+        .collapse-list-body {
+        color: $colorDefault;
+        }
+    }
+
+    /*Collapse List /rep-card Css End*/
+    /*Count List / Ion badges Css Start*/
+    .count-list {
+        .approval-body {
+            ion-item {
+                .count {
+                    p {
+                        color: $colorDefault;
+                    }
+                }
+            }
+
+            ion-label {
+                color: $colorDefault;
+            }
+        }
+    }
+
+    /*Count List / Ion badges Css End*/
+    /* Search input css Start */
+    .input-text .native-input {
+        color: $colorDefault;
+    }
+
+    /* Search input css End*/
+    /* New Input Item  css Start*/
+    .new-input-item-type {
+        .text-left {
+            span {
+                color: $colorDefault;
+            }
+        }
+    }
+
+    /* New Input Item css End*/
+    /* News Scoll component CSS Start*/
+    .marquee-container {
+        marquee {
+        color: $colorDefault;
+        }
+    }
+
+    /* News Scoll component  CSS End*/
+    /* two D KPI  */
+    .twod-kpi {
+        .kpi-header {
+        color: $colorDefault;
+        }
+
+        .kpi-body {
+        color: $colorDefault;
+        }
+    }
+
+    /* Two D KPI CSS End */
+    /* menu tab css start */
+    .tab-menu {
+        .name-container {
+            h6 {
+color: $colorDefault;
+            }
+        }
+    }
+
+    /* menu tab CSS End*/
+    /*   Global Table CSS Start */
+    table {
+        thead {
+
+            th {
+
+                color: $colorDefault;
+            }
+        }
+
+        tbody tr:nth-child(even) {
+        color: $colorDefault;
+        }
+
+        td,
+        ion-label {
+        color: $colorDefault;
+
+        }
+    }
+
+    /*   Global Table CSS Start */
+    /*  chat box right css  */
+    .chat-right {
+     
+        color: $colorDefault;
+    }
+
+    /*  chat box left css  */
+    .chat-left {
+     
+        color: $colorDefault;
+    }
+
+    /*Smart colors Start*/
+    .smart-color-section {
+        h5 {
+        color: $colorDefault;
+        }
+
+        h6 {
+        color: $colorDefault;
+        }
+
+        .view-all-btn {
+        color: $colorDefault;
+        }
+    }
+
+    /*Smart colors End*/
+    .column-count {
+     
+        color: $colorDefault;
+    }
+
+
+    ion-label {
+     
+        color: $colorDefault;
+    }
+
+    /* single count CSS */
+    .single-count {
+        .count-name {
+            span {
+color: $colorDefault;
+            }
+        }
+    }
+
+    .smart-color-section1 {
+        h5 {
+        color: $colorDefault;
+        }
+    }
+
+    .image-slider {
+        ion-slide {
+            h1 {
+color: $colorDefault;
+            }
+        }
+    }
+
+    .percentage-circle-wraper {
+        h5 {
+        color: $colorDefault;
+        }
+    }
+
+
+    .sub-select-dropdown {
+        ion-select {
+        color: $colorDefault;
+        }
+
+        .select-text {
+        color: $colorDefault;
+        }
+    }
+
+    .threeD-textband-container {
+        .threeD-textband-header {
+        color: $colorDefault;
+        }
+
+        .threeD-textband-footer {
+        color: $colorDefault;
+        }
+
+        .threeD-textband-body {
+            h5 {
+color: $colorDefault;
+            }
+        }
+    }
+
+    .pagination-container {
+        .paginator {
+            li {
+color: $colorDefault;
+            }
+        }
+    }
+
+
+    .graph-colors {
+        ion-item {
+            ion-select {
+color: $colorDefault;
+            }
+        }
+    }
+
+    .summary-card-container {
+        .single-summary-card {
+            .tophead-card {
+                height: 160px;
+                padding: 8px;
+
+                .main-title {
+    color: $colorDefault;
+                    color: $colorDefault;
+                }
+
+                p {
+    color: $colorDefault;
+                    color: $colorDefault;
+                }
+
+                .code-btn {
+    color: $colorDefault;
+                    color: $colorDefault;
+                }
+            }
+
+            .summary-box {
+                margin-top: -104px !important;
+                width: 85%;
+                margin: auto;
+                padding: 10px;
+                border-radius: 12px;
+
+                h6 {
+    color: $colorDefault;
+                    color: $colorDefault;
+                }
+
+                table td {
+    color: $colorDefault;
+                    color: $colorDefault;
+                }
+
+                table {
+                    tr.heading1 td {
+        color: $colorDefault;
+                        color: $colorDefault;
+                    }
+
+                    .heading2 {
+                        .rate {
+            color: $colorDefault;
+                            color: $colorDefault;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    .tab-menu-large {
+        .name-container {
+            h6 {
+color: $colorDefault;
+            }
+        }
+    }
+}

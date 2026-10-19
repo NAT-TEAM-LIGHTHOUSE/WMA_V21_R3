@@ -1,0 +1,14 @@
+
+<ion-list class="new-menu-list">
+  <ion-item class="ion-no-padding" (click)="buttonClick($event)" (contextmenu)="onRightClick($event)">
+      <div class="thumbnail-container">
+          <ion-thumbnail slot="start"> 
+              <img [src]="baseImg" (error)="onImgError($event)">
+          </ion-thumbnail>
+      </div>
+      <h2>{{menulistNEW.prompt_name}}{{menulistNEW.value}}</h2>
+  </ion-item>
+</ion-list>
+
+
+

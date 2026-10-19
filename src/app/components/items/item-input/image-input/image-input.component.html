@@ -1,0 +1,129 @@
+<div class="capture-img-container">
+  <ion-label class="form-label">{{imageinput.prompt_name}}</ion-label>
+  <div *ngIf="!this.imageinput.Dvalue && imageinput.item_sub_type !='DS' && imageinput.item_sub_type !='CIRCLE_CAPTURE'" style="position: relative;">
+    <img src="assets/imgs/default-thumbnail.jpg" class="img-input">
+    
+    <div *ngIf="!(platform.is('ios') || platform.is('android')) && isVideoVisible" class="video_capture_webcam">
+      <video #video autoplay playsinline style="width: 100%; height:100%;"></video>
+      <div class="img-capture-sec" style="position: absolute; right: 0;bottom: 15px;opacity :0">
+        <span (click)="capture()" style="background: rgba(0,0,0,0.5); padding: 5px; border-radius: 50%; cursor: pointer;">
+          <!-- <ion-icon name="camera-outline" class="text-light"></ion-icon> -->
+        </span>
+      </div>
+      <canvas #canvas hidden></canvas>
+    </div>
+  </div>
+  
+  <div *ngIf="imageinput.Dvalue && imageinput.item_sub_type !='DS' && imageinput.item_sub_type !='CIRCLE_CAPTURE'"
+    class="capture-img-container" (click)="photoview()" style="position: relative;">
+    <!-- {{imageinput.Dvalue}} -->
+    <img *ngIf="platform.is('ios') || platform.is('android')" [src]="'data:image/jpeg;base64,'+imageinput.Dvalue" class="img-input">
+    <img *ngIf="!platform.is('ios') && !platform.is('android')" [src]="'data:image/jpeg;base64,'+imageinput.Dvalue" class="img-input">
+  </div>
+</div>
+
+<!-- ROUNDED CAMERA -->
+<div class="camscaner" *ngIf="imageinput.item_sub_type=='CIRCLE_CAPTURE'">
+  <div *ngIf="platform.is('ios') || platform.is('android')" class="capture-img-container1">
+    <div *ngIf="!imageinput.Dvalue">
+      <img src="assets/imgs/cameraaaa.png" class="img-rounded" (click)="handleButtonClick()">
+    </div>
+    <div *ngIf="imageinput.Dvalue" class="capture-img-container1" (click)="handleButtonClick()">
+      <img [src]="'data:image/jpeg;base64,'+imageinput.Dvalue" class="img-rounded">
+    </div>
+  </div>
+  <div *ngIf="platformValue" class="capture-img-container1">
+    <div *ngIf="!imageinput.Dvalue" class="choose-file-new">
+      <img src="assets/imgs/cameraaaa.png" class="img-rounded img-ic-new">
+      <input type="file" class="choose-file-ip-new" accept="image/png,image/jpg,image/jpeg"
+        [readonly]="imageinput.item_enable_flag && imageinput.item_enable_flag=='F'"
+        (change)="selectFile('grey', $event)" />
+    </div>
+    <div *ngIf="imageinput.Dvalue" class="choose-file-new">
+      <img [src]="'data:image/jpeg;base64,'+imageinput.Dvalue" class="img-rounded img-ic-new">
+      <input type="file" class="choose-file-ip-new" accept="image/png,image/jpg,image/jpeg"
+        [readonly]="imageinput.item_enable_flag && imageinput.item_enable_flag=='F'"
+        (change)="selectFile('grey', $event)" />
+    </div>
+  </div>
+  <div class="error" *ngIf="!imageinput.isValid && imageinput.vadidateMsg">{{imageinput.vadidateMsg}}</div>
+  <div class="error" *ngIf="imageinput.msgError">{{imageinput.msgError}}</div>
+  <div class="error" *ngIf="imageinput.forced_error_msg">{{imageinput.forced_error_msg}}</div>
+</div>
+
+<!--SIGNATURE PAD-->
+<div class="mb-2" *ngIf="imageinput.item_sub_type=='S'" style="display: flex;align-items: center;">
+  <ion-grid class="p-0">
+    <ion-row>
+      <div class="img-capture-sec-container" style="display: inline-flex">
+        <ion-col col-4 class="p-0">
+          <div class="img-capture-sec">
+            <span (click)="opensignaturePad()">
+              <ion-icon name="create"></ion-icon>
+            </span>
+          </div>
+          <div class="img-capture-sec trash-btn-sec">
+            <span (click)="drawClear()">
+              <ion-icon name="trash"></ion-icon>
+            </span>
+          </div>
+        </ion-col>
+      </div>
+    </ion-row>
+  </ion-grid>
+</div>
+<!--END-->
+
+<!--CAMERA-->
+<div class="mb-2"
+  *ngIf="imageinput.item_sub_type !='S' && imageinput.item_sub_type !='DS' && imageinput.item_sub_type !='CIRCLE_CAPTURE'" 
+  style="display: flex;align-items: center; position:absolute;left:14px;bottom: 0; color:#fff">
+  <div class="img-capture-sec-container" style="display: inline-flex">
+    
+    <!-- Mobile camera button -->
+    <div class="img-capture-sec" 
+      *ngIf="(imageinput.item_sub_type =='ONLY_CAMERA' || imageinput.item_sub_type =='CAMERA_FILE') && (platform.is('ios') || platform.is('android'))">
+      <span (click)="takeImage(imageinput.item_db_name,'CAMERA')">
+        <ion-icon name="camera-outline"></ion-icon>
+      </span>
+    </div>
+    
+    <!-- Web camera button -->
+    <div class="img-capture-sec" 
+      *ngIf="(imageinput.item_sub_type =='ONLY_CAMERA' || imageinput.item_sub_type =='CAMERA_FILE') && (!platform.is('ios') && !platform.is('android'))">
+      <span (click)="showCamera()">
+        <ion-icon name="camera-outline"></ion-icon>
+      </span>
+    </div>
+
+    <!-- Gallery button for mobile -->
+    <div class="img-capture-sec"
+      *ngIf="(imageinput.item_sub_type =='ONLY_FILE' || imageinput.item_sub_type =='CAMERA_FILE') && (platform.is('ios') || platform.is('android'))">
+      <span (click)="takeImage(imageinput.item_db_name,'PHOTOLIBRARY')">
+        <ion-icon name="image-outline"></ion-icon>
+      </span>
+    </div>
+
+    <!-- Delete button -->
+    <div class="img-capture-sec trash-btn-sec">
+      <span (click)="clearImage()">
+        <ion-icon name="trash"></ion-icon>
+      </span>
+    </div>
+    
+    <!-- File input for web -->
+    <div class="img-capture-sec" 
+      *ngIf="(imageinput.item_sub_type =='ONLY_FILE' || imageinput.item_sub_type =='CAMERA_FILE') && platformValue">
+      <div class="choose-file">
+        <span style="color: #F2C230;z-index:0;">.</span>
+        <ion-icon name="images" class="img-ic"></ion-icon>
+        <input type="file" class="choose-file-ip" accept="image/png,image/jpg,image/jpeg"
+          (change)="selectFile('grey', $event)" />
+      </div>
+    </div>
+  </div>
+  <div class="error" *ngIf="!imageinput.isValid && imageinput.vadidateMsg">{{imageinput.vadidateMsg}}</div>
+  <div class="error" *ngIf="imageinput.msgError">{{imageinput.msgError}}</div>
+  <div class="error" *ngIf="imageinput.forced_error_msg">{{imageinput.forced_error_msg}}</div>
+</div>
+<!--CAMERA END-->

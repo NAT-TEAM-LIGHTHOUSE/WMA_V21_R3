@@ -1,0 +1,206 @@
+<ng-container *ngIf="groupFlag;else controlBreakFlag">
+  <div class="table-filter-block a">
+    <table>
+      <thead class="thead_filter">
+        <tr>
+          <ng-container *ngFor="let th of gpRHead.pRHead;let i=index">
+            <th class="top-headth" cdkDropList
+              [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}">
+              {{th.key}}
+              <div class="table-home-btn">
+                <ng-container *ngIf="!th.order && !isNotSort">
+                  <ion-button class="table-home-btn-icon" (click)="collapseSort(th,i)">
+                    <ion-icon name="swap-vertical-outline"></ion-icon>
+                  </ion-button>
+                </ng-container>
+                <ng-container
+                  *ngIf="groupClickSort.length > 1 ? (th.key==groupClickSort[1].th.key && groupClickSort[1].direction > 0) : (groupClickSort.length > 0 ? th.key==groupClickSort[0].th.key && groupClickSort[0].direction > 0 : false)">
+                  <ion-button class="table-home-btn-icon" (click)="collapseSort(th,i)"><ion-icon
+                      name="arrow-up-outline"></ion-icon></ion-button>
+                </ng-container>
+                <ng-container
+                  *ngIf="groupClickSort.length > 1 ? (th.key==groupClickSort[1].th.key && groupClickSort[1].direction < 0) : (groupClickSort.length > 0 ? th.key==groupClickSort[0].th.key && groupClickSort[0].direction < 0 : false)">
+                  <ion-button class="table-home-btn-icon" (click)="collapseSort(th,i)"><ion-icon
+                      name="arrow-down-outline"></ion-icon></ion-button>
+                </ng-container>
+                <ng-container *ngIf="groupClickSort.length > 1 ? (th.key==groupClickSort[0].th.key) : false">
+                  <ion-button class="table-home-btn-icon" (click)="collapseSort(th,i,'radioOn')">
+                    <ion-icon name="radio-button-on">
+                    </ion-icon>
+                  </ion-button>
+                </ng-container>
+              </div>
+            </th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let c of controlBreakArr">
+          <tr>
+            <td class="top-headth1" *ngFor="let tH of c.pRHead;let i=index" style="cursor:pointer"
+              [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}"
+              (click)="c.rowsFlag = !c.rowsFlag">{{tH.value}} <span *ngIf="i==0"
+                class="ml-1">({{c.items.length}})</span></td>
+          </tr>
+          <tr *ngIf="c.rowsFlag">
+            <td colspan="100%" class="bg-white py-0"
+              [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}">
+              <table>
+                <thead class="thead_filter">
+                  <tr>
+                    <ng-container *ngFor="let data of groupInnerHeader;let i=index">
+                      <ng-container *ngFor="let th of data.Level5">
+                        <th
+                          *ngIf="th.item_visible_flag == 'T' && th.item_type!= 'FRAME_BUTTON_ICON' && th.item_type!= 'RIGHT_CLICK'"
+                          [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}">
+                          <div class="thead_name">{{th.prompt_name}}<div class="table-home-btn">
+                              <ng-container *ngIf="!th.order && !isNotSort">
+                                <ion-button class="table-home-btn-icon" (click)="collapseSortGroup(th,i,c)">
+                                  <ion-icon name="swap-vertical-outline"></ion-icon>
+                                </ion-button>
+                              </ng-container>
+                              <ng-container
+                                *ngIf="innerGroupClickSort.length > 1 ? (th.prompt_name==innerGroupClickSort[1].th.prompt_name && innerGroupClickSort[1].direction > 0) : (innerGroupClickSort.length > 0 ? th.prompt_name==innerGroupClickSort[0].th.prompt_name && innerGroupClickSort[0].direction > 0 : false)">
+                                <ion-button class="table-home-btn-icon" (click)="collapseSortGroup(th,i,c)"><ion-icon
+                                    name="arrow-up-outline"></ion-icon></ion-button>
+                              </ng-container>
+                              <ng-container
+                                *ngIf="innerGroupClickSort.length > 1 ? (th.prompt_name==innerGroupClickSort[1].th.prompt_name && innerGroupClickSort[1].direction < 0) : (innerGroupClickSort.length > 0 ? th.prompt_name==innerGroupClickSort[0].th.prompt_name && innerGroupClickSort[0].direction < 0 : false)">
+                                <ion-button class="table-home-btn-icon" (click)="collapseSortGroup(th,i,c)"><ion-icon
+                                    name="arrow-down-outline"></ion-icon></ion-button>
+                              </ng-container>
+                              <ng-container
+                                *ngIf="innerGroupClickSort.length > 1 ? (th.prompt_name==innerGroupClickSort[0].th.prompt_name) : false">
+                                <ion-button class="table-home-btn-icon" (click)="collapseSortGroup(th,i,c,'radioOn')">
+                                  <ion-icon name="radio-button-on">
+                                  </ion-icon>
+                                </ion-button>
+                              </ng-container>
+                            </div>
+                          </div>
+                        </th>
+                      </ng-container>
+                    </ng-container>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tableData of c.items;let rowindex=index"
+                    (dblclick)="dbClickpopover(true,tableData,rowindex)">
+                    <ng-container *ngFor="let itemGroup of tableData;">
+                      <ng-container *ngFor="let item of itemGroup.Level5;let d=index">
+                        <td
+                          *ngIf="item.item_visible_flag == 'T' && item.item_type != 'FRAME_BUTTON_ICON' && item.item_type != 'RIGHT_CLICK'"
+                          [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}"
+                          (click)="itemClicked(item,tableData,rowindex,$event)"
+                          [ngStyle]="item.freezStyle ? item.freezStyle : item.display_setting_str"
+                          [class]="item.datatype=='NUMBER'? 'num-right ' + item.item_name.toLowerCase() : item.item_name.toLowerCase()"
+                          [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)))"
+                          [attr.name]="'canvasClick#'+item.apps_page_frame_seqid+'#'+item.item_name+'#'+item.indexcount">
+                          <ng-container
+                            *ngIf="item.item_type != 'BUTTON' && item.item_type != 'BUTTON_ICON'  && item.item_type != 'DOWNLOAD_DOC'">
+                            <app-para-text [itemInput]="item" [frame_type]="frame.apps_frame_type">
+                            </app-para-text>
+                          </ng-container>
+                          <ng-container *ngIf="item.item_type == 'BUTTON' || item.item_type == 'BUTTON_ICON'">
+                            <app-button-n [ngStyle]="item.display_setting_str" [button]="item">
+                            </app-button-n>
+                          </ng-container>
+                          <ng-container *ngIf="item.item_type == 'DOWNLOAD_DOC'">
+                            <app-download-doc [doc]="item" [ngStyle]="item.display_setting_str">
+                            </app-download-doc>
+                          </ng-container>
+                        </td>
+                      </ng-container>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-container>
+<ng-template #controlBreakFlag>
+  <div class="table-filter-block b">
+    <table>
+      <thead class="thead_filter">
+        <tr>
+          <th *ngFor="let th of controlBreakHead;let i=index" [id]="frame.apps_page_frame_seqid+'thead'+(i+1)"
+            [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}"
+            [class]="'colorCss'+th.apps_item_seqid+' '+'freezeCss'+th.apps_item_seqid">
+            <div class="thead_name">{{th}}<div class="table-home-btn">
+                <!-- <ion-button class="table-home-btn-icon" (click)="thClick(th.item_name,item.datatype)"
+                  *ngIf="clickedHead.length > 1 ? (th.item_name==clickedHead[1].th && clickedHead[1].direction > 0) : (clickedHead.length > 0 ? th.item_name==clickedHead[0].th && clickedHead[0].direction > 0 : false)"><ion-icon
+                    name="arrow-up-outline"></ion-icon></ion-button>
+                <ion-button class="table-home-btn-icon" (click)="thClick(item.item_name,item.datatype)"
+                  *ngIf="clickedHead.length > 1 ? (th.item_name==clickedHead[1].th && clickedHead[1].direction < 0) : (clickedHead.length > 0 ? th.item_name==clickedHead[0].th && clickedHead[0].direction < 0 : false)"><ion-icon
+                    name="arrow-down-outline"></ion-icon></ion-button>
+                <ion-button class="table-home-btn-icon" (click)="thClick(th.item_name,th.datatype)">
+                  <ion-icon name="radio-button-on"
+                    *ngIf="clickedHead.length > 1 ? (th.item_name==clickedHead[0].th) : false">
+                  </ion-icon>
+                </ion-button> -->
+                <!-- <ion-button class="table-home-btn-icon"
+                  (click)="tablecolumnFilter($event,th,i+1,frame.apps_page_frame_seqid)">
+                  <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                </ion-button>
+                <div class="table-search-icon" *ngIf="th.isSearchItem">
+                  <ion-icon name="search-outline"></ion-icon>
+                </div> -->
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let c of controlBreakArr;let j=index">
+          <tr (dblclick)="dbClickpopover(true,tableData,j)" expand="block">
+            <td class="dragHead" colspan="100%" class="control-break-top"
+              [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}">
+              <span *ngFor="let k of c.keys let l = index">
+                <ng-container *ngIf="l > 0">, </ng-container> {{k.key}} : {{k.value}} <span
+                  class="ml-1">({{c.items.length}})</span>
+              </span>
+            </td>
+          </tr>
+          <tr *ngFor="let tableData of c.items;let rowindex=index" (dblclick)="dbClickpopover(true,tableData,rowindex)">
+            <ng-container *ngFor="let itemGroup of tableData;">
+              <ng-container *ngFor="let item of itemGroup.Level5;let d=index">
+                <td
+                  *ngIf="item.item_visible_flag == 'T' && item.item_type != 'FRAME_BUTTON_ICON' && item.item_type != 'RIGHT_CLICK'"
+                  [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}"
+                  (click)="itemClicked(item,tableData,rowindex,$event)"
+                  [ngStyle]="item.freezStyle ? item.freezStyle : item.display_setting_str"
+                  [class]="item.datatype=='NUMBER'? 'num-right ' + item.item_name.toLowerCase() : item.item_name.toLowerCase()"
+                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)))"
+                  [attr.name]="'canvasClick#'+item.apps_page_frame_seqid+'#'+item.item_name+'#'+item.indexcount">
+                  <ng-container
+                    *ngIf="item.item_type != 'BUTTON' && item.item_type != 'BUTTON_ICON'  && item.item_type != 'DOWNLOAD_DOC'">
+                    <app-para-text [itemInput]="item" [frame_type]="frame.apps_frame_type">
+                    </app-para-text>
+                  </ng-container>
+                  <ng-container *ngIf="item.item_type == 'BUTTON' || item.item_type == 'BUTTON_ICON'">
+                    <app-button-n [ngStyle]="item.display_setting_str" [button]="item">
+                    </app-button-n>
+                  </ng-container>
+                  <ng-container *ngIf="item.item_type == 'DOWNLOAD_DOC'">
+                    <app-download-doc [doc]="item" [ngStyle]="item.display_setting_str">
+                    </app-download-doc>
+                  </ng-container>
+                </td>
+              </ng-container>
+            </ng-container>
+          </tr>
+          <tr *ngIf="c.summRow && c.summRow.length > 0" expand="block">
+            <td *ngFor="let h of c.summRow" class="text-right" style="font-weight: bold;background: #f4eded;"
+              [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}">
+              {{h}}
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-template>

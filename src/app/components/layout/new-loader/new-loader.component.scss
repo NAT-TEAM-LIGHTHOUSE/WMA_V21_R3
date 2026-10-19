@@ -1,0 +1,128 @@
+.process-new-loader{
+    position: relative;
+      text-align: center;
+         padding: 5% 0px 5% 0px;
+
+      .process-loader-btn{
+    --border-radius: 20px;
+    border-color: #d8eaff;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 20px;
+    padding: 0px;
+    height: 44px;
+    --height: 44px;
+      }
+}
+/* Stepper */
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Base line */
+.line {
+  position: absolute;
+  top: 25px;
+  left: 12%;
+  width: 76%;
+  height: 4px;
+  background: #ddd;
+  border-radius: 5px;
+  z-index: 0;
+}
+
+/* Progress fill line */
+.progress {
+  position: absolute;
+  top: 25px;
+  left: 12%;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(to right, var(--blue-new), var(--blue-light-1));
+  border-radius: 5px;
+  z-index: 1;
+  transition: width 1s ease;
+}
+
+/* Step */
+.step {
+  width: 25%;
+  text-align: center;
+  z-index: 2;
+}
+
+/* Circle */
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 18px;
+  color: #ccc;
+  transition: all 0.4s ease;
+}
+
+/* Active (border highlight) */
+.step.active .circle {
+  border-color: var(--blue-new);
+  color: var(--blue-new);
+  transform: scale(1.1);
+}
+
+/* Completed (fill + check) */
+.step.completed .circle {
+  background: linear-gradient(45deg, var(--blue-new), var(--blue-light-1));
+  border: none;
+  color: #fff;
+}
+--blue-light-1
+/* Text */
+.step h4 {
+  margin: 5px 0;
+  font-size: 14px;
+}
+h4{
+        font-size: 16px;
+}
+
+.step p {
+  font-size: 12px;
+  color: gray;
+}
+
+.step.active p {
+  color: var(--blue-new);
+}
+
+/* Status */
+.status {
+  margin-top: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #e2ecff;
+  color: #3f99ff;
+  padding: 12px 20px;
+  border-radius: 25px;
+}
+
+/* Loader */
+.loader {
+  width: 14px;
+  height: 14px;
+  border: 3px solid #e2ecff;
+  border-top: 3px solid #3f82ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}

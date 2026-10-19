@@ -1,0 +1,390 @@
+@import '../../app/mixins';
+@import '../../app/variables';
+// @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&family=Rubik&display=swap');
+// /*     font-family: 'Rubik', sans-serif; */
+// @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&family=Rubik&family=Saira&display=swap');
+//  /*   font-family : 'Saira', sans-serif; */
+// @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+// @import 'assets/libs/css/fontFamily/Noto_Sans_Mono.css';
+// @import 'assets/libs/css/fontFamily/Open_Sans.css';
+// @import 'assets/libs/css/fontFamily/Raleway.css';
+// @import 'assets/libs/css/fontFamily/Rubik.css';
+// @import 'assets/libs/css/fontFamily/Saira.css';
+// @import 'assets/libs/css/fontFamily/Montserrat.css';
+
+
+.font-family {
+    
+    $notoFont : var(--fontFamilyRoboto);
+    .text-primary,
+    p,
+    .globe-btn1,
+    ion-button {
+     font-family:  $notoFont;
+    }
+    /* para-text component css start */
+    .timeline-p {
+     font-family:  $notoFont;
+    }
+    .name-value-text {
+        .label-name,
+        .label-value {
+         font-family:  $notoFont;
+        }
+        .label-name {
+         font-family:  $notoFont;
+        }
+    }
+    .item.sc-ion-label-md-h,
+    .item .sc-ion-label-md-h,
+    .block-text ion-label {
+     font-family:  $notoFont;
+      
+    }
+    /* para-text component css start */
+    /* Frame Canvas component CSS Start*/
+    .frame-name {
+     font-family:  $notoFont;
+    }
+    /* Frame Canvas component CSS Start*/
+    /* Item Seperator component  CSS Start*/
+    .item-seperator {
+     font-family:  $notoFont;
+    }
+    /* Item Seperator component  CSS end*/
+    /* Menu List component  CSS Start*/
+    .menu-list {
+        h2 {
+         font-family:  $notoFont;
+        }
+        ion-icon {
+         font-family:  $notoFont;
+        }
+    }
+    /* Menu List  component  CSS End*/
+    /*new Menu List component  CSS Start*/
+    .new-menu-list {
+        h2 {
+         font-family:  $notoFont;
+        }
+        ion-icon {
+         font-family:  $notoFont;
+        }
+    }
+    /* New Menu List  component  CSS End*/
+    /*Collapse List /rep-card Css start*/
+    .collapse-list-container {
+        .collapse-list {
+         font-family:  $notoFont;
+            ion-label,
+            ion-icon,
+            .message-text {
+             font-family:  $notoFont;
+            }
+            ion-icon {
+    
+             font-family:  $notoFont;
+            }
+            h2.prompt-name {
+    
+             font-family:  $notoFont;
+            }
+        }
+        .collapse-list-body {
+
+         font-family:  $notoFont;
+        }
+    }
+    /*Collapse List /rep-card Css End*/
+    /*Count List / Ion badges Css Start*/
+    .count-list {
+        .approval-body {
+            ion-item {
+                .count {
+                    p {
+            
+                     font-family:  $notoFont;
+                    }
+                }
+            }
+
+            ion-label {
+    
+             font-family:  $notoFont;
+            }
+        }
+    }
+
+    /*Count List / Ion badges Css End*/
+    /* Search input css Start */
+    .input-text .native-input {
+      
+     font-family:  $notoFont;
+    }
+
+    /* Search input css End*/
+    /* New Input Item  css Start*/
+    .new-input-item-type {
+        .text-left {
+            span {
+    
+             font-family:  $notoFont;
+            }
+        }
+    }
+
+    /* New Input Item css End*/
+    /* News Scoll component CSS Start*/
+    .marquee-container {
+        marquee {
+
+         font-family:  $notoFont;
+        }
+    }
+
+    /* News Scoll component  CSS End*/
+    /* two D KPI  */
+    .twod-kpi {
+        .kpi-header {
+
+         font-family:  $notoFont;
+        }
+
+        .kpi-body {
+
+         font-family:  $notoFont;
+        }
+    }
+
+    /* Two D KPI CSS End */
+    /* menu tab css start */
+    .tab-menu {
+        .name-container {
+            h6 {
+    
+             font-family:  $notoFont;
+            }
+        }
+    }
+
+    /* menu tab CSS End*/
+    /*   Global Table CSS Start */
+    table {
+        thead {
+            th {
+    
+             font-family:  $notoFont;
+            }
+        }
+
+        tbody tr:nth-child(even) {
+
+         font-family:  $notoFont;
+        }
+
+        td,
+        ion-label {
+
+         font-family:  $notoFont;
+
+        }
+    }
+
+    /*   Global Table CSS Start */
+    /*  chat box right css  */
+    .chat-right {
+      
+     font-family:  $notoFont;
+    }
+
+    /*  chat box left css  */
+    .chat-left {
+      
+     font-family:  $notoFont;
+    }
+
+    /*Smart Filters Start*/
+    .smart-filter-section {
+        h5 {
+
+         font-family:  $notoFont;
+        }
+
+        h6 {
+
+         font-family:  $notoFont;
+        }
+
+        .view-all-btn {
+
+         font-family:  $notoFont;
+        }
+    }
+
+    /*Smart Filters End*/
+    .column-count {
+      
+     font-family:  $notoFont;
+    }
+
+
+    ion-label {
+      
+     font-family:  $notoFont;
+    }
+
+    /* single count CSS */
+    .single-count {
+        .count-name {
+            span {
+    
+             font-family:  $notoFont;
+            }
+        }
+    }
+
+    .smart-filter-section1 {
+        h5 {
+
+         font-family:  $notoFont;
+        }
+    }
+
+    .image-slider {
+        ion-slide {
+            h1 {
+    
+             font-family:  $notoFont;
+            }
+        }
+    }
+
+    .percentage-circle-wraper {
+        h5 {
+
+         font-family:  $notoFont;
+        }
+    }
+
+
+    .sub-select-dropdown {
+        ion-select {
+
+         font-family:  $notoFont;
+        }
+
+        .select-text {
+
+         font-family:  $notoFont;
+        }
+    }
+
+    .threeD-textband-container {
+        .threeD-textband-header {
+
+         font-family:  $notoFont;
+        }
+
+        .threeD-textband-footer {
+
+         font-family:  $notoFont;
+        }
+
+        .threeD-textband-body {
+            h5 {
+    
+             font-family:  $notoFont;
+            }
+        }
+    }
+
+    .pagination-container {
+        .paginator {
+            li {
+    
+             font-family:  $notoFont;
+            }
+        }
+    }
+
+
+    .graph-filters {
+        ion-item {
+            ion-select {
+    
+             font-family:  $notoFont;
+            }
+        }
+    }
+
+    .summary-card-container {
+        .single-summary-card {
+            .tophead-card {
+                height: 160px;
+                padding: 8px;
+
+                .main-title {
+        
+                 font-family:  $notoFont;
+                }
+
+                p {
+        
+                 font-family:  $notoFont;
+                }
+
+                .code-btn {
+        
+                 font-family:  $notoFont;
+                }
+            }
+
+            .summary-box {
+                margin-top: -104px !important;
+                width: 85%;
+                margin: auto;
+                padding: 10px;
+                border-radius: 12px;
+
+                h6 {
+        
+                 font-family:  $notoFont;
+                }
+
+                table td {
+        
+                 font-family:  $notoFont;
+                }
+
+                table {
+                    tr.heading1 td {
+            
+                     font-family:  $notoFont;
+                    }
+
+                    .heading2 {
+                        .rate {
+                
+                         font-family:  $notoFont;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    .tab-menu-large {
+        .name-container {
+            h6 {
+    
+             font-family:  $notoFont;
+            }
+        }
+    }
+    
+}

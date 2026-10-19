@@ -1,0 +1,76 @@
+<h2 class="frame-name w-100">{{frame.apps_page_frame_name}}
+        <span style="margin-left: 10px;"
+          *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline" (click)="showDeveloperData()" >
+          </ion-icon>
+        </span>
+      </h2>
+<ion-card class="calendar-card">
+  <!-- <div class="calendar-header-top">
+    <div class="title"></div>
+    <button class="go-to-calendar-btn" (click)="goToCurrentMonth()">
+      Go to calendar
+    </button>
+  </div> -->
+
+  <div class="calendar-wrapper">
+    <div class="month-nav">
+      <button class="icon-btn" (click)="prevMonth()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button>
+
+      <div class="month-label">{{ monthYearLabel }}</div>
+
+      <button class="icon-btn" (click)="nextMonth()">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+
+      <!-- <button class="icon-btn menu-btn" (click)="openMenu()">
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </button> -->
+    </div>
+
+    <div class="weekdays">
+      <div class="weekday" *ngFor="let day of weekDays">{{ day }}</div>
+    </div>
+
+    <div class="calendar-grid">
+      <div
+        class="day-cell"
+        *ngFor="let day of calendarDays"
+        [class.other-month]="!day.currentMonth"
+        (click)="onDaySelected(day)"
+      >
+      <div
+  class="day-circle"
+  [style.background]="legendData[day.status?.toLowerCase()] || 'transparent'"
+>
+  {{ day.dayNumber }}
+</div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item" *ngFor="let legend of (legendData | keyvalue)">
+        <span class="dot" [style.background]="legend.value"></span>
+        <span>{{ legend.key | titlecase }}</span>
+      </div>
+      <!-- <div class="legend-item">
+        <span class="dot present"></span>
+        <span>Present</span>
+      </div>
+      <div class="legend-item">
+        <span class="dot leave"></span>
+        <span>Leave</span>
+      </div>
+      <div class="legend-item">
+        <span class="dot absent"></span>
+        <span>Absent</span>
+      </div>
+      <div class="legend-item">
+        <span class="dot holiday"></span>
+        <span>Holiday</span>
+      </div> -->
+    </div>
+  </div>
+</ion-card>

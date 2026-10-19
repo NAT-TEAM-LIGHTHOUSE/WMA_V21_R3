@@ -1,0 +1,57 @@
+<div class="addcolumn_filter">
+  <div class="column_one">
+    <ng-container *ngFor="let grpData of grpByArr">
+      <h4 (click)="showItems(grpData.groupname)">
+        {{ grpData.groupname }}
+      </h4>
+    </ng-container>
+  </div>
+
+  <div class="column_two">
+    <h4>Add Columns</h4>
+    <div class="filter_table">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 30%">Item Name</th>
+            <th style="width: 30%">Column Name</th>
+            <th style="width: 70%">Formula</th>
+          </tr>
+        </thead>
+        <ng-container *ngFor="let grpData of grpByArr">
+          <ng-container *ngFor="let item of grpData.groupnameARR">
+            <ng-container *ngIf="datatype == grpData.groupname">
+              <tbody>
+                <tr>
+                  <td>
+                    {{ item.prompt_name }}
+                  </td>
+                  <td>
+                    <div class="form-input">
+                      <ion-input type="text" [(ngModel)]="item.new_item_name" placeholder="...."></ion-input>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-input">
+                      <ion-input type="text" [(ngModel)]="item.new_filter_clause" placeholder="...."></ion-input
+                      >
+                      <!-- <ion-icon name="close-outline"></ion-icon> -->
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="addcolumn_filter_footer">
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-end p-0">
+      <ion-button class="global-main-copy" (click)="addItem()">Add</ion-button>
+      <ion-button class="global-main-copy" (click)="clearItem()">Clear</ion-button>
+    </div>
+  </div>
+</div>

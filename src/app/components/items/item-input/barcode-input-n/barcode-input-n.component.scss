@@ -1,0 +1,120 @@
+ion-item{
+    --min-height: auto !important;
+}
+
+.input-div{
+    display: flex;
+    align-items: center;
+    border:1px solid rgb(202, 202, 202);
+    border-radius: 3px;;
+}
+
+.input-div-mobile{
+        display: flex;
+        align-items: center;
+        border: 1px solid rgb(202, 202, 202);
+        border-radius: 3px;
+        padding: 0px;
+        margin-top: 5px;
+        width:100%;
+        position: relative;
+    ion-input{
+margin: 0px 0px !important;
+padding:0px 0px !important;
+border:0px !important;
+height: var(--inputd);
+    }
+    .input-buttons-container{
+        top:0px !important;
+        bottom: 0px !important;
+        display: flex;
+        align-items: center;
+        button{
+            padding: 0px 0px !important;
+           // height: var(--inputha);
+        }
+    }
+}
+
+
+
+.div-barcode{
+    display: flex;
+    position: relative;
+     .form-control {
+        border-radius: 0;
+        height: 25px;
+        border-right: 1px solid var(--blue-light-4);
+        background: var(--blue-light-5);
+        border-color: var(--blue-light-4) !important;
+        color: var(--text-dark);
+        font-size: var(--font14);
+        margin:0px 0px;
+    }
+    .input-barcode-buttons-container{
+        position: absolute;
+    top: 2px;
+    z-index: 9;
+    right: 0px;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    .input-btn {
+  padding:0px 0px !important;
+    }
+    }
+}
+
+.bar-code-container{
+    .input-btn{
+  padding:0px 0px !important;
+    }
+    .input-div{
+        input{
+            width:100% ;
+            border:0 !important;
+            background: transparent;
+        }
+    }
+    .barcode-action-container{
+   // width: 80px ;
+    z-index: 99;
+        position: relative;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    } 
+    ion-input[readonly], ion-input[disabled] input[readonly], input[disabled] {
+    background-color: var(--grey-5) !important;
+}
+}
+ion-input[ng-reflect-readonly="true"],
+ion-input[readonly],
+ ion-input[disabled], input[readonly], input[disabled] {
+    background-color: var(--grey-5) !important;
+}
+.item-interactive.ion-invalid {
+    --highlight-background: transparent  !important;
+}
+
+.barcode_scanner_icon{
+    width: 100%;
+    padding: 1px;
+    border-radius: 5px;
+    border: 0px solid var(--blue-new);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ion-icon{
+    font-size: 100px !important;
+    color: var(--text-dark);
+    /* border: 1px solid gray; */
+    border: 1px solid var(--blue-new);
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        &:hover{
+            border: 1px solid var(--blue-new);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+   }
+}

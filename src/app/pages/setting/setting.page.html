@@ -1,0 +1,645 @@
+<ion-header>
+  <ion-toolbar color="primary" class="ion-toolbar iosheight" *ngIf="platform.is('ios')">
+
+    <ion-buttons slot="start">
+      <ion-button slot="start" (click)="closePage()" fill="clear" icon-only start>
+        <ion-icon name="arrow-back" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="pl-0">Settings</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar color="primary" class="ion-toolbar" *ngIf="!platform.is('ios')">
+    <ion-buttons slot="start">
+      <ion-button slot="start" (click)="closePage()" fill="clear" icon-only start>
+        <ion-icon name="arrow-back" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="pl-0">Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="bg-shrink">
+  <div class="shrinkMyscreen">
+    <ion-list class="setting-menu-list">
+
+      <ion-item class="ion-no-padding database sett-lmn-dn">
+        <div class="thumbnail-container slmn-dn ">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/sidebarIcons/img_db.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Database : {{autoAppKey.g_login_db_name}}</h2>
+      </ion-item>
+  <ion-item class="ion-no-padding database sett-lmn-dn">
+        <div class="thumbnail-container slmn-dn ">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/sidebarIcons/img_db.png">
+          </ion-thumbnail>
+        </div>
+        <h2>WMA Database Name  : {{autoAppKey.G_WMA_DB_NAME}}</h2>
+
+      </ion-item>
+      <ion-item class="ion-no-padding appkey sett-lmn-dn">
+        <div class="thumbnail-container slmn-dn ">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/sidebarIcons/img_db.png">
+          </ion-thumbnail>
+        </div>
+        <h2> AppKey : {{globalObjects.appKey}}</h2>
+
+      </ion-item>
+
+
+      <ion-item class="ion-no-padding database sett-lmn-dn">
+        <div class="thumbnail-container slmn-dn">
+          <ion-thumbnail slot="start">
+            <ion-icon name="server-outline"></ion-icon>
+          </ion-thumbnail>
+        </div>
+        <h2>App Version</h2>
+        <ion-chip size="small" color="primary" slot="end" (click)="resetLocalDb()">
+          <ion-label color="primary">{{globalObjects.android_version_numeric}}</ion-label>
+        </ion-chip>
+      </ion-item>
+        <ion-item class="ion-no-padding database sett-lmn-dn">
+        <div class="thumbnail-container slmn-dn">
+          <ion-thumbnail slot="start">
+            <ion-icon name="server-outline"></ion-icon>
+          </ion-thumbnail>
+        </div>
+        <h2>WS Version</h2>
+        <ion-chip size="small" color="primary" slot="end" (click)="resetLocalDb()">
+          <ion-label color="primary">{{serverAppBuildVersion}}</ion-label>
+          <!-- <ion-label color="primary">{{serverAppBuildDate}}</ion-label> -->
+        </ion-chip>
+      </ion-item>
+      <hr class="sett-lmn-dn">
+
+      <ion-item class="ion-no-padding slmn-dn sett-lmn-dn" *ngIf="!globalObjects.simpleLoginProcess">
+        <div class="thumbnail-container ">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/sidebarIcons/img_db.png">
+          </ion-thumbnail>
+        </div>
+        <h2> Parent Appkey : {{globalObjects.parentAppkey}}</h2>
+
+      </ion-item>
+
+
+      <ion-item class="ion-no-padding slmn-dn">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/new-theme-icons/bell-img.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Notification Bell</h2>
+        <ion-toggle style="margin-left: 10px;" slot="end" [(ngModel)]="toggleNotification"
+          (ionChange)="toggleNotiFunc(toggleNotification)">
+        </ion-toggle>
+      </ion-item>
+      <ion-item class="ion-no-padding slmn-dn">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/new-theme-icons/fab-ball-img.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Fab Ball</h2>
+        <ion-toggle slot="end" [(ngModel)]="toggleFab" (ionChange)="toggleFabFunc(toggleFab)"> </ion-toggle>
+      </ion-item>
+      <ion-item class="ion-no-padding ">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/applog.png">
+          </ion-thumbnail>
+        </div>
+        <h2>App Logs</h2>
+        <ion-toggle style="margin-left: 10px;" slot="end" [(ngModel)]="globalObjects.logFlag">
+        </ion-toggle>
+        <span *ngIf="globalObjects.logFlag" style="margin-left: 10px;">On</span>
+        <span *ngIf="!globalObjects.logFlag" style="margin-left: 10px;">Off</span>
+      </ion-item>
+      <ion-item class="ion-no-padding " (click)="viewLogs()">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/applog.png">
+          </ion-thumbnail>
+        </div>
+        <h2>View App Server Tomcat Logs</h2>
+        <ion-icon name="chevron-forward-outline" slot="end" color="secondary"></ion-icon>
+       </ion-item>
+      <ng-container *ngIf="soundOption">
+        <div class="inner-section">
+          <ion-item>
+            <h2>Sound</h2>
+            <ion-toggle slot="end" [(ngModel)]="toggleSound" (ionChange)="soundFunc(toggleSound)">
+            </ion-toggle>
+            <span *ngIf="toggleSound"></span>
+            <span *ngIf="!toggleSound"></span>
+          </ion-item>
+          <ion-item>
+            <h2>Volume</h2>
+            <ion-range slot="end" value="0" (ionChange)="volumeChange(volumeRange)" min="0.1" max="1.0" step="0.1"
+              [(ngModel)]="volumeRange">
+              <ion-note slot="start">
+                {{volumeRange * 100.100 | number : '.0-0'}}%
+              </ion-note>
+              <ion-chip size="small" color="primary" slot="end" (click)="volumeRange = 0.5">
+                <ion-label color="secondary">Reset</ion-label>
+              </ion-chip>
+            </ion-range>
+          </ion-item>
+          <ion-list>
+            <!-- <ion-radio-group (ionChange)="selectSound(sound)" [(ngModel)]="sound"> -->
+              <ion-list-header>
+                <h2>Sounds</h2>
+              </ion-list-header>
+              <ion-item slot="end">
+                <ion-label>Sound 1</ion-label>
+                <ion-radio value="assets/audio/click1.mp3"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Sound 2</ion-label>
+                <ion-radio value="assets/audio/click2.mp3"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Sound 3</ion-label>
+                <ion-radio value="assets/audio/click3.mp3"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Sound 4</ion-label>
+                <ion-radio value="assets/audio/click4.mp3"></ion-radio>
+              </ion-item>
+            <!-- </ion-radio-group> -->
+          </ion-list>
+        </div>
+      </ng-container>
+
+      <ion-item class="ion-no-padding slmn-dn sett-lmn-dn" *ngIf="platform.is('android')">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/settings-icon/screenshot.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Screenshot (enable/disable)</h2>
+        <ion-toggle slot="end" [(ngModel)]="toggleScreenshot"
+          (ionChange)="screenshotFunc(toggleScreenshot)"></ion-toggle>
+      </ion-item>
+
+      <ion-item class="ion-no-padding slmn-dn sett-lmn-dn" (click)="downloadAgentSetup()"
+        *ngIf="(!(platform.is('android') || platform.is('ios')))">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/settings-icon/download.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Download support app</h2>
+        <ion-icon name="download" slot="end" color="secondary"></ion-icon>
+      </ion-item>
+
+      <ion-item class="ion-no-padding sett-lmn-dn">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <ion-icon name="code-slash-outline"></ion-icon>
+          </ion-thumbnail>
+        </div>
+        <h2>Developer Mode</h2>
+        <!-- <ion-toggle slot="end" [(ngModel)]="globalObjects.toggleDevloperMode()"> -->
+          <ion-toggle slot="end" [checked]="globalObjects.toggleDevloperMode()" (ionChange)="globalObjects.toggleDevloperMode.set($event.detail.checked)">
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item class="ion-no-padding sett-lmn-dn">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <ion-icon name="code-slash-outline"></ion-icon>
+          </ion-thumbnail>
+        </div>
+        <h2>Ref Cursor Mode</h2>
+        <ion-toggle slot="end" [(ngModel)]="globalObjects.refCursorMode">
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item class="ion-no-padding sett-lmn-dn">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <ion-icon name="code-slash-outline"></ion-icon>
+          </ion-thumbnail>
+        </div>
+        <h2>No U2S Flag</h2>
+        <ion-toggle slot="end" [(ngModel)]="globalObjects.noU2sFlag">
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item class="ion-no-padding sett-lmn-dn">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <ion-icon name="code-slash-outline"></ion-icon>
+          </ion-thumbnail>
+        </div>
+        <h2>Lazy Loading</h2>
+        <ion-toggle slot="end" [(ngModel)]="globalObjects.lazyLoading">
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item class="ion-no-padding slmn-dn sett-lmn-dn" [routerLink] (click)="openSqLiteTran()">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/settings-icon/offline.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Pending Transactions(Offline)</h2>
+        <ion-icon name="chevron-forward-outline" slot="end" color="secondary"></ion-icon>
+      </ion-item>
+
+      <ion-item class="ion-no-padding sett-lmn-dn">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <ion-icon name="server-outline"></ion-icon>
+          </ion-thumbnail>
+        </div>
+        <h2>Local Database</h2>
+        <ion-chip size="small" color="primary" slot="end" (click)="resetLocalDb()">
+          <ion-label color="primary">Clear</ion-label>
+        </ion-chip>
+        <ion-toggle slot="end" [(ngModel)]="globalObjects.getLocalDBData">
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item *ngIf="globalObjects.toggleDevloperModePro" class="ion-no-padding slmn-dn sett-lmn-dn" [routerLink]
+        (click)="openExecuteQuery()">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/settings-icon/database.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Execute Query</h2>
+        <ion-icon name="fa fa-database" slot="end" color="secondary"></ion-icon>
+      </ion-item>
+
+      <ion-item *ngIf="globalObjects.toggleDevloperModePro" class="ion-no-padding slmn-dn sett-lmn-dn" [routerLink]
+        (click)="openIconMaster()">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/settings-icon/file_export.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Image Icon Import/Export</h2>
+        <ion-icon name="fa fa-file-export" slot="end" color="secondary"></ion-icon>
+      </ion-item>
+
+
+      <!--  -->
+      <ion-item class="ion-no-padding slmn-dn sett-lmn-dn" (click)="fontOptions=!fontOptions">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/fonts.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Fonts</h2>
+        <ion-icon name="chevron-down-circle-outline" *ngIf="fontOptions" slot="end" ></ion-icon>
+        <ion-icon name="arrow-dropright" *ngIf="!fontOptions" slot="end"></ion-icon>
+
+      </ion-item>
+
+      <ng-container *ngIf="fontOptions">
+        <div class="inner-section">
+          <div class="font-container">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="5">
+                  <div>
+                    <ion-label>Font Type:</ion-label>
+                    <ion-select [(ngModel)]="fontType" interface="popover" (ionChange)="selectFont($event)">
+
+                      <ion-select-option *ngFor="let d of fontArray" [value]="d">{{d}}
+                      </ion-select-option>
+                    </ion-select>
+                  </div>
+                </ion-col>
+                <ion-col size="5">
+                  <div>
+                    <ion-label>Font Size:</ion-label>
+                    <ion-select [(ngModel)]="fontSize" interface="popover" (ionChange)="fontZoom2($event)">
+
+                      <ion-select-option *ngFor="let d of fontSizeArray" [value]="d">{{d}}
+                      </ion-select-option>
+                    </ion-select>
+                  </div>
+                </ion-col>
+                <ion-col style="padding-top: 28px;text-align: center;" size="2">
+                  <ion-button size="medium" (click)="resetFontandSize()">
+                    Reset
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </div>
+      </ng-container>
+
+      <ion-item class="ion-no-padding slmn-dn sett-lmn-dn" (click)="menuTab=!menuTab">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <ion-icon name="create" color="primary" style="margin-top: 2px;"></ion-icon>
+          </ion-thumbnail>
+        </div>
+        <h2>Menu Tab Edit</h2>
+        <ion-icon name="chevron-down-circle-outline"> *ngIf="menuTab" slot="end" ></ion-icon>
+        <ion-icon name="arrow-dropright" *ngIf="!menuTab" slot="end"></ion-icon>
+
+      </ion-item>
+      <ng-container *ngIf="menuTab">
+        <div class="inner-section">
+          <div class="menuTab-container">
+            <ion-row class="d-flex" style="justify-content: space-around;">
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Height</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input" type="number" [(ngModel)]="tabImgHeight"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Font Size</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input" type="number" [(ngModel)]="tabFontSize"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Font Weight</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input" type="number" [(ngModel)]="tabFontWeight"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Padding</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input" type="number" [(ngModel)]="tabPadding"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Shadow</ion-label>
+                <ion-select interface="popover" [(ngModel)]="tabStyle">
+                  <ion-select-option value="">---</ion-select-option>
+                  <ion-select-option value="">Outer Shadow</ion-select-option>
+                  <ion-select-option value="inner-shadow">Inner Shadow</ion-select-option>
+                  <ion-select-option value="inner-shadow-right">Inner Shadow Right</ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-lg="12" size-xs="12" style="text-align: center;">
+
+                <ion-button color="primary" size="small" class="mt-30" (click)="changeStyle('TAB')">Submit</ion-button>
+                <ion-button color="primary" size="small" class="mt-30" fill="outline"
+                  (click)="resetStyle()">Reset</ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ng-container>
+
+      <ion-item class="ion-no-padding slmn-dn sett-lmn-dn" (click)="kpiTextBand=!kpiTextBand">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <ion-icon name="create" color="primary" style="margin-top: 2px;"></ion-icon>
+          </ion-thumbnail>
+        </div>
+        <h2>Text Band : KPI Edit</h2>
+        <ion-icon name="chevron-down-circle-outline"> *ngIf="kpiTextBand" slot="end" ></ion-icon>
+        <ion-icon name="arrow-dropright" *ngIf="!kpiTextBand" slot="end"></ion-icon>
+
+      </ion-item>
+      <ng-container *ngIf="kpiTextBand">
+        <div class="inner-section">
+          <div class="menuTab-container">
+            <ion-row style="    display: flex;
+align-items: flex-end;justify-content: space-around;">
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Padding </ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input" [(ngModel)]="kpiPadd"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Heading Font Size</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input" [(ngModel)]="kpiHeadFont"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Heading Font Weight</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input" [(ngModel)]="kpiHeadWeight"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Value Font Size</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input" [(ngModel)]="kpiValueFont"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+              <ion-col size-lg="2" size-xs="6">
+                <ion-label>Value Font Weight</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input" [(ngModel)]="kpiValWeight"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-lg="12" size-xs="12" style="text-align: center;">
+                <ion-button color="primary" size="small" (click)="changeStyle('KPI')">Submit</ion-button>
+                <ion-button color="primary" size="small" fill="outline" (click)="resetStyle()">Reset</ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ng-container>
+    
+      <ng-container *ngIf="inputField">
+        <div class="inner-section">
+          <div class="menuTab-container">
+            <ion-row style="    display: flex;
+align-items: flex-end;justify-content: space-around;">
+              <ion-col size-lg="4" size-xs="6">
+                <ion-label>Label Font Size </ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+              <ion-col size-lg="4" size-xs="6">
+                <ion-label>Input Padding</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+              <ion-col size-lg="4" size-xs="6">
+                <ion-label>Input Height</ion-label>
+                <div class="input-div">
+                  <ion-input class="menutab-input"></ion-input>
+                  <span class="percent">%</span>
+                </div>
+              </ion-col>
+
+            </ion-row>
+            <ion-row>
+              <ion-col size-lg="12" size-xs="12" style="text-align: center;">
+                <ion-button color="primary" size="small">Submit</ion-button>
+                <ion-button color="primary" size="small" fill="outline">Reset</ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ng-container>
+
+      <ion-item class="ion-no-padding slmn-dn sett-lmn-dn" (click)="showuserdetails=!showuserdetails">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/sidebarIcons/img_db.png" style="font-size:23px;">
+          </ion-thumbnail>
+        </div>
+
+
+        <h2>Global Parameter List</h2>
+        <ion-icon name="chevron-down-circle-outline"> *ngIf="showuserdetails" slot="end" ></ion-icon>
+        <ion-icon name="arrow-dropright" *ngIf="!showuserdetails" slot="end"></ion-icon>
+      </ion-item>
+
+      <ng-container *ngIf="showuserdetails">
+        <ion-row>
+          <table>
+            <tr>
+              <th>key</th>
+              <th>value</th>
+            </tr>
+            <tr *ngFor="let a of autoAppKey | keyvalue">
+              <td>{{a.key }}</td>
+              <td>{{a.value }}</td>
+            </tr>
+          </table>
+        </ion-row>
+      </ng-container>
+
+
+
+      <ion-item class="ion-no-padding slmn-dn sett-lmn-dn" (click)="showdetails=!showdetails">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/sidebarIcons/img_db.png" style="font-size:23px;">
+          </ion-thumbnail>
+        </div>
+
+        <h2>Global </h2>
+        <ion-icon name="chevron-down-circle-outline"> *ngIf="showdetails" slot="end" ></ion-icon>
+        <ion-icon name="arrow-dropright" *ngIf="!showdetails" slot="end"></ion-icon>
+      </ion-item>
+
+      <ng-container *ngIf="showdetails">
+        <ion-row>
+          <table>
+            <tr>
+              <th>key</th>
+              <th>value</th>
+            </tr>
+            <tr *ngFor="let o of globalObjects.globalVal ">
+              <td>{{o.para_name }}</td>
+              <td>{{o.para_val }}</td>
+            </tr>
+          </table>
+        </ion-row>
+      </ng-container>
+
+        <ion-item class="ion-no-padding ">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/authfact.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Authenticator App</h2>
+        <ion-toggle style="margin-left: 10px;" slot="end" [(ngModel)]="isFactorEnable" (ionChange)="authchange($event)" #authenticatorToggle>
+        </ion-toggle>
+       
+      
+      </ion-item>
+      
+       <ion-item class="ion-no-padding">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/console-i.png">
+          </ion-thumbnail>
+        </div>
+        <h2>Console Enabled</h2>
+        <ion-toggle style="margin-left: 10px;" slot="end" [(ngModel)]="debugService.consoleEnabled" (ionChange)="toggleConsole($event)" #authenticatorToggle>
+        </ion-toggle>
+       
+      
+      </ion-item>
+    </ion-list>
+  </div>
+</div>
+<ion-popover [isOpen]="showOtpModal" id="two_factorauth" side="center" alignment="center"  [backdropDismiss]="false">
+  <ng-template>
+    <ion-content class="ion-padding ">
+      <ion-row class="p-4">
+        <ion-col size="12">
+          <h2>Two-Factor Authentication Registration</h2>
+          <ng-container *ngIf="isGettingOtp">
+          <!-- <h4>Before generating your QR code for the authenticator app, please confirm your identity.</h4> -->
+          <p class="mt-2 mb-2">{{messageShow}}</p>
+          </ng-container>
+        </ion-col>
+
+        <ion-col size="12" class="text-center mt-2" *ngIf="!isGettingOtp">
+          <p class="mt-2 mb-2">Scan the QR code below with your Authenticator app to get the 6-digit code.</p>
+          <img [src]="qrImageUrl"  width="200" height="200" style="margin: 15px 0px;">
+        </ion-col>
+        <ion-col size="12" class="mt-2" >
+           <p>Enter the code below to proceed with 2FA setup.</p>
+          <p class="mt-2 mb-2">2FA Code</p>
+          <!-- <input type="text"  [(ngModel)]="otp" placeholder="Enter otp"/> -->
+
+          <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" *ngIf="showOtpComponent" [config]="config"></ng-otp-input>
+        <!-- <span *ngIf="otp" class="o-t-p">Entered otp :-{{otp}}</span> -->
+        </ion-col>
+        
+        <ion-col size="12">
+          <ion-button class="globe-btn-auth" [disabled]="otp.length < 6" (click)="verifyAuth()">Verify</ion-button>
+        </ion-col>
+        <ng-container *ngIf="isGettingOtp">
+         <ion-col size="12">
+                <p class="text-center mt-2 ">Didn't receive the code? <ng-container *ngIf="countdown==0;else countdownshow"><a (click)="resendOtp()" class="text-primary" style="text-decoration: none;cursor:pointer;"><b>Resend</b></a></ng-container>
+                 
+                  <ng-template #countdownshow> <b>{{countdown}} seconds</b></ng-template></p>
+
+                
+        </ion-col>
+        </ng-container>
+        
+         <ion-col size="12" class="text-center mt-2">
+                              <p (click)="closeotpPopup()" class="text-center d-flex align-items-center justify-content-center"  style="color:var(--blue-new);font-size: 16px;cursor: pointer;"><ion-icon name="arrow-back-outline" class="me-3"></ion-icon>Back to Home</p>
+        </ion-col>
+      </ion-row>
+     
+    </ion-content>
+  </ng-template>
+</ion-popover>
+<div class="text-center new-bottom-loader-dotted" *ngIf="globalObjects.loading_on_demand()">
+
+  <ion-item class="new-bottom-loader-dotted-item">
+<!-- 
+    <ion-spinner name="dots"></ion-spinner> -->
+  </ion-item></div>

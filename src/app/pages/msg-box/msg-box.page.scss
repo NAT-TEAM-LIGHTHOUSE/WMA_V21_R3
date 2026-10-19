@@ -1,0 +1,90 @@
+.alert-box{
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    padding: 30px 15px 28px 15px;
+    position: relative;
+    border: 2px solid var(--dark-gray);
+    border-radius: 2px;
+
+}
+.model-msg{
+    padding: 0px 0px 25px 0px;
+    font-size: var(--font16);
+    max-height: 300px;
+    overflow: auto;
+}
+
+.close-btn{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #aba6a6;
+    font-size: var(--font18);
+}
+#modelalert-box .popover-content{
+width:100% !important;
+}
+#modelalert-box .alert-box{
+    width:500px !important;
+}
+.close-btn-box{
+   // height: 30px;
+     padding: 31px 0px 2px 4px;
+    background: #f1f1f1;
+    margin: -30px -15px 11px -15px;
+   // padding: 0px 0px 2px 4px;
+    border-bottom: 2px solid #d7eaffab;
+}
+.close-btn-box ion-icon{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #787676;
+    font-size: var(--font18);
+    padding: 3px 5px 6px 7px;
+}
+
+@media (max-width:767px){
+    .model-msg{
+        max-height: 200px;
+        overflow: auto;
+    }
+}
+
+ion-accordion-group #msg-box-accordination{
+    background: red !important;
+    .ion-accordion-toggle-icon{
+        display: none !important;
+    }
+    ion-icon{
+        display: none !important;
+    }
+}
+.msg-model{
+    ion-button{
+    --background: none !important;
+    --box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    color: #939393;
+    /* text-align: right; */
+    float: right;
+    }
+    .ion-padding{
+        margin:0px 0px;
+        padding:0px 0px;
+    }
+    table td{
+        padding:2px 5px;
+        margin:0px 0px;
+    }
+    table th{
+        background: rgb(238 238 238);
+        margin:0px 0px;
+        padding:2px 5px;
+    }
+    .msg-table{
+      max-height:300px;
+      overflow: auto;
+    }
+}

@@ -1,0 +1,149 @@
+<div class="personalization_container">
+  <div class="title">
+    Personalization
+  </div>
+  <ng-container >
+<!-- {{swithtabflag}} -->
+  <div class="personalization_tab">
+      <ul >
+        <ng-container *ngFor="let key of objectKeys(frame_area_group)">
+          
+        <li [ngClass]="frame_area_group[key].active ? 'active':''" (click)="setFrameAreaGroupKey(key)">
+          {{ key }}
+        </li>
+      </ng-container>
+      </ul>
+  </div>
+  <div class="personalization_table">
+    <table>
+      <thead>
+        <tr>
+        <th> 
+          <!-- <ion-checkbox></ion-checkbox> -->
+          <ng-container *ngFor="let key of objectKeys(frame_area_group)">
+
+           <ng-container *ngIf="key==grpKey">
+          <ion-checkbox  (click)="personalizationcolAll($event,grpKey)"  checked="frame_area_group[key].checked"  [(ngModel)]="frame_area_group[key].checked"></ion-checkbox>
+        </ng-container>
+          </ng-container>
+        </th> 
+        <th>
+          Slno
+        </th> 
+        <th>
+          Column name
+        </th>
+         <!-- <th>
+          New Slno
+         </th> -->
+      </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="grpKey != 'KPIs'">
+        <ng-container *ngFor="let tabData of frame_area_group[grpKey];index as i">
+        <tr>
+          <td>
+            <ion-checkbox [checked]="tabData.checked" (click)="tabStatus()" (ionChange)="personalizationColumnFrame($event,tabData,grpKey)" [(ngModel)]="tabData.checked"></ion-checkbox>
+          </td> 
+          <td>
+<!-- {{tabData.apps_frame_seqno}} -->
+{{i+1}}
+          </td>
+           <td>
+            {{tabData.apps_page_frame_name}}
+           </td>
+            <!-- <td>
+              {{tabData.perSlno}}
+            </td> -->
+
+
+
+            <!-- <ng-container *ngFor="let itm of OtherItemArray">
+              <ng-container *ngIf="tabData.apps_page_frame_seqid ==itm.apps_page_frame_seqid">
+                <td>
+                {{tabData.perSlno}}
+                          </td>
+              </ng-container>
+              
+    
+             </ng-container> -->
+             <!-- <td>
+              {{tabData.perSlno}}
+                        </td> -->
+        </tr>
+      </ng-container>
+    </ng-container>
+
+  <ng-container *ngIf="grpKey == 'KPIs'">
+    <ng-container *ngFor="let item of kpiArray;index as i">
+      <tr>
+        <td>
+          <!-- <ion-checkbox></ion-checkbox> -->
+          <ion-checkbox [checked]="item.checked" (click)="tabStatus()" (ionChange)="personalizationColumn($event,item)"  [(ngModel)]="item.checked"></ion-checkbox>
+        </td> 
+        <td>
+<!-- {{item.item_seqno}} -->
+{{i+1}}
+        </td>
+         <td>
+          {{item.prompt_name}}
+         </td>
+
+
+         <!-- <ng-container *ngFor="let itm of kpiItemArray">
+          <ng-container *ngIf="item.item_name==itm.item_name">
+            <td>
+            {{item.perSlno}}
+                      </td>
+          </ng-container>
+          
+
+         </ng-container> -->
+          
+
+         <!-- <td>
+          {{item.perSlno}}
+                    </td> -->
+
+
+
+      </tr>
+    </ng-container>
+  </ng-container>
+
+      </tbody>
+      
+    </table>
+  </div>
+</ng-container>
+
+  <div class="personalization_footer">
+    <div class="row m-0">
+      <div class="col-md-3 col-0">
+      </div>
+
+       <div class="col-md-3 col-12"> 
+        <ion-button class="global-main-copy" (click)="cancelPersonalize()">
+         Cancel
+        </ion-button> 
+        </div>
+        <div class="col-md-3 col-12">
+        <ion-button class="global-main-copy" (click)="saveForFutureDataColumn()">
+        Save
+        </ion-button>   
+        
+       </div>
+       <div class="col-md-3 col-12">
+        <ion-button class="global-main-copy" (click)="resetDataColumn()">
+          Reset
+        </ion-button>   
+        
+       </div>
+    </div>
+ </div>
+</div>
+
+
+
+
+ 

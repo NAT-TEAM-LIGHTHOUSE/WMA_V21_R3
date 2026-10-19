@@ -1,0 +1,309 @@
+<div *ngIf="button.item_sub_type == 'S'">
+  <div class="upload-button-box">
+    <div class="upload-button-icon">
+      <ion-icon name="cloud-upload" color="primary"></ion-icon>
+    </div>
+    <div class="upload-button-msg">
+      <p> </p>
+
+    </div>
+
+    <div class="upload-browse-button"  style="border: 0px !important;box-shadow: none !important;">
+      <p>Browse files</p>
+      <ion-input [disabled]="button.item_enable_flag == 'F'" id="multifiles" type="file"
+        (change)="readFile($event)" [accept]="acceptParameter" [disabled]="button.item_enable_flag == 'F'"></ion-input>
+    </div>
+
+    <ng-container *ngIf="fileNames.length > 0">
+      <ion-chip *ngFor="let file of fileNames; let i = index;" color="primary">
+        <!-- <img src="https://cdn-icons-png.flaticon.com/512/9680/9680329.png" style="width:14px"/> -->
+          <img [src]="file.FileImage" style="max-width:22px;margin-right: 8px;"/>
+        <ion-label (click)="previewShow(file)" [attr.title]="file.name">{{file.name}}</ion-label>
+        <ion-icon name="close" (click)="removeItem(i)" color="info"></ion-icon>
+      </ion-chip>
+    </ng-container>
+  </div>
+</div>
+
+<div *ngIf="button.item_sub_type == 'M'" style="cursor: pointer;">
+  <p class="Upload-buton">
+    <span>Upload</span>
+    <i class="fa fa-upload" aria-hidden="true"></i>
+    <ion-input id="multifiles" type="file" multiple [disabled]="button.item_enable_flag == 'F'"
+      (change)="readFile($event)" [accept]="acceptParameter"></ion-input>
+  </p>
+  <ion-chip *ngFor="let file of fileNames; let i = index;" color="primary">
+      <img [src]="file.FileImage" style="width:22px;margin-right: 8px;"/>
+    <ion-label (click)="previewShow(file)" [attr.title]="file.name">{{file.name}}</ion-label>
+    <ion-icon name="close" (click)="removeItem(i)" color="info"></ion-icon>
+  </ion-chip>
+</div>
+
+<div class="select-container ion-text-center" *ngIf="button.item_sub_type == 'SS'">
+  <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn"
+    (click)="showDeveloperData()">
+    <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+  </ion-button>
+  <ion-button slot="end" class="upload-new-btn" *ngIf="!button.value || !fileNames.length"
+    style="color:rgb(255, 255, 255)" [disabled]="button.item_enable_flag == 'F'">
+    <ion-icon name="cloud-upload"></ion-icon>
+    <ion-input id="multifiles" [disabled]="button.item_enable_flag == 'F'" type="file" multiple
+      (change)="readFile($event)" [accept]="acceptParameter" title="upload files"></ion-input>
+  </ion-button>
+
+  <ng-container *ngIf="fileNames.length > 0">
+    <ion-chip *ngFor="let file of fileNames; let i = index;" color="primary">
+        <!-- <img src="https://cdn-icons-png.flaticon.com/512/9680/9680329.png" style="width:14px;"/> -->
+          <img [src]="file.FileImage" style="width:22px;margin-right: 8px;"/>
+      <ion-label (click)="previewShow(file)" [attr.title]="file.name">{{file.name}}</ion-label>
+      <ion-icon name="close" (click)="removeItem(i)" color="info"></ion-icon>
+    </ion-chip>
+  </ng-container>
+</div>
+
+
+
+
+<div class="select-container ion-text-center upload_items" *ngIf="button.item_sub_type == 'ATTACH'">
+
+  <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn"
+    (click)="showDeveloperData()">
+    <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+  </ion-button>
+
+  <div slot="end" class="upload-new-btn" *ngIf="(!button.value || !button.files.length) && !button.isFile && !button.isImage"
+    style="color:rgb(255, 255, 255)" (click)="fileInput.click()" [disabled]="button.item_enable_flag == 'F'">
+  
+    <!-- <ion-input id="multifiles" [disabled]="button.item_enable_flag == 'F'" type="file" (change)="onFileSelected($event)"
+      [accept]="acceptParameter" title="upload files"></ion-input> -->
+        <!-- <input id="multifiles" [disabled]="button.item_enable_flag == 'F'" type="file" (change)="onFileSelected($event)"
+      [accept]="acceptParameter" title="upload files"> -->
+    <ion-input [value]="selectedFileName" readonly placeholder="Choose file" [accept]="acceptParameter"  title="upload files"></ion-input>
+          <input type="file"  #fileInput  hidden (change)="onFileSelected($event)" [disabled]="button.item_enable_flag == 'F'"/>
+    <div class="text-center">
+      <ion-icon name="cloud-upload"></ion-icon>
+      <p>No File Attached </p>
+    </div>
+  </div>
+
+  <ng-container *ngIf="button.value">
+    <ng-container *ngIf="button.isImage">
+      <img [src]="button.imgData" class="defaultImg new-card-image" [ngStyle]="button.display_setting_str" (click)="openPreviewOnMobile()">
+
+        <ng-container *ngIf="button.files.length > 0;else filename">
+           <br>
+          <ion-label>{{button.files[0].name}}</ion-label>
+        </ng-container>
+        <ng-template #filename>
+          <br>
+          <ion-label>{{button.file_name}}</ion-label>
+        </ng-template>
+    </ng-container>
+
+
+
+    <div class="upload_docfile">
+      <div class="text-center">
+      <ng-container *ngIf="button.isFile">
+        <ng-container *ngIf="button.FileImage; else fileIconshow">
+          <img [src]="button.FileImage" (click)="openPreviewOnMobile()">
+        </ng-container>
+        <ng-template #fileIconshow>
+           <ion-icon name="document-attach-outline"></ion-icon>
+        </ng-template>
+
+        <ng-container *ngIf="button.files.length > 0;else filename">
+           <br>
+          <ion-label [title]="button.files[0].name">{{button.files[0].name}}</ion-label>
+        </ng-container>
+        <ng-template #filename>
+          <br>
+          <ion-label [title]="button.file_name">{{button.file_name}}</ion-label>
+        </ng-template>
+
+      </ng-container>
+    </div>
+    </div>
+    <div class="upload_action">
+
+
+      <div class="edit_upload" (click)="fileInput.click()" [disabled]="button.item_enable_flag == 'F'">
+        <ion-icon name="create-outline"></ion-icon>
+        <!-- <ion-input id="multifiles" [disabled]="button.item_enable_flag == 'F'" type="file" (change)="onFileSelected($event)"
+          [accept]="acceptParameter" title="upload files">
+        </ion-input> -->
+           <ion-input [value]="selectedFileName" readonly placeholder="Choose file" [accept]="acceptParameter"  title="upload files"></ion-input>
+          <input type="file"  #fileInput  hidden (change)="onFileSelected($event)" [disabled]="button.item_enable_flag == 'F'"/>
+      </div>
+       <ion-icon name="download" (click)="downloadFile()"></ion-icon>
+        <ion-icon name="close" (click)="removeAttach(0)" color="danger"></ion-icon>
+       <ion-icon name="ellipsis-vertical-outline" (click)="openPreviewOnMobile()" color="dark"></ion-icon> 
+      
+    </div>
+  </ng-container>
+</div>
+
+
+
+
+
+
+<!-- <div *ngIf="button.item_sub_type == 'NEW_S'">
+  <div class="upload-button-box upload-box drag-drop" [class.dragover]="isDragOver"   style="border:1px dashed rgb(170, 170, 170);background: rgb(249 249 249);;border-radius: 5px;"
+    [class.disabled]="button.item_enable_flag === 'F'" (dragover)="onDragOver($event)" (drop)="onDrop($event)"
+    (dragleave)="onDragLeave($event)">
+     <img src="./assets/download.svg" class="upload_img" />
+    <p>Drag & Drop file to import</p>
+
+    <input type="file" hidden multiple [accept]="acceptParameter" [disabled]="button.item_enable_flag === 'F'"
+      (change)="onFileSelected($event)" #fileInput />
+
+    <button ion-button  class="choose_file" (click)="fileInput.click()" [disabled]="button.item_enable_flag === 'F'">
+      Choose File
+    </button>
+
+    <ul class="list_of_image" *ngIf="files.length > 0">
+      <li *ngFor="let file of files; let i = index">
+        <p>{{ file.name }} </p>
+        <ion-icon name="close-outline" (click)="removeItem(i)" color="danger"></ion-icon>
+      </li>
+    </ul>
+  </div>
+
+
+</div> -->
+
+<div *ngIf="button.item_sub_type == 'DD_FILE'">
+  <div class="upload-button-box upload-box drag-drop" [class.dragover]="isDragOver"   style="border:1px dashed rgb(170, 170, 170);background: rgb(249 249 249);;border-radius: 5px;"
+    [class.disabled]="button.item_enable_flag === 'F'" (dragover)="onDragOver($event)" (drop)="onDrop($event)"
+    (dragleave)="onDragLeave($event)">
+     <img src="./assets/download.svg" class="upload_img" />
+    <p>Drag & Drop file to import</p>
+    <input type="file" hidden multiple [accept]="acceptParameter" [disabled]="button.item_enable_flag === 'F'"
+      (change)="onFileSelected($event)" #fileInput />
+
+      <div class="choose_file_container">
+       <button ion-button  class="choose_file" (click)="uploadmodal()" >
+        Choose file&nbsp;&nbsp;<ion-icon name="caret-down-outline"></ion-icon>
+       </button>
+        <ng-container *ngIf="showmodal === true">
+          <div class="overlay_popup_fileupload" (click)="showmodal=!showmodal"></div>
+        </ng-container>
+       <div class="choose_file_modal" *ngIf="showmodal === true">
+       
+        <ng-container *ngFor="let type of attachType">
+          <button (click)="fileInput.click();showmodal=!showmodal" class="attachType" [disabled]="type.enable === 'F'">Attach From {{type.name}}</button>
+        </ng-container>
+          <!-- <button (click)="fileInput.click();showmodal=!showmodal" [disabled]="button.item_enable_flag === 'F'">Attach From Desktop</button>
+           <button>Attach From Cloud</button>
+            <button>Attach From Documents</button> -->
+       </div>
+      </div>
+
+      <!-- <p class="choose_file_important">Maximum File Size : 5MB &nbsp;&nbsp; File Format : CSV or TSV or XLS</p> -->
+  <p class="choose_file_important">Maximum File Size :{{fileSize}} <br> File Format : {{fileFormat.join(' or ')}}</p>
+
+   
+
+    <ul class="list_of_image" *ngIf="files.length > 0">
+      <li *ngFor="let file of files; let i = index">
+        <img [src]="file.FileImage" style="width:22px;margin-right: 8px;"/>
+        <p (click)="previewShow(file)" [attr.title]="file.name">{{ file.name }} </p>
+        <ion-icon name="close-outline" (click)="removeItem(i)" color="info"></ion-icon>
+      </li>
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <!-- <div *ngIf="button.item_sub_type == 'NEW_SS'">
+  <div class="upload-button-box upload-box drag-drop" (dragover)="onDragOver($event)" (drop)="onDrop($event)"
+    (dragleave)="onDragLeave($event)" [class.dragover]="isDragOver"><ion-icon name="image-outline"></ion-icon>
+    <p>Drag & Drop files here or </p>
+    <input type="file" (change)="onFileSelected($event)" multiple hidden #fileInput />
+    <button (click)="fileInput.click()">Browse images</button>
+    <ul class="list_of_image">
+      <li *ngFor="let file of files">
+        <p>{{ file.name }} ({{ file.size / 1000 }} KB) </p><ion-icon name="close-outline" (click)="removeItem(1)"></ion-icon>
+      </li>
+    </ul>
+  </div>
+</div> -->
+
+
+
+<!-- For subtype 'IMG' (Image-only upload with preview) -->
+<!-- Single Image Upload (IMG subtype) -->
+<div *ngIf="button.item_sub_type == 'DD_IMAGE'">
+  <div  class="upload-button-box upload-box drag-drop" style="border:1px dashed var(--blue-new);border-radius: 5px;"
+       [class.dragover]="isDragOver"
+       [class.disabled]="button.item_enable_flag === 'F'"
+       (dragover)="onDragOver($event)"
+       (drop)="onDropImage($event)"
+       (dragleave)="onDragLeave($event)">
+<ng-container *ngIf="!singleImgData">
+   <ion-icon name="image-outline" size="large"></ion-icon>
+    <p class="py-2">Drag image(s) here or</p>
+
+    <input type="file"
+           hidden
+           accept="image/*"
+           [disabled]="button.item_enable_flag === 'F'"
+           (change)="onSingleImageSelected($event)"
+           #imageInput />
+
+    <button ion-button (click)="imageInput.click()" [disabled]="button.item_enable_flag === 'F'">
+      Browse Image
+    </button>
+</ng-container>
+    <div *ngIf="singleImgData" class="image-preview-wrapper">
+    <img [src]="singleImgData" alt="Selected Image" (click)="previewShow(files[0])"/>
+    <ion-icon name="close-circle" (click)="removeItem(0)" color="danger"></ion-icon>
+  </div>
+  </div>
+
+ 
+</div>
+
+<!-- <div *ngIf="isOpenFileTypeOption" class="parentOpenFileTypeOption">
+  <div class="OpenFileTypeOption">
+    <p *ngIf="isFileSizeOver" style="font-size: 14px;padding: 10px 10px; color:var(--text-dark);">File too large to preview (limit: 25 MB). <br>Click Download to access it.</p>
+    <ul>
+    <li (click)="setOnOpenFile('inBrowser')" *ngIf="!isFileSizeOver"><ion-icon name="folder-open-outline" class="me-2"></ion-icon>Open</li>
+    <li (click)="setOnOpenFile('newtab')" *ngIf="!isFileSizeOver"><ion-icon name="open-outline" class="me-2"></ion-icon>Open in browser</li>
+
+    <li (click)="setOnOpenFile('download')" *ngIf="isFileSizeOver || previewDocdata"><ion-icon name="cloud-download-outline" class="me-2"></ion-icon>Download</li>
+  </ul>
+  <div class="text-right">
+    <ion-button (click)="cancel()" class="global-main-copy ">Cancel</ion-button>
+  </div>
+  </div>
+</div> -->
+
+<ion-popover
+  #fileTypeModal
+  (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <div class="parentOpenFileTypeOption">
+    <div class="OpenFileTypeOption">
+    <p *ngIf="isFileSizeOver" style="font-size: 14px;padding: 10px 10px; color:var(--text-dark);">File too large to preview (limit: 25 MB). <br>Click Download to access it.</p>
+    <ul>
+    <li (click)="dismissPopover('inBrowser')" *ngIf="!isFileSizeOver"><ion-icon name="folder-open-outline" class="me-2"></ion-icon>Open</li>
+    <li (click)="dismissPopover('newtab')" *ngIf="!isFileSizeOver"><ion-icon name="open-outline" class="me-2"></ion-icon>Open in browser</li>
+
+    <li (click)="dismissPopover('download')"><ion-icon name="cloud-download-outline" class="me-2"></ion-icon>Download</li>
+    <!-- <li (click)="setOnOpenFile('system')"><ion-icon name="download-outline" class="me-2"></ion-icon>Open in System 
+      File open on version 13+
+    </li> -->
+  </ul>
+  <div class="text-right">
+    <!-- <ion-button (click)="open()">Open</ion-button> -->
+    <ion-button (click)="dismissPopover('cancel')" class="global-main-copy "><ion-icon name="close-outline"></ion-icon></ion-button>
+  </div>
+  </div>
+  </div>
+  </ng-template>
+</ion-popover>
+

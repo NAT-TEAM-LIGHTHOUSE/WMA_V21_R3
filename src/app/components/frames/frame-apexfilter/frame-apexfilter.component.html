@@ -1,0 +1,58 @@
+
+
+<div class="global_table_filter">
+  <div class="row m-0">
+    <div class="col-md-12 col-12 ">
+  <div class="left_side_menu">
+   
+     <ul>
+      <ng-container *ngFor="let x of dataMode;let i=index">
+        <ng-container *ngIf="frame.apps_frame_type=='CARD' ;else table">
+          <ng-container *ngIf="x=='Conditional Filter' || x=='Column'">
+          <li [ngClass]="shuffle==x?'active':''" (click)="getMode(i,x,$event)">
+          {{x}}
+            <ng-container *ngIf="x=='Conditional Filter' && frame.filterAbleArr && frame.filterAbleArr.length>0">
+              <div class="filter_present"></div>
+            </ng-container>
+          
+            <ng-container *ngIf="x=='Column' && frame.selectedCols && frame.selectedCols.length>0">
+              <div class="filter_present"></div>
+            </ng-container>
+           
+          </li>
+        </ng-container>
+        </ng-container>
+        <ng-template #table>
+          <ng-container *ngIf="isFrameSubTypeNew(x)">
+            <li [ngClass]="shuffle==x?'active':''" (click)="getMode(i,x,$event)">
+              {{x=='Function'? 'Aggregate' : x}}
+              <ng-container *ngIf="x=='Conditional Filter' && frame.filterAbleArr && frame.filterAbleArr.length>0">
+                <div class="filter_present"></div>
+              </ng-container>
+              <ng-container *ngIf="x=='Group By' && frame.ctrlBrkCond && frame.ctrlBrkCond.length>0">
+                <div class="filter_present"></div>
+              </ng-container>
+              <ng-container *ngIf="x=='Column' && frame.selectedCols && frame.selectedCols.length>0">
+                <div class="filter_present"></div>
+              </ng-container>
+              <ng-container *ngIf="x=='Function' && frame.aggregateFun && frame.aggregateFun.length>0">
+                <div class="filter_present"></div>
+              </ng-container>
+            </li>
+          </ng-container>
+        </ng-template>
+        
+      </ng-container>
+     </ul>
+
+  </div>
+</div>
+<div class="col-md-12 col-12 ">
+  <div class="mmt-filter-area">
+     <app-apex-action-filter [frame]="frame" [shuffle]="shuffle" (viewByColumn)="viewByColumns($event)" (columnFilter)="columnFilter($event)" (groupBy)="groupBy($event)" (controlBr)="controlBr($event)" (aggregate)="aggregateFun($event)" (clearAll)="getMode(1,'Refresh',$event)">
+     </app-apex-action-filter>
+    
+   </div>
+</div>
+</div>
+

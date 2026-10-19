@@ -1,0 +1,86 @@
+<div class="superParentPage">
+  <app-super-header-bar [upArrowon]="upArrowon" [userDetails]="userDetails" [toggleSideMenu]="toggleSideMenu"
+  *ngIf="isModal !='P'" [notificationCount]="notificationCount" [toggleNotification]="toggleNotification"
+   (openNotificationemit)="openNotification()" (AdminNewemit)="AdminNew($event)" (AdminNewmobileemit)="AdminNewmobile()"
+   (openObjectEditorPageemit)="openObjectEditorPage($event)"
+  (UserRoleemit)="UserRole($event)" (Moduleclickemit)="tabSection('Moduleclick',$event)"
+  (searchGlobalemit)="searchGlobal($event)"
+  (offPass)="right_bar()"></app-super-header-bar>
+  
+  <app-left-bar (offPass)="tabSection('openoffLeftCanvasObject',$event)" (emitPass)="tabSection('openApplication',$event)" (notesLinksemit)="tabSection('openApplication',$event)" (reminderLinksemit)="tabSection('openoffCanvasObject',$event)"
+    *ngIf="isModal !='P'" class="desktop_display"></app-left-bar>
+    <!-- <div class="desktop_display"></div> -->
+
+
+    <div class=" page-tab-section d-flex justify-content-between">
+      <div class="tabRow">
+       <ul>
+          <ng-container *ngIf="globalobjects.homeButtonFlag">
+            <li *ngFor="let tab of lhs_lib.tabs" (click)="selectTab(tab)" class="tabLi" [class.active]="tab.active"
+          style="min-width:35px;padding:1px 0px;width: 35px;">
+         
+          <span  style="margin:2px 9px 3px;"> <img src="./assets/imgs/new-theme-icons/home-img.png"></span>
+        </li>
+          </ng-container>        
+        <li *ngFor="let tab of head;let i = index" (click)="selectTabParent(i)" class="tabLi"
+          [class.active]="tab.active" title="{{tab.title}}">
+          <ng-container>
+            <span title="{{tab.title}}">{{tab.title}}</span> <ion-icon  (click)="closeTab(i)"
+            name="close-outline"></ion-icon>
+          </ng-container>
+
+        </li> 
+        <li class="tabLi" *ngIf="lhs_lib.dynamicTabs.length > 1">
+           <ion-button (click)="closeAllTabs()" class="close_tab"> <ion-icon name="close-outline"></ion-icon> Clear Tabs</ion-button>
+        </li>
+       
+      </ul>
+      </div>
+      <div>
+        
+        <app-tab-section [page_no]="page_no" [isModal]="isModal" (collapseHeademit)="collapseHead()"
+        (refreshObjFabemit)="tabSection('refreshObjFab')"  (openHomePopemit)="tabSection('openHomePop',$event)"
+        (setOpenemit)="tabSection('setOpen')" (downloadObjemit)="tabSection('downloadObj')" 
+        (selectTabsemit)="selectTab($event)" (showInfoPopupemit)="tabSection('showInfoPopup')" (builderDismisemit)="tabSection('builderDismiss')"
+        (parameterFrame)="tabSection('openParameter')"></app-tab-section>
+      </div>
+    </div>
+  
+  <div class="parent-main">
+      <app-my-tabs>
+        <app-my-tab [tabTitle]="'Home'" >
+          <app-super [wscp]="wscp" [wsdpcl]="wsdpcl" [isModal]="isModal" [superId]="superId" [page_no]="page_no"
+            [isTab]="isTab" [object_mast]="object_mast" [wsdp]="wsdp" [click_events_str]="click_events_str"
+            (openObject)="openObject($event)" (selectTab)="selectTab($event)"
+            (updateTab)="updateTab($event)"></app-super>
+        </app-my-tab>
+    
+      </app-my-tabs>
+    
+      <ng-template let-wscp="wscp" let-wsdpcl="wsdpcl" let-click_events_str="click_events_str" let-page_no="page_no"
+        let-wsdp="wsdp" let-object_mast="object_mast" let-superId="superId" let-isTab="isTab" #superTemplate>
+        <app-super [wscp]="wscp" [wsdpcl]="wsdpcl" [superId]="superId" [page_no]="page_no" [object_mast]="object_mast"
+          [wsdp]="wsdp" [click_events_str]="click_events_str" [isTab]="isTab" (openObject)="openObject($event)"
+          (selectTab)="selectTab($event)"
+          (updateTab)="updateTab($event)"></app-super>
+      </ng-template>
+  
+  </div>
+  
+  <div  class="desktop_display">
+  <app-right-bar (quickLinksemit)="tabSection('quickLinks')" (roleassignemit)="tabSection('roleassign')"   (themeLinksemit)="tabSection('themeLinks')" *ngIf="isModal !='P' && isModal !='O'"  (sliderOutlineemit)="tabSection('openoffRightCanvasObject',$event)" 
+ (releaseNoteLinksemit)="tabSection('openoffRightCanvasObject',$event)" (helpLinksemit)="tabSection('helpLinks')" (chatboatemit)="tabSection('chatboat')" (aiassistantemit)="tabSection('aiassistant')" (agentic_Chatbot_emit)="tabSection('agentic_Chatbot',$event)" (announceLinksemit)="tabSection('announceLinks')"   (ticketOutlineemit)="tabSection('openApplication',$event)"
+  (devloperMLinksemit)="tabSection('devloperMLinks')"  (statuslinkemit)="tabSection('statuslink')" (shortcutLinksemit)="tabSection('shortcutLinks',$event)"></app-right-bar>
+  </div>
+  
+  <ion-footer class="mobile_display main-footer" >
+    <ion-toolbar>
+      <app-left-bar (offPass)="tabSection('openoffLeftCanvasObject',$event)" (emitPass)="tabSection('openApplication',$event)" (notesLinksemit)="tabSection('openApplication',$event)" (reminderLinksemit)="tabSection('openoffCanvasObject',$event)"
+    *ngIf="isModal !='P'" ></app-left-bar>
+    </ion-toolbar>
+  </ion-footer>
+  
+</div>
+
+
+<!--  -->

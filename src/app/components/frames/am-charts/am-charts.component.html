@@ -1,0 +1,1681 @@
+<ng-container *ngIf="frame.apps_frame_sub_type">
+  <!-- style="position: sticky;top: 0;z-index: 2;" -->
+  <ion-row *ngIf="frame.apps_page_frame_name" >
+    <ion-col size="12">
+      <!-- <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}</h1> -->
+      <div style="display: flex; align-items: center;">
+        <h1 class="frame-name position-relative" style="width: 100%;"><div>{{frame.apps_page_frame_name}}           
+            <span
+              style="margin-left: 10px;width: 100%;"
+              *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]           
+            </span>
+            <span *ngIf="globalObjects.toggleDevloperMode()">
+              <ion-icon class="code-btn" color="primary" name="information-circle-outline"
+                (click)="showDeveloperData()">
+              </ion-icon>
+            </span> </div>
+
+
+          <div class="graph-icon-btn-wrapper">
+            <span class="graph-icon-btn" [title]="iconName">
+              <span class="graph-icon-span">
+                <ion-icon name="list-outline" color="primary" (click)="showtableFunc()"></ion-icon>
+              </span>
+            </span>
+
+
+            <span class="graph-icon-btn" [title]="iconName">
+              <span class="graph-icon-span">
+                <ion-icon name="stats-chart-outline" color="primary" (click)="openSelect()"></ion-icon>
+              </span>
+            </span>
+
+            <span class="graph-icon-btn" [title]="openModal" *ngIf="crossIcon">
+              <span class="graph-icon-span">
+                <ion-icon name="expand-outline" color="primary" (click)="amChartsPopover()"></ion-icon>
+              </span>
+            </span>
+
+            <ng-container *ngIf="frame.headerFlag">
+              <span class="graph-icon-btn">
+                <span class="graph-icon-span">
+                  <ion-icon name="close" (click)="closeModal()"></ion-icon>
+                  <!-- <div style="clear: both;"></div> -->
+                </span>
+              </span>
+            </ng-container>
+
+            
+       
+
+          </div>
+
+        </h1>
+        <!-- <span><ion-button size="small" style="padding-top: 0;height: 18px;font-size: 10px;" (click)="showQueryParam()">Query Parameter</ion-button></span> -->
+        <!--     <ion-item lines="none"  > -->
+        <!-- <ion-label style="font-size:14px;">Switch To Card</ion-label> -->
+        <!-- <i class="fa fa-table" aria-hidden="true"  slot="start"  style="margin-right: 8px;" ></i> -->
+        <!-- <ion-toggle  (ionChange)="onSwitch()" style="padding: 0;"></ion-toggle> -->
+
+
+        <!--  </ion-item> -->
+      </div>
+    </ion-col>
+    <!-- <ion-col class="pr-0 data-view-type text-right" size="3">
+       -->
+    <!-- <ion-icon (click)="toggle()" [hidden]="horizontal_table=='Hide'" name="chevron-down-circle"></ion-icon>
+        <ion-icon (click)="toggle()" [hidden]="horizontal_table=='Show'" name="ios-arrow-dropright-circle"></ion-icon> -->
+    <!-- <ion-icon name="ios-funnel" (click)="filterToggle()" class="filter-btn ml-3"></ion-icon> -->
+    <!-- </ion-col> -->
+  </ion-row>
+
+
+
+  <ng-container *ngIf="selectShow">
+    <ng-select [(ngModel)]="graphFlag" class="ng-select" (change)="onChange(graphFlag)" (blur)="selectShow = true"
+      #mySelect>
+      <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})
+      </ng-option>
+    </ng-select>
+  </ng-container>
+
+  <ion-row *ngIf="type == 'X1,Y1'" class="chart-row">
+
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeX(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+    <!-- <div class="dropdown">
+      <ion-button (onclick)="myFunction()"  class="dropbtn">Dropdown</ion-button>
+        <div id="myDropdown" class="dropdown-content" >
+          <ion-input type="text" placeholder="Search.." id="myInput" (onkeyup)="filterFunction()"></ion-input>
+          <a *ngFor="let chart of chartDDList"  (onClick)="alert()">{{chart.chartName}} ({{chart.chart_id}})</a>
+        </div>
+  
+    </div> -->
+
+
+    <!-- <ion-select [(ngModel)]="graphFlag" class="ng-select" (change)="onChange(graphFlag)"  #mySelect>
+      <ion-select-option  *ngFor="let chart of chartDDList" [value]="chart.flag" > {{chart.chartName}} ({{chart.chart_id}}) </ion-select-option>
+    </ion-select> -->
+
+    <!-- <ion-button style="height: 20px;" (click)="openSelect()">open</ion-button> -->
+
+
+
+  </ion-row>
+
+
+
+  <ion-row *ngIf="type == 'X1,Y1,Y2'" class="chart-row">
+
+    <ion-item class="input-border" *ngIf="xList.length > 0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeX(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length > 0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length > 0">
+      <ion-label>Y2 Axis</ion-label>
+      <ion-select [(ngModel)]="y2Axis" (ionChange)="changeY(y2Axis,'Y2')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+  </ion-row>
+
+  <ion-row *ngIf="type == 'D1,Y1'" class="chart-row">
+
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="d1Axis" (ionChange)="changeX(d1Axis,'D1')">
+        <ion-select-option *ngFor="let list of dList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+
+  </ion-row>
+
+  <ion-row *ngIf="type == 'X1,X2,Y1'" class="chart-row">
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeX(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X2 Axis</ion-label>
+      <ion-select [(ngModel)]="x2Axis" (ionChange)="changeX(x2Axis,'X2')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag" class="ng-options">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+
+  </ion-row>
+
+  <ion-row *ngIf="type == 'D1,Y1,Y2'" class="chart-row">
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y2 Axis</ion-label>
+      <ion-select [(ngModel)]="y2Axis" (ionChange)="changeY(y2Axis,'Y2')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="dList.length >0">
+      <ion-label>D1 Axis</ion-label>
+      <ion-select [(ngModel)]="d1Axis" (ionChange)="changeY(d1Axis,'D1')">
+        <ion-select-option *ngFor="let list of dList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+
+  </ion-row>
+
+  <ion-row *ngIf="type == 'X1,Y1,Y2,Y3'" class="chart-row">
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeX(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y2 Axis</ion-label>
+      <ion-select [(ngModel)]="y2Axis" (ionChange)="changeY(y2Axis,'Y2')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y3 Axis</ion-label>
+      <ion-select [(ngModel)]="y3Axis" (ionChange)="changeY(y3Axis,'Y3')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+
+  </ion-row>
+
+  <ion-row *ngIf="type == 'X1,X2,D1,D2'" class="chart-row">
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeX(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X2 Axis</ion-label>
+      <ion-select [(ngModel)]="x2Axis" (ionChange)="changeX(x2Axis,'X2')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="dList.length >0">
+      <ion-label>D1 Axis</ion-label>
+      <ion-select [(ngModel)]="d1Axis" (ionChange)="changeX(d1Axis,'D1')">
+        <ion-select-option *ngFor="let list of dList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="dList.length >0">
+      <ion-label>D2 Axis</ion-label>
+      <ion-select [(ngModel)]="d2Axis" (ionChange)="changeX(d2Axis,'D2')">
+        <ion-select-option *ngFor="let list of dList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+
+  </ion-row>
+
+
+
+
+
+  <ion-row *ngIf="type == 'Y1,Y2,Y3,Y4'" class="chart-row">
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y2 Axis</ion-label>
+      <ion-select [(ngModel)]="y2Axis" (ionChange)="changeY(y2Axis,'Y2')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y3 Axis</ion-label>
+      <ion-select [(ngModel)]="y3Axis" (ionChange)="changeY(y3Axis,'Y3')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y4 Axis</ion-label>
+      <ion-select [(ngModel)]="y4Axis" (ionChange)="changeY(y4Axis,'Y4')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+
+  </ion-row>
+
+  <ion-row *ngIf="type == 'X1,YN'" class="chart-row">
+    <ion-item class="input-border" lines="none" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeY(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y2 Axis</ion-label>
+      <ion-select [(ngModel)]="y2Axis" (ionChange)="changeY(y2Axis,'Y2')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y3 Axis</ion-label>
+      <ion-select [(ngModel)]="y3Axis" (ionChange)="changeY(y3Axis,'Y3')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y4 Axis</ion-label>
+      <ion-select [(ngModel)]="y4Axis" (ionChange)="changeY(y4Axis,'Y4')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y5 Axis</ion-label>
+      <ion-select [(ngModel)]="y5Axis" (ionChange)="changeY(y5Axis,'Y5')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!--  
+      <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+  </ion-row>
+
+  <ion-row *ngIf="type == 'X1,Y1,D1,D2'" class="chart-row">
+    <ion-item class="input-border" lines="none" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeX(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'y1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="dList.length >0">
+      <ion-label>D1 Axis</ion-label>
+      <ion-select [(ngModel)]="d1Axis" (ionChange)="changeY(d1Axis,'D1 ')">
+        <ion-select-option *ngFor="let list of dList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="dList.length >0">
+      <ion-label>D2 Axis</ion-label>
+      <ion-select [(ngModel)]="d2Axis" (ionChange)="changeY(d2Axis,'D2')">
+        <ion-select-option *ngFor="let list of dList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+    <!--  
+      <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+
+  </ion-row>
+
+  <ion-row *ngIf="type == 'X1,D1,D2'" class="chart-row">
+
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeX(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="dList.length >0">
+      <ion-label>D2 Axis</ion-label>
+      <ion-select [(ngModel)]="d2Axis" (ionChange)="changeY(d2Axis,'D2')">
+        <ion-select-option *ngFor="let list of dList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="dList.length >0">
+      <ion-label>D1 Axis</ion-label>
+      <ion-select [(ngModel)]="d1Axis" (ionChange)="changeY(d1Axis,'D1')">
+        <ion-select-option *ngFor="let list of dList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- 
+      <ng-select [(ngModel)]="graphFlag" class="ng-select">
+          <ng-option *ngFor="let chart of chartDDList" [value]="chart.flag">{{chart.chartName}} ({{chart.chart_id}})</ng-option>
+      </ng-select> -->
+
+  </ion-row>
+
+  <ion-row *ngIf="type == 'D1,X1,Y1,YN'" class="chart-row">
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeX(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" lines="none" *ngIf="dList.length >0">
+      <ion-label>D1 Axis</ion-label>
+      <ion-select [(ngModel)]="d1Axis" (ionChange)="changeY(d1Axis,'D1')">
+        <ion-select-option *ngFor="let list of dList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y2 Axis</ion-label>
+      <ion-select [(ngModel)]="y2Axis" (ionChange)="changeY(y2Axis,'Y2')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y3 Axis</ion-label>
+      <ion-select [(ngModel)]="y3Axis" (ionChange)="changeY(y3Axis,'Y3')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y4 Axis</ion-label>
+      <ion-select [(ngModel)]="y4Axis" (ionChange)="changeY(y4Axis,'Y4')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-row>
+  <!-- 
+  <ion-row *ngIf="type == 'X1,Y1,IMG'" class="chart-row">
+    <ion-item class="input-border" *ngIf="xList.length >0">
+      <ion-label>X1 Axis</ion-label>
+      <ion-select [(ngModel)]="x1Axis" (ionChange)="changeX(x1Axis,'X1')">
+        <ion-select-option *ngFor="let list of xList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+  
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>Y1 Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-item class="input-border" *ngIf="yList.length >0">
+      <ion-label>IMG Axis</ion-label>
+      <ion-select [(ngModel)]="y1Axis" (ionChange)="changeY(y1Axis,'Y1')">
+        <ion-select-option *ngFor="let list of yList" [value]="list.itemName">{{list.promptName}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+  </ion-row> -->
+
+
+
+  <ng-container *ngIf="!loading">
+    <ng-container *ngIf="showTable">
+      <div class="chart-table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th *ngFor="let th of tHead">
+                {{th.prompt_name}}
+              </th>
+            </tr>
+
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of frame.tableData;let i = index">
+              <ng-container *ngFor="let item of tHead" >
+              <td (click)="itemClicked(i,data[item.item_name])" [ngStyle]="item.display_setting_str">
+                <span *ngIf="item.dataType == 'NUMBER'; else showNormalTable" >
+                  {{data[item.item_name]}}</span>
+
+                <ng-template #showNormalTable >
+                  {{data[item.item_name]}}
+                </ng-template>
+
+                <!-- <span *ngIf="item.dataType == 'NUMBER' " style="color: red;">
+              
+              {{data[item.item_name]}}
+            </span>      -->
+
+                <!-- <span *ngIf="item.dataType != 'NUMBER' ">
+              
+              {{data[item.item_name]}}
+            </span>    -->
+              </td>
+            </ng-container>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </ng-container>
+    <ng-container *ngIf="!frame.loading">
+      <ng-container *ngIf="frame.chartData && !showTable">
+        <!-- <div [ngStyle]="frame.modalFlag ? frame.CSS_CLASS_FRAME : ''"> -->
+        <ng-container *ngIf=" frame.chartData.length>0  &&  (graphFlag == 'triangleFlag') ">
+          <!-- <h2>Triangle column chart</h2> -->
+          <app-triangle-column-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-triangle-column-chart>
+        </ng-container>
+        <!-- </div> -->
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'ganttChartFlag')">
+          <!-- <h2>Gantt Chart</h2> -->
+          <app-gantt-chart [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-gantt-chart>
+        </ng-container>
+
+        <!-- <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'clusterBarChartFlag')">
+      
+          <app-clustered-bar-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-clustered-bar-chart>
+        </ng-container> -->
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'ganttchartDatesFlag')">
+          <!-- <h2>Gantt Chart with dates</h2> -->
+          <app-gantt-chart-dates [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-gantt-chart-dates>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'paretoFlag')">
+          <!-- <h2>Pareto Charts</h2> -->
+          <app-pareto-diagram [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-pareto-diagram>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'barLineChartFlag')">
+          <!-- <h2>Bar and line chart mix</h2> -->
+          <app-bar-line-chart-mix [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-bar-line-chart-mix>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'chordAnimatedFlag')">
+          <!-- <h2>Chord diagram with animated bullets</h2> -->
+          <app-chord-animated-bullets [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-chord-animated-bullets>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'columnLineMixFlag')">
+          <!-- <h2>Column and Line mix</h2> -->
+          <app-column-line-mix [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-column-line-mix>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'variableCurveFlag')">
+          <!-- <h2>Variable-width curved column chart</h2> -->
+          <app-variable-curved-column [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-variable-curved-column>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'chartgapFlag')">
+          <!-- <h2>Chart With Gaps In Data</h2> -->
+          <app-chart-gaps-data [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-chart-gaps-data>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'solidGaugeFlag')">
+          <!-- <h2>Solid Gauge</h2> -->
+          <app-solid-guage [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-solid-guage>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 &&   (graphFlag == 'realtimeFlag')">
+          <!-- <h2>Real time data sorting</h2> -->
+          <app-real-time-data-sorting [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-real-time-data-sorting>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'columnAxixBreakFlag')">
+          <!-- <h2>Column chart with axis break</h2> -->
+          <app-column-chart-axis-break [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-column-chart-axis-break>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0  && (graphFlag == 'sortedFlag')">
+          <!-- <h2>Sorted bar chart</h2> -->
+          <app-sorted-bar-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-sorted-bar-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'liveSortingdFlag')">
+          <!-- <h2>Live sorting of Radar columns</h2> -->
+          <app-live-sorting-radar-chart-column [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-live-sorting-radar-chart-column>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'simpleColumnFlag')">
+          <!-- <h2>Simple Column Chart</h2> -->
+          <app-simple-column-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-simple-column-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == '3DCylinderFlag')">
+          <!-- <h2>3D Cylinder Chart</h2> -->
+          <app-three-d-cylinder-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-three-d-cylinder-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'layeredChartFlag')">
+          <!-- <h2>Layered Column Chart</h2> -->
+          <app-layered-column-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-layered-column-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == '3DStackedColumnChartFlag')">
+          <!-- <h2>3D Stacked Column Chart</h2> -->
+          <app-three-d-stacked-column-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-three-d-stacked-column-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'threeDBarChartFlag')">
+          <!-- <h2>3D Bar Chart</h2> -->
+          <app-three-d-bar-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-three-d-bar-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'imageCategoryFlag')">
+          <!-- <h2>Images as categories</h2> -->
+          <app-images-as-categories [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-images-as-categories>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'columnRotatedSeriesFlag')">
+          <!-- <h2>Column With Rotated Series</h2> -->
+          <app-column-rotated-labels [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-column-rotated-labels>
+        </ng-container>
+
+
+        <!-- <div>
+      <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'divergentLinesFlag')">
+        <app-divergent-lines [subData]="graphDataSubject" [frame] ="frame"></app-divergent-lines>
+      </ng-container>
+    </div> -->
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'pieChartFlag')">
+          <!-- <h2>Pie Chart</h2> -->
+          <app-pie-chart [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-pie-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'pieChartLegendFlag')">
+          <!-- <h2>Pie Chart With Legend</h2> -->
+          <app-pie-chart-with-legend [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-pie-chart-with-legend>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'radiusNestedDonutChartflag')">
+          <!-- <h2>Variable-radius nested donut chart</h2> -->
+          <app-variable-radius-nested-donut [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-variable-radius-nested-donut>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'simplePieChartFlag')">
+          <!-- <h2>Simple Pie Chart</h2> -->
+          <app-simple-pie-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-simple-pie-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'donutRadialChartflag')">
+          <!-- <h2>Donut with radial gradient</h2> -->
+          <app-donut-with-radial-gradient [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-donut-with-radial-gradient>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'variableHeightThreePieChartFlag')">
+          <!-- <h2>Variable-height 3D Pie Chart</h2> -->
+          <app-variable-height-three-d-pie-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)">
+          </app-variable-height-three-d-pie-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'threeDPieChartFlag')">
+          <!-- <h2>3D Pie Chart</h2> -->
+          <app-three-d-pie-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-three-d-pie-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'threeDDonutChartFlag')">
+          <!-- <h2>3D Donut Chart</h2> -->
+          <app-three-d-donut-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-three-d-donut-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stepLineFlag')">
+          <!-- <h2>Step Line Chart</h2> -->
+          <app-step-line-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-step-line-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'variableRadiusPieChartFlag')">
+          <!-- <h2>Variable Radius Pie Chart</h2> -->
+          <app-variable-radius-pie-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-variable-radius-pie-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'curvedColumnsFlag')">
+          <!-- <h2>Curved columns</h2> -->
+          <app-curved-columns [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-curved-columns>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'funnelChartFlag')">
+          <!-- <h2>Funnel chart</h2> -->
+          <app-funnel-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-funnel-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'donutChartFlag')">
+          <!-- <h2>Donut chart</h2> -->
+          <app-donut-chart [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-donut-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'nestedDonutChartFlag')">
+          <!-- <h2>Donut chart</h2> -->
+          <app-nested-donut-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-nested-donut-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'semiCirclePieChartFlag')">
+          <!-- <h2>Semi-circle Pie chart</h2> -->
+          <app-semi-circla-pie-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-semi-circla-pie-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'animatedBulletSeriesFlag')">
+          <!-- <h2>Animated bullet at the end of the series</h2> -->
+          <app-animated-bullet-end-series [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-animated-bullet-end-series>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'lineChangingColorFlag')">
+          <!-- <h2>Line With Changing Color</h2> -->
+          <app-line-with-changing-colors [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-line-with-changing-colors>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'smoothLineFlag')">
+          <!-- <h2>Smoothed Line Chart</h2> -->
+          <app-smoothed-line-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-smoothed-line-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'zoomableValueAxisFlag')">
+          <!-- <h2>Zoomable Value Axis</h2> -->
+          <app-zoomable-value-axis [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-zoomable-value-axis>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'chordDiagramFlag')">
+          <!-- <h2>Chord diagram</h2> -->
+          <app-chord-diagram [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-chord-diagram>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'bubbleChartFlag')">
+          <!-- <h2>Bubble Chart</h2> -->
+          <app-bubble-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-bubble-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'rangeChartFlag')">
+          <!-- <h2>Range chart with different fill colors</h2> -->
+          <app-range-chart-different-fill-colors [frame]="frame" [subData]="graphDataSubject"
+            (emitPass)="itemClick($event)" [data]=frame.chartData></app-range-chart-different-fill-colors>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'toggleableChordFlag')">
+          <!-- <h2>Toggleable chord diagram</h2> -->
+          <app-toggleable-chord-diagram [frame]="frame" [subData]="graphDataSubject" (emitPass)="itemClick($event)"
+            [data]=frame.chartData></app-toggleable-chord-diagram>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'pyramidChartFlag')">
+          <!-- <h2>Pyramid Chart</h2> -->
+          <app-pyramid [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-pyramid>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'comparingDifferentFlag')">
+          <!-- <h2>Comparing different date values Google analytics style</h2> -->
+          <app-comparing-different-date-values-google-analytics-style [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)">
+          </app-comparing-different-date-values-google-analytics-style>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'logrithmicScaleFlag')">
+          <!-- <h2>Logarithmic Scale</h2> -->
+          <app-logarithmic-scale [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-logarithmic-scale>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'dateBasedFlag')">
+          <!-- <h2>Date Based Data</h2> -->
+          <app-date-based-data [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-date-based-data>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'lineCustomFlag')">
+          <!-- <h2>Line With Custom Bullets</h2> -->
+          <app-line-custom-bullets [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-line-custom-bullets>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'verticalLineFlag')">
+          <!-- <h2>Vertical Line Chart</h2> -->
+          <app-verticle-linechrt [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-verticle-linechrt>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mixdailyIntraFlag')">
+          <!-- <h2>Mixed daily and intra-day chart</h2> -->
+          <app-mixed-daily-intra-day-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-mixed-daily-intra-day-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'varianceFlag')">
+          <app-variance-indicators [subData]="graphDataSubject" [frame]="frame"
+          (emitPass)="itemClick($event)"></app-variance-indicators>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stackedNegativeFlag')">
+          <!-- <h2>Stacked bar chart with negative values</h2> -->
+          <app-stacked-bar-chart-negative-values [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-stacked-bar-chart-negative-values>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'heatMapLegendFlag')">
+          <!-- <h2>Heat map with Legend</h2> -->
+          <app-heat-map-legend [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-heat-map-legend>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'hundredStackColumnFlag')">
+          <!-- <h2>100% Stacked Column Chart</h2> -->
+          <app-hundred-stacked-column-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-hundred-stacked-column-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'floatingBarFlag')">
+          <!-- <h2>Floating Bar Chart</h2> -->
+          <app-floating-bar-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-floating-bar-chart>
+        </ng-container>
+
+      <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'groupedSortedColumnsFlag')">
+          <!-- <h2>Grouped and sorted columns</h2> -->
+<app-grouped-sorted-columns  [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-grouped-sorted-columns>
+
+</ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'columnChartImagesTop')">
+          <!-- <h2>Column chart with images on top</h2> -->
+          <app-column-chart-images-on-top [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-column-chart-images-on-top>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'durationValueAxisFlag')">
+          <!-- <h2>Duration on Value Axis</h2> -->
+          <app-duration-value-axis [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-duration-value-axis>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'lollipopChartFlag')">
+          <!-- <h2>Lollipop Chart</h2> -->
+          <app-lollipop-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-lollipop-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'dumbbelPlotFlag')">
+          <!-- <h2>Dumbbell plot</h2> -->
+          <app-dumbbell-plot [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-dumbbell-plot>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'lineDifferentNegativeFlag')">
+          <!-- <h2>Line with different negative color</h2> -->
+          <app-line-with-different-negative-color-chrt [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-line-with-different-negative-color-chrt>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'lineGraphFlag')">
+          <!-- <h2>Line graph</h2> -->
+          <app-line-graph-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-line-graph-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'lineChartRangeFlag')">
+          <!-- <h2>Line chart with range slider</h2> -->
+          <app-line-chart-range-slider [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-line-chart-range-slider>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'lineChartScrollFlag')">
+          <!-- <h2>Line Chart with Scroll and Zoom</h2> -->
+          <app-line-chart-scroll-and-zoom [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-line-chart-scroll-and-zoom>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'scatterChartFlag')">
+          <!-- <h2>Scatter Chart</h2> -->
+          <app-scatter-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-scatter-chart>
+        </ng-container>
+ <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'groupedStackFlag')">
+          <!-- <h2>3D Grouped Stacks</h2> -->
+          <app-grouped-stacks [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-grouped-stacks>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'threeDStackChart')">
+          <!-- <h2>3D Stacked Column Chart</h2> -->
+          <app-three-d-stacked-column-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-three-d-stacked-column-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'timelineFlag')">
+          <!-- <h2>Timeline</h2> -->
+          <app-timeline [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-timeline>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'columnMovingBulletFlag')">
+          <!-- <h2>Columns with moving bullets</h2> -->
+          <app-column-moving-bullets [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-column-moving-bullets>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'grainygradientsFlag')">
+          <!-- <h2>Columns with moving bullets</h2> -->
+          <app-columns-grainy-gradients [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-columns-grainy-gradients>
+        </ng-container>
+        <!-- <app-columns-grainy-gradients></app-columns-grainy-gradients> -->
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'waterFallChartFlag')">
+          <!-- <h2>Waterfall Chart</h2> -->
+          <app-waterfall-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-waterfall-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'areaTimeBaseFlag')">
+          <!-- <h2>Area With Time Based Data</h2> -->
+          <app-area-time-based-data [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-area-time-based-data>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stepLineWithoutRisersFlag')">
+          <!-- <h2>Step Line Without Risers</h2> -->
+          <app-step-line-without-risers-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-step-line-without-risers-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'reverseValueAxisFlag')">
+          <!-- <h2>Reversed Value Axis</h2> -->
+          <app-reversed-value-axis-chrt [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-reversed-value-axis-chrt>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'radialBarChartFlag')">
+          <!-- <h2>Radial bar chart</h2> -->
+          <app-radial-bar-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-radial-bar-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'polarAreaChartFlag')">
+          <!-- <h2>Polar area chart</h2> -->
+          <app-polar-area-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-polar-area-chart>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'partitionedBarFlag')">
+          <!-- <h2>Partitioned bar chart</h2> -->
+          <app-partitioned-bar-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-partitioned-bar-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'riskHeatMapFlag')">
+          <!-- <h2>Risk Heatmap</h2> -->
+          <app-risk-heatmap [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-risk-heatmap>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'dataGroupingFlag')">
+          <!-- <h2>Data grouping 50K points</h2> -->
+          <app-data-grouping-fifty-thousand-points [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-data-grouping-fifty-thousand-points>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'dataBasedFlag')">
+          <!-- <h2>Date Based Data	</h2> -->
+          <app-date-base-data [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-date-base-data>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'rangeChartFillColor')">
+          <!-- <h2>Range chart with different fill colors</h2> -->
+          <app-range-chart-different-fill-colors [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)">
+          </app-range-chart-different-fill-colors>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'vennDiagramFlag')">
+          <!-- <h2>Venn diagram</h2> -->
+          <app-venn-diagram [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-venn-diagram>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stepCountFlag')">
+          <!-- <h2>Step count chart</h2> -->
+          <app-step-count-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-step-count-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'barsMovingBulletFlag')">
+          <!-- <h2>Bars with moving bullets</h2> -->
+          <app-bars-with-moving-bullets [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-bars-with-moving-bullets>
+        </ng-container>
+
+
+        <!-- <div>
+      <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'highlightingLineChart')">
+        <h2>Highlighting line chart series on legend hover</h2>
+        <app-bars-with-moving-bullets [subData]="graphDataSubject" [frame] ="frame"></app-bars-with-moving-bullets>
+      </ng-container>
+    </div> -->
+
+        <!-- <div>
+      <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'liveDataFlag')">
+        <h2>Live Data</h2>
+        <app-live-data [subData]="graphDataSubject" [frame] ="frame"></app-live-data>
+      </ng-container>
+    </div> -->
+
+
+  <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'grainyGradientGraphFlag')">
+    <app-grainy-gradient-pie [subData]="graphDataSubject" [frame]="frame"
+    (emitPass)="itemClick($event)"></app-grainy-gradient-pie>
+  </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'radialLineGraphFlag')">
+          <!-- <h2>Radial line graph</h2> -->
+          <app-radial-line-graph [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-radial-line-graph>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'twoLevelPieFlag')">
+          <!-- <h2>Two-level pie chart</h2> -->
+          <app-two-level-pie-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-two-level-pie-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'highlightingLineFlag')">
+          <!-- <h2>Highlighting line chart series on legend hover</h2> -->
+          <app-highlighting-line-chart-serieson-legend-hover [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)">
+          </app-highlighting-line-chart-serieson-legend-hover>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'drawingChartSeriesFlag')">
+          <!-- <h2>Drawing chart series with mouse or touch</h2> -->
+          <app-drawing-chart-series-mouse-touch [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-drawing-chart-series-mouse-touch>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'draggingPieSliceFlag')">
+          <!-- <h2>Dragging Pie Slices</h2> -->
+          <app-dragging-pie-slices [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-dragging-pie-slices>
+        </ng-container>
+            <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'dragOrderingFlag')">
+          <!-- <h2>Dragging Pie Slices</h2> -->
+          <app-drag-ordering-bars [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-drag-ordering-bars>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stackColumnflag')">
+          <!-- <h2>Stacked Column Chart</h2> -->
+          <app-stacked-column-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-stacked-column-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'trendLineFlag')">
+          <!-- <h2>Trend Lines</h2> -->
+          <app-trend-lines [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-trend-lines>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'clusterChartflag')">
+          <!-- <h2>Clustered column chart</h2> -->
+          <app-clustered-column-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-clustered-column-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stackedClusterChartFlag')">
+          <!-- <h2>Stacked and Clustered Column Chart</h2> -->
+          <app-stacked-clustered-column-chart [frame]="frame" (emitPass)="itemClick($event)"
+            [subData]="graphDataSubject"></app-stacked-clustered-column-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stackedBarChartFlag')">
+          <!-- <h2>Stacked Bar Chart</h2> -->
+          <app-stacked-bar-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-stacked-bar-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'clusterBarFlag')">
+          <!-- <h2>Clustered Bar Chart</h2> -->
+          <app-clustered-bar-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-clustered-bar-chart>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'streamThemeRiverFlag')">
+          <!-- <h2>Stream / ThemeRiver chart</h2> -->
+          <app-stream-theme-river [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-stream-theme-river>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stackedColumnFlag')">
+          <!-- <h2>Stacked Column Chart</h2> -->
+          <app-stacked-column-chart [frame]="frame" [subData]="graphDataSubject"
+            (emitPass)="itemClick($event)"></app-stacked-column-chart>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'divergentStackedFlag')">
+          <!-- <h2>Divergent stacked bars</h2> -->
+          <app-divergent-stacked-bars [frame]="frame" [subData]="graphDataSubject"
+            (emitPass)="itemClick($event)"></app-divergent-stacked-bars>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stackAreaFlag')">
+          <!-- <h2>Stacked Area</h2> -->
+          <app-stacked-area [subData]="graphDataSubject" [frame]='frame'
+            (emitPass)="itemClick($event)"></app-stacked-area>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'serpentineTimeline')">
+          <!-- <h2>Stacked Area</h2> -->
+          <app-serpentine-timeline [subData]="graphDataSubject" [frame]='frame'
+            (emitPass)="itemClick($event)"></app-serpentine-timeline>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'horizontalTimeline')">
+          <!-- <h2>Stacked Area</h2> -->
+          <app-horizontal-serpentine [subData]="graphDataSubject" [frame]='frame'
+            (emitPass)="itemClick($event)"></app-horizontal-serpentine>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'linearProcess')">
+          <!-- <h2>Linear process diagram</h2> -->
+          <app-linear-process [subData]="graphDataSubject" [frame]='frame'
+            (emitPass)="itemClick($event)"></app-linear-process>
+        </ng-container>
+
+
+
+
+
+
+
+
+
+        <!-- <div>
+      <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'multipleValueAxis')">
+        <h2>Multiple Value Axes</h2>
+        <app-multiple-value-axes [subData]="graphDataSubject" [frame] ="frame"></app-multiple-value-axes>
+      </ng-container> 
+    </div> -->
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'lineDiffColorFlag')">
+          <!-- <h2>Line with different colors for ups and down</h2> -->
+          <app-line-with-different-color-ups-downs [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-line-with-different-color-ups-downs>
+        </ng-container>
+
+
+
+        <!-- <ion-row> -->
+          <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'gaugeGradientFill')">
+            <ng-container *ngFor="let d of frame.chartData">
+              <!-- <h2>Gauge with gradient fill</h2> -->
+              <app-guage-gradient-fill [data]="d" [frame]="frame" [subData]="graphDataSubject"
+                (emitPass)="itemClick($event)"></app-guage-gradient-fill>
+            </ng-container>
+          </ng-container>
+        <!-- </ion-row> -->
+
+
+
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'clockGraph')">
+          <!-- <h2>clock</h2> -->
+          <app-clock-graph [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-clock-graph>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'gaugeBands')">
+          <!-- <h2>Gauge with gradient fill</h2> -->
+          <app-gauge-bands [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-gauge-bands>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'simpleTreeMap')">
+          <!-- <h2>Gauge with gradient fill</h2> -->
+          <app-simple-treemap [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-simple-treemap>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'fishBoneTimeline')">
+          <!-- <h2>Fishbone timeline</h2> -->
+          <app-fishbone-timeline [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-fishbone-timeline>
+        </ng-container>
+
+      <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'angularGaugeTwoAxes')">
+        <!-- <h2>Angular Gauge With Two Axes</h2> -->
+        <app-angular-gaugetwo-axis [subData]="graphDataSubject" [frame]="frame"
+          (emitPass)="itemClick($event)"></app-angular-gaugetwo-axis>
+      </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'angualrGauge')">
+          <!-- <h2>Angular Gauge With Two Axes</h2> -->
+          <app-angular-gauge [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-angular-gauge>
+        </ng-container>
+
+        <!-- //////////////////////////////////map////////////////////////////////////////////                                                                            -->
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'animationsLineFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-animations-along-line [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-animations-along-line>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'approximateWorkingHourMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-approximate-working-hours-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-approximate-working-hours-map>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'capitalMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-capitals-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-capitals-map>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'changingMapProjectionsFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-changing-map-projections [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-changing-map-projections>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'dayandNightWorlMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-day-and-night-world-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-day-and-night-world-map>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'drillDownCongressionalFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-drill-down-congressioanl-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-drill-down-congressioanl-map>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'drillDownMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-drill-down-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-drill-down-map>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'drillDownToCountriesFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-drill-down-to-countries [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-drill-down-to-countries>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'fightRoutesMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-fight-routes-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-fight-routes-map>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'groupedCountriesMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-grouped-countries-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-grouped-countries-map>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'locationSensitiveMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-location-sensitive-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-location-sensitive-map>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mappedAnimatedBubblesFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-animated-bubbles [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-animated-bubbles>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapImageDrillDownChartFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-image-drill-down [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-image-drill-down>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapImagingAreasMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-imaging-areas-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-imaging-areas-map>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapTimelineFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-timeline [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-timeline>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapUsingD3ProjectionsFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-using-d3-projections [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-using-d3-projections>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapsAnimatedLinesFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-with-animated-lines [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-with-animated-lines>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapBubblesFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-with-bubbles [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-with-bubbles>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapCurvedLinesFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-with-curved-lines [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-with-curved-lines>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapDynamicPieChartFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-with-dynamic-pie-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-with-dynamic-pie-chart>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapPatternsFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-with-patterns [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-with-patterns>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapPulsatingBulletsFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-with-pulsating-bullets [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-with-pulsating-bullets>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mapSizedPinBulletsFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-map-with-sized-pin-bullets [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-map-with-sized-pin-bullets>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'multiSeriesMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-multi-series-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-multi-series-map>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'pacificCenteredMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-pacific-centered-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-pacific-centered-map>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'rotateGlobeSelectedCountryFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-rotate-globe-selected-country [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-rotate-globe-selected-country>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'rotatingGlobeFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-rotating-globe [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-rotating-globe>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'rotatingGlobewithCirclesFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-rotating-globewith-circles [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-rotating-globewith-circles>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'selectingMultipleAreasMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-selecting-multiple-areas-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-selecting-multiple-areas-map>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'usCongressionalDistrictsFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-us-congressional-districts [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-us-congressional-districts>
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'usHeatChoroPlethFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-us-heat-choropleth-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-us-heat-choropleth-map>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'wheatherMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-wheather-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-wheather-map>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'worldMapsClusteredMapPointsFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-world-maps-with-clustured-points [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-world-maps-with-clustured-points>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'worldtimezonempFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-world-time-zone-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-world-time-zone-map>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'zoomingToCountriesMapFlag')">
+          <!-- <h2> Guage guageWithBands Chart </h2> -->
+          <app-zooming-to-countries-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-zooming-to-countries-map>
+        </ng-container>
+
+
+        <!-- -------------------------------------------MISCELLANEOUS------------------------------------------------------------------------- -->
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'annotatingcharts')">
+          <app-annotating-charts [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-annotating-charts>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'chnagingdataofwordcloud')">
+          <app-changing-data-word-cloud [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-changing-data-word-cloud>
+        </ng-container>
+
+        <ng-container
+          *ngIf="frame.chartData.length>0 && (graphFlag == 'combinedbulletcolumnlinegraphsmultiplevalueaxis')">
+          <app-combined-bullet-line-multiple-value-axis [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-combined-bullet-line-multiple-value-axis>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'complexvenndiagram')">
+          <app-complex-venn-diagram [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-complex-venn-diagram>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'exportingcharttoimage')">
+          <app-exporting-chart-image [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-exporting-chart-image>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'forestchart')">
+          <app-forest-plot [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-forest-plot>
+        </ng-container>
+
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'historicalpopulationpyramid')">
+          <app-historical-population-pyramid [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-historical-population-pyramid>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'honeycombtilemap')">
+          <app-honeycomb-tile-map [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-honeycomb-tile-map>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'horizontallystackedaxis')">
+          <app-horizontally-stacked-axis [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-horizontally-stacked-axis>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'populationpyramid')">
+          <app-population-pyramid [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-population-pyramid>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'pictogram')">
+          <app-pictogram [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-pictogram>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'microchartsparklines')">
+          <app-micro-charts-sparklines [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-micro-charts-sparklines>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'mekkochart')">
+          <app-mekko-chart [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-mekko-chart>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'infographic')">
+          <app-infographic [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-infographic>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'hybriddrilldown')">
+          <app-hybrid-drill-down-pie-bar-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-hybrid-drill-down-pie-bar-chart>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'progresschart')">
+          <app-progress-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-progress-chart>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'rangebulletchart')">
+          <app-range-bullet-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-range-bullet-chart>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'sentencecloud')">
+          <app-sentence-cloud [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-sentence-cloud>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'spectrumchart')">
+          <app-spectrum-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-spectrum-chart>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'stripplot')">
+          <app-strip-plot [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-strip-plot>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'tagcloud')">
+          <app-tag-cloud [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"> </app-tag-cloud>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'tilemap')">
+          <app-tile-map [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-tile-map>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'venndiagram')">
+          <app-venn-diagram [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-venn-diagram>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'venndiagrampatterns')">
+          <app-venn-diagram-patterns [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-venn-diagram-patterns>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'verticallystackedaxeschart')">
+          <app-vertically-stacked-axes-chart [subData]="graphDataSubject" [frame]="frame"
+            (emitPass)="itemClick($event)"></app-vertically-stacked-axes-chart>
+        </ng-container>
+        <ng-container *ngIf="frame.chartData.length>0 && (graphFlag == 'wordcloud')">
+          <app-word-cloud [subData]="graphDataSubject" [frame]="frame" (emitPass)="itemClick($event)"></app-word-cloud>
+        </ng-container>
+      </ng-container>
+      <!-- <ng-template #dataNotFoundBlock> -->
+        <div *ngIf="!frame.chartData" style="width: 100%;
+        height: 85%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;">
+          <img src="../../../../assets/imgs/Nodata-found.svg" alt="No data found">
+        </div>
+      <!-- </ng-template> -->
+  </ng-container>
+  </ng-container> 
+
+  <ng-container *ngIf="frame.loading">
+
+    <div class="text-center cent-loader" >
+      <img src="../../../../assets/dot.gif" width="10%">
+    </div>
+
+  </ng-container>
+</ng-container>

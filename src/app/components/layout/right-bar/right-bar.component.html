@@ -1,0 +1,188 @@
+<!-- <div class="left_panel_header">
+  <div class="select-global-search_leftbar">
+    <img src="./assets/imgs/LighthouseERPlogo.svg">  
+  </div>  
+</div> -->
+<div class="main-footer-area" id="footer">
+  <div class="top-footer-pn">
+    <ul>
+      <li class="small-logo" (click)="themeLinks()">
+        <a titletip="Theme Setting"><ion-icon name="color-palette-outline" title=""></ion-icon>
+          <span>Theme Setting</span>
+        </a>
+      </li>
+       <li class="small-logo" (click)="shortcutLinks()">
+        <a titletip="Keyboard shortcuts"><ion-icon name="keypad-outline"  title=""></ion-icon>
+          <span>Keyboard shortcuts</span>
+        </a>
+        </li>
+      <ng-container *ngFor="let object of globalobjects.layoutObject">
+        <ng-container *ngFor="let obj of object.Level2">
+          <ng-container *ngFor="let frame of obj.Level3">
+            <ng-container *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='QUICK_ACTION_MENU' ">
+              <li class="small-logo" (click)="quickLinks()">
+                <a titletip="Quick Menu"> <ion-icon name="flash-outline" title=""></ion-icon>
+                  <span>Quick Menu</span>
+                </a>
+              </li>
+            </ng-container>
+
+            <ng-container *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='ROLE'">
+              <li class="small-logo" (click)="roleassign($event)">
+                <!-- <li class="small-logo"  (click)="roleassign()" > -->
+
+                <a titletip="Role Wise Dashboard"> <ion-icon name="people-outline" title=""></ion-icon>
+                  <span>Role Wise Dashboard</span>
+                </a>
+              </li>
+            </ng-container>
+
+          </ng-container>
+        </ng-container>
+      </ng-container>
+
+
+      <!-- <ng-container *ngFor="let object of globalobjects.layoutObject">
+        <ng-container *ngFor="let obj of object.Level2">
+          <ng-container *ngFor="let frame of obj.Level3">
+            <ng-container *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='LAYOUT_OPTION' ">
+              <ng-container *ngFor="let itemGroup of frame.Level4">
+                <ng-container *ngFor="let item of itemGroup.Level5;let i=index" style="padding: 1px 2px;">
+                  <li  class="small-logo" *ngIf="item.item_name=='SYS_VIDEO_CONTENT' "
+                    (click)="ticketOutline(item,item.prompt_name)">
+                    <a titletip="Help Videos"> <ion-icon name="videocam-outline" title=""></ion-icon>
+                      <span>Help Videos</span>
+                    </a>
+                  </li>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container> -->
+
+
+    </ul>
+  </div>
+
+
+  <div class="bottom-footer-pn">
+    <ul>
+      <div *ngFor="let object of globalobjects.layoutObject">
+        <ng-container *ngFor="let obj of object.Level2">
+          <ng-container *ngFor="let frame of obj.Level3">
+            <ng-container *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='LAYOUT_OPTION' ">
+              <ng-container *ngFor="let itemGroup of frame.Level4">
+                <ng-container *ngFor="let item of itemGroup.Level5;let i=index" style="padding: 1px 2px;">
+                  <li class="small-logo" *ngIf="item.item_name=='SYS_TICKET_RAISED'"
+                    (click)="ticketOutline(item,item.prompt_name)">
+                    <a titletip="Ticket" class="p-0 m-0"> <ion-icon name="ticket-outline"></ion-icon>
+                      <span>Ticket</span></a>
+                  </li>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+
+      <!-- <li class="small-logo"  (click)="statuslink()">
+        <a titletip="Status Link"> <ion-icon name="link-outline"  title=""></ion-icon>
+          <span>Status Link</span></a>
+      </li> -->
+     <div *ngFor="let object of globalobjects.layoutObject">
+        <ng-container *ngFor="let obj of object.Level2">
+          <ng-container *ngFor="let frame of obj.Level3">
+            <ng-container *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='LAYOUT_OPTION' ">
+              <ng-container *ngFor="let itemGroup of frame.Level4">
+                <ng-container *ngFor="let item of itemGroup.Level5;let i=index" style="padding: 1px 2px;">
+                  
+                  <li class="small-logo" (click)="Agentic_Chatbot(item)" *ngIf="item.item_name=='SYS_AGENTIC_CHATBOT'">
+                    <a titletip="Agentic Chatbot"> <img class="p-2" src="assets/imgs/agent_bot.svg" /> 
+                      <span>Agentic Chatbot</span></a>
+                  </li>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+       <li class="small-logo" (click)="devloperMLinks()">
+        <a titletip="Developer Setting"> <ion-icon name="code-slash-outline" title=""></ion-icon>
+          <span>Developer Setting</span></a>
+      </li>
+     <div *ngFor="let object of globalobjects.layoutObject">
+        <ng-container *ngFor="let obj of object.Level2">
+          <ng-container *ngFor="let frame of obj.Level3">
+            <ng-container *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='LAYOUT_OPTION' ">
+              <ng-container *ngFor="let itemGroup of frame.Level4">
+                <ng-container *ngFor="let item of itemGroup.Level5;let i=index" style="padding: 1px 2px;">
+                  <li class="small-logo" *ngIf="item.item_name=='SYS_GLOBAL_UPDATED'"
+                    (click)="announceLinks(item,item.prompt_name)">
+                    <a titletip="Updates" class="p-0 m-0"> <ion-icon name="megaphone-outline"></ion-icon>
+                      <span>Global Updates</span></a>
+                  </li>
+
+                      <!-- <li class="small-logo" (click)="announceLinks()">
+        <a titletip="Global Updates"><ion-icon name="megaphone-outline" title=""></ion-icon>
+          <span>Global Updates</span></a>
+      </li> -->
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+
+
+
+      <!-- <li class="small-logo" (click)="announceLinks()">
+        <a titletip="Global Updates"><ion-icon name="megaphone-outline" title=""></ion-icon>
+          <span>Global Updates</span></a>
+      </li> -->
+
+      <!-- <li *ngIf="plt == 'browser'" class="small-logo desktop_display" (click)="helpLinks()">
+        <a titletip="Help & Support"><ion-icon name="help-circle-outline" title=""></ion-icon>
+          <span>Help & Support</span> </a>
+      </li>
+
+      <div *ngFor="let object of globalobjects.layoutObject">
+        <ng-container *ngFor="let obj of object.Level2">
+          <ng-container *ngFor="let frame of obj.Level3">
+            <ng-container *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='LAYOUT_OPTION' ">
+              <ng-container *ngFor="let itemGroup of frame.Level4">
+                <ng-container *ngFor="let item of itemGroup.Level5;let i=index" style="padding: 1px 2px;">
+
+                  <li class="small-logo" *ngIf="item.item_name=='SYS_RELEASE_NOTES' && plt == 'browser'"
+                    (click)="ticketOutline(item,item.prompt_name)">
+                    <a titletip="Release Notes"><ion-icon name="book-outline" title=""></ion-icon>
+                     <span>Release Notes</span></a>
+                  </li>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+
+     <li *ngIf="plt == 'browser' && globalobjects.userDetails.g_wma_chatbot_url" class="small-logo chatboat_mobile desktop_display"  (click)="chatboat()" >
+        <a titletip="Chatbot" class="active"><ion-icon name="chatbubbles-outline"></ion-icon>
+          <span>Chatbot</span> </a>
+      </li> -->
+      <li *ngIf="plt == 'browser'" class="small-logo chatboat_mobile desktop_display"  (click)="aiassistant()" >
+        <a titletip="Help Assistant" class="active">
+          <ion-icon name="help-outline" style="background-color: var(--blue-new);
+    color: #fff;
+    border: 4px solid var(--blue-light-5);;
+    padding: 2px;
+    border-radius: 50%;"></ion-icon>
+          <span>Help Assistant</span>
+         
+        </a>
+       
+      </li>
+    </ul>
+  </div>
+
+
+</div>

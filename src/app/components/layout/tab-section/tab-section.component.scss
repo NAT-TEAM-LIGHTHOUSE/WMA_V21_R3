@@ -1,0 +1,46 @@
+ion-button[ng-reflect-fill="clear"]{
+    --background: var(--blue-new) !important;
+    color: var(--white) !important;
+    margin: 9px 5px;
+    /* padding: 0px; */
+    --padding-start: 1px;
+    --padding-end: 0px;
+    --padding-bottom: 0px;
+    --padding-top: 0px;
+    padding: 0px;
+    height: 20px;
+    width: 20px;
+    --border-radius: 50%;
+    float: right;
+    position: relative;
+    z-index: 9;
+}
+
+.collapseHead_rotate{
+    transform: rotate(180deg) !important;
+}
+.home-btn-tab a {
+    position: relative;
+    display: inline-block;
+    margin-top: 0px;
+    cursor: pointer;
+
+  }
+
+  .home-btn-tab a[titletip]:hover::after {
+    content: attr(titletip);
+    position: absolute;
+    // top: 0%;
+    // right: 31px;
+    top: 24px;
+    right: -16px;
+    background: rgb(255, 255, 255);
+    color: var(--blackNew);
+    padding: 0px 5px;
+    border-radius: 3px;
+    font-size: var(--font12);
+    white-space: nowrap;
+    border: 1px solid gainsboro;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    // z-index: 99;
+  }

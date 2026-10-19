@@ -1,0 +1,276 @@
+// .new-crm-scan{
+//     ion-item{
+//       //border-bottom: 1px solid #c5c5c5;
+//       --min-height: 55px;
+//       box-shadow: 0 3px 1px -2px rgb(0 0 0 / 0%), 0 2px 2px 0 rgb(0 0 0 / 9%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+//       margin-bottom: 7px;
+//       border-radius: 3px;
+//       font-family: var(--fontFamilyOpensens);
+//       --background: #fcfeff;
+//       padding: 11px 10px !important;
+//       ion-icon{
+//         color: #3a77a7;
+//         font-size: 36px;
+//       } 
+//       img {
+//         max-height: 50px;
+//         }
+//     }     
+//   }
+
+//   $secondary-text:#423f3f;
+// .new-menu-list {
+//   margin-bottom: 1px;
+//   padding: 0;
+//   padding-left: 5px;
+//   border-radius: 5px;
+//   position: relative;
+//   cursor: pointer;
+
+//   ion-item {
+//     --min-height: 55px;
+//     --background: transparent;
+   
+//   }
+
+//   ion-icon {
+//     font-size: 1.5em;
+//     margin-top: 12px;
+//     background: none !important;
+//     position: absolute;
+//     right: 15px;
+//     // animation-duration: 1.5s;
+//     // animation-iteration-count: infinite; 
+  
+//   }
+//   // .i1{
+//   //   right: 40px;
+//   //   animation-name: example1;
+//   // }
+//   // .i2{
+//   //   right: 30px;
+//   //   animation-name: example2;
+//   // }
+//   // .i3{
+//   //   right: 20px;
+//   //   animation-name: example3;
+//   // }
+//   // @keyframes example1 {
+//   //  0%   {  opacity: 1;}
+//   //   50%  { opacity: 0.5;}
+//   //   100% { opacity: 0.5; }
+//   // }
+//   // @keyframes example2 {
+//   //   0%   {  opacity: 0.5;}
+//   //    50%  { opacity: 1;}
+//   //    100% { opacity: 0.5; }
+//   //  }
+//   //  @keyframes example3 {
+//   //   0%   {  opacity: 0.5;}
+//   //    50%  { opacity: 0.5;}
+//   //    100% { opacity: 1; }
+//   //  }
+//   .thumbnail-container {
+//     width: 55px;
+//     height: 55px;
+//     /* border-radius: 50%; */
+//     text-align: center;
+//     padding: 0.2em;
+//   }
+  
+
+//   ion-thumbnail {
+//     padding: 0px;
+//     width: 100%;
+//     height: 100%;
+//     text-align: center;
+//     z-index: 2;
+//     border: none;
+//     background: none;
+
+//     img {
+      
+//     width: 100%;
+//     height: auto ;
+//     }
+//   }
+
+//  .new-crm-scan h2 {
+//     font-weight: 500;
+//     font-size:14px;
+//     margin-left: 0.7em;
+//     margin-top: 10px;
+//   }
+
+//   ion-label {
+//     margin: 0px 10px !important;
+//   }
+
+//   .item-native {
+
+//     --padding-start: 0px;
+//   }
+
+//   .next-arrow {
+//     position: absolute;
+//     top: 0px;
+//     right: 0px;
+//   }
+//   &::before
+//   {
+//     content:"";
+//     position:absolute;
+//     left:0px;
+//     width:0px;
+//     height:1px;
+//     bottom:0px;
+//     transition: width 0.1s ease;
+//     z-index: 1;
+//   }
+//   &:active::before
+//   {
+   
+//     width:100%;
+ 
+//   }
+// }
+// .inner-shadow{
+//   box-shadow: inset -2px -5px 11px rgb(221 221 221 / 66%), inset 1px 1px 1px rgb(221 221 221 / 66%);
+// }
+// .inner-shadow-right{
+//   box-shadow: inset -3px -4px 5px rgb(221 221 221 / 66%), inset 1px 1px 1px rgb(221 221 221 / 66%);
+// }
+// .ios.new-menu-list
+// {
+//   margin-bottom:0px;
+// }
+// .menu-list2 {
+  
+//   ion-item {
+//     --min-height: 84px;
+   
+//   }
+//   .thumbnail-container2 {
+//     width: 80px;
+//     height: 80px;
+//     border-radius:0;
+//     text-align: center;
+//     padding: 2px;
+//     padding-top: 2px;
+//     ion-thumbnail{
+//       box-shadow: none;
+//       height: 75px;
+//       width: 75px;
+//       img {
+//         width:100% !important;
+//       }
+//     }
+//   }
+// }
+
+// @media only screen and (min-width:1300px){
+//   .new-crm-scan {
+//     ion-item {
+//       --min-height:25px; 
+       
+//     }
+//     .thumbnail-container {
+//       width: 40px;
+//       height: 40px;
+//     }
+//   }
+// }
+
+// @media only screen and (min-width:310px) and (max-width:340px){
+//   .new-crm-scan{
+//     ion-item{
+//       padding:7px 10px;
+//     }}
+
+// }
+// @media only screen and (min-width:341px) and (max-width:900px){
+
+//   .new-crm-scan{
+//     ion-item{
+//       padding:7px 10px !important;
+//     }}
+// }
+
+
+ion-item{
+  --min-height: auto !important;
+}
+
+
+.div-barcode{
+  display: flex;
+  position: relative;
+   .form-control {
+      border-radius: 0;
+      height: 25px;
+      border-right: 1px solid var(--blue-light-2);
+      background: var(--grey-4);
+      border-color: var(--blue-light-2) !important;
+      color: #000;
+      font-size: var(--font14);
+      margin:0px 0px;
+  }
+  .input-barcode-buttons-container{
+      position: absolute;
+  top: 2px;
+  z-index: 9;
+  right: 0px;
+  margin: 0px 0px;
+  padding: 0px 0px;
+  .input-btn {
+padding:0px 0px !important;
+  }
+  }
+}
+
+.bar-code-container{
+  .input-btn{
+padding:0px 0px !important;
+  }
+  .input-div{
+    border:1px solid rgb(194, 194, 194);
+      input{
+          width:100% ;
+          border:0 !important;
+          background: transparent;
+      }
+  }
+  .barcode-action-container{
+  position: absolute;
+  top: 1px ;
+  right: 1px;
+  //width: 80px ;
+  z-index: 99;
+  } 
+  ion-input[readonly], ion-input[disabled] input[readonly], input[disabled] {
+  background-color: var(--grey-5) !important;
+}
+}
+ion-input[ng-reflect-readonly="true"],
+ion-input[readonly],
+ion-input[disabled], input[readonly], input[disabled] {
+  background-color: var(--grey-5) !important;
+}
+.item-interactive.ion-invalid {
+  --highlight-background: transparent  !important;
+}
+
+.barcode_n_sacaner{
+  display: flex;
+  align-items: center;
+  border:1px solid rgb(214, 214, 214);
+  border-radius: 3px;
+  ion-input{
+   border: 0px !important;
+   width:100%;
+   margin: 0px 0px !important;
+  }
+  .input-buttons-container{
+    position: unset !important;
+  }
+}

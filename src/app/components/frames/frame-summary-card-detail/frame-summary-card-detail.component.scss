@@ -1,0 +1,44 @@
+.detail-table-container{
+    .table-box{
+        .main-heading {
+            margin-top: 10;
+            font-size: var(--font17);
+        }
+        table{
+            tr{
+                border-bottom: 1px solid var(--gray-5);
+            }
+             thead {
+                background: var(--white);
+            }
+                .heading {
+                    text-align: left;
+                    font-size: var(--font15);
+                    margin-top: 0;
+                    margin-bottom: 5px;
+                }
+                .w-40 {
+                    width: 85px;
+                }
+                .text-red{
+                    color: red;
+                }
+                .text-green{
+                    color: #2ccc32;
+                }
+                .text-dark{
+                    color: #696767;
+                }
+             
+            }
+           table td {
+                border: none;
+            }
+            table thead th {
+                border: none;
+            }
+            table tbody tr:nth-child(even) {
+                background: var(--white);
+            }
+    }
+}

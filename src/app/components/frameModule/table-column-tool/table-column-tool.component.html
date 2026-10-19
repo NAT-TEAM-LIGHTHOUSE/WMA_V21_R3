@@ -1,0 +1,29 @@
+<div class="table-home-btn">
+  <ng-container *ngIf="!item.sortClick && !isNotSort">
+    <ion-button class="table-home-btn-icon" (click)="thClick(item.item_name,item.datatype,item)">
+      <ion-icon name="swap-vertical-outline"></ion-icon>
+    </ion-button>
+  </ng-container>
+  <ng-container
+    *ngIf="clickedHead.length > 1 ? (itemSortName==clickedHead[1].th && clickedHead[1].direction > 0) : (clickedHead.length > 0 ? itemSortName==clickedHead[0].th && clickedHead[0].direction > 0 : false)">
+    <ion-button class="table-home-btn-icon" (click)="thClick(item.item_name,item.datatype,'','',itemSortName)"><ion-icon
+        name="arrow-up-outline"></ion-icon></ion-button>
+  </ng-container>
+  <ng-container
+    *ngIf="clickedHead.length > 1 ? (itemSortName==clickedHead[1].th && clickedHead[1].direction < 0) : (clickedHead.length > 0 ? itemSortName==clickedHead[0].th && clickedHead[0].direction < 0 : false)">
+    <ion-button class="table-home-btn-icon" (click)="thClick(item.item_name,item.datatype,'','',itemSortName)"><ion-icon
+        name="arrow-down-outline"></ion-icon></ion-button>
+  </ng-container>
+  <ng-container *ngIf="clickedHead.length > 1 ? (itemSortName==clickedHead[0].th) : false">
+    <ion-button class="table-home-btn-icon" (click)="thClick(item.item_name,item.datatype,'','radioOn',itemSortName)">
+      <ion-icon name="radio-button-on">
+      </ion-icon>
+    </ion-button>
+  </ng-container>
+  <ion-button class="table-home-btn-icon"
+    (click)="tablecolumnFilterr($event)"><ion-icon
+      name="ellipsis-vertical-outline"></ion-icon></ion-button>
+  <div class="table-search-icon" *ngIf="item.isSearchItem">
+    <ion-icon name="search-outline"></ion-icon>
+  </div>
+</div>

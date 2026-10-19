@@ -1,0 +1,16 @@
+<div class="count-container">
+  <div class="card-body">
+    <ion-row>
+      <ion-col>
+        <div class="single-count" (click)="itemClick($event)">
+          <div class="count-value">
+            <span  [ngStyle]="dispCount.display_setting_str" class="text-primary">{{dispCount.value}}</span>
+          </div>
+          <div class="count-name">
+            <span [ngStyle]="dispCount.display_setting_str" class="text-primary">{{dispCount.prompt_name}}</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>

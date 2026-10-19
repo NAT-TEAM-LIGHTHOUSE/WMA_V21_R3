@@ -1,0 +1,30 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>wsLog</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content> -->
+<ion-content class="ion-padding">
+  <div class="frame-head">
+    <h1 class="frame-name">
+      Table Logs
+    </h1>
+    </div>
+      <div class="table-container">
+        <table class="rfid-table">
+          <thead>
+            <tr *ngIf="tablelogdata.length > 0">
+              <th *ngFor="let key of thead">{{ key }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of tablelogdata">
+              <td *ngFor="let key of thead">{{ row[key] }}</td>
+            </tr>
+          </tbody>
+        </table>
+     </div>
+</ion-content>

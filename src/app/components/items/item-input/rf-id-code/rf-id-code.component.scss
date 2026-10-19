@@ -1,0 +1,95 @@
+ion-item{
+    --min-height: auto !important;
+}
+
+.input-div{
+    display: flex;
+    align-items: center;
+    border:1px solid rgb(202, 202, 202);
+    border-radius: 3px;;
+}
+
+.input-div-mobile{
+        display: flex;
+        align-items: center;
+        border: 1px solid rgb(202, 202, 202);
+        border-radius: 3px;
+        padding: 0px;
+        margin-top: 5px;
+        width:100%;
+    ion-input{
+margin: 0px 0px !important;
+padding:0px 0px !important;
+border:0px !important;
+height: var(--inputd);
+    }
+    .input-buttons-container{
+        top:0px !important;
+        bottom: 0px !important;
+        display: flex;
+        align-items: center;
+        button{
+            padding: 0px 0px !important;
+           // height: var(--inputha);
+        }
+    }
+}
+
+
+
+.div-barcode{
+    display: flex;
+    position: relative;
+     .form-control {
+        border-radius: 0;
+        height: 25px;
+        border-right: 1px solid var(--blue-light-4);
+        background: var(--blue-light-5);
+        border-color: var(--blue-light-4) !important;
+        color: var(--text-dark);
+        font-size: var(--font14);
+        margin:0px 0px;
+    }
+    .input-barcode-buttons-container{
+        position: absolute;
+    top: 2px;
+    z-index: 9;
+    right: 0px;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    .input-btn {
+  padding:0px 0px !important;
+    }
+    }
+}
+
+.bar-code-container{
+    .input-btn{
+  padding:0px 0px !important;
+    }
+    .input-div{
+        input{
+            width:100% ;
+            border:0 !important;
+            background: transparent;
+        }
+    }
+    .barcode-action-container{
+    position: absolute;
+    top: 1px ;
+    right: 1px;
+   // width: 80px ;
+    z-index: 99;
+    } 
+    ion-input[readonly], ion-input[disabled] input[readonly], input[disabled] {
+    background-color: var(--grey-5) !important;
+}
+}
+ion-input[ng-reflect-readonly="true"],
+ion-input[readonly],
+ ion-input[disabled], input[readonly], input[disabled] {
+    background-color: var(--grey-5) !important;
+}
+.item-interactive.ion-invalid {
+    --highlight-background: transparent  !important;
+}

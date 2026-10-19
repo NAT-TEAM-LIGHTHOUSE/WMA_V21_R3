@@ -1,0 +1,94 @@
+<div class="plasto-summary-container" *ngFor="let d of summaryCartArr ;let h=index">
+ 
+  <ion-row >
+    <ion-col size="12" class="pb-0">
+      <p class="text-center summary-head">{{d.frameName}}</p>
+    </ion-col>
+
+    <ng-container *ngFor="let p of d.cartArr ;let h=index">
+    <ion-col size="4" class="pr-0 pt-0">
+      <div class="product">
+        {{p.parentKey}}
+      </div>
+    </ion-col>
+    <ion-col size="8" class="pl-0 pt-0">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th *ngFor="let th of p.tHead; let i = index">{{th}}</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let tableData of p.parentRow ;let rowindex=index">
+              <ng-container *ngFor="let itemGroup of tableData;">
+                <ng-container *ngFor="let input_item of itemGroup.Level5; let i = index">
+                  <ng-container *ngIf="input_item.item_visible_flag =='T'">
+                    <ng-container *ngIf=" input_item.item_sub_type != 'ONLY_VIEW_PARENT'">
+                      <ng-container *ngIf=" input_item.item_sub_type != 'ONLY_VIEW_COUNT'">
+                      <ng-container *ngIf=" input_item.item_type != 'DISPLAY_PHOTO'">
+                    <td>
+                      <ng-container [ngSwitch]="input_item.item_type">
+                        <div *ngSwitchCase="'L'">
+                          <app-items [item]="input_item" [wscp]="wscp_send_input" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                           >
+                          </app-items>
+                        </div>
+
+                        <div *ngSwitchCase="'D'">
+                          <app-date-input-n [ngStyle]="input_item.display_setting_str" [dateinput]="input_item"
+                            [frame_type]="frame.apps_frame_type">
+                          </app-date-input-n>
+                        </div>
+
+                        <div *ngSwitchCase="'BT'">
+                          <app-button [ngStyle]="input_item.display_setting_str" [button]="input_item"
+                           >
+                          </app-button>
+
+                        </div>
+
+                        <div *ngSwitchCase="'CB'">
+                          <app-check-box [checkBox]="input_item" [frame_type]="frame.apps_frame_type"
+                           >
+                          </app-check-box>
+                        </div>
+
+                        <div *ngSwitchCase="'TEXT'">
+
+                          <app-para-text [itemInput]="input_item" [frame_type]="frame.apps_frame_type"
+                           ></app-para-text>
+
+                        </div>
+
+                        <div *ngSwitchCase="'N'" class="number-value">
+                          <app-number-input [frame_type]="frame.apps_frame_type" [numberinput]="input_item"
+                           ></app-number-input>
+                        </div>
+
+                        <div *ngSwitchCase="'T'">
+                          <app-text-input-n [textinput]="input_item" [frame_type]="frame.apps_frame_type"
+                           >
+                          </app-text-input-n>
+                        </div>
+
+
+
+                      </ng-container>
+                    </td>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            </ng-container>
+            </ng-container>
+            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ion-col>
+  </ng-container>
+  </ion-row>
+</div>

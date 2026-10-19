@@ -1,0 +1,31 @@
+
+<ion-button slot="start" (click)="popDismiss()" fill="clear" icon-only start *ngIf="isModal == 'P'">
+  <ion-icon name="close" color="light"></ion-icon>
+</ion-button>
+
+<div class="page-tab-section" id="page-tabn" *ngIf="globalobjects.toggleDevloperMode()">
+  <div class="home-btn-tab mgr-7 s-title mg-0">
+
+
+    <ng-container>
+      <ng-container *ngIf="lhs_lib.object_mast && lhs_lib.object_mast.Level2 && lhs_lib.object_mast.Level2[page_no]">
+        <ng-container>
+           <a titletip="Parameter List" (click)="openParameterFreame()">
+          <ion-icon name="list-outline" title="" ></ion-icon></a>
+          <a titletip="Dev Info" (click)="showInfoPopup()" id="info_icon"> <ion-icon name="information-circle-outline" title=" " class="info_icon"  ></ion-icon></a>
+          <a titletip="Save Form" (click)="downloadObj($event)"> <ion-icon name="arrow-up" title=""  class="home-icons m-title mgl-7 "></ion-icon></a>
+          <a titletip="Retrive Form Info" (click)="openHomePop($event)"> <ion-icon name="arrow-down" title=""  class="home-icons m-title mgl-7 "></ion-icon></a>
+          <a titletip="Refresh" class="data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() ? 'R':''"  (click)="refreshObjFab($event)"> <ion-icon  title="" class="home-icons m-title mgl-7 " name="refresh" *ngIf="isIconVisible"></ion-icon></a>
+          <a (click)="toggleIcon()"> <img *ngIf="!isIconVisible" title="" src="../../../../../assets/page-small-loader-img3.gif" alt="Icon 2"  style="margin: -10px 0px 0px 0px;max-width: 20px;;" /></a>
+          <!-- <a titletip="developerMode" (click)="developerMode()"><ion-icon name="code-slash-outline" title="" ></ion-icon></a> -->
+          <!-- <a titletip="App Log" (click)="setOpen()"> <ion-icon name="reader-outline" title=""  *ngIf="globalobjects.logFlag"></ion-icon></a> -->
+
+
+         <a titletip="Builder Form"  (click)="openBuilder()"> <ion-icon *ngIf="globalobjects.builderFlag"   name="construct"   class="home-icons m-title mgl-7 "></ion-icon></a>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <a titletip="Collapsible Header" (click)="collapseHead($event)">  <ion-icon name="chevron-up-outline"  id="collhead"></ion-icon> </a>
+      <a titletip="AppLog" (click)="showLogInvoice()"> <ion-icon name="information-outline" title=""  class="Log invoice m-title mgl-7 "></ion-icon></a>
+  </div>
+</div>

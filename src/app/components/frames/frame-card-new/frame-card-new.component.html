@@ -1,0 +1,425 @@
+<ng-container *ngIf="frame.apps_frame_sub_type == 'BASIC' ">
+  <div class="card-frame-head">
+    <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse">
+      <ion-col [size]="searchFlag ? 6 : 12" style="padding-bottom: 0;" [hidden]="frame.cardFlag">
+        <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}
+          <span style="margin-left: 10px;"
+            *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+            <ion-icon class="code-btn" color="primary" name="information-circle-outline" *ngIf="developerModeData"
+              (click)="showDeveloperData()">
+            </ion-icon>
+          </span>
+
+          <span *ngIf="switchFlag" style="float: right;">
+            <i class="fa fa-table" style="cursor: pointer;" aria-hidden="true" (click)="onSwitch()"></i>
+          </span>
+        </h1>
+      </ion-col>
+      <ion-col size="6" class="pl-1">
+        <div>
+          <div class="input-group primary-search-section" *ngIf="searchFlag  && !filter ">
+
+            <ion-input class="input-text" placeholder="Search Here..." (ionChange)="getSearchResult(searchAllData,500)"
+              [(ngModel)]="frame.search">
+            </ion-input>
+
+            <div class="input-group-append">
+              <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only small
+                (click)="openMike()">
+                <img src="/assets/imgs/google-speaker.png">
+              </button>
+
+            </div>
+
+            <div class="input-group-append">
+              <button class="lov-btn" ion-button icon-only small>
+                <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+              </button>
+            </div>
+
+            <div class="input-group-append" *ngIf="enablefunnel">
+              <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                <ion-icon name="ios-funnel"></ion-icon>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <!-- head -->
+  <ng-container *ngIf="frame.frame_filter_flag == 'HORIZONTAL_CARD' ">
+    <ng-container *ngIf="frame.canvasRows && frame.canvasRows.length > 0" >
+      {{frame.canvasRows}}
+      <div class="staus-mini-card-container" >
+        <ion-col *ngFor="let tableData of frame.canvasRows; let j = index">
+          <ng-container *ngIf="frame.Level4 && frame.Level4[j] && frame.Level4[j].Level5 && frame.Level4[j].Level5.length > 0">
+            <div class="staus-mini-card " >
+              <ion-row class="d-block">
+                <div class="text-center">
+                  <h4>{{tableData[0].Level5 ? tableData[0].Level5[0].value : tableData[0].Level5[0].prompt_name }}
+                  </h4>
+                  <p>{{tableData[0].Level5 ? tableData[1].Level5[0].value : tableData[1].Level5[0].prompt_name }}
+                  </p>
+                </div>
+                <div class="n-panel" (click)="itemClicked(tableData[0].Level5[0],tableData,j)">
+                  <div class="round">
+                    <ion-icon *ngIf="tableData[2].Level5[0].value == 'Pending'" class="checkbox failed"
+                      name="checkmark-done-circle-outline"></ion-icon>
+                    <ion-icon *ngIf="tableData[2].Level5[0].value == 'Completed'" class="checkbox success"
+                      name="checkmark-circle-outline"></ion-icon>
+                    <ion-icon *ngIf="tableData[2].Level5[0].value == 'OTHER'" class="checkbox normal"
+                      name="close-circle-outline"></ion-icon>
+                    {{tableData[2].Level5 ? tableData[2].Level5[0].value :
+                    tableData[2].Level5[0].prompt_name }}
+                  </div>
+                </div>
+              </ion-row>
+            </div>
+          </ng-container>
+        </ion-col>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="frame.frame_filter_flag == 'VERTICAL_CARD'">
+    <div class="staus-mini-card-container">
+      <ion-row>
+        <ion-col size="2" *ngFor="let tableData of frame.canvasRows; let j = index"
+          class="justify-content-center d-flex">
+          <div class="staus-mini-card" (click)="itemClicked(tableData[0].Level5[0],tableData,j)">
+            <h4>{{tableData[0].Level5[0].value ? tableData[0].Level5[0].value : tableData[0].Level5[0].prompt_name }}
+            </h4>
+            <p>{{tableData[1].Level5[0].value ? tableData[1].Level5[0].value : tableData[1].Level5[0].prompt_name }}</p>
+            <div class="n-panel">
+              <div class="round">
+                <ion-icon *ngIf="tableData[2].Level5[0].value == 'Pending'" class="checkbox failed"
+                  name="checkmark-done-circle-outline"></ion-icon>
+                <ion-icon *ngIf="tableData[2].Level5[0].value == 'Completed'" class="checkbox success"
+                  name="checkmark-circle-outline"></ion-icon>
+                <ion-icon *ngIf="tableData[2].Level5[0].value == 'OTHER'" class="checkbox normal"
+                  name="close-circle-outline"></ion-icon>
+                {{tableData[2].Level5[0].value ? tableData[2].Level5[0].value : tableData[2].Level5[0].prompt_name }}
+              </div>
+            </div>
+          </div>
+        </ion-col>
+
+      </ion-row>
+    </div>
+  </ng-container>
+</ng-container>
+
+
+<ng-container *ngIf="frame.apps_frame_sub_type == 'LEAVE_CARD'">
+  <div class="card-frame-head">
+    <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse">
+      <ion-col [size]="searchFlag ? 6 : 12" style="padding-bottom: 0;" [hidden]="frame.cardFlag">
+        <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}
+          <span style="margin-left: 10px;"
+            *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+            <ion-icon class="code-btn" color="primary" name="information-circle-outline" *ngIf="developerModeData"
+              (click)="showDeveloperData()">
+            </ion-icon>
+          </span>
+          <span *ngIf="switchFlag" style="float: right;">
+            <i class="fa fa-table" style="cursor: pointer;" aria-hidden="true" (click)="onSwitch()"></i>
+          </span>
+        </h1>
+      </ion-col>
+      <ion-col size="6" class="pl-1">
+        <div>
+          <div class="input-group primary-search-section" *ngIf="searchFlag  && !filter ">
+            <ion-input class="input-text" placeholder="Search Here..." (ionChange)="getSearchResult(searchAllData,500)"
+              [(ngModel)]="frame.search">
+            </ion-input>
+            <div class="input-group-append">
+              <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only small
+                (click)="openMike()">
+                <img src="/assets/imgs/google-speaker.png">
+              </button>
+            </div>
+            <div class="input-group-append">
+              <button class="lov-btn" ion-button icon-only small>
+                <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+              </button>
+            </div>
+            <div class="input-group-append" *ngIf="enablefunnel">
+              <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                <ion-icon name="ios-funnel"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <ng-container *ngIf="frame.frame_filter_flag == 'HORIZONTAL_CARD'">
+    <div class="quick-access-card-container">
+      <ion-row>
+        <ion-col *ngFor="let tableData of frame.canvasRows; let j = index">
+          <div class="quick-access-container">
+            <div class="title">
+              <h4>{{tableData[0].Level5[0].value ? tableData[0].Level5[0].value : tableData[0].Level5[0].prompt_nam }}
+              </h4>
+            </div>
+            <div class="quick-status-card" (click)="itemClicked(tableData[0].Level5[0],tableData,j)">
+              <ul>
+                <li>
+                  <h5>{{tableData[1].Level5[0].value ? tableData[1].Level5[0].value.split("~~")[0] :
+                    tableData[1].Level5[0].prompt_name }}</h5> A4
+                  <p>{{tableData[1].Level5[0].value ? tableData[1].Level5[0].value.split("~~")[1] :
+                    tableData[1].Level5[0].prompt_name }}</p>
+                </li>
+                <li>
+                  <h5>{{tableData[2].Level5[0].value ? tableData[2].Level5[0].value.split("~~")[0] :
+                    tableData[2].Level5[0].prompt_name }}</h5>
+                  <p>{{tableData[2].Level5[0].value ? tableData[2].Level5[0].value.split("~~")[1] :
+                    tableData[2].Level5[0].prompt_name }}</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="quick-status-card-footer">
+              <ul>
+                <li>
+                  <h5>{{tableData[3].Level5[0].value ? tableData[3].Level5[0].value.split("~~")[0] :
+                    tableData[3].Level5[0].prompt_name }}</h5>
+                  <p>{{tableData[3].Level5[0].value ? tableData[3].Level5[0].value.split("~~")[1] :
+                    tableData[3].Level5[0].prompt_name }}</p>
+                </li>
+                <li style="align-items: center;  display: flex; justify-content: right;">
+                  <span>View Status</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ion-col>
+
+      </ion-row>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="frame.frame_filter_flag == 'VERTICAL_CARD'">
+    <div class="quick-access-card-container">
+      <ion-col *ngFor="let tableData of frame.canvasRows; let j = index">
+        <div class="quick-access-container">
+          <div class="title">
+            <h4>{{tableData[0].Level5[0].value ? tableData[0].Level5[0].value : tableData[0].Level5[0].prompt_name }}
+            </h4>
+          </div>
+          <div class="quick-status-card" (click)="itemClicked(tableData[0].Level5[0],tableData,j)">
+            <ul>
+              <li>
+                <h5>{{tableData[1].Level5[0].value ? tableData[1].Level5[0].value.split("~~")[0] :
+                  tableData[1].Level5[0].prompt_name }}</h5>
+                <p>{{tableData[1].Level5[0].value ? tableData[1].Level5[0].value.split("~~")[1] :
+                  tableData[1].Level5[0].prompt_name }}</p>
+              </li>
+              <li>
+                <h5>{{tableData[2].Level5[0].value ? tableData[2].Level5[0].value.split("~~")[0] :
+                  tableData[2].Level5[0].prompt_name }}</h5>
+                <p>{{tableData[2].Level5[0].value ? tableData[2].Level5[0].value.split("~~")[1] :
+                  tableData[2].Level5[0].prompt_name }}</p>
+              </li>
+            </ul>
+          </div>
+          <div class="quick-status-card-footer" (click)="itemClicked(tableData[0].Level5[0],tableData,j)">
+            <ul>
+              <li>
+                <h5>{{tableData[3].Level5[0].value ? tableData[3].Level5[0].value.split("~~")[0] :
+                  tableData[3].Level5[0].prompt_name }}</h5>
+                <p>{{tableData[3].Level5[0].value ? tableData[3].Level5[0].value.split("~~")[1] :
+                  tableData[3].Level5[0].prompt_name }}</p>
+              </li>
+              <li style="align-items: center; display: flex; justify-content: right;">
+                <span>View Status</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </ion-col>
+    </div>
+  </ng-container>
+</ng-container>
+
+
+<ng-container *ngIf="frame.apps_frame_sub_type == 'LIST_CARD' ">
+  <div class="card-frame-head">
+    <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse">
+      <ion-col [size]="searchFlag ? 6 : 12" style="padding-bottom: 0;" [hidden]="frame.cardFlag">
+        <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}
+          <span style="margin-left: 10px;"
+            *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+            <ion-icon class="code-btn" color="primary" name="information-circle-outline" *ngIf="developerModeData"
+              (click)="showDeveloperData()">
+            </ion-icon>
+          </span>
+
+          <span *ngIf="switchFlag" style="float: right;">
+            <i class="fa fa-table" style="cursor: pointer;" aria-hidden="true" (click)="onSwitch()"></i>
+          </span>
+        </h1>
+      </ion-col>
+      <ion-col size="6" class="pl-1">
+        <div>
+          <div class="input-group primary-search-section" *ngIf="searchFlag  && !filter ">
+
+            <ion-input class="input-text" placeholder="Search Here..." (ionChange)="getSearchResult(searchAllData,500)"
+              [(ngModel)]="frame.search">
+            </ion-input>
+
+            <div class="input-group-append">
+              <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only small
+                (click)="openMike()">
+                <img src="/assets/imgs/google-speaker.png">
+              </button>
+
+            </div>
+
+            <div class="input-group-append">
+              <button class="lov-btn" ion-button icon-only small>
+                <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+              </button>
+            </div>
+
+            <div class="input-group-append" *ngIf="enablefunnel">
+              <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                <ion-icon name="ios-funnel"></ion-icon>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <ion-row>
+    <ion-col *ngFor="let rows of frame.tableRows |tableSearch :searchText;let j=index;">
+      <ion-item class="profile-card-new-user" lines="none" [id]="frame.apps_page_frame_seqid">
+        <ng-container *ngIf="!viewFlag">
+          <ng-container *ngIf="j < 3">
+            <ion-row>
+              <ion-col size="5" class="ion-col">
+                <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+                  <ion-col size="12" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+                    [hidden]="input_item.item_visible_flag!='T'">
+                    <div *ngIf="input_item.item_type =='IMAGE'">
+                      <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+                        (LHSOnChange)="itemValueChange($event,j)" class="new-image-fixed"></app-items>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+              <ion-col size="7" class="ion-col">
+                <ion-label class="middle-card">
+                  <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+                    <ion-col size="12" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+                      [hidden]="input_item.item_visible_flag!='T'">
+                      <div *ngIf="input_item.item_type!='IMAGE' && input_item.position!='CARD_RIGHT'">
+                        <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+                          (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-label>
+              </ion-col>
+            </ion-row>
+
+          </ng-container>
+
+        </ng-container>
+      </ion-item>
+
+    </ion-col>
+
+    <ion-button class="view-now" (click)="viewAll()">View All</ion-button>
+
+  </ion-row>
+
+
+  <ng-container *ngIf="viewFlag">
+    <div *ngFor="let rows of frame.tableRows |tableSearch :searchText;let j=index;">
+      <ion-item class="profile-card-new-user" lines="none" [id]="frame.apps_page_frame_seqid">
+        <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+          <ion-col size="10" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+            [hidden]="input_item.item_visible_flag!='T'">
+            <div *ngIf="input_item.item_type =='IMAGE'">
+              <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+                (LHSOnChange)="itemValueChange($event,j)"></app-items>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-label class="middle-card">
+          <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+            <ion-col size="12" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+              [hidden]="input_item.item_visible_flag!='T'">
+              <div *ngIf="input_item.item_type!='IMAGE' && input_item.position!='CARD_RIGHT'">
+                <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,itemGroup,j)" [frame]="frame"
+                  (LHSOnChange)="itemValueChange($event,j)"></app-items>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+    </div>
+  </ng-container>
+
+
+
+
+  <div *ngFor="let rows of frame.tableRows |tableSearch :searchText;let j=index;">
+    <ion-item class="profile-new-card-container" lines="none" [id]="frame.apps_page_frame_seqid">
+
+      <ng-container *ngIf="!viewFlag">
+        <ng-container *ngIf="j < 3">
+          <ion-col *ngFor="let itemGroup of rows; let i=index" class="p-0">
+            <ng-container size="10" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+             >
+              <ion-row  [hidden]="input_item.item_visible_flag!='T'">
+                <div *ngIf="input_item.item_type =='IMAGE'">
+                  <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+                    (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                </div>
+              </ion-row>
+              <div *ngIf="input_item.item_type != 'IMAGE'" class="middle-card">
+                <ion-row>
+                  <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+                    (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                </ion-row>
+              </div>
+            </ng-container>
+          </ion-col>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="viewFlag">
+        <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+          <ion-col size="10" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+            [hidden]="input_item.item_visible_flag!='T'">
+            <div *ngIf="input_item.item_type =='IMAGE'">
+              <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+                (LHSOnChange)="itemValueChange($event,j)"></app-items>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-label class="middle-card">
+          <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+            <ion-col size="12" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+              [hidden]="input_item.item_visible_flag!='T'">
+              <div *ngIf="input_item.item_type!='IMAGE' && input_item.position!='CARD_RIGHT'">
+                <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+                  (LHSOnChange)="itemValueChange($event,j)"></app-items>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+      </ng-container>
+    </ion-item>
+  </div>

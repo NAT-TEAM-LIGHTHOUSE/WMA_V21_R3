@@ -1,0 +1,148 @@
+<ng-container
+  *ngIf="(frame_type !='TABLE' && frame_type != 'ENTRY_TABLE' && frame_type != 'ENTRY_TABLE_NEW' && frame_type !='HORIZONTAL_TABLE' &&  frame_type != 'FRAME_COLLAPSE' && frame_type != 'PLASTO_SUMMARY' && frame_type != 'APPROVAL-TAB' && frame_type != 'STRING' && itemInput.item_sub_type != 'ALIGN-TEXT' && frame_type != 'RAW_TABLE' && itemInput.item_sub_type != 'COLOR_PROMPT' && itemInput.item_sub_type == 'TEXT_DISPLAY' ) ">
+  <div>
+    <ion-label class="m-0 label-white timeline-p" id="{{itemInput.itemName}}" (click)="itemClick($event)">
+      <span [ngStyle]="itemInput.prompt_diplay_setting_str ? itemInput.prompt_diplay_setting_str : {}"
+        *ngIf='itemInput.prompt_name'> {{itemInput.prompt_name}} :</span>
+
+      <span [ngStyle]="itemInput.display_setting_str"> 
+        <!-- <i *ngIf="dimensionItem" class="fi fi-rr-link"></i>  -->
+        <ng-container
+        *ngIf="itemInput.input_pattern && itemInput.input_pattern.toLowerCase().includes('masked_field');else value">{{
+          getMaskedValue(itemInput.value) }}</ng-container>
+          <ng-template #value>
+            {{itemInput.value}}
+          </ng-template></span>
+          <img *ngIf="itemInput.dimensionItem" src="assets/icon/link.svg" (click)="openDimension(itemInput.dimensionItem)">
+        </ion-label>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="(frame_type == 'RAW_TABLE') ">
+  <ion-label class="m-0 label-white timeline-p text-ellipsis" style="-webkit-box-orient: vertical;"
+    id="{{itemInput.itemName}}" [ngStyle]="itemInput.display_setting_str" (click)="itemClick($event)">
+    <!-- <i *ngIf="dimensionItem" class="fi fi-rr-link" (click)="itemClick(dimensionItem)"></i> -->
+    {{itemInput.value}} 
+    <img *ngIf="itemInput.dimensionItem" src="assets/icon/link.svg" (click)="itemClick(itemInput.dimensionItem)"></ion-label>
+</ng-container>
+
+<ng-container
+  *ngIf="itemInput.value && ((frame_type =='TABLE' || frame_type =='HORIZONTAL_TABLE' || frame_type == 'ENTRY_TABLE' || frame_type == 'ENTRY_TABLE_NEW' || frame_type == 'FRAME_COLLAPSE' || frame_type == 'PLASTO_SUMMARY' || itemInput.item_sub_type == 'T_TABLE') && itemInput.item_sub_type != 'ALIGN-TEXT' )">
+  <ion-label class="m-0"
+    *ngIf="itemInput.datatype == 'DATE' || itemInput.datatype == 'DATETIME' || itemInput.datatype == 'TIME' ; else formateMask "
+    id="{{itemInput.itemName}}" title="{{itemInput.value}}">
+    <!-- <i *ngIf="dimensionItem" class="fi fi-rr-link"></i> -->
+    <ng-container *ngIf="itemInput.input_pattern && itemInput.input_pattern.toLowerCase().includes('masked_field');else value">{{
+      getMaskedValue(itemInput.value) }}</ng-container>
+      <ng-template #value>
+        {{itemInput.value}}
+      </ng-template>
+      <img *ngIf="itemInput.dimensionItem" src="assets/icon/link.svg" (click)="openDimension(itemInput.dimensionItem)">
+    </ion-label>
+
+  <ng-template #formateMask>
+    <ion-label class="m-0" id="{{itemInput.itemName}}" title="{{itemInput.value}}" >
+      <!-- <i *ngIf="dimensionItem" class="fi fi-rr-link"></i> -->
+      <ng-container *ngIf="itemInput.input_pattern && itemInput.input_pattern.toLowerCase().includes('masked_field');else value">{{
+        getMaskedValue(itemInput.value) }}</ng-container>
+        <ng-template #value>
+        {{itemInput.value | formatMask : itemInput.format_mask}}
+      </ng-template>
+      <img *ngIf="itemInput.dimensionItem" src="assets/icon/link.svg" (click)="openDimension(itemInput.dimensionItem)">
+    </ion-label>
+  </ng-template>
+</ng-container>
+
+<ng-container
+  *ngIf="itemInput.value && ((frame_type =='APPROVAL-TAB'  || frame_type =='STRING') && itemInput.item_sub_type != 'ALIGN-TEXT')">
+  <ion-item class="name-value-text" lines="none">
+    <ion-label class="label-name">{{itemInput.prompt_name}}
+    </ion-label>
+    <ion-label class="label label-value" (click)="itemClick($event)" [ngStyle]="itemInput.display_setting_str">
+      <!-- <i *ngIf="dimensionItem" class="fi fi-rr-link"></i> -->
+      <ng-container *ngIf="itemInput.input_pattern && itemInput.input_pattern.toLowerCase().includes('masked_field');else value">{{
+        getMaskedValue(itemInput.value) }}</ng-container>
+        <ng-template #value>
+          {{itemInput.value | formatMask : itemInput.format_mask}}
+        </ng-template>
+        <img *ngIf="itemInput.dimensionItem" src="assets/icon/link.svg" (click)="openDimension(itemInput.dimensionItem)">
+    </ion-label>
+  </ion-item>
+</ng-container>
+
+<ng-container
+  *ngIf="frame_type !='TABLE' && frame_type !='HORIZONTAL_TABLE' && frame_type != 'ENTRY_TABLE' && frame_type != 'ENTRY_TABLE_NEW' && frame_type != 'FRAME_COLLAPSE' && frame_type != 'PLASTO_SUMMARY' && frame_type != 'APPROVAL-TAB' && frame_type != 'STRING' && frame_type != 'RAW_TABLE' && (itemInput.item_sub_type == 'ALIGN-TEXT')">
+  <ion-item class="name-value-text block-text" lines="none">
+    <ion-label style="color: #5f5a5a;">
+      {{itemInput.prompt_name}} :
+    </ion-label>
+    <ion-label class="label-white" (click)="itemClick($event)" [ngStyle]="itemInput.display_setting_str">
+      <!-- <i *ngIf="dimensionItem" class="fi fi-rr-link"></i> -->
+      <ng-container *ngIf="itemInput.input_pattern && itemInput.input_pattern.toLowerCase().includes('masked_field');else value">{{
+        getMaskedValue(itemInput.value) }}</ng-container>
+        <ng-template #value>
+          {{itemInput.value}}
+        </ng-template> </ion-label>
+        <img *ngIf="itemInput.dimensionItem" src="assets/icon/link.svg" (click)="openDimension(itemInput.dimensionItem)">
+  </ion-item>
+</ng-container>
+
+<ng-container
+  *ngIf="frame_type !='TABLE' && frame_type !='HORIZONTAL_TABLE' && frame_type != 'ENTRY_TABLE' && frame_type != 'ENTRY_TABLE_NEW' && frame_type != 'FRAME_COLLAPSE' && frame_type != 'PLASTO_SUMMARY' && frame_type != 'APPROVAL-TAB' && frame_type != 'STRING' && frame_type != 'RAW_TABLE' && (itemInput.item_sub_type == 'COLOR_PROMPT')">
+  <div class="prompt-area">
+    <div class="prompt-flied">
+      <div class="left-prompt">
+        <ion-label>{{itemInput.prompt_name}}</ion-label>
+      </div>
+      <div class="right-prompt">
+        <ion-label class="" (click)="itemClick($event)" [ngStyle]="itemInput.display_setting_str">
+          <!-- <i *ngIf="dimensionItem" class="fi fi-rr-link"></i> -->
+            <img *ngIf="itemInput.dimensionItem" src="assets/icon/link.svg" (click)="openDimension(itemInput.dimensionItem)">
+           <ng-container
+            *ngIf="itemInput.input_pattern && itemInput.input_pattern.toLowerCase().includes('masked_field');else value">{{
+            getMaskedValue(itemInput.value) }}</ng-container>
+          <ng-template #value>
+            {{itemInput.value}}
+          </ng-template></ion-label>
+
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="itemInput.item_sub_type=='TEXT_DISPLAY_TOP'">
+  <div class="display_top">
+    <p [ngStyle]="itemInput.prompt_diplay_setting_str ? itemInput.prompt_diplay_setting_str : {}">
+      {{itemInput.prompt_name}}</p>
+    <h3 [ngStyle]="itemInput.display_setting_str">
+      <!-- <i *ngIf="dimensionItem" class="fi fi-rr-link"></i>  --> 
+      <ng-container
+      *ngIf="itemInput.input_pattern && itemInput.input_pattern.toLowerCase().includes('masked_field');else value">{{
+        getMaskedValue(itemInput.value) }}</ng-container>
+        <ng-template #value>
+          {{itemInput.value}}
+        </ng-template>
+        <img *ngIf="itemInput.dimensionItem" src="assets/icon/link.svg" (click)="openDimension(itemInput.dimensionItem)">
+    </h3>
+  </div>
+</ng-container>
+
+
+<ng-container
+  *ngIf="(frame_type !='TABLE' && frame_type != 'ENTRY_TABLE' && frame_type != 'ENTRY_TABLE_NEW' && frame_type !='HORIZONTAL_TABLE' &&  frame_type != 'FRAME_COLLAPSE' && frame_type != 'PLASTO_SUMMARY' && frame_type != 'APPROVAL-TAB' && frame_type != 'STRING' && itemInput.item_sub_type != 'ALIGN-TEXT' && frame_type != 'RAW_TABLE' && itemInput.item_sub_type != 'COLOR_PROMPT' && itemInput.item_sub_type == 'ALIGN_TEXT' ) ">
+  <ion-label class="m-0 label-white timeline-p aligned_text" id="{{itemInput.itemName}}" (click)="itemClick($event)">
+    <span [ngStyle]="itemInput.prompt_diplay_setting_str ? itemInput.prompt_diplay_setting_str : {}"
+      *ngIf='itemInput.prompt_name'> {{itemInput.prompt_name}} </span>
+
+    <span [ngStyle]="itemInput.display_setting_str">
+      <!-- <i *ngIf="dimensionItem" class="fi fi-rr-link"></i>  -->
+      <ng-container
+      *ngIf="itemInput.input_pattern && itemInput.input_pattern.toLowerCase().includes('masked_field');else value">{{
+        getMaskedValue(itemInput.value) }}</ng-container>
+        <ng-template #value>
+          {{itemInput.value}}
+        </ng-template>
+        <img *ngIf="itemInput.dimensionItem" src="assets/icon/link.svg" (click)="openDimension(itemInput.dimensionItem)">
+    </span>
+  </ion-label>
+</ng-container>

@@ -1,0 +1,349 @@
+@import '../../app/mixins';
+@import '../../app/variables';
+
+.font-letter-spacing {
+    $letter-sp2x: var(--fontLetterSpacing2x) !important;
+
+    .text-primary,
+    p,
+    .globe-btn1,
+    ion-button {
+     letter-spacing: $letter-sp2x;
+    }
+
+    /* para-text component css start */
+    .timeline-p {
+    letter-spacing: $letter-sp2x;
+    }
+
+    .name-value-text {
+
+        .label-name,
+        .label-value {
+         letter-spacing: $letter-sp2x;
+        }
+
+        .label-name {
+         letter-spacing: $letter-sp2x;
+        }
+    }
+
+    .item.sc-ion-label-md-h,
+    .item .sc-ion-label-md-h,
+    .block-text ion-label {
+    letter-spacing: $letter-sp2x;
+    }
+
+    /* para-text component css start */
+    /* Frame Canvas component CSS Start*/
+    .frame-name {
+    letter-spacing: $letter-sp2x;
+    }
+
+    /* Frame Canvas component CSS Start*/
+    /* Item Seperator component  CSS Start*/
+    .item-seperator {
+    letter-spacing: $letter-sp2x;
+    }
+
+    /* Item Seperator component  CSS end*/
+    /* Menu List component  CSS Start*/
+    .menu-list {
+        h2 {
+       letter-spacing: $letter-sp2x;
+        }
+
+        ion-icon {
+           letter-spacing: $letter-sp2x;
+        }
+    }
+
+    /* Menu List  component  CSS End*/
+    /*new Menu List component  CSS Start*/
+    .new-menu-list {
+        h2 {
+       letter-spacing: $letter-sp2x;
+        }
+
+        ion-icon {
+           letter-spacing: $letter-sp2x;
+        }
+    }
+
+    /* New Menu List  component  CSS End*/
+    /*Collapse List /rep-card Css start*/
+    .collapse-list-container {
+        .collapse-list {
+       letter-spacing: $letter-sp2x;
+
+            ion-label,
+            ion-icon,
+            .message-text {
+                               letter-spacing: $letter-sp2x;
+            }
+
+            ion-icon {
+               letter-spacing: $letter-sp2x;
+            }
+
+            h2.prompt-name {
+               letter-spacing: $letter-sp2x;
+            }
+        }
+
+        .collapse-list-body {
+       letter-spacing: $letter-sp2x;
+        }
+    }
+
+    /*Collapse List /rep-card Css End*/
+    /*Count List / Ion badges Css Start*/
+    .count-list {
+        .approval-body {
+            ion-item {
+                .count {
+                    p {
+                       letter-spacing: $letter-sp2x;
+                    }
+                }
+            }
+
+            ion-label {
+               letter-spacing: $letter-sp2x;
+            }
+        }
+    }
+
+    /*Count List / Ion badges Css End*/
+    /* Search input css Start */
+    .input-text .native-input {
+       letter-spacing: $letter-sp2x;
+    }
+
+    /* Search input css End*/
+    /* New Input Item  css Start*/
+    .new-input-item-type {
+        .text-left {
+            span {
+               letter-spacing: $letter-sp2x;
+            }
+        }
+    }
+
+    /* New Input Item css End*/
+    /* News Scoll component CSS Start*/
+    .marquee-container {
+        marquee {
+       letter-spacing: $letter-sp2x;
+        }
+    }
+
+    /* News Scoll component  CSS End*/
+    /* two D KPI  */
+    .twod-kpi {
+        .kpi-header {
+       letter-spacing: $letter-sp2x;
+        }
+
+        .kpi-body {
+       letter-spacing: $letter-sp2x;
+        }
+    }
+
+    /* Two D KPI CSS End */
+    /* menu tab css start */
+    .tab-menu {
+        .name-container {
+            h6 {
+letter-spacing: $letter-sp2x;
+            }
+        }
+    }
+
+    /* menu tab CSS End*/
+    /*   Global Table CSS Start */
+    table {
+        thead {
+
+            th {
+
+               letter-spacing: $letter-sp2x;
+            }
+        }
+
+        tbody tr:nth-child(even) {
+       letter-spacing: $letter-sp2x;
+        }
+
+        td,
+        ion-label {
+       letter-spacing: $letter-sp2x;
+
+        }
+    }
+
+    /*   Global Table CSS Start */
+    /*  chat box right css  */
+    .chat-right {
+     
+       letter-spacing: $letter-sp2x;
+    }
+
+    /*  chat box left css  */
+    .chat-left {
+     
+       letter-spacing: $letter-sp2x;
+    }
+
+    /*Smart Filters Start*/
+    .smart-filter-section {
+        h5 {
+       letter-spacing: $letter-sp2x;
+        }
+
+        h6 {
+       letter-spacing: $letter-sp2x;
+        }
+
+        .view-all-btn {
+       letter-spacing: $letter-sp2x;
+        }
+    }
+
+    /*Smart Filters End*/
+    .column-count {
+     
+       letter-spacing: $letter-sp2x;
+    }
+
+
+    ion-label {
+     
+       letter-spacing: $letter-sp2x;
+    }
+
+    /* single count CSS */
+    .single-count {
+        .count-name {
+            span {
+letter-spacing: $letter-sp2x;
+            }
+        }
+    }
+
+    .smart-filter-section1 {
+        h5 {
+       letter-spacing: $letter-sp2x;
+        }
+    }
+
+    .image-slider {
+        ion-slide {
+            h1 {
+letter-spacing: $letter-sp2x;
+            }
+        }
+    }
+
+    .percentage-circle-wraper {
+        h5 {
+       letter-spacing: $letter-sp2x;
+        }
+    }
+
+
+    .sub-select-dropdown {
+        ion-select {
+       letter-spacing: $letter-sp2x;
+        }
+
+        .select-text {
+       letter-spacing: $letter-sp2x;
+        }
+    }
+
+    .threeD-textband-container {
+        .threeD-textband-header {
+       letter-spacing: $letter-sp2x;
+        }
+
+        .threeD-textband-footer {
+       letter-spacing: $letter-sp2x;
+        }
+
+        .threeD-textband-body {
+            h5 {
+letter-spacing: $letter-sp2x;
+            }
+        }
+    }
+
+    .pagination-container {
+        .paginator {
+            li {
+letter-spacing: $letter-sp2x;
+            }
+        }
+    }
+
+
+    .graph-filters {
+        ion-item {
+            ion-select {
+letter-spacing: $letter-sp2x;
+            }
+        }
+    }
+    .summary-card-container {
+        .single-summary-card {
+            .tophead-card {
+                .main-title {
+  letter-spacing: $letter-sp2x;
+                }
+
+                p {
+  letter-spacing: $letter-sp2x;
+                }
+
+                .code-btn {
+  letter-spacing: $letter-sp2x;
+                }
+            }
+
+            .summary-box {
+
+
+                h6 {
+  letter-spacing: $letter-sp2x;
+                }
+
+                table td {
+  letter-spacing: $letter-sp2x;
+                }
+
+                table {
+                    tr.heading1 td {
+       letter-spacing: $letter-sp2x;
+                       letter-spacing: $letter-sp2x;
+                    }
+
+                    .heading2 {
+                        .rate {
+           letter-spacing: $letter-sp2x;
+                           letter-spacing: $letter-sp2x;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    .tab-menu-large {
+        .name-container {
+            h6 {
+letter-spacing: $letter-sp2x;
+            }
+        }
+    }
+}

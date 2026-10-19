@@ -1,0 +1,64 @@
+<ion-row *ngIf="frame.apps_page_frame_name" class="align-center">
+  <ion-col col-12>
+    <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;"
+        *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"
+          color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()">
+        </ion-icon></span></h1>
+  </ion-col>
+</ion-row>
+<ion-segment class="tab-container" scrollable>
+  <div *ngFor="let item of object_mast.Level2;let i = index">
+    <ng-container *ngIf="flagforloader">
+      <div *ngIf="i === 0">
+        <ion-segment-button (click)="selectTab(i)" checked> {{item.apps_page_name}}</ion-segment-button>
+      </div>
+      <div checked *ngIf="i!=0">
+        <ion-segment-button (click)="selectTab(i)"> {{item.apps_page_name}}</ion-segment-button>
+      </div>
+    </ng-container>
+  </div>
+</ion-segment>
+
+<div *ngIf="frame.frame_type !='STRING'">
+
+  <div *ngFor="let framedata of tableRows;let rowindex =index">
+    <div class="approval-card-container">
+      <ion-row *ngFor="let itemGroup of framedata">
+        <ion-col class="p-0" *ngFor="let item of itemGroup.Level5" size="12" [hidden]="item.item_visible_flag!='T'">
+          <app-items class="p-0" [item]="item" [wscp]="wscp" [frame_type]="frame.apps_frame_type" [frame]="frame"
+            (emitPass)="itemClicked($event,rowindex)" ></app-items>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</div>
+
+<div class="approval-card-container" *ngIf="frame.frame_type=='STRING'">
+  <div *ngFor="let framedata of tableRows;let rowindex =index">
+    <ion-row>
+      <ion-col class="p-0" *ngFor="let item of framedata.Level5" size="12" [hidden]="item.item_visible_flag!='T'">
+        <app-items [frame_type]="frame.frame_type" [frame]="frame" [item]="item" (emitPass)="itemClicked($event,rowindex)"></app-items>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+
+<div class="center" *ngIf="!flagforloader">
+
+  <div class="text-center cent-loader">
+    <img src="../../../assets/dot.gif" width="20%">
+  </div>
+
+</div>
+<ng-container *ngIf="flagforloader">
+  <ion-footer *ngIf="footer.length > 0">
+    <ng-container *ngFor="let footData of footer;let rowindex =index">
+      <ion-row *ngFor="let framedata of footData.Level4">
+        <ion-col col-12 ion-text-center *ngFor="let item of framedata.Level5">
+          <app-frame-footer [frame_type]="frame.frame_type" [item]="item" [wscp]="wscp" [frame]="frame"
+            (emitPass)="itemClicked($event,rowindex)"></app-frame-footer>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+  </ion-footer>
+</ng-container>

@@ -1,0 +1,412 @@
+<ng-container [ngSwitch]="frame.apps_frame_type">
+  <div [attr.name]="'canvasClick#'+frame.apps_page_frame_seqid">
+    <ng-container *ngSwitchCase="'CANVAS'">
+
+      <ng-container *ngIf="(frame.apps_page_frame_seqid != (object_mast.Level2[page_no].object_code + '-PARA')) ">
+
+        <app-frame-canvas [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+          [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+        </app-frame-canvas>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'TABLE'">
+      <!-- <app-frame-table [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [sessionObj]="sessionObj"
+                [wscp_send_input]="wscp" (emitPass)="itemClicked($event)">
+              </app-frame-table> -->
+      <app-frame-new-table [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [sessionObj]="sessionObj"
+        [object_mast]="object_mast" [page_no]="page_no" [wscp_send_input]="wscp" (emitPass)="itemClicked($event)"
+        (personalize)="personalizeclick($event)">
+      </app-frame-new-table>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'ENTRY_TABLE'">
+      <!-- <app-frame-table2 [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+      [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+    </app-frame-table2> -->
+      <!-- <app-frame-newtable2 [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [object_mast]="object_mast"
+        [page_no]="page_no" [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)"
+        (personalize)="personalizeclick($event)">
+      </app-frame-newtable2> -->
+
+      <ng-container *ngIf="frame.apps_frame_sub_type != 'NEW'; else newEntryTable">
+
+        <app-frame-newtable2 [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [object_mast]="object_mast"
+        [page_no]="page_no" [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)"
+        (personalize)="personalizeclick($event)">
+      </app-frame-newtable2>
+        <!-- <app-frame-table2 [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+          [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+        </app-frame-table2> -->
+
+      </ng-container>
+
+      <ng-template #newEntryTable>
+      <app-frame-newtable-fast [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [object_mast]="object_mast"
+        [page_no]="page_no" [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)"
+        (personalize)="personalizeclick($event)">
+      </app-frame-newtable-fast>
+      </ng-template>
+
+
+
+      <!-- <app-frame-new-table [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [sessionObj]="sessionObj" [object_mast]="object_mast" [page_no]="page_no"
+      [wscp_send_input]="wscp" (emitPass)="itemClicked($event)" (personalize)="personalizeclick($event)">
+    </app-frame-new-table> -->
+    </ng-container>
+
+    <!-- <ng-container *ngSwitchCase="'ENTRY_TABLE_NEW'">
+   
+      <app-frame-newtable-fast [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [object_mast]="object_mast"
+        [page_no]="page_no" [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)"
+        (personalize)="personalizeclick($event)">
+      </app-frame-newtable-fast>
+
+    </ng-container> -->
+
+    <ng-container *ngSwitchCase="'CARD'">
+      <app-frame-card [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp" [wsdpcl]="wsdpcl"
+        (emitPass)="itemClicked($event)">
+      </app-frame-card>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'TAB_FRAMES'">
+      <app-tab-table-new [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [sessionObj]="sessionObj" [wscp]="wscp"
+        (emitPass)="itemClicked($event)" [object_mast]="object_mast" [page_no]="page_no">
+      </app-tab-table-new>
+    </ng-container>
+
+
+    <ng-container *ngSwitchCase="'HORIZONTAL_TABLE'">
+      <!-- <app-frame-table2 [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+      (emitPass)="itemClicked($event)">
+    </app-frame-table2> -->
+      <app-frame-newtable2 [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [sessionObj]="sessionObj"
+        [wscp_send_input]="wscp" [object_mast]="object_mast" [page_no]="page_no" (emitPass)="itemClicked($event)"
+        (personalize)="personalizeclick($event)"></app-frame-newtable2>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'SYSTEM'">
+      <app-frame-system [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+        [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)" [object_mast]="object_mast" (quickLinksemit)="quickLinks()">
+      </app-frame-system>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'CART-SUMMARY-PLAIN'">
+
+      <app-frame-cart-summary-plain [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [wsdpcl]="wsdpcl"
+        (emitPass)="itemClicked($event)">
+      </app-frame-cart-summary-plain>
+    </ng-container>
+
+
+    <ng-container *ngSwitchCase="'MMT_FILTER'">
+
+      <app-frame-mmt-json-filter [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+        [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-mmt-json-filter>
+
+    </ng-container>
+
+
+
+
+
+    <ng-container *ngSwitchCase="'PRIMARY'">
+      <app-frame-primary [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+        [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-primary>
+    </ng-container>
+
+
+
+    <ng-container *ngSwitchCase="'FULLCALENDAR'">
+      <app-frame-fullcalender [object_mast]="object_mast" [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj"
+        [wscp_send_input]="wscp" [page_no]="page_no" [wscp_send_input]="wscp" [wsdpcl]="wsdpcl"
+        (emitPass)="itemClicked($event)">
+      </app-frame-fullcalender>
+    </ng-container>
+
+
+
+
+    <ng-container *ngSwitchCase="'TESTING'">
+
+      <app-testing [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp" [wsdpcl]="wsdpcl"
+        (emitPass)="itemClicked($event)">
+      </app-testing>
+
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'DASH_FOOTER'">
+
+      <app-frame-dashboard-footer [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+        [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-dashboard-footer>
+
+    </ng-container>
+
+
+
+    <ng-container *ngSwitchCase="'KPI_RECORDS'">
+      <app-frame-canvas [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [sessionObj]="sessionObj"
+        [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-canvas>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'DRAG-DROP'">
+      <app-frame-drag-drop [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [sessionObj]="sessionObj"
+        [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)"></app-frame-drag-drop>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'CALENDER-MONTH1'">
+      <app-frame-calender-month [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-calender-month>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'CALENDER-MONTH'">
+      <app-frame-calendar-week [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-calendar-week>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'APPROVAL-TAB'">
+      <app-approval-tab [frame]="frame" [wsdp]="wsdp" [wscp]="wscp" [obj_mast]="object_mast"
+        (emitPass)="itemClicked($event)">
+      </app-approval-tab>
+    </ng-container>
+
+
+
+    <ng-container *ngSwitchCase="'PIVOT-TABLE'">
+      <app-frame-table [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [sessionObj]="sessionObj"
+        [wscp_send_input]="wscp" (emitPass)="itemClicked($event)">
+      </app-frame-table>
+    </ng-container>
+
+
+    <ng-container *ngSwitchCase="'TABLE_KPI'">
+      <app-frame-table-kpi [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-table-kpi>
+    </ng-container>
+
+
+    <ng-container *ngSwitchCase="'PROFILE-CARD'">
+      <app-frame-user-profile [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [wscp_send_input]="wscp"
+        (emitPass)="itemClicked($event)">
+
+      </app-frame-user-profile>
+    </ng-container>
+    <ng-container *ngSwitchCase="'SLIDING-CARD'">
+      <app-frame-card-slider [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-card-slider>
+    </ng-container>
+    <ng-container *ngSwitchCase="'CANVAS-BORDERED'">
+      <app-frame-summ-card [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [wsdpcl]="wsdpcl"
+        (emitPass)="itemClicked($event)">
+      </app-frame-summ-card>
+    </ng-container>
+
+
+
+    <ng-container *ngSwitchCase="'EXTERNAL_IFRAME'">
+      <app-frame-external-iframe [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [wsdpcl]="wsdpcl"
+        (emitPass)="itemClicked($event)">
+      </app-frame-external-iframe>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'IMAGE_SLIDER'">
+      <app-frame-img-slider [frame]="frame" [wsdp]="wsdp" (emitPass)="itemClicked($event)">
+      </app-frame-img-slider>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'IMG_SLIDER_V2'">
+      <app-frame-img-slider [frame]="frame" [wsdp]="wsdp" (emitPass)="itemClicked($event)">
+      </app-frame-img-slider>
+    </ng-container>
+    <ng-container *ngSwitchCase="'TERMS'">
+      <app-frame-terms-conditions [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp"
+        (emitPass)="itemClicked($event)" [sessionObj]="sessionObj"></app-frame-terms-conditions>
+    </ng-container>
+    <ng-container *ngSwitchCase="'ADDON'">
+      <app-frame-addon [sessionObj]="sessionObj" [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp"
+        (emitPass)="itemClicked($event)">
+      </app-frame-addon>
+    </ng-container>
+    <!-- <div *ngSwitchCase="'COLLAPSE'">
+              <app-frame-collaps [frame]="frame" [wscp]="wscp" [wsdp]="wsdp" [wsdpcl]="wsdpcl"
+                (emitPass)="itemClicked($event)">
+              </app-frame-collaps>
+            </div> -->
+    <ng-container *ngSwitchCase="'CALENDER'">
+      <app-frame-calender [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-calender>
+    </ng-container>
+    <ng-container *ngSwitchCase="'NEWCALENDER'">
+      <app-frame-newcalender [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [wscp]="wscp"
+        (emitPass)="itemClicked($event)">
+      </app-frame-newcalender>
+    </ng-container>
+
+
+
+    <ng-container *ngSwitchCase="'ENTRY_TABLE_VERTICAL'">
+      <app-frame-table2 [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)"
+        [wscp_send_input]="wscp">
+      </app-frame-table2>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'ORDER-ENTRY'">
+      <app-frame-order-entry [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [wsdpcl]="wsdpcl"
+        (emitPass)="itemClicked($event)">
+      </app-frame-order-entry>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'FRAME_COLLAPSE'">
+      <app-frame-collapse-order-entry [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+
+      </app-frame-collapse-order-entry>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'PLASTO_SUMMARY'">
+      <app-frame-plasto-summary-card [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl"
+        (emitPass)="itemClicked($event)"></app-frame-plasto-summary-card>
+    </ng-container>
+
+
+
+    <ng-container *ngSwitchCase="'CANVAS-FILTER'">
+      <app-frame-canvas [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [sessionObj]="sessionObj"
+        (emitPass)="itemClicked($event)">
+      </app-frame-canvas>
+    </ng-container>
+    <ng-container *ngSwitchCase="'MAP'">
+      <app-frame-map [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [sessionObj]="sessionObj"
+        (emitPass)="itemClicked($event)"></app-frame-map>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'LOC-TRACK-CARD'">
+      <app-frame-location-tracking-card [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl"
+        (emitPass)="itemClicked($event)">
+      </app-frame-location-tracking-card>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'ORDER ENTRY'">
+      <app-frame-add-to-cart [frame]="frame" [wsdp]="wsdp" (emitPass)="itemClicked($event)">
+      </app-frame-add-to-cart>
+    </ng-container>
+
+
+    <ng-container *ngSwitchCase="'RELATION_TABLE_FILTER'">
+      <app-frame-relational-table-filter [frame]="frame" [wsdp]="wsdp" (emitPass)="itemClicked($event)">
+      </app-frame-relational-table-filter>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'ACCORIDION'">
+      <app-frame-parent-child-order [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [sessionObj]="sessionObj"
+        (emitPass)="itemClicked($event)"></app-frame-parent-child-order>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'PLAIN-KPI'">
+      <app-frame-plain-kpi [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-plain-kpi>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'SUMMARY_CARD'">
+      <app-frame-summary-card [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-summary-card>
+    </ng-container>
+    <ng-container *ngSwitchCase="'SUMMARY_TABLE'">
+      <app-frame-summary-card-detail [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-summary-card-detail>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'CARTD'">
+      <app-frame-cart-summary [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" [wsdpcl]="wsdpcl"
+        [frame]="frame"></app-frame-cart-summary>
+    </ng-container>
+    <ng-container *ngSwitchCase="'ROUTE-MAP'">
+      <app-frame-route-map [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl"></app-frame-route-map>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'KPI-SLIDER'">
+      <app-frame-kpi-slider [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" [wscp_send_input]="wscp"
+        (emitPass)="itemClicked($event)"></app-frame-kpi-slider>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'ORDER_CART'">
+      <app-frame-order-card [frame]="frame" [wsdp]="wsdp" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-order-card>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'TRAVEL-PATH'">
+      <app-frame-waypoints [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp" (emitPass)="itemClicked($event)">
+      </app-frame-waypoints>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'TRAVEL-LOCATION-PIN'">
+      <app-frame-travel-location [frame]="frame" [wsdp]="wsdp" [wscp_send_input]="wscp"
+        (emitPass)="itemClicked($event)">
+      </app-frame-travel-location>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'GRAPH_V2'">
+      <div class="chart-border">
+        <app-am-charts [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+          [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+        </app-am-charts>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'CHART'">
+      <div class="chart-border">
+        <app-am-charts [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+          [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+        </app-am-charts>
+      </div>
+    </ng-container>
+
+
+
+    <ng-container *ngSwitchCase="'TIMELINE_GRAPH'">
+      <div class="chart-border">
+        <app-manual-timeline [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+          [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+        </app-manual-timeline>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'MINI_CARD'">
+      <app-contact-card [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+        [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-contact-card>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'TREE_TABLE'">
+      <app-frame-tree-table [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+        [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-tree-table>
+    </ng-container>
+    <ng-container *ngSwitchCase="'PIVOT'">
+      <app-frame-pivot-table [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+        [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-pivot-table>
+    </ng-container>
+    <ng-container *ngSwitchCase="'CARD_NEW'">
+      <app-frame-card-new [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+        [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-frame-card-new>
+    </ng-container>
+    <ng-container *ngSwitchCase="'TREE_MENU'">
+      <app-new-tree-menu [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+        [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+      </app-new-tree-menu>
+    </ng-container>
+
+    <ng-cntainer *ngSwitchCase="'CUSTOM_CALENDAR'">
+       <app-frame-custom-calendar [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp" [object_mast]="object_mast"
+        [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+   
+      </app-frame-custom-calendar>
+    </ng-cntainer>
+  </div>
+</ng-container>

@@ -1,0 +1,274 @@
+<ion-header class="login_header mobile_display">
+  <ion-toolbar>
+    <ion-title> 
+      <div class="logo-section"> 
+             <img src="../../../assets/application/lhs-logo.png" alt="lhs-logo">
+       
+    </div>
+     
+  </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="login-ion-content page-login bg-shrink">
+
+  <div class="shrinkMyscreen">
+    <ion-grid class="p-0 m-0">
+      <ion-row class=" align-items-center login-section">
+        <ion-col size="12" size-md="12" size-lg="5">
+          <div class="left-panel">
+
+            <header class="desktop_display">
+              <nav class="navbar">
+                <div class="container-fluid">
+                  <a class="navbar-brand">
+                    <img src="../../../assets/application/lhs-logo.png" alt="lhs-logo">
+                     <ng-container >
+                         <a class="back-btn mobile" (click)="changeSetting()"><ion-icon name="arrow-back-outline"></ion-icon>&nbsp;&nbsp; Back to Login Page</a>
+                         </ng-container>
+                  </a>
+                </div>
+              </nav>
+            </header>
+            <div class="app-area login-area">
+              <div class="row justify-content-center p-0 login-area-row m-0">
+                <div class="col-lg-9 col-md-12">
+                  <h3>Log In</h3>
+                  <p>Enter your registered mobile number, email or WhatsApp number to receive an OTP.</p>
+                  <p>for this Appkey: <span style="color:rgb(224, 60, 60);">{{globalObjects.parentAppkey | uppercase}}</span></p>
+                  <div class="sidebar-menu">
+                    <div class="mb-2 mt-2 d-flex align-items-center">
+
+                      <ion-radio-group [(ngModel)]="selectedaccount" name="loginwith" class="d-flex align-items-center">
+                        <ion-item>
+                          <ion-label class="form-label">Mobile </ion-label>
+                          <ion-radio slot="start" value="mobile" (click)="setMedium('mobile')"></ion-radio>
+                        </ion-item>
+
+                        <ion-item>
+                          <ion-label class="form-label">Email</ion-label>
+                          <ion-radio slot="start" value="email" (click)="setMedium('mobile')"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                          <ion-label class="form-label">WhatsApp</ion-label>
+                          <ion-radio slot="start" value="whatsapp" (click)="setMedium('mobile')"></ion-radio>
+                        </ion-item>
+                      </ion-radio-group>
+                    </div>
+                    <ng-container *ngIf="selectedaccount == 'mobile'">
+                      <form class="loginForm" #form="ngForm" focusDir>
+                        <div class="mb-1 mt-1">
+                          <!-- <ion-label class="form-label">Mobile</ion-label> -->
+                          <div class="item-has-focus">
+                            <!-- <ion-input placeholder="Enter Mobile No" name="mobile" [(ngModel)]="login_value" required></ion-input> -->
+                            <!-- <ion-input type="tel" placeholder="Enter Mobile No" name="mobile" [(ngModel)]="login_value"
+                              required pattern="^[6-9][0-9]{9}$" #mobileRef="ngModel" maxlength="13" minlength="10" (keyup.enter)="getOtp()">
+                            </ion-input> -->
+                            <ion-input type="tel" placeholder="Enter Mobile No" name="mobile" [(ngModel)]="login_value" maxlength="10"
+                              required pattern="^[6-9][0-9]{9}$" #mobileRef="ngModel" inputmode="numeric"
+                              (ionInput)="allowOnlyNumbers($event)" (keyup.enter)="getOtp()">
+                            </ion-input>
+
+                            <ion-icon name="call-outline"></ion-icon>
+                          </div>
+                          <ion-text color="danger" class="text-danger" *ngIf="mobileRef.invalid && mobileRef.touched">
+                            <p class="text-danger" *ngIf="mobileRef.errors?.required">Mobile number is required.</p>
+                            <p class="text-danger" *ngIf="mobileRef.errors?.pattern">Enter a valid 10-digit mobile
+                              number.</p>
+                          </ion-text>
+
+
+                         
+                        </div>
+                        <div class="mb-1 mt-1" *ngIf="mobile_otp_flag">
+                          <ion-label class="form-label">OTP</ion-label> <!--   -->
+                          <div class="item-has-focus">
+                            <!-- <div class="resend_otp" *ngIf="countdown==0" (click)="getOtp()">Resend</div>
+                            <div class="resend_otp" *ngIf="countdown > 0">{{countdown}} sec</div> -->
+                            <!-- <ion-input [(ngModel)]="otp_value" name="mobileOtp" placeholder="Enter OTP"></ion-input>  -->
+                            <div class="otp-section">
+                              <ng-otp-input  name="mobileOtp" placeholder="Enter OTP"
+                                [config]="otpConfig"   (onInputChange)="onOtpChange($event)" 
+                               (onInputFilled)="onOtpFilled($event)">
+                              </ng-otp-input>
+                            
+                              <!-- <ion-button expand="block" (click)="verifyOtp()">Verify OTP</ion-button>
+  <ion-button fill="clear" (click)="resendOtp()" [disabled]="resendDisabled">
+    Resend OTP {{ resendTimer > 0 ? '(' + resendTimer + 's)' : '' }}
+  </ion-button> -->
+                            </div>
+                            <div class="item-has-focus text-left mt-2 mb-2">
+                            <div class="resend_otp" *ngIf="countdown==0" (click)="getOtp()">Resend</div>
+                            <div class="resend_otp" *ngIf="countdown > 0">{{countdown}} sec</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="login-btn-wrap text-center mt-3">
+
+
+                          <ion-button icon-only round expand="block" class="button-round button-round-md global-btn"
+                            slot="center" (click)="getOtp()" [disabled]="otp_disable_flag" *ngIf="!mobile_otp_flag">
+                            Send OTP
+                          </ion-button>
+
+                          <ion-button icon-only round expand="block" class="button-round button-round-md global-btn"
+                            slot="center" (click)="verifyOtp()" [disabled]="countdown==0" *ngIf="mobile_otp_flag ">
+                            Login With OTP
+                          </ion-button>
+                        </div>
+                      </form>
+                    </ng-container>
+
+
+                    <ng-container *ngIf="selectedaccount == 'whatsapp'">
+                      <form class="loginForm" #form="ngForm" focusDir>
+                        <div class="mb-1 mt-1">
+                          <!-- <ion-label class="form-label">Mobile</ion-label> -->
+                          <div class="item-has-focus">
+                            <!-- <ion-input placeholder="Enter Mobile No" name="mobile" [(ngModel)]="login_value" required></ion-input> -->
+                            <!-- <ion-input type="tel" placeholder="Enter Mobile No" name="mobile" [(ngModel)]="login_value"
+                              required pattern="^[6-9][0-9]{9}$" #mobileRef="ngModel" maxlength="13" minlength="10" (keyup.enter)="getOtp()">
+                            </ion-input> -->
+                            <ion-input type="tel" placeholder="Enter Mobile No" name="mobile" [(ngModel)]="login_value"
+                              required pattern="^[6-9][0-9]{9}$" #mobileRef="ngModel" inputmode="numeric"
+                              (ionInput)="allowOnlyNumbers($event)" (keyup.enter)="getOtp()">
+                            </ion-input>
+
+                            <ion-icon name="call-outline"></ion-icon>
+                          </div>
+                          <ion-text color="danger" class="text-danger" *ngIf="mobileRef.invalid && mobileRef.touched">
+                            <p class="text-danger" *ngIf="mobileRef.errors?.required">Mobile number is required.</p>
+                            <p class="text-danger" *ngIf="mobileRef.errors?.pattern">Enter a valid 10-digit mobile
+                              number.</p>
+                          </ion-text>
+
+
+
+                        </div>
+                        <div class="mb-1 mt-1" *ngIf="mobile_otp_flag">
+                          <ion-label class="form-label">OTP</ion-label>
+                          <div class="item-has-focus">
+                            <div class="resend_otp" *ngIf="countdown==0" (click)="getOtp()">Resend</div>
+                            <div class="resend_otp" *ngIf="countdown > 0">{{countdown}} sec</div>
+                            <ion-input [(ngModel)]="otp_value" name="mobileOtp" placeholder="Enter OTP"></ion-input>
+                          </div>
+                        </div>
+
+                        <div class="login-btn-wrap text-center mt-3">
+
+
+                          <ion-button icon-only round expand="block" class="button-round button-round-md global-btn"
+                            slot="center" (click)="getOtp()" [disabled]="otp_disable_flag" *ngIf="!mobile_otp_flag">
+                            Send OTP
+                          </ion-button>
+
+                          <ion-button icon-only round expand="block" class="button-round button-round-md global-btn"
+                            slot="center" (click)="verifyOtp()" [disabled]="countdown==0" *ngIf="mobile_otp_flag ">
+                            Login With OTP
+                          </ion-button>
+                        </div>
+                      </form>
+                    </ng-container>
+
+                    <ng-container *ngIf="selectedaccount == 'email'">
+                      <form class="loginForm" #form="ngForm" focusDir>
+                        <div class="mb-1 mt-1">
+                          <!-- <ion-label class="form-label">Email Id</ion-label> -->
+                          <div class="item-has-focus">
+
+                            <!-- <ion-input type="email" placeholder="Enter Email Id" name="email" [(ngModel)]="login_value" #emailRef="ngModel"></ion-input> -->
+                            <ion-input type="email" placeholder="Enter Email Id" name="email" [(ngModel)]="login_value"
+                              required email #emailRef="ngModel" (keyup.enter)="emailRef.valid && getOtp()">
+                            </ion-input>
+                            <!-- <ion-input 
+  type="email" 
+  placeholder="Enter Email Id"
+  name="email" 
+  [(ngModel)]="login_value" 
+  required 
+  email 
+  #emailRef="ngModel"
+  (keyup.enter)="emailRef.valid && getOtp()">
+</ion-input> -->
+
+
+
+                            <ion-icon name="mail-outline"></ion-icon>
+                          </div>
+                          <ion-text class="text-danger" color="danger" *ngIf="emailRef.invalid && emailRef.touched">
+                            <p class="text-danger" *ngIf="emailRef.errors?.required">Email is required.</p>
+                            <p class="text-danger" *ngIf="emailRef.errors?.email">Invalid email format.</p>
+                          </ion-text>
+
+
+
+
+                        </div>
+                        <div class="mb-2 mt-2" *ngIf="email_otp_flag">
+                          <ion-label class="form-label">OTP</ion-label>
+                          <div class="item-has-focus">
+                            <!-- <div class="resend_otp">Resend</div> -->
+                            <!-- <div class="resend_otp">{{countdown}}</div>
+                                -->
+                            <div class="resend_otp" *ngIf="countdown==0" (click)="getOtp()">Resend</div>
+                            <div class="resend_otp" *ngIf="countdown > 0">{{countdown}} sec</div>
+                            <ion-input placeholder="Enter OTP" name="emailotp" [(ngModel)]="otp_value"></ion-input>
+                          </div>
+                        </div>
+
+                        <div class="login-btn-wrap text-center mt-3">
+                          <ion-button icon-only round expand="block" class="button-round button-round-md global-btn"
+                            slot="center" (click)="getOtp()" [disabled]="otp_disable_flag" *ngIf="!email_otp_flag">
+                            Send OTP
+                          </ion-button>
+                          <ion-button icon-only round expand="block" class="button-round button-round-md global-btn"
+                            slot="center" (click)="verifyOtp()" [disabled]="countdown==0" *ngIf="email_otp_flag">
+                            Login With OTP
+                          </ion-button>
+                        </div>
+                      </form>
+                    </ng-container>
+                  </div>
+                </div>
+                 <a class="back-btn desktop_display" (click)="changeSetting()"><ion-icon name="arrow-back-outline"></ion-icon>&nbsp;&nbsp;
+              Back to Login Page</a>
+              </div>
+            </div>
+           
+          </div>
+
+        </ion-col>
+        <ion-col size="0" size-md="7" size-lg="7">
+          <div class="row">
+            <div class="col-md-2 ">
+            </div>
+            <div class="col-md-3 ">
+            </div>
+          </div>
+          <div class="right-side">
+            <h1><span>Welcome to</span> Lighthouse ERP</h1>
+            <h2 class="sub-heading">Enabling IT as a strategic resource</h2>
+            <hr class="h-line">
+            <p>Whatever Be Your Business Making <span>IT </span> Work is Ours.</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!-- <div class="footer_copyright">
+    <p>Powered by Lighthouse Info Systems Pvt. Ltd.</p><img src="assets/powerdby_lhs.png">
+  </div> -->
+</ion-content>
+
+<ion-footer class="login_footer mobile_display">
+  <ion-toolbar class="pt-0">
+    <ion-title>
+      <div class="logo-section"> 
+        <a class="back_page_btn d-flex align-items-center gap-2" (click)="changeSetting()"><ion-icon name="arrow-back-outline"></ion-icon>&nbsp;Back to Login Page</a>
+        <div style="cursor: pointer;" class="footer_copyright" style="position: relative;" (click)="openPoweredSite()">
+            <p>Powered By</p><img src="assets/powerdby_lhs.png" >
+        </div>
+    </div>
+  </ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,164 @@
+ion-button.developer_btn{
+    --padding-start:0px;
+    --padding-end:0px;
+    --padding-top:0px;
+    --padding-bottom:0px;
+    --background:none;
+      width: 25px;
+      height: 25px;
+      --box-shadow:none;
+      font-size: var(--font14); 
+      color:var(--blue-new) !important;
+      &:hover{
+        --background: none !important;
+        background: none !important;
+        color:var(--blue-new) !important;
+        ion-icon{
+          color:var(--blue-new) !important;
+        }
+      }
+  }
+
+
+ion-textarea{
+    --padding-top: 0;
+    --padding-start: 3px;
+    overflow: auto;
+}
+
+input,
+ion-input{
+   font-size: var(--font14);
+} 
+
+
+ion-textarea.form-control{
+    margin-top: 0;
+ //   height: auto !important;
+}
+ion-textarea.box_top_input {
+    border: 1px solid var(--common-border);;
+}
+
+
+ion-textarea.box_top_input[ng-reflect-readonly="true"]{
+    overflow: hidden !important;
+}
+ion-textarea.un_input {
+    border-bottom: 1px solid var(--common-border);
+}
+ion-textarea.bg-input[ng-reflect-readonly="true"] {
+    margin-top: 0;
+    height: auto;
+    overflow: hidden !important;
+}
+ion-item ion-textarea.un_input[ng-reflect-readonly="true"]{
+    background: transparent !important;
+    --color: var(--text-dark);
+    opacity: 0.4;
+}
+.textarea-height {
+    overflow: auto;
+    height: 66px !important;
+}
+ion-textarea .textarea-wrapper{
+    height:100% !important;
+    .native-textarea{
+        height:100% !important;
+    }
+}
+.input-type6-containter{
+    .input-div{
+        border:1px solid  var(--common-border);
+        // .text_rich_model{
+        //     cursor: pointer;
+        //     margin: 5px;
+        //     position: absolute;
+        //     right: 10px;
+        //     top: 0;
+        //     z-index: 99;
+        // }
+    }
+    .input-action-container{
+
+    }
+    }
+#BOX_TOP{
+    .text_rich_model{
+       
+    }
+}
+
+.text_rich_model.box-top {
+
+    top:50px !important;
+}
+
+.textarea_textrich_input{
+    width: 100%;
+    display: block;
+  //  align-items: center;
+    background: #fff;
+    border: 1px solid #ebebeb;
+    ion-textarea{margin: 0px 0px;}
+
+    ion-textarea.box_top_input{
+        border:none !important;
+    }
+    .input-buttons-container{
+        display: flex;
+            /* align-items: baseline !important; */
+            justify-content: right;
+            align-items: center;
+            padding: 3px 5px;
+            background: #e5e5e5;
+        .input-btn{
+            padding: 5px 5px 3px 3px !important;
+            display: inline-flex;
+        }
+    }
+}
+
+.newIp-type3 .input-div .input-action-container {
+    display: flex;
+    /* align-items: baseline !important; */
+    justify-content: right;
+    align-items: center;
+    padding: 3px 5px;
+    background: #e5e5e5;
+}
+
+.ultop_inputcontainer{
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--common-border);
+
+    ion-textarea{
+        width:100%;
+border-bottom:0px !important;
+    }
+    .input-buttons-container{
+    display: flex;
+    align-items: baseline;
+    }
+}
+.floattop_inputcontainer{
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--common-border);
+
+    ion-textarea{
+        width:100%;
+border-bottom:0px !important;
+    }
+    .input-buttons-container{
+    display: flex;
+    align-items: baseline;
+    }
+}
+
+.table_txetareadiv{
+display: flex;
+border:1px solid rgb(219, 219, 219);
+border-radius: 5px;
+}

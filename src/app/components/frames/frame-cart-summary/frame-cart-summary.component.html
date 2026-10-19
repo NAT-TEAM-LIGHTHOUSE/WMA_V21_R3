@@ -1,0 +1,81 @@
+<div class="add-to-cart">
+  <ion-button slot="start" (click)="closePage()" fill="clear" icon-only start >
+    <ion-icon name="arrow-back" color="blue"></ion-icon>
+  </ion-button>
+<ion-card class="position-relative cart-summary pt-2 mb-3">
+  <div class="cart-summary-icon position-absolute">
+     <ion-icon name="paper"></ion-icon>
+  </div>
+  <ion-grid>
+      <ion-row>
+         <ion-col size="7">
+            <ion-label>Total Amout</ion-label>
+            <h1>Rs.{{totalAmount}} /-</h1>
+          </ion-col>
+          <ion-col size="5">
+             <label class="total-label d-inline-block">Total Qty </label> : <span class="min-qty-count">{{totalQty}}</span>
+              <div class="clearfix"></div>
+             <label class="total-label d-inline-block">Total Item </label> : <span class="min-qty-count">{{totalItems}}</span>
+          
+           </ion-col>
+       </ion-row>
+   </ion-grid>
+
+   <div  *ngFor="let parentGroup of summaryCard;let h = index">
+      <div class="order-entry position-relative">
+      
+        <div class="order-entry-header">
+          <h4 class="card-header text-primary">{{parentGroup.parentName}}</h4>
+        </div>
+        <div class="card-body">
+          <ion-row justify-content-start align-items-center>
+            <ion-col size="3" class="p-0" className="ion-align-items-center">
+              <div class="order-image">
+                 <app-items [item]="parentGroup.imageData" [frame]="frame"> </app-items> 
+              </div>
+            </ion-col>
+            <ion-col size="9" class="p-0">
+              <div class="table-responsive right-table">
+                <table class="entry-table">
+                  <thead>
+                    <tr>
+                      <ng-container *ngFor="let th of headings; let i = index">
+                        <th [ngStyle]="th.column_width">{{th.prompt_name}}</th>
+                      </ng-container>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let tableData of parentGroup.items  ;let rowindex=index">
+                      <ng-container *ngFor="let itemGroup of tableData;">
+                        
+                        <td *ngFor="let input_item of itemGroup.Level5; let i = index"
+                          [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag=='F'">
+                          <ng-container [ngSwitch]="input_item.item_type">
+                              <div *ngSwitchCase="'LBL'">
+                                <ion-label [ngStyle]="input_item.displysettingstr" class="input-label">
+                                  {{input_item.value}}</ion-label>
+                               
+                              </div>
+                              <div *ngSwitchCase="'N'">
+                                <ion-input type="number" [(ngModel)]="input_item.value"
+                                  [ngStyle]="input_item.displysettingstr"
+                                  (ionChange)="itemValueChange(input_item,rowindex,h)" ></ion-input>
+                              </div>
+
+                              <div *ngSwitchCase="'T'">
+                                <input type="text" [(ngModel)]="input_item.value"
+                                  [ngStyle]="input_item.displysettingstr"
+                                  (change)="itemValueChange(input_item,rowindex,h)" />
+                              </div>
+                          </ng-container>
+                        </td>
+                      </ng-container>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+   </div>

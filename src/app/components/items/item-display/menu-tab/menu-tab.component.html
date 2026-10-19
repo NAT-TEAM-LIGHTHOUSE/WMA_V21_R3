@@ -1,0 +1,23 @@
+ <div class="tab-menu text-center" (click)="buttonClick($event)" (contextmenu)="onRightClick($event)" *ngIf="!menutab.item_sub_type">
+        <div class="img-container">
+                <div class="img-circle">
+            <img [ngStyle]="menutab.display_setting_str" [src]="baseImg" (error)="onImgError($event)">
+    </div>
+    </div>
+    <div class="name-container">
+        <h6>{{menutab.prompt_name}}</h6>
+    </div>
+    </div>
+    
+    
+    <div class="tab-menu-large text-center" (click)="buttonClick($event)" (contextmenu)="onRightClick($event)" *ngIf="menutab.item_sub_type =='IMAGE'">
+      
+        <div class="img-container">
+                <div class="img-circle">
+        <img [ngStyle]="menutab.display_setting_str" [src]="baseImg" (error)="onImgError($event)">
+    </div>
+    </div>
+    <div class="name-container">
+        <h6>{{menutab.prompt_name}}</h6>
+    </div>
+    </div>

@@ -1,0 +1,30 @@
+<div class="filters">
+  <div class="filter-icon-container position-relative">
+      <ion-icon class="position-relative" name="ios-funnel"></ion-icon>
+      <h6 class="d-inline-block mt-0">Filters</h6>
+  </div>
+  <div class="filter-body p-1">
+      <ion-grid>
+          <!-- ---------------------------------------------------- -->
+          <ion-row *ngFor="let itemGroup of frameData.level4Data">
+              <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                  <ng-container *ngIf="item.item_filter_flag">
+                      <ion-col class="p-0" [hidden]="item.item_filter_flag=='BT'">
+                          <app-items [item]="item" [wscp]="wscp" [itemData]="frameData.tableRows" [frame]="frame"></app-items>
+                      </ion-col>
+                  </ng-container>
+              </ng-container>
+          </ion-row>
+          <!-- ---------------------------------------------------- -->
+      </ion-grid>
+      <ion-row>
+          <ion-col col-12 ion-text-center class="p-0" style="padding: 0;">
+              <ion-button  size="small" shape="round" class="mr-1 globe-btn" color="primary"
+                  (click)="filerDataWithoutAliases(false)">Show
+              </ion-button>
+              <ion-button  size="small"  shape="round"  color="secondary" fill="outline" (click)="clearFilter(false)">Clear All
+              </ion-button>
+          </ion-col>
+      </ion-row>
+  </div>
+</div>

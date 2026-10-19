@@ -1,0 +1,31 @@
+<ng-container *ngIf="frame.apps_frame_sub_type == 'BASIC' || frame.apps_frame_sub_type == 'COLLAPSE'">
+  <ng-container *ngIf="!flag">
+    <!-- <swiper [slidesPerView]="1" [loop]="true">
+      <ng-container *ngIf="frame.Level4.length > 0">
+        <ng-template swiperSlide *ngFor="let slideItem of frame.Level4[0].Level5">
+          <img
+            [src]="globalObjects.getScopeUrl() + 'getImage?id=' + slideItem.apps_icon_name + '&appTheme=' + globalObjects.appTheme" />
+          <div class="img-caption-cont" *ngIf="slideItem.prompt_name">
+            <div class="img-caption">
+              <h1 class="mt-0 mb-4" class="heading">{{slideItem.value}}</h1>
+              <span class="size" *ngIf="globalObjects.toggleDevloperMode">300 width x 150 height (Suggested size)</span>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </swiper> -->
+  </ng-container>
+
+  <ng-container *ngIf="flag">
+    <!-- <swiper [slidesPerView]="1" [loop]="true">
+      <ng-template swiperSlide *ngFor="let slideItem of sliderList">
+        <img [src]="'data:image/png;base64,' + slideItem" />
+        <div class="img-caption-cont" *ngIf="slideItem.prompt_name">
+          <div class="img-caption">
+            <span class="size" *ngIf="globalObjects.toggleDevloperMode">300 width x 150 height (Suggested size)</span>
+          </div>
+        </div>
+      </ng-template>
+    </swiper> -->
+  </ng-container>
+</ng-container>

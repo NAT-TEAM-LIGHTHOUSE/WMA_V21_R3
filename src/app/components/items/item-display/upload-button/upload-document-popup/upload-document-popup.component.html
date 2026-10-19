@@ -1,0 +1,24 @@
+<div class="document-viewer">
+   <ng-container *ngIf="isNoPreview; else isPreview">
+       <div class="d-flex align-center justify-content-center h-100">
+        
+        <div class="text-center" style="place-content: center;">
+          <h4 class="text-center" style="font-weight: 600;color:var(--text-dark);opacity: 0.5;">No Preview available</h4> 
+         
+          <p style="font-size: 13px;color:var(--text-dark);padding: 8px;">Please click the Download button to access the file</p>
+           <ion-button (click)="download()"><ion-icon name="cloud-download-outline"></ion-icon>&nbsp;&nbsp;Download Now</ion-button>
+        </div>
+       </div> 
+    </ng-container>
+      <ng-template #isPreview> 
+        <ng-container *ngIf="isVideo; else noVideo">
+          <video #videoPlayer width="100%" [src]="docData" controls autoplay></video>
+        </ng-container>
+        <ng-template #noVideo> 
+          <iframe [src]="docData" id="excelIframe" width="100%" height="100%" class="pdf-iframe"  style=" user-select: none !important;"   frameborder="0"
+          scrolling="auto"></iframe>
+          <div class="overlap_div" (contextmenu)="disableRightClick($event)">
+          </div>
+        </ng-template>
+      </ng-template>    
+  </div>

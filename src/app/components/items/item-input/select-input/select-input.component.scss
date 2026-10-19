@@ -1,0 +1,166 @@
+.select-dropdown-new{
+    width: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
+    font-size: var(--font12);
+    box-shadow: -1px 0px 2px var(--grey-5), 1px 2px 4px var(--grey-5);
+    position: absolute;
+    z-index: 9999;
+    position: relative;
+    ion-item{
+        --min-height: 28px;
+        font-size: var(--font14) !important;
+        font-weight: 500 !important;
+        color: var(--text-light-1) !important;
+        margin-top: 0px;
+
+    }
+    ion-list{
+        padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: var(--font12);
+    }
+    .native-input{
+        border-bottom: 1px solid var(--grey-5);
+        --padding-bottom: 5px;
+        --padding-top: 1px;
+    }
+
+    ion-icon.inner-dropdown.md.hydrated {
+        font-size: var(--font15);
+        position: absolute;
+        z-index: 99;
+        right: 7px;
+        padding: 3px;
+        background: var(--grey-5);
+        border: 1px solid var(--grey-5);
+    }
+}
+
+.my_class1{
+display: none;}
+.my_class2{
+//    display:;
+opacity: 1;
+}
+
+.butn{
+    position: absolute;
+    top: 1px;
+    right: 0px;
+    z-index: 9999;
+}
+
+:host(.in-item) {
+    margin: 18px 0px;
+    display: block;
+    position: static;
+}
+:host(.in-item) {
+    ion-checkbox{
+        margin: 5px 8px;
+        size: 15px;
+    }
+}
+
+ion-label {
+ --inner-border-width: 0px;
+}
+.radio-input-container{
+    position: relative;
+    overflow-x: auto;
+    ion-item{
+        --padding-start: 0;
+    }
+    .main-label{
+        color: var(--form-label);
+        font-size: var(--font13) !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    ion-label{
+        font-size: var(--font13) !important;
+        white-space:  nowrap !important;
+    }
+    .radio-inputs{
+        margin-top: 23px;
+        width: 100%;
+        border: 1px solid var(--grey-5);
+        ion-item{
+            --min-height: 35px;
+            --inner-border-width: 0;
+            overflow: visible;
+        }
+    }
+    .radio-bttn{
+        margin-inline-end: 8px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .radio-cont{
+    --inner-border-width: 0 0 0px 0;
+    }
+}
+
+.active{
+    color: #df5353 !important;
+
+}
+.select-dropdown-fixed {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
+    font-size: var(--font12);
+    border: 1px solid var(--dark-grey-0);
+    position: absolute;
+    z-index: 9999;
+    position: relative;
+      ion-item {
+        --min-height: 28px;
+        color: var(--text-light-1);
+        font-size: var(--font14);
+        font-weight: 500;
+        margin-top: 0px;
+        --inner-border-width: 0;
+    }
+    .active{
+        --background: var(--grey-4);
+        color: var(--text-light-1) !important;
+    }
+    ion-list{
+        padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: var(--font12);
+    }
+    .native-input{
+        border-bottom: 1px solid var(--grey-5);
+        --padding-bottom: 5px;
+        --padding-top: 1px;
+    }
+
+    ion-icon.inner-dropdown.md.hydrated {
+        font-size: var(--font15);
+        position: absolute;
+        z-index: 99;
+        right: 7px;
+        padding: 3px;
+        background: var(--grey-5);
+        border: 1px solid var(--grey-5);
+    }
+}
+.ion-input-item-border
+{
+    ion-input
+    {
+
+        padding:0px 40px 0px 5px !important;
+    }
+
+
+}
+
+// .ng-select-dropdown{
+//     background: var(--white) !important;
+//      background-color: var(--white) !important;
+// }

@@ -1,0 +1,39 @@
+<!-- <ion-toolbar>
+  <ion-title>{{frame.apps_page_frame_name}}</ion-title>
+</ion-toolbar> -->
+
+<div class="frame-head-modal d-flex align-items-center justify-content-between px-4 py-2">
+ 
+    <div class="d-flex align-items-center "> 
+      <ng-container *ngIf="item.item_name">
+      <h6>{{item.item_name}} [ {{item.apps_item_seqid}} ]</h6>
+      </ng-container>
+       <ng-container *ngIf="item.apps_page_frame_name">
+      <h6>{{item.apps_page_frame_name}} [ {{item.apps_page_frame_seqid}} ]</h6>
+    </ng-container>
+    </div>
+  
+  <ion-icon name="close-outline" (click)="closeModal()"></ion-icon>
+</div>
+<div class="table-area">
+  <table class="dbclick">
+    <thead>
+      <tr>
+        <th>Column Name</th>
+        <th>Column Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="item">
+       <ng-container *ngFor="let key of item | keyvalue"> 
+          <!-- <ng-container *ngFor="let b of a.Level5"> -->
+            <tr *ngIf="!isObjectOrArray(key.value)">
+              <td>{{key.key}}</td>
+              <td>{{key.value}}</td>
+            </tr>
+           </ng-container>
+       <!-- </ng-container> -->
+      </ng-container>
+    </tbody>
+  </table>
+</div>

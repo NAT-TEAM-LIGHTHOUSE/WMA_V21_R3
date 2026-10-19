@@ -1,0 +1,171 @@
+<h1 class="canavs_title">Theme Setting</h1>
+
+
+<div class="theme-content">
+  <div class="color-theme d-block">
+    <div>
+      <ion-list lines="none" class="mt-2 theme-color-container">
+
+        <ion-label class="menu-group">
+          <h3>Color's</h3>
+        </ion-label>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item class="sidebar-menu" style="max-height: 125px;">
+            <ion-segment class="theme-segment" (ionChange)="segmentChanged($event)">
+              <ng-container *ngFor="let t of themeOptions">
+
+                <ion-segment-button [class]="t.class" [value]="t.value" [checked]="t.value === globalObjects.appTheme">
+                </ion-segment-button>
+              </ng-container>
+
+            </ion-segment>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+      <!-- <ion-list lines="none" class="mt-2 theme-color-container">
+
+        <ion-label class="menu-group">
+          <h3>Frame Background Color's</h3>
+        </ion-label>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item class="sidebar-menu" style="max-height: 125px;">
+            <ion-segment class="theme-segment" (ionChange)="bgsegmentChanged($event)">
+             <ng-container *ngFor="let t of bgthemeOptions">
+
+                <ion-segment-button [class]="t.class" [value]="t.value" [checked]="t.value === globalObjects.appTheme">
+                </ion-segment-button>
+              </ng-container>
+
+            </ion-segment>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list> -->
+    </div>
+  </div>
+  
+  <div class="layout-theme">
+    <div>
+      <ion-list lines="none" class="mt-2 theme-layout-container">
+
+        <ion-label class="menu-group">
+          <h3 class="nln-ln">Theme</h3>
+        </ion-label>
+        <ion-menu-toggle auto-hide="false" class="layout-theme">
+          <ion-item class="sidebar-menu">
+
+            <ion-segment class="layout-segment" (ionChange)="segmentLayout($event)">
+              <ng-container *ngFor="let t of layoutOptions">
+                <ion-segment-button [class]="t.class" [title]="t.title" [value]="t.value"
+                  [checked]="t.value === globalObjects.appLayout">
+                </ion-segment-button>
+              </ng-container>
+
+            </ion-segment>
+          </ion-item>
+        </ion-menu-toggle>
+
+      </ion-list>
+    </div>
+  </div>
+
+
+    <h3 class="nln-ln">Screen Zoom</h3>
+    <div class="color-theme nln-ln pb-2" style="border-bottom: 2px dotted #c6c6c6;">
+      <div class="z-default zoom-tab" (click)="fontChanger('zoomEffect2')">80%</div>
+      <div class="z-default-90 zoom-tab" (click)="fontChanger('zoomEffect4')">90%</div>
+      <div class="z-middle  zoom-tab" (click)="fontChanger('zoomEffect1')">100%</div>
+      <div class="z-large  zoom-tab" (click)="fontChanger('zoomEffect3')">110%</div>
+      <div class="z-large-120  zoom-tab" (click)="fontChanger('zoomEffect5')">120%</div>
+    </div>
+    <!-- <ng-container *ngIf="plt == 'browser'">
+  </ng-container> -->
+
+
+  <!-------------------------------------------------------------- FONT SIZE START---------------------- ----------------------------------- -->
+
+  <div class="font-section">
+    <!-- <ng-container class="ion-no-padding " (click)="fontOptions=!fontOptions">
+        <div class="thumbnail-container ">
+          <ion-thumbnail slot="start" class="d-flex align-items-center ">
+            <img src="assets/imgs/fonts.png" style="width:20px;height: 20px;"> <h2>Fonts</h2>
+          </ion-thumbnail> 
+        </div>
+      
+      <ion-icon name="chevron-down-circle-outline" *ngIf="fontOptions" slot="end" ></ion-icon>
+        <ion-icon name="arrow-dropright" *ngIf="!fontOptions" slot="end"></ion-icon> 
+
+      </ng-container> -->
+
+    <ng-container>
+      <div class="inner-section">
+        <div class="font-container">
+          <ion-grid>
+            <ion-row class="mt-2">
+
+              <ion-col size="12" class="mb-2">
+                 <h3 class="nln-ln">Font Size:</h3>
+              </ion-col>
+
+              <ion-col size="12">
+                <div class="font-size-options">
+                  <ul class="m-0 p-0 " >
+                    <li *ngFor="let d of fontSizeArray"
+    (click)="onFontSelect(d.value)"
+    [class.active]="d.value === globalObjects.fontSize"
+    style="cursor: pointer; padding: 5px;">{{ d.label }}</li>
+                  </ul>
+                  <!-- <ion-select [(ngModel)]="globalObjects.fontSize" interface="popover" (ionChange)="fontZoom2()">
+                    <ion-select-option *ngFor="let d of fontSizeArray" [selected]="d.value == globalObjects.fontSize"
+                      >
+                      {{ d.label }}
+                    </ion-select-option>
+                  </ion-select> -->
+
+                </div>
+              </ion-col>
+
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" class="mt-2 mb-2">
+                <h3 class="nln-ln">Font Weight:</h3>
+              </ion-col>
+
+              <ion-col size="12">
+               <div class="font-weight-options">
+                  <ul class="m-0 p-0 " >
+                    <li *ngFor="let a of fontWeightArray"
+    (click)="onFontWeightSelect(a.value)"
+    [class.active]="a.value === globalObjects.fontWeight"
+    class="fw-item" > {{ a.label }}</li>
+                   
+                  </ul>
+                  <!-- <ion-select [(ngModel)]="globalObjects.fontWeight" interface="popover" (ionChange)="fontZoom2()">
+                    <ion-select-option *ngFor="let a of fontWeightArray" [value]="a.value">
+                      {{ a.label }}
+                    </ion-select-option>
+                  </ion-select> -->
+
+                </div>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="tag-line">
+    <p class="mt-1 p-0 text-danger" > <b>Note : </b> This setting will be set as default view when you log in next time</p>
+  </div>
+<div class="template_save">
+<div class="d-flex align-items-center justify-content-between" style="padding: 0px 4px;border-radius: 5px;">
+<ion-button class="theme_btn_update" (click)="saveThemeSettings()">Update Theme Setting</ion-button>
+  </div>
+
+</div>
+
+
+
+</div>
+<!-------------------------------------------------------------- FONT SIZE END---------------------- ----------------------------------- -->

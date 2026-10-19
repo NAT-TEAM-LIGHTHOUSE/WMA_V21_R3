@@ -1,0 +1,52 @@
+
+
+        <ion-toolbar>
+          <ion-title>{{frame.apps_page_frame_name}}</ion-title>
+         
+        </ion-toolbar>
+        <div class="table-area mt-0">
+          <table class="dbclick">
+            <thead>
+              <tr>
+                <th>Column Name</th>
+                <th>Column Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="frame.searchableData;else tableRows">
+                <ng-container *ngFor="let a of frame.searchableData[frame.rowCount]">
+                  <ng-container *ngFor="let b of a.Level5">
+                    <tr *ngIf="b.item_type != 'FRAME_BUTTON_ICON' && b.item_type != 'FRAME_SEPARATOR' && b.item_type != 'BUTTON_ICON' && b.item_type != 'BUTTON' && b.item_type != 'F' && b.item_visible_flag != 'F' ">
+                      <td > <span *ngIf="b.prompt_name || b.tool_tip; else elseTag">{{b.prompt_name ? b.prompt_name : (b.tool_tip ? b.tool_tip : '')}} </span> <ng-template #elseTag>{{b.item_name?.replaceAll('_', ' ') | titlecase}}</ng-template></td>
+                      <td>{{b.value | formatMask :b.format_mask}}</td>
+  
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <ng-template #tableRows>
+                <ng-container *ngFor="let a of frame.tableRows[frame.active_row]">
+                  <ng-container *ngFor="let b of a.Level5">
+                    <tr *ngIf="b.item_type != 'FRAME_BUTTON_ICON' && b.item_type != 'FRAME_SEPARATOR' && b.item_type != 'BUTTON_ICON' && b.item_type != 'BUTTON' && b.item_type != 'F' && b.item_visible_flag != 'F' ">
+                     <td > <span *ngIf="b.prompt_name || b.tool_tip; else elseTag">{{b.prompt_name ? b.prompt_name : (b.tool_tip ? b.tool_tip : '')}} </span> <ng-template #elseTag>{{b.item_name?.replaceAll('_', ' ') | titlecase}}</ng-template></td>
+                      <td>{{b.value | formatMask :b.format_mask}}</td>
+  
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </ng-template>
+              
+              </tbody>
+            </table>
+            <div class="pre-nxt-area">
+              <ion-button (click)="backword()" [disabled]="frame.rowCount==0">
+                <ion-icon name="chevron-back-outline" class="pre index"></ion-icon>
+              </ion-button>
+              <ion-button (click)="forword()" [disabled]="frame.rowCount==(frame.searchableData? frame.searchableData.length-1:frame.tableRows.length-1)">
+                <ion-icon name="chevron-forward-outline" class="next"></ion-icon>
+              </ion-button> 
+            </div>
+
+          </div>
+  
+  

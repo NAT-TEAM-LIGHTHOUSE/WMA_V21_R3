@@ -1,0 +1,1156 @@
+<ng-container
+  *ngIf="frame.apps_frame_sub_type == 'BASIC' || frame.apps_frame_sub_type == 'COLLAPSE' || (frame.apps_frame_sub_type && frame.apps_frame_sub_type == 'SINGLE_ROW')">
+  <div class="collapse-list-container" *ngIf="frame.showCollapse || !frame.collapse">
+    <ion-item class="collapse-list" (click)="toggleFrame()">
+      {{frame.apps_page_frame_name}} <span style="margin-left: 10px;"
+        *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"
+          color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()">
+        </ion-icon></span>
+      <!-- <ion-icon  ios="ios-add-circle" md="md-add-circle" slot="end" (click)="toggle()"></ion-icon> -->
+      <ion-icon name="chevron-forward-outline" slot="end" *ngIf="!frame.collapse"></ion-icon>
+      <ion-icon name="ios-arrow-down" slot="end" *ngIf="frame.collapse"></ion-icon>
+
+      <!--Icon on frame  -->
+     
+    </ion-item> 
+    <div class="frame-head-icon-box">
+        <ul *ngIf="frame.tableRows && frame.tableRows[frame.active_row]">
+
+          <ng-container *ngFor="let itemGroup of frame.tableRows[frame.active_row]">
+            <ng-container *ngFor="let item of itemGroup.Level5">
+              <ng-container *ngIf="item.item_type == 'FRAME_BUTTON_ICON' && item.item_visible_flag == 'T'">
+                <li>
+                  <app-items [item]="item" [wscp]="wscp_send_input" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                    (emitPass)="itemClicked(item,frame.tableRows[frame.active_row],frame.active_row)"
+                    (LHSOnChange)="itemValueChange($event,frame.active_row,frame.tableRows[frame.active_row])">
+                  </app-items>
+                </li>
+
+              </ng-container>
+            </ng-container>
+          </ng-container>
+   
+        </ul>
+      </div>
+  </div>
+  <div [class]="frame.showCollapse ? 'collapse-list-body' : ''" *ngIf="frame.collapse">
+    <div class="frame-head">
+      <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse" class="align-center">
+        <ion-col col-12>
+          <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;"
+              *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]<ion-icon
+                class="code-btn" color="primary" name="information-circle-outline" *ngIf="developerModeData"
+                (click)="showDeveloperData()">
+              </ion-icon></span>
+            <span *ngIf="switchFlag" style="float: right;">
+              <i class="fa fa-id-card-o  code-btn " style="cursor: pointer;color:#4990e2;" color="primary"
+                aria-hidden="true" (click)="onSwitch()">
+              </i>
+            </span>
+          </h1>
+          <ion-button (click)="onEmitChange()" class="db_edit" *ngIf="globalObjects.toggleDevloperMode()">
+            <ion-icon color="primary" name="create-outline"></ion-icon>
+          </ion-button>
+
+
+          <!-- <div class="frame-head-icon-box">
+            <ul *ngIf="frame.tableRows && frame.tableRows[frame.active_row] ">
+                    <li >
+                     <ion-icon name="add-circle"></ion-icon>
+                    </li>
+                    <li> <ion-icon color="primary" name="create"></ion-icon></li>
+              <li><ion-icon color="success" name="checkmark-outline"></ion-icon></li>
+              <li><ion-icon color="success" name="checkmark-done-outline"></ion-icon></li>
+
+              <li>   <ion-icon color="danger" name="trash"></ion-icon></li>
+              <li>  </li>
+              <li> <ion-icon color="primary" name="create"></ion-icon></li>
+              <li><ion-icon color="success" name="checkmark-outline"></ion-icon></li>
+              <li><ion-icon color="success" name="checkmark-done-outline"></ion-icon></li>
+            </ul>
+         </div> -->
+          <div class="frame-head-icon-box">
+            <ul *ngIf="frame.tableRows && frame.tableRows[frame.active_row] ">
+
+              <ng-container *ngFor="let itemGroup of frame.tableRows[frame.active_row]">
+                <ng-container *ngFor="let item of itemGroup.Level5">
+                  <ng-container *ngIf="item.item_type == 'FRAME_BUTTON_ICON' && item.item_visible_flag == 'T' ">
+                    <li>
+                      <app-items [item]="item" [wscp]="wscp_send_input" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                        (emitPass)="itemClicked(item,frame.tableRows[frame.active_row],frame.active_row)"
+                        (LHSOnChange)="itemValueChange($event,frame.active_row,frame.tableRows[frame.active_row])">
+                      </app-items>
+                    </li>
+
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <!-- <li>   <ion-icon color="danger" name="trash"></ion-icon></li>
+            <li>   <ion-icon name="add-circle"></ion-icon></li>
+            <li> <ion-icon color="primary" name="create"></ion-icon></li>
+            <li><ion-icon color="success" name="checkmark-outline"></ion-icon></li>
+            <li><ion-icon color="success" name="checkmark-done-outline"></ion-icon></li> -->
+            </ul>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngIf="searchFlag ">
+      <div class="input-group primary-search-section">
+
+        <ion-input class="input-text" (ionChange)="getSearchResult(searchAllData,200)" placeholder="Search Here..."
+          [(ngModel)]="frame.search">
+        </ion-input>
+
+
+        <div class="input-group-append">
+          <!-- <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only small
+            (click)="openMike()">
+            <img src="./assets/imgs/google-speaker.png">
+          </button> -->
+          <!-- <button *ngIf="!platform.is('ios') && !platform.is('android')" class="lov-btn" ion-button icon-only small
+            (click)="sppeak()">
+            <ion-icon name="mic" [ngClass]="mikeStyle" color="primary"></ion-icon>
+          </button> -->
+        </div>
+        <!-- <div class="input-group-append">
+          <button class="lov-btn" ion-button icon-only small>
+            <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+          </button>
+        </div> -->
+
+        <!-- <div class="input-group-append">
+      <button class="lov-btn" ion-button icon-only small>
+
+        <ion-icon (click)="toggle()" [hidden]="horizontal_table=='Hide'" name="ios-arrow-dropdown-circle"></ion-icon>
+        <ion-icon (click)="toggle()" [hidden]="horizontal_table=='Show'" name="ios-arrow-dropright-circle"></ion-icon>
+      </button>
+    </div> -->
+        <div class="input-group-append" *ngIf="enablefunnel">
+          <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+            <ion-icon name="funnel"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="show_filter">
+
+      <div *ngIf="toggleFilter">
+        <app-frame-canvas-filter [frame]="frame" [frametable]='frame'
+          (passdataToframetable)="getdataFromcanvasFilter($event)">
+        </app-frame-canvas-filter>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!controlBreakFlag && !groupFlag">
+      <ng-container>
+        <div [id]="tab" class="table-responsive {{scrollClass}}" [ngStyle]="frame.tableHeight"
+          (keydown.PageUp)="pageUp($event)" (keyup.PageDown)="pageDown($event)" #parentDiv>
+          <!-- <cdk-virtual-scroll-viewport itemSize="10" minBufferPx="200" maxBufferPx="400" style="height: 500px;transform: translateY(0px);"> -->
+          <table class="mt-0   new-scroll-table" [ngStyle]="frame.tableHeight">
+            <thead class="head-table">
+              <tr class="tr-tab  table-row" *ngIf="frame.showTd == 'SHOW'">
+                <ng-container>
+
+                  <ng-container *ngFor="let itemGroup of frame.headers; let i=index">
+                    <ng-container
+                      *ngIf="itemGroup.Level5 && itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type != 'FRAME_SEPARATOR' && itemGroup.Level5[0].item_visible_flag == 'T'">
+
+
+                      <ng-container *ngFor="let it of itemGroup.Level5">
+                        <th class="p-0 fixed-col" [ngStyle]="getParsedJson(it.freezStyle)"
+                          *ngIf="it.item_visible_flag == 'T'  && it.item_type != 'FRAME_BUTTON_ICON' "></th>
+                      </ng-container>
+
+
+                    </ng-container>
+                  </ng-container>
+
+                </ng-container>
+
+                <ng-container *ngFor="let itemGroup of frame.headers; let x=index">
+                  <ng-container
+                    *ngIf="itemGroup.Level5 &&  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' && itemGroup.Level5[0].item_visible_flag == 'T'">
+                    <ng-container *ngFor="let item of itemGroup.Level5; ">
+                      <ng-container>
+                        <th [attr.colspan]="colSize(item)"
+                          [ngClass]="itemGroup.Level5[0].item_sub_type == 'TAB_OPEN' ? 'new-th-background' : ''"
+                          *ngIf="item.sepFrame == 'SHOW'">
+                          <div class="d-flex" style="height:100%;">
+                            <div class="container table-tabs-wrapper p-0 m-0">
+                              <div class="tab-table">
+
+                                <ng-container *ngIf="item.item_sub_type == 'TAB_OPEN';else otherTab ">
+                                  <ng-container
+                                    *ngIf="item.item_visible_flag == 'T' && item.item_type != 'FRAME_BUTTON_ICON' ">
+                                    <ion-button style="border:1px ridge" class="new-ion-size"
+                                      [ngClass]="item.sepFrame == 'SHOW' ? 'current-active' : '' ">
+                                      {{item.prompt_name}}
+                                    </ion-button>
+                                  </ng-container>
+                                </ng-container>
+
+                                <ng-template #otherTab>
+                                  <ng-container *ngFor="let itm of itemGroup.Level5; let i=index">
+                                    <ng-container
+                                      *ngIf="itm.item_visible_flag == 'T' && item.item_type != 'FRAME_BUTTON_ICON' ">
+                                      <ion-button (click)="toggleTable(x, i,itm)"
+                                        [ngClass]="itm.sepFrame == 'SHOW' ? 'current-active' : '' ">
+                                        {{itm.prompt_name}}
+                                      </ion-button>
+                                    </ng-container>
+                                  </ng-container>
+                                </ng-template>
+
+                              </div>
+                            </div>
+                          </div>
+                        </th>
+                      </ng-container>
+
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </tr>
+
+
+              <tr *ngIf="item_search_flag" class="table-row">
+                <th *ngIf="deleteRowBtn && deleteRowBtn.item_visible_flag == 'T' ">
+                </th>
+
+                <!-- <ng-template #hideTh> -->
+                <ng-container *ngFor="let itemGroup of frame.headers">
+
+                  <ng-container
+                    *ngIf="itemGroup.Level5 &&  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type != 'FRAME_SEPARATOR'">
+                    <ng-container
+                      *ngIf="itemGroup.Level5 && itemGroup.Level5.length > 1 && ( itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'BUTTON' ||  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'BUTTON_ICON' || itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'CHECK_BOX'); else childTd">
+                      <th [ngStyle]="getParsedJson(itemGroup.Level5[0].freezStyle)">
+                        <!-- <ion-input type="text" class="inputThead" [(ngModel)]="itemGroup.Level5[0].search"
+                        (ionChange)="filterColumn()"></ion-input> -->
+                      </th>
+                    </ng-container>
+
+                    <ng-template #childTd>
+                      <ng-container *ngIf="itemGroup.Level5">
+                        <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                          <th
+                            *ngIf="input_item.item_visible_flag == 'T'  && input_item.item_type != 'FRAME_BUTTON_ICON' "
+                            class="thWidth " [ngStyle]="getParsedJson(input_item.freezStyle)">
+
+                            <ion-input type="text" class="inputThead" [(ngModel)]="input_item.search"
+                            (ionChange)="getSearchResult(filterColumn,200,input_item)"></ion-input>
+                          </th>
+                        </ng-container>
+                      </ng-container>
+                    </ng-template>
+
+                  </ng-container>
+
+                </ng-container>
+                <!-- </ng-template> -->
+
+
+                <ng-container>
+                  <ng-container *ngFor="let itemGroup of frame.headers">
+                    <ng-container
+                      *ngIf="itemGroup.Level5 &&  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' ">
+                      <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                        <ng-container
+                          *ngIf="input_item.item_visible_flag == 'T'  && input_item.item_type != 'FRAME_BUTTON_ICON' ">
+                          <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                            <ng-container *ngFor="let itemGrp of input_item.containerRowss">
+                              <ng-container *ngFor="let item of itemGrp.Level5">
+                                <th class="thWidth">
+                                  <ion-input type="text" class="inputThead" [(ngModel)]="item.search"
+                                  (ionChange)="getSearchResult(filterColumn,200,item)"></ion-input>
+                                </th>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </tr>
+
+
+
+
+
+              <tr class="table-row">
+                <th *ngIf="deleteRowBtn && deleteRowBtn.item_visible_flag == 'T' ">
+                </th>
+
+                <!-- <ng-template #hideTh> -->
+                <ng-container *ngFor="let itemGroup of frame.headers">
+
+                  <ng-container
+                    *ngIf="itemGroup.Level5 &&  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type != 'FRAME_SEPARATOR'">
+                    <ng-container
+                      *ngIf="itemGroup.Level5 && itemGroup.Level5.length > 1 && ( itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'BUTTON' ||  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'BUTTON_ICON' || itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'CHECKBOX'); else childTd">
+                      <ng-container
+                        *ngIf="itemGroup.Level5[0].item_visible_flag == 'T'  && itemGroup.Level5[0].item_type != 'FRAME_BUTTON_ICON' ">
+                        <ng-container *ngIf="frame.noSortFlag; else sort">
+                          <th [title]="itemGroup.tool_tip ? itemGroup.tool_tip : '' " class="text-left thWidth "
+                            [ngStyle]="getParsedJson(itemGroup.Level5[0].freezStyle)">
+                            <ion-item lines="none" class="ion-no-padding table-checkbox inline-flex">
+                              <ion-label>{{itemGroup.Level5[0].prompt_name}}</ion-label>
+
+                            </ion-item>
+                            <ion-icon name="arrow-up-outline"
+                              *ngIf="clickedHead.length > 1 ? (itemGroup.Level5[0].item_name==clickedHead[1].th && clickedHead[1].direction > 0) : (clickedHead.length > 0 ? itemGroup.Level5[0].item_name==clickedHead[0].th && clickedHead[0].direction > 0 : false)">
+
+                            </ion-icon>
+                            <ion-icon name="arrow-down-outline"
+                              *ngIf="clickedHead.length > 1 ? (itemGroup.Level5[0].item_name==clickedHead[1].th && clickedHead[1].direction < 0) : (clickedHead.length > 0 ? itemGroup.Level5[0].item_name==clickedHead[0].th && clickedHead[0].direction < 0 : false)">
+                            </ion-icon>
+
+                            <ion-icon name="radio-button-on"
+                              *ngIf="clickedHead.length > 1 ? (itemGroup.Level5[0].item_name==clickedHead[0].th) : false">
+                            </ion-icon>
+                          </th>
+                        </ng-container>
+
+                        <ng-template #sort>
+                          <th [title]="itemGroup.tool_tip ? itemGroup.tool_tip : '' "
+                            (click)="thClick(itemGroup.Level5[0].item_name,itemGroup.Level5[0].datatype)"
+                            class="text-left thWidth " [ngStyle]="getParsedJson(itemGroup.Level5[0].freezStyle)">
+                            <ion-item lines="none" class="ion-no-padding table-checkbox inline-flex">
+                              <ion-label>{{itemGroup.Level5[0].prompt_name}}</ion-label>
+
+                            </ion-item>
+                            <ion-icon name="arrow-up-outline"
+                              *ngIf="clickedHead.length > 1 ? (itemGroup.Level5[0].item_name==clickedHead[1].th && clickedHead[1].direction > 0) : (clickedHead.length > 0 ? itemGroup.Level5[0].item_name==clickedHead[0].th && clickedHead[0].direction > 0 : false)">
+
+                            </ion-icon>
+                            <ion-icon name="arrow-down-outline"
+                              *ngIf="clickedHead.length > 1 ? (itemGroup.Level5[0].item_name==clickedHead[1].th && clickedHead[1].direction < 0) : (clickedHead.length > 0 ? itemGroup.Level5[0].item_name==clickedHead[0].th && clickedHead[0].direction < 0 : false)">
+                            </ion-icon>
+
+                            <ion-icon name="radio-button-on"
+                              *ngIf="clickedHead.length > 1 ? (itemGroup.Level5[0].item_name==clickedHead[0].th) : false">
+                            </ion-icon>
+                          </th>
+                        </ng-template>
+                      </ng-container>
+
+                    </ng-container>
+
+                    <ng-template #childTd>
+                      <ng-container *ngIf="itemGroup.Level5">
+                        <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                          <ng-container
+                            *ngIf="input_item.item_visible_flag == 'T' && input_item.item_type != 'FRAME_BUTTON_ICON' ">
+                            <th [title]="input_item.tool_tip ? input_item.tool_tip : '' "
+                              class="text-left thWidth {{input_item.item_name.toLowerCase()}}"
+                              [id]="input_item.item_name" *ngIf="frame.freezCol; else notIsFreez">
+
+                              <ion-item lines="none" class="ion-no-padding table-checkbox inline-flex">
+                                <ion-label>{{input_item.prompt_name}}
+                                  <ion-icon name="lock-open-outline" *ngIf="!input_item.isFreez && frame.freezCol"
+                                    (click)="freezHeader(input_item.item_name,input_item.isFreez)"></ion-icon>
+                                  <ion-icon name="lock-closed-outline" *ngIf="input_item.isFreez && frame.freezCol"
+                                    (click)="freezHeader(input_item.item_name,input_item.isFreez)"></ion-icon>
+                                </ion-label>
+                              </ion-item>
+                            </th>
+
+                            <ng-template #notIsFreez>
+                              <ng-container *ngIf="frame.noSortFlag; else sort">
+                                <th [title]="input_item.tool_tip ? input_item.tool_tip : '' "
+                                  class="text-left thWidth {{input_item.item_name.toLowerCase()}}"
+                                  [id]="input_item.item_name">
+
+                                  <ion-item lines="none" class="ion-no-padding table-checkbox inline-flex">
+                                    <ion-label>{{input_item.prompt_name}}
+                                      <!-- <ion-icon name="lock-open-outline" *ngIf="!input_item.isFreez && frame.freezCol" (click)="freezHeader(input_item.item_name,input_item.isFreez)"></ion-icon>
+                                   <ion-icon name="lock-closed-outline" *ngIf="input_item.isFreez && frame.freezCol" (click)="freezHeader(input_item.item_name,input_item.isFreez)"></ion-icon>
+                                   -->
+                                    </ion-label>
+                                  </ion-item>
+
+                                  <ion-icon name="arrow-up-outline"
+                                    *ngIf="clickedHead.length > 1 ? (input_item.item_name==clickedHead[1].th && clickedHead[1].direction > 0) : (clickedHead.length > 0 ? input_item.item_name==clickedHead[0].th && clickedHead[0].direction > 0 : false)">
+
+                                  </ion-icon>
+                                  <ion-icon name="arrow-down-outline"
+                                    *ngIf="clickedHead.length > 1 ? (input_item.item_name==clickedHead[1].th && clickedHead[1].direction < 0) : (clickedHead.length > 0 ? input_item.item_name==clickedHead[0].th && clickedHead[0].direction < 0 : false)">
+                                  </ion-icon>
+
+                                  <ion-icon name="radio-button-on"
+                                    *ngIf="clickedHead.length > 1 ? (input_item.item_name==clickedHead[0].th) : false">
+                                  </ion-icon>
+
+                                </th>
+                              </ng-container>
+
+                              <ng-template #sort>
+                                <th [title]="input_item.tool_tip ? input_item.tool_tip : '' "
+                                  (click)="thClick(input_item.item_name,input_item.datatype)"
+                                  class="text-left thWidth {{input_item.item_name.toLowerCase()}}"
+                                  [id]="input_item.item_name">
+
+                                  <ion-item lines="none" class="ion-no-padding table-checkbox inline-flex">
+                                    <ion-label>{{input_item.prompt_name}}
+                                      <!-- <ion-icon name="lock-open-outline" *ngIf="!input_item.isFreez && frame.freezCol" (click)="freezHeader(input_item.item_name,input_item.isFreez)"></ion-icon>
+                                   <ion-icon name="lock-closed-outline" *ngIf="input_item.isFreez && frame.freezCol" (click)="freezHeader(input_item.item_name,input_item.isFreez)"></ion-icon>
+                                   -->
+                                    </ion-label>
+                                  </ion-item>
+
+                                  <ion-icon name="arrow-up-outline"
+                                    *ngIf="clickedHead.length > 1 ? (input_item.item_name==clickedHead[1].th && clickedHead[1].direction > 0) : (clickedHead.length > 0 ? input_item.item_name==clickedHead[0].th && clickedHead[0].direction > 0 : false)">
+
+                                  </ion-icon>
+                                  <ion-icon name="arrow-down-outline"
+                                    *ngIf="clickedHead.length > 1 ? (input_item.item_name==clickedHead[1].th && clickedHead[1].direction < 0) : (clickedHead.length > 0 ? input_item.item_name==clickedHead[0].th && clickedHead[0].direction < 0 : false)">
+                                  </ion-icon>
+
+                                  <ion-icon name="radio-button-on"
+                                    *ngIf="clickedHead.length > 1 ? (input_item.item_name==clickedHead[0].th) : false">
+                                  </ion-icon>
+
+                                </th>
+                              </ng-template>
+                            </ng-template>
+
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-template>
+
+                  </ng-container>
+
+                </ng-container>
+                <!-- </ng-template> -->
+
+
+                <ng-container *ngFor="let itemGroup of frame.headers">
+                  <ng-container
+                    *ngIf="itemGroup.Level5 &&  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' ">
+                    <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                      <ng-container
+                        *ngIf="input_item.item_visible_flag == 'T' && input_item.item_type != 'FRAME_BUTTON_ICON'">
+                        <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                          <ng-container *ngFor="let itemGrp of input_item.containerRowss">
+                            <ng-container *ngFor="let item of itemGrp.Level5">
+                              <ng-container
+                                *ngIf="item.item_visible_flag == 'T' && item.item_type != 'FRAME_BUTTON_ICON'">
+
+                                <ng-container *ngIf="input_item.item_type =='CHECK_BOX';else noCheck">
+
+                                  <th [title]="item.tool_tip ? item.tool_tip : '' "
+                                    [ngStyle]="input_item.freezStyle ? getParsedJson(input_item.freezStyle ) : getParsedJson(input_item.display_setting_str)">
+                                    <!-- <ion-item lines="none" class="ion-no-padding table-checkbox">
+                                    <ion-label>{{item.prompt_name}}</ion-label>
+                                  </ion-item> -->
+
+
+                                    <ion-item lines="none" class="ion-no-padding table-checkbox inline-flex">
+
+                                      <ion-checkbox color="primary" [(ngModel)]="input_item.isChecked"
+                                        [disabled]="input_item.item_enable_flag && input_item.item_enable_flag=='F'"
+                                        [hidden]="input_item.summary_flag == 'N'"
+                                        (ionChange)="input_item.touched=true;cbEvent(input_item.item_name)"></ion-checkbox>
+                                      <ion-label>{{input_item.prompt_name}}</ion-label>
+                                    </ion-item>
+
+                                  </th>
+
+                                </ng-container>
+
+
+
+                                <ng-template #noCheck>
+                                  <ng-container *ngIf="frame.noSortFlag; else sort">
+                                    <th [title]="item.tool_tip ? item.tool_tip : '' "
+                                      [ngStyle]="input_item.freezStyle ? getParsedJson(input_item.freezStyle ) : getParsedJson(input_item.display_setting_str)">
+                                      <ion-item lines="none" class="ion-no-padding table-checkbox">
+                                        <ion-label>{{item.prompt_name}}</ion-label>
+                                      </ion-item>
+
+
+                                    </th>
+                                  </ng-container>
+
+                                  <ng-template #sort>
+                                    <th [title]="item.tool_tip ? item.tool_tip : '' "
+                                      [ngStyle]="input_item.freezStyle ? getParsedJson(input_item.freezStyle ) : getParsedJson(input_item.display_setting_str)"
+                                      (click)="thClick(item.item_name,item.datatype)">
+                                      <ion-item lines="none" class="ion-no-padding table-checkbox">
+                                        <ion-label>{{item.prompt_name}}</ion-label>
+                                      </ion-item>
+                                    </th>
+                                  </ng-template>
+                                </ng-template>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+
+                <!-- <ng-container *ngFor="let itemGroup of frame.headers">
+                  <ng-container
+                    *ngIf="itemGroup.Level5 &&  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' ">
+                    <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                      <ng-container
+                        *ngIf="input_item.item_visible_flag == 'T' && input_item.item_type != 'FRAME_BUTTON_ICON'">
+                        <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                          <ng-container *ngFor="let itemGrp of input_item.containerRowss">
+                            <ng-container *ngFor="let item of itemGrp.Level5">
+                              <ng-container *ngIf="frame.noSortFlag; else sort">
+                              <th [title]="item.tool_tip ? item.tool_tip : '' " class="thWidth"
+                                [ngStyle]="getParsedJson(item.display_setting_str)">
+                                <ion-item lines="none" class="ion-no-padding table-checkbox">
+                                  <ion-label>{{item.prompt_name}}</ion-label>
+                                </ion-item>
+                              </th>
+                              </ng-container>
+
+                              <ng-template #sort>
+                                <th [title]="item.tool_tip ? item.tool_tip : '' " class="thWidth"
+                                [ngStyle]="getParsedJson(item.display_setting_str)"
+                                (click)="thClick(item.item_name,item.datatype)">
+                                <ion-item lines="none" class="ion-no-padding table-checkbox">
+                                  <ion-label>{{item.prompt_name}}</ion-label>
+                                </ion-item>
+                              </th>
+                              </ng-template>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container> -->
+              </tr>
+
+            </thead>
+            <tbody *ngIf="!frame.loading" #tableBody class="body-table">
+              <!-- <tr [id]="frame.apps_page_frame_seqid + rowindex"
+            *cdkVirtualFor="let tableData of frame.tableRows |tableSearch :searchText;let rowindex=index"> -->
+              <tr *ngFor="let tableData of frame.canvasRows;let rowindex=index"
+                [id]="frame.apps_page_frame_seqid + '--' + (tableData ? tableData[0]?.Level5[0]?.indexcount : 0)"
+                tabindex="0"
+                [class]="(tableData && tableData[0] && tableData[0].Level5[0] && frame.active_row == tableData[0].Level5[0].indexcount) ? 'trow-active table-row' : 'table-row'">
+
+
+                <td *ngIf="deleteRowBtn && deleteRowBtn.item_visible_flag == 'T' ">
+                  <span (click)="deleteRows(rowindex)" size="small" class="trash-btn">
+                    <ion-icon slot="icon-only" name="trash" size="small" color="primary"></ion-icon>
+                  </span>
+                </td>
+
+                <ng-container>
+
+                  <!-- <ng-template #hideTd> -->
+
+                  <ng-container *ngFor="let itemGroup of tableData; let i = index">
+                    <ng-container
+                      *ngIf="itemGroup.Level5 &&  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type != 'FRAME_SEPARATOR'">
+                      <ng-container
+                        *ngIf="itemGroup.Level5 && itemGroup.Level5.length > 1 && ( itemGroup.Level5.length > 0 &&  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'BUTTON_ICON'); else childTd">
+                        <td
+                          *ngIf="itemGroup.Level5[0].item_visible_flag == 'T' && itemGroup.Level5[0].item_type != 'FRAME_BUTTON_ICON'"
+                          [class]="itemGroup.Level5[0].datatype=='NUMBER'?'num-right':''">
+
+                          <table>
+                            <tr>
+                              <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                                <ng-container
+                                  *ngIf="input_item.item_visible_flag == 'T' && input_item.item_type != 'FRAME_BUTTON_ICON'">
+                                  <td class="{{input_item.item_name.toLowerCase()}}"
+                                    [ngStyle]="input_item.freezStyle ? getParsedJson(input_item.freezStyle) : getParsedJson(input_item.display_setting_str)"
+                                    [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag !='T' || (input_item.item_type == 'ADD_ROW_BT') || (input_item.item_type == 'DELETE_ROW_BT')"
+                                    (click)="itemClick($event,input_item,tableData,rowindex)">
+
+                                    <ng-container
+                                      *ngIf="input_item.item_type != 'BUTTON' && input_item.item_type != 'BUTTON_ICON'  && input_item.item_type != 'DOWNLOAD_DOC'">
+
+                                      <app-para-text [itemInput]="input_item" [frame_type]="frame.apps_frame_type">
+                                      </app-para-text>
+
+                                    </ng-container>
+
+                                    <ng-container
+                                      *ngIf="input_item.item_type == 'BUTTON' || input_item.item_type == 'BUTTON_ICON'">
+                                      <app-button-n [ngStyle]="input_item.display_setting_str" [button]="input_item">
+                                      </app-button-n>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="input_item.item_type == 'DOWNLOAD_DOC'">
+                                      <app-download-doc [doc]="input_item" [ngStyle]="input_item.display_setting_str">
+                                      </app-download-doc>
+                                    </ng-container>
+
+                                  </td>
+                                </ng-container>
+                              </ng-container>
+                            </tr>
+                          </table>
+                        </td>
+                      </ng-container>
+
+                      <ng-template #childTd>
+                        <ng-container *ngIf="itemGroup.Level5">
+                          <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                            <ng-container
+                              *ngIf="input_item.item_visible_flag == 'T' && input_item.item_type != 'FRAME_BUTTON_ICON'">
+                              <td
+                                [ngStyle]="input_item.freezStyle ? getParsedJson(input_item.freezStyle) : getParsedJson(input_item.display_setting_str)"
+                                [class]="input_item.datatype=='NUMBER'? 'num-right ' + input_item.item_name.toLowerCase() : input_item.item_name.toLowerCase()"
+                                [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag !='T' || (input_item.item_type == 'ADD_ROW_BT') || (input_item.item_type == 'DELETE_ROW_BT')"
+                                (click)="itemClick($event,input_item,tableData,rowindex)">
+
+                                <ng-container
+                                  *ngIf="input_item.item_type != 'BUTTON' && input_item.item_type != 'BUTTON_ICON'  && input_item.item_type != 'DOWNLOAD_DOC'">
+
+                                  <app-para-text [itemInput]="input_item" [frame_type]="frame.apps_frame_type">
+                                  </app-para-text>
+
+                                </ng-container>
+
+                                <ng-container
+                                  *ngIf="input_item.item_type == 'BUTTON' || input_item.item_type == 'BUTTON_ICON'">
+                                  <app-button-n [ngStyle]="input_item.display_setting_str" [button]="input_item">
+                                  </app-button-n>
+                                </ng-container>
+                                <ng-container *ngIf="input_item.item_type == 'DOWNLOAD_DOC'">
+                                  <app-download-doc [doc]="input_item" [ngStyle]="input_item.display_setting_str">
+                                  </app-download-doc>
+                                </ng-container>
+
+                              </td>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-template>
+
+
+                    </ng-container>
+                  </ng-container>
+
+                  <!-- </ng-template> -->
+
+
+                  <ng-container *ngFor="let itemGroup of tableData; let i = index">
+                    <!-- Frame Tab FRAME_SEPARATOR VISHAKHA  START-->
+                    <ng-container
+                      *ngIf="itemGroup.Level5 &&  itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' ">
+                      <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                        <ng-container
+                          *ngIf="input_item.item_visible_flag == 'T' && input_item.item_type != 'FRAME_BUTTON_ICON'">
+
+                          <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                            <ng-container *ngFor="let itemGrp of input_item.containerRowss">
+
+                              <ng-container *ngIf="itemGrp.Level5">
+                                <ng-container *ngFor="let itm of itemGrp.Level5;">
+                                  <ng-container
+                                    *ngIf="itm.item_visible_flag == 'T' && input_item.item_type != 'FRAME_BUTTON_ICON'">
+                                    <td [ngStyle]="getParsedJson(itm.display_setting_str)"
+                                      [class]="itm.datatype=='NUMBER'?'num-right':''"
+                                      [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T' || (itm.item_type == 'ADD_ROW_BT') || (itm.item_type == 'DELETE_ROW_BT')"
+                                      (click)="itemClick($event,input_item,tableData,rowindex)">
+
+                                      <ng-container
+                                        *ngIf="input_item.item_type != 'BUTTON' && input_item.item_type != 'BUTTON_ICON' && input_item.item_type != 'DOWNLOAD_DOC'">
+
+                                        <app-para-text [itemInput]="input_item" [frame_type]="frame.apps_frame_type">
+                                        </app-para-text>
+
+                                      </ng-container>
+
+                                      <ng-container
+                                        *ngIf="input_item.item_type == 'BUTTON' || input_item.item_type == 'BUTTON_ICON' || input_item.item_type == 'DOWNLOAD_DOC'">
+                                        <!-- <app-button-n [ngStyle]="input_item.display_setting_str" [button]="input_item">
+                                        </app-button-n> -->
+
+                                        <app-items [item]="input_item" [wscp]="wscp_send_input" [frame]="frame"
+                                          [frame_type]="frame.apps_frame_type"
+                                          (emitPass)="itemClicked($event,tableData,rowindex)"
+                                          (LHSOnChange)="itemValueChange($event,rowindex,tableData)">
+                                        </app-items>
+                                      </ng-container>
+
+                                      <!-- <ng-container *ngIf="input_item.item_type == 'DOWNLOAD_DOC'">
+                                        <app-download-doc [doc]="input_item" [ngStyle]="input_item.display_setting_str">
+                                        </app-download-doc>
+                                      </ng-container> -->
+
+                                    </td>
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+
+                              <!-- <ng-container *ngFor="let item of itemGrp.Level5">
+
+                                <td [ngStyle]="getParsedJson(item.display_setting_str)"
+                                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T' || (item.item_type == 'ADD_ROW_BT') || (item.item_type == 'DELETE_ROW_BT')">
+
+                                  <app-items [item]="item" [wscp]="wscp_send_input" [frame_type]="frame.apps_frame_type"
+                                    (emitPass)="itemClicked($event,tableData,rowindex)"
+                                    (LHSOnChange)="itemValueChange($event,rowindex,tableData)">
+                                  </app-items>
+
+                                </td>
+                              </ng-container> -->
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+
+                  <!-- Frame Tab FRAME_SEPARATOR VISHAKHA  END-->
+
+                </ng-container>
+
+              </tr>
+            </tbody>
+
+            <tfoot class="tfooter">
+              <tr *ngIf="frame.summary_flag && frame.summary_rows && frame.summary_rows.length > 0">
+                <ng-container *ngFor="let itemGroup of frame.summary_rows">
+                  <ng-container *ngIf="itemGroup.Level5">
+                    <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                      <ng-container
+                        *ngIf="input_item.item_visible_flag == 'T' && input_item.item_type != 'FRAME_BUTTON_ICON'">
+                        <td
+                          *ngIf="input_item.datatype == 'DATE' || input_item.datatype == 'DATETIME' || input_item.datatype == 'TIME' ; else formateMask "
+                          [ngStyle]="input_item.freezStyle ? getParsedJson(input_item.freezStyle ) : getParsedJson(input_item.display_setting_str)"
+                          [class]="input_item.datatype=='NUMBER'?'num-right':''"
+                          [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag !='T' || (input_item.item_type == 'ADD_ROW_BT') || (input_item.item_type == 'DELETE_ROW_BT')">
+                          {{input_item.summaryValue}}
+                        </td>
+
+                        <ng-template #formateMask>
+                          <td
+                            [ngStyle]="input_item.freezStyle ? getParsedJson(input_item.freezStyle ) : getParsedJson(input_item.display_setting_str)"
+                            [class]="input_item.datatype=='NUMBER'?'num-right':''"
+                            [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag !='T' || (input_item.item_type == 'ADD_ROW_BT') || (input_item.item_type == 'DELETE_ROW_BT')">
+
+                            {{input_item.summaryValue | formatMask :input_item.format_mask }}
+
+                          </td>
+                        </ng-template>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+            </tfoot>
+
+
+            <!-- <tfoot class="tfooter">
+            <tr *ngIf="footerRowFlag">
+              <td [attr.colspan]="colSpan" class="summ-head">Total</td>
+              <ng-container *ngFor="let h of summaryRow">
+                <td class="text-right" style="font-weight: bold">
+                  {{h ? h : ''}}
+                </td>
+              </ng-container>
+            </tr>
+          </tfoot> -->
+          </table>
+          <!-- </cdk-virtual-scroll-viewport> -->
+
+          <div *ngIf="addRowBtn && addRowBtn.item_visible_flag == 'T' ">
+            <ion-button expand="block" (click)="itemClicked(addRowBtn,0,0)">{{addRowBtn.prompt_name}}</ion-button>
+          </div>
+        </div>
+
+
+      </ng-container>
+
+
+      <!-- Horizontal Table -->
+      <ng-container *ngIf="frame.apps_frame_type == 'HORIZONTAL_TABLE'">
+        <div class="left-fixed-table">
+
+          <ion-row>
+            <ion-col size="12" class="p-0 right-table-area">
+              <div class="table-responsive">
+                <table class="table vertical-table">
+                  <tbody>
+                    <tr>
+                      <td style="padding: 0;border: none;" class="table-inner">
+                    <tr *ngFor="let tableData of frame.canvasRows; let i = index ">
+                      <td
+                        *ngIf="frame.Level4 && frame.Level4[i] && frame.Level4[i].Level5 && frame.Level4[i].Level5.length > 0 && frame.Level4[i].Level5[0] && frame.Level4[i].Level5[0].item_visible_flag == 'T'">
+
+                        <ng-container *ngIf="frame.Level4[i].Level5[0].item_type != 'BUTTON'">
+                          {{frame.Level4[i].Level5[0].prompt_name}}
+                        </ng-container>
+
+                      </td>
+
+                      <ng-container *ngFor="let itemGroup of tableData;">
+                        <td *ngFor="let input_item of itemGroup.Level5; let in = index"
+                          [ngStyle]="getParsedJson(input_item.display_setting_str)"
+                          [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )
+                        ||input_item.item_visible_flag=='F' || (input_item.item_type == 'ADD_ROW_BT') || (input_item.item_type == 'DELETE_ROW_BT')"
+                          (click)="itemClicked(input_item,tableData,i)">
+
+                          <app-items [item]="input_item" [frame_type]="'ENTRY_TABLE'" [frame]="frame"
+                            (emitPass)="itemClicked($event,tableData,i)"
+                            (LHSOnChange)="itemValueChange($event,i,tableData)">
+                          </app-items>
+
+                        </td>
+                      </ng-container>
+
+                      <td
+                        *ngIf="summaryRow && summaryRow.length > 0 && frame.Level4 && frame.Level4[i] &&frame.Level4[i].Level5 && frame.Level4[i].Level5.length > 0 && frame.Level4[i].Level5[0].item_visible_flag == 'T'"
+                        class="text-right fix_td" style="font-weight: bold;">
+                        {{summaryRow[i]}}
+                      </td>
+
+                    </tr>
+                    </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </ion-col>
+
+            <!-- </ng-container> -->
+
+          </ion-row>
+        </div>
+      </ng-container>
+      <!-- Horizontal Table -->
+
+    </ng-container>
+
+
+
+
+
+    <!-----------------------------Group By-->
+
+    <ng-container *ngIf="groupFlag">
+      <table style="margin: 0px;" cdkDropListGroup class="groupBy_table">
+        <thead>
+          <tr>
+            <ng-container *ngFor="let th of controlBreakArr[0].pRHead">
+              <th class="top-headth" cdkDropList>
+                {{th.key}}</th>
+            </ng-container>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <ng-container *ngFor="let c of controlBreakArr">
+            <tr>
+              <td class="top-headth1" *ngFor="let tH of c.pRHead;let i=index" style="cursor:pointer"
+                (click)="c.rowsFlag = !c.rowsFlag">{{tH.value}}</td>
+            </tr>
+
+
+            <tr *ngIf="c.rowsFlag">
+              <td colspan="100%" class="bg-white py-0">
+                <table style="margin: 0;">
+                  <thead>
+                    <!-- [cdkDropListData]="controlBreakHead" -->
+                    <tr cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="controlBreakHead"
+                      (cdkDropListDropped)="drop($event)">
+                      <th class="top-headth2" *ngFor="let th of controlBreakHead;let i=index" cdkDrag>
+                        {{th}}
+                        <ion-icon name="arrow-round-up" *ngIf="th==orderByParam.th && orderByParam.direction > 0">
+                        </ion-icon>
+                        <ion-icon name="arrow-round-down" *ngIf="th==orderByParam.th && orderByParam.direction < 0">
+                        </ion-icon>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr *ngFor="let tableData of c.items;let rowindex=index">
+                      <ng-container *ngFor="let itemGroup of tableData;">
+                        <ng-container *ngFor="let input_item of itemGroup.Level5;let d=index">
+                          <td class="bg-white" *ngIf="input_item.freezeColumn" class="sticky-col"
+                            [ngStyle]="input_item.freezeColumn ? getParsedJson(input_item.freezeColumn) : ''"
+                            [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag=='F'"
+                            [ngStyle]="input_item.tdStyle ? getParsedJson(input_item.tdStyle) : ''">
+                            <app-items [item]="input_item" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                              (emitPass)="itemClicked($event,tableData,rowindex)"
+                              (LHSOnChange)="itemValueChange($event,rowindex,tableData)">
+                            </app-items>
+                          </td>
+                          <td class="bg-white" *ngIf="!input_item.freezeColumn"
+                            [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag=='F'"
+                            [ngStyle]="input_item.tdStyle ? getParsedJson(input_item.tdStyle) : ''">
+                            <app-items [item]="input_item" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                              (emitPass)="itemClicked($event,tableData,rowindex)"
+                              (LHSOnChange)="itemValueChange($event,rowindex,tableData)">
+                            </app-items>
+                          </td>
+                        </ng-container>
+
+                      </ng-container>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </ng-container>
+
+    <!--------------------------------control break------------>
+
+    <ng-container *ngIf="controlBreakFlag">
+      <div class="New-table-responsive">
+        <table>
+          <ng-container *ngFor="let c of controlBreakArr">
+            <thead cdkDropListGroup>
+              <tr>
+                <th class="dragHead" colspan="100%" class="control-break-top" cdkDropList
+                  (cdkDropListDropped)="drop($event)"><span *ngFor="let k of c.keys let l = index" cdkDrag>
+                    <ng-container *ngIf="l > 0">, </ng-container> {{k.key}} : {{k.value}}
+                  </span>
+                </th>
+              </tr>
+              <tr cdkDropList [cdkDropListData]="controlBreakHead" (cdkDropListDropped)="drop($event)">
+
+                <th *ngFor="let th of controlBreakHead;let i=index" cdkDrag>
+                  {{th}}
+                  <ion-icon name="arrow-round-up" *ngIf="th==orderByParam.th && orderByParam.direction > 0"></ion-icon>
+                  <ion-icon name="arrow-round-down" *ngIf="th==orderByParam.th && orderByParam.direction < 0">
+                  </ion-icon>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let tableData of c.items ;let rowindex=index">
+                <ng-container *ngFor="let itemGroup of tableData;">
+                  <ng-container *ngFor="let input_item of itemGroup.Level5;let d=index">
+                    <td *ngIf="input_item.freezeColumn" class="sticky-col"
+                      [ngStyle]="input_item.freezeColumn ? getParsedJson(input_item.freezeColumn) : ''"
+                      [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag=='F'"
+                      [ngStyle]="input_item.tdStyle ? getParsedJson(input_item.tdStyle) : ''">
+                      <app-items [item]="input_item" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                        (emitPass)="itemClicked($event,tableData,rowindex)"
+                        (LHSOnChange)="itemValueChange($event,rowindex,tableData)">
+                      </app-items>
+                    </td>
+                    <td *ngIf="!input_item.freezeColumn"
+                      [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag=='F'"
+                      [ngStyle]="input_item.tdStyle ? getParsedJson(input_item.tdStyle) : ''">
+                      <app-items [item]="input_item" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                        (emitPass)="itemClicked($event,tableData,rowindex)"
+                        (LHSOnChange)="itemValueChange($event,rowindex,tableData)">
+                      </app-items>
+                    </td>
+                  </ng-container>
+
+                </ng-container>
+              </tr>
+
+            </tbody>
+            <tfoot>
+              <tr *ngIf="c.summRow && c.summRow.length > 0">
+                <td *ngFor="let h of c.summRow" class="text-right"
+                  style="font-weight: bold;position: sticky; bottom: 0;background: #f4eded;">
+                  {{h}}
+                </td>
+              </tr>
+            </tfoot>
+
+
+          </ng-container>
+        </table>
+      </div>
+
+    </ng-container>
+
+    <div class="new_pagination-container"
+      *ngIf=" !canvasfilter && !jsFilter && !advanceFilter && !frame.noPagination && !controlBreakFlag && !groupFlag && frame.tableRows && frame.tableRows.length > 0">
+      <div class="row p-0 m-0">
+        <div class="col-md-1  column" *ngIf="!frame.noDownload">
+          <div class="pagination_box">
+            <ul>
+              <li (click)="clickShare=!clickShare">
+                <ion-icon name="share-social"></ion-icon>
+
+                <div *ngIf="clickShare" class="dropdownShare">
+                  <ng-container>
+                    <ul style="border: 0px;margin: 0px;padding: 0px;">
+                      <li *ngIf="plt =='browser'" class="inner-dropShare">
+                        <img (click)="getDataForGraph('print','')" src="./assets/imgs/printicon.png">
+                      </li>
+                      <li class="inner-dropShare">
+                        <img (click)="getDataForGraph('pdf','')" src="./assets/imgs/pdficon.png">
+                      </li>
+                      <li class="inner-dropShare">
+                        <img (click)="getDataForGraph('excel','')" src="./assets/imgs/excelicon.png">
+                      </li>
+                      <li *ngIf="plt =='ios' ||  plt=='android'" class="inner-dropShare">
+                        <img (click)="getShare('email')" src="./assets/imgs/emailicon.png">
+                      </li>
+                    </ul>
+
+                  </ng-container>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+       
+          <div class="col-md-4 column">
+          <div class="pagination_box">
+            <ul>
+              <li>
+                <ion-icon class="paginator-btn" *ngIf="frame.page_no !=1" name="play-skip-back-sharp"
+                  (click)="goFirst(1);">
+                </ion-icon>
+              </li>
+              <li>
+                <ion-icon class="paginator-btn next-btn" *ngIf="frame.page_no !=1" name="arrow-back-sharp"
+                  (click)='paginate(frame.page_no-1);'>
+                </ion-icon>
+              </li>
+              <li class="dots">Page</li>
+              <li class="number">{{frame.page_no}}</li>
+              <li class="dots">Of</li>
+              <li class="number">{{frame.total_Pages}}</li>
+
+              <li>
+                <ion-icon class="paginator-btn next-btn"
+                  *ngIf="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages"
+                  name="arrow-forward-sharp" (click)='paginate(frame.page_no+1);'>
+                </ion-icon>
+              </li>
+              <li>
+                <ion-icon class="paginator-btn next-btn"
+                  *ngIf="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages"
+                  name="play-skip-forward-sharp" (click)='goToLast(frame.total_Pages);'>
+                </ion-icon>
+              </li>
+            </ul>
+            </div>
+</div>
+
+              <div class="col-md-4 column">
+                <div class="pagination_box">
+                  <ul>
+                    <li>
+          <span *ngIf="!frame.design_control_type || frame.design_control_type >= 4 ">
+           
+             
+                  <li class="number">Records:{{frame.from_record +1}}</li>
+                  <li class="dots">-</li>
+                  <li class="number">{{frame.to_record}}</li>
+                  <!-- <li class="number">Of</li> --> </span>
+    </ul>
+    </div>
+   
+
+
+        </div>
+       
+<div class="col-md-3 column">
+<div class="pagination_box">
+<ul>
+              <li class="number"
+                *ngIf="frame && frame.tableData && frame.tableData.length > 0 && frame.canvasRows.length < frame.tableData.length; else tabRecords">
+                <span *ngIf="!frame.design_control_type || frame.design_control_type >= 4 ">Records:</span>{{frame.canvasRows.length}} /
+                {{frame.tableData.length}}</li>
+              <ng-template #tabRecords>
+                <li *ngIf="frame && frame.canvasRows" class="number"><span *ngIf="!frame.design_control_type || frame.design_control_type >= 4 ">Records:</span>{{frame.canvasRows.length}} /
+                  {{frame.canvasRows.length}}</li>
+              </ng-template>
+
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+  <div class="center" *ngIf="frame.loading">
+    <div class="text-center cent-loader">
+      <img src="../../../../assets/dot.gif" width="20%">
+    </div>
+  </div>
+  <!-- -----------------------Frame Type Vertical Table------- -->
+
+
+
+  <!-- <div class="pagination-container" *ngIf=" !canvasfilter && !jsFilter && !advanceFilter && frame.tableRows ">
+      <ul class="paginator my-1">
+        <li (click)="clickShare=!clickShare">
+          <ion-icon style="padding-top: 6px" name="share-social"></ion-icon>
+          <div *ngIf="clickShare" class="dropdownShare">
+            <ng-container>
+              <ul style="border: 0px;margin: 0px;padding: 0px;">
+                <li *ngIf="plt =='browser'" class="inner-dropShare">
+                  <img (click)="getDataForGraph('print','')" src="./assets/imgs/printicon.png">
+                </li>
+                <li class="inner-dropShare">
+                  <img (click)="getDataForGraph('pdf','')" src="./assets/imgs/pdficon.png">
+                </li>
+                <li class="inner-dropShare">
+                  <img (click)="getDataForGraph('excel','')" src="./assets/imgs/excelicon.png">
+                </li>
+                <li *ngIf="plt =='ios' ||  plt=='android'" class="inner-dropShare">
+                  <img (click)="getShare('email')" src="./assets/imgs/emailicon.png">
+                </li>
+              </ul>
+
+            </ng-container>
+          </div>
+        </li>
+        <li class="pt-1"
+          *ngIf="frame && frame.tableData && frame.tableData.length > 0 && frame.tableRows.length < frame.tableData.length; else tabRecords">
+          Records:{{frame.tableRows.length}} /
+          {{frame.searchableData ? frame.searchableData.length : frame.tableData.length}}</li>
+        <ng-template #tabRecords>
+          <li class="pt-1">Records:{{frame.tableRows.length}} / {{frame.searchableData ? frame.searchableData.length :
+            frame.tableRows.length}}</li>
+        </ng-template>
+        <li>
+          <ion-icon class="paginator-btn" *ngIf="frame.page_no !=1" name="play-skip-back-sharp" (click)="goFirst(1);">
+          </ion-icon>
+        </li>
+        <li>
+          <ng-container *ngIf="!frame.searchableData || frame.searchableData.length > frame.tableRows.length">
+            <ion-icon class="paginator-btn next-btn"
+              *ngIf="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages"
+              name="arrow-forward-sharp" (click)='paginate(frame.page_no+1);'>
+            </ion-icon>
+          </ng-container>
+        </li>
+        <li>
+          <ng-container *ngIf="!frame.searchableData || frame.searchableData.length > frame.tableRows.length">
+            <ion-icon class="paginator-btn next-btn"
+              *ngIf="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages"
+              name="play-skip-forward-sharp" (click)='goToLast(frame.total_Pages);'>
+            </ion-icon>
+          </ng-container>
+        </li>
+
+      </ul>
+    </div> -->
+
+
+  <iframe name="print_frame" class="d-none" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+
+  <!-- Skeleton screen -->
+</ng-container>

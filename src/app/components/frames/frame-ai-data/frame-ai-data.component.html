@@ -1,0 +1,22 @@
+ <div class="chat-container">
+  <div class="chat-header">
+    <div class="home_aibtn">    
+         <ion-button class="ai_bttn expand" id="expandGpt" (click)="expandGpt()" title="Expand View"><ion-icon name="expand-outline"></ion-icon></ion-button>
+         <ion-button class="ai_bttn resize" id="expandGpt" (click)="expandGpt()" title="Expand View"><ion-icon name="resize-outline"></ion-icon></ion-button>
+         
+         <ion-button class="ai_bttn close" (click)="closeaiGpt()" title="Close"><ion-icon name="close-outline"></ion-icon></ion-button>
+    </div>
+  </div>
+  <div style="background: linear-gradient(135deg, hsl(221 83% 53%), hsl(263 70% 58%));padding: 2px 2px;margin: 0px 0px 0px 0px;height: calc(100vh - 150px);position: relative;">
+    <div style="display: flex;align-items: center;position: absolute;top:0;bottom:0;left: 0px;margin: auto;width:100%;justify-content: center;"> 
+      <img src="assets/icon/artificial-intelligence.svg" style="min-width: 25px;margin: 0px 5px 0px 0px;filter: invert(1);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
+       <span class="glow" style="color:#fff !important">TableGPT</span> 
+    </div>
+    <iframe *ngIf="iframeUrl" [src]="iframeUrl" style=" width: 100%;height: 100%;margin:0px 0px;border-radius: 24px;position: relative;z-index: 2;"></iframe>
+  </div>
+   <ng-container *ngIf="loaderFlag">
+    <div class="loader-container" style="position: absolute;top:0;bottom: 0;right:0;left:0;place-content: center;text-align: center;">
+    <img src="../../../../assets/page-loader-img.gif" alt="Loading..." class="loader-img" style="margin: auto;">
+  </div>
+  </ng-container>
+</div>

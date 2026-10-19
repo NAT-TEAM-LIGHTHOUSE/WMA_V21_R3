@@ -1,0 +1,188 @@
+<div>
+  <ion-button class="closeModal_n" (click)="close()">&times;</ion-button>
+</div>
+<div class="apex-action-filter">
+  <div class="row  m-0 report-engine-format">
+    <div class="col-md-12 p-0">
+      <div class="popover-page">
+        <div class="apex-table">
+          <div class="res_table">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:20%;">Name</th>
+                  <th style="width:30%;">Operator</th>
+                  <th style="width:30%;">Description</th>
+                  <th style="width:20%;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of frame.tableRows; let j = index">
+                  <td>
+                    <ng-container *ngFor="let datas of data">
+                      <ng-container *ngFor="let item of datas.Level5">
+                        <!-- {{item.item_name}} -->
+                        <ng-container *ngIf="item.item_name == 'ITEM_NAME'">
+                          <ng-select name="fieldName" [(ngModel)]="item.value" (change)="setFrameData(data,item.value)">
+                            <ng-option *ngFor="let d of columnData" [value]="d.item_name">
+                              {{ d.prompt_name }}
+                            </ng-option>
+                          </ng-select>
+                          <ion-label *ngIf="(item.value==undefined || item.value=='')&& item.filterErrorFlag"  color="danger">Please Enter the field.</ion-label>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </td>
+
+                  <td>
+                    <ng-container *ngFor="let datas of data">
+                      <ng-container *ngFor="let item of datas.Level5">
+                        <ng-container *ngIf="item.item_name == 'FILTER_OPERATOR'">
+                          <ng-select [(ngModel)]="item.value" name="fieldName">
+                            <ng-option *ngFor="let d of operators" [value]="d">
+                              {{ d }}
+                            </ng-option>
+                          </ng-select>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </td>
+
+                  <td>
+                    <div class="date_input_container">
+
+
+                      <ng-container *ngFor="let datas of data">
+                        <ng-container *ngFor="let item of datas.Level5">
+                          <!-- {{item.item_name}} -->
+                          <ng-container *ngIf="item.item_name == 'FILTER_CLAUSE'">
+                            <!-- {{item.newdatatype}} -->
+                            <ng-container *ngIf="item.newdatatype && item.newdatatype.includes('VARCHAR')">
+                              <ion-input [(ngModel)]="item.value" ></ion-input>
+                              <!-- <ion-label *ngIf="(item.value==undefined || item.value=='')&& item.filterErrorFlag" color="danger">Please Enter the field.</ion-label> -->
+                            </ng-container>
+                            <ng-container *ngIf=" item.newdatatype &&  item.newdatatype.includes('NUMBER')">
+                              <ion-input type="number" [(ngModel)]="item.value"></ion-input>
+                            </ng-container>
+
+                            <ng-container *ngIf="item.newdatatype && item.newdatatype.includes('DATE')">
+                              <!-- <ion-input type="date" (ionChange)="setDate(item,item.value)" [(ngModel)]="item.value"></ion-input> -->
+                              <ion-input type="text" id="simpleInputDate" placeholder="DD-MMM-YYYY"
+                                [(ngModel)]="item.value"></ion-input>
+                              <ion-button (click)="presentPopover($event, item)">
+                                <ion-icon name="calendar-outline"></ion-icon>
+                              </ion-button>
+                              <ion-popover [isOpen]="item.isOpen" [event]="item.event"
+                                (didDismiss)="onPopoverDismiss(item)">
+                                <ng-template>
+                                  <ngb-datepicker (dateSelect)="onDateChange($event, item)"></ngb-datepicker>
+                                </ng-template>
+                              </ion-popover>
+                            </ng-container>
+
+                            <ion-label *ngIf="(item.value==undefined || item.value=='')&& item.filterErrorFlag"  color="danger">Please Enter the field.</ion-label>
+                          </ng-container>
+
+                          <ng-container *ngIf="item.displayChips?.length > 0 && item.displayReportEngineFlag">
+                            {{applyAdvnceFilter(data,item)}}
+                          </ng-container>
+
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                  </td>
+
+                  <td class="tdClass">
+                    <div class="all_action_btn">
+                      <ion-button (click)="rmFieldValue(data,j)" size="small" class="icon-btn action-btn" title="Remove Record"
+                        style="margin-top: 0px;margin-bottom: 0px;">
+                        <ion-icon name="remove-outline"></ion-icon>
+                      </ion-button>
+                      <ion-button (click)="addDuplicateField(data,j)" size="small" class="icon-btn action-btn copy_btn" title="Copy Record"
+                        style="margin-top: 0px;margin-bottom: 0px;">
+                        <ion-icon name="copy-outline"></ion-icon>
+                      </ion-button>
+
+
+                      <!-- <ng-container *ngFor="let datas of data">
+                        <ng-container *ngFor="let item of datas.Level5">
+                          <ng-container *ngIf="item.item_name == 'ITEM_NAME'">
+
+                            <ion-button size="small" class="icon-btn action-btn copy_btn"
+                              style="margin-top: 0px;margin-bottom: 0px;">
+                              <ion-icon name="filter-outline" (click)="openLovAdvFil(item.value,'EQ',j)"></ion-icon>
+                            </ion-button>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container> -->
+
+                      <ng-container *ngFor="let datas of data">
+                        <ng-container *ngFor="let item of datas.Level5">
+                          <ng-container *ngIf="item.item_name == 'ITEM_NAME'">
+                            <ion-button size="small" class="icon-btn action-btn copy_btn"
+                              (click)="openLovAdvFil(item.value,'EQ',frame,j)" style="margin-top: 0px;margin-bottom: 0px;" title="Lov from Master">
+                              <ion-icon name="filter-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button size="small" class="icon-btn action-btn copy_btn"
+                              (click)="openLovAdvFil(item.value,null,frame,j)" style="margin-top: 0px;margin-bottom: 0px;" title="Lov from Data">
+                              <ion-icon name="filter-outline"></ion-icon>
+                            </ion-button>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+
+
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ion-row>
+            <ion-col size="12" style="text-align: center;" class="add-new-filter">
+              <ion-button (click)="addNewTableRow()" size="small" class="icon-btn">
+                <ion-icon name="add-outline"></ion-icon>New Filter
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="clear-btn-area">
+    <div class="row m-0 p-0">
+      <div class="col-md-6 col-3"></div>
+      <div class="col-md-2 col-3" style="text-align: center;padding:0px 2px;">
+        <ion-button class="global-main-copy" (click)="close()">Cancel</ion-button>
+      </div>
+      <div class="col-md-2 col-3" style="text-align: center;padding:0px 2px;">
+        <ion-button class="global-main-copy" (click)="clear()">Clear All</ion-button>
+      </div>
+      <div class="col-md-2 col-3" style="text-align: center;padding:0px 2px;">
+        <ion-button class="global-main-copy" (click)="apply()">Apply</ion-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <ng-template #datePickerModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Select Date</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ngb-datepicker
+      [(ngModel)]="item.value"
+      (dateSelect)="onDateChange($event,item, dp); modal.close()">
+    </ngb-datepicker>
+  </div>
+</ng-template> -->

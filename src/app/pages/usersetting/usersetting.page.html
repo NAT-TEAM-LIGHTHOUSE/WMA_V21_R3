@@ -1,0 +1,228 @@
+<ion-header class="login_header mobile_display">
+  <ion-toolbar>
+    <ion-title> 
+      <div class="logo-section"> 
+           <img [src]= "globalObjects.applogo ? 'data:image/png;base64,' + globalObjects.applogo : 'assets/application/lhs-logo.png'" alt="lhs-logo">    
+    </div>
+     
+  </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="p-0 m-0">
+    <ion-row class=" align-items-center user-setting">
+      <ion-col size="12" size-md="12" size-lg="5">
+        <div class="left-panel">
+          
+          <header  class="desktop_display">
+            <nav class="navbar">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                  <img [src]="globalObjects.applogo ? 'data:image/png;base64,' + globalObjects.applogo : 'assets/application/lhs-logo.png'" alt="lhs-logo">
+
+                         <ng-container >
+                         <a class="back-btn mobile desktop_display" (click)="changeSetting()"><ion-icon name="arrow-back-outline"></ion-icon>&nbsp;&nbsp; Back to Appkey Page</a>
+                         </ng-container>
+                </a>
+              </div>
+            </nav>
+          </header>
+          <div class="login-parameter ">
+            <div class="row justify-content-center login-area-row m-0">
+              <div class="col-lg-9 col-md-12 p-0">
+                <h3>Log In Parameters</h3>
+                <p>Fill out all the parameters to access the Lighthouse ERP portal</p>
+                <div class="all_input_user">
+                  <ng-container *ngIf="userValueList?.length">
+                <ng-container *ngFor="let data of userValueList; let i=index">
+                  <div class="sidebar-menu">
+                    <div *ngIf="data.item_type === 'LIST_BOX' && data.item_visible_flag === 'T'" class="l_item">
+                      <ion-label position="fixed" class="form-label" [attr.name]="data.prompt_name">{{data.prompt_name}}</ion-label>
+                    
+                        <!-- label="{{data.prompt_name}}" -->
+                      <ion-item class="border-0" [attr.name]="data.prompt_name">
+                        <ion-select  (click)="dropdownclick()"  [(ngModel)]="data.item_name1"   interface="popover" 
+                          [required]="data.data_required_flag==='T' || data.prompt_name[data.prompt_name.length -1] ==='*'"
+                          (ionChange)="dropdwnValChng($event,data.item_name,'front',data.item_type);data.isValid=selectinputName.valid"
+                          (ionBlur)="data.isValid=selectinputName.valid" (ngInit)="data.isValid=selectinputName.valid"
+                          #selectinputName='ngModel'>
+                          <ion-select-option id="suraj" *ngFor="let datas of data.result" [value]="datas.CODE">{{datas.VALUE}}
+                          </ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                     
+                    </div>
+
+
+                    <div *ngIf="data.item_type === 'TEXT_INPUT'  && data.item_visible_flag === 'T'"
+                      (click)="openDynamicModal(data)">
+                      <ion-label class="party-select" position="fixed" [attr.name]="data.prompt_name" >
+                        {{data.prompt_name}}
+                      </ion-label>
+                      <ion-item class="border-0" [attr.name]="data.prompt_name">
+                        <span class="lov-inp">
+                          <a *ngIf=" sidelovarray && !userValueList[i].valueforlov"> {{sidelovarray[i]}}</a>
+                          {{userValueList[i].valueforlov}}
+                          <ion-icon name="chevron-down-circle-outline" class="arrowIcon right-arrow-icon"
+                            slot="end"></ion-icon>
+                        </span>
+                      </ion-item>
+                    </div>
+                    <div *ngIf="data.item_type === 'D' && data.item_visible_flag === 'T'">
+                      <ion-label position="fixed" [attr.name]="data.prompt_name">{{data.prompt_name}} </ion-label>
+                      <ion-item *ngIf="platformValue === 'browser'" class="c1" style="overflow: visible !important;" [attr.name]="data.prompt_name">
+                        <input angular-mydatepicker class="new-date-input c1" [(ngModel)]="data.item_name2"
+                          myDp="angular-mydatepicker" (ngModelChange)="onChange(data);" (click)="toggleCalendar()"
+                          class="lov-inp"  />
+                      </ion-item>
+
+
+                      <ion-item *ngIf="platformValue !== 'browser'" class="c1" style="overflow: visible !important;">
+                        <ion-label position="fixed">{{data.prompt_name}}
+                        </ion-label>
+                        <ion-datetime displayFormat="DD-MMM-YYYY" [(ngModel)]="data.item_name1" [max]="2050"
+                          style="width: 100%;" (ionChange)="onChange(data)" #dateinputName='ngModel' class="lov-inp">
+                        </ion-datetime>
+                      </ion-item>
+                    </div>
+                  </div>
+                </ng-container>
+                </ng-container>
+              </div>
+                <div class="sidebar-menu">
+                  <ion-label class="form-label">Account Year</ion-label>
+                  
+<div class="c1">
+   <ng-container *ngIf="userValueList?.length">
+  <div *ngFor="let data of userValueList; let i=index">
+    <div *ngIf="data.item_name=='G_ACC_YEAR'">
+      <div class="parent-calender d-flex " style="justify-content: space-between;">
+        <div class="w-100">
+        <ng-container *ngFor="let datas of getSortedYears(data.result, 4,null,data); trackBy: trackByFn">
+          <div class="child-calender" 
+               [ngClass]="{'active': data.item_name1 === datas.VALUE}"
+               (click)="selectYear(data, datas)">
+            <span>{{ datas.VALUE }}</span>
+          </div>
+        </ng-container>
+        <div class="collapse" id="collapseExample" *ngIf="(data.result && data.result.length) > 4">
+          <div class="child-calender" 
+               *ngFor="let datas of getSortedYears(data.result, undefined, 4,data); trackBy: trackByFn" 
+               [ngClass]="{'active': data.item_name1 === datas.VALUE}"
+               (click)="selectYear(data, datas)">
+            <span>{{ datas.VALUE }}</span>
+          </div>
+        </div>
+      </div>
+        <button type="button" class="year-tabbtn" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#collapseExample" 
+                aria-expanded="false" 
+                aria-controls="collapseExample" 
+                (click)="toggleIcon()">
+          <ion-icon name="caret-down-outline" [ngClass]="{'rotate': isCollapsed}"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  </ng-container>
+</div>
+                  <!-- <div class="c1" >
+                    <div *ngFor="let data of userValueList; let i=index">
+                    <div *ngIf="data.item_name=='G_ACC_YEAR'">
+                      <div class="parent-calender " >
+                        <ng-container *ngFor="let datas of data.result.reverse(); let j=index">
+                          <div class="child-calender " *ngIf="j < 4 "  [ngClass]="data.item_name1==datas.VALUE ? 'active' :''" 
+                           (click)="data.item_name1=datas.VALUE;data.isValid=true ;dropdwnValChng(datas.CODE,data.item_name,'front',data.item_type);data.isValid=selectinputName.valid">  
+                            <span>{{ datas.VALUE }}</span>
+                          </div> 
+                        </ng-container>
+                         <div class="collapse" id="collapseExample"  *ngIf="data.result.length > 4"  >
+                          <div class="child-calender " *ngFor="let datas of data.result.slice(4)" [ngClass]="data.item_name1==datas.CODE ? 'active' :''"
+                          (click)="data.item_name1=datas.CODE ;data.isValid=true;dropdwnValChng(datas.CODE,data.item_name,'front',data.item_type);data.isValid=selectinputName.valid"> 
+                            <span>{{ datas.VALUE }}</span>
+                          </div>
+                        </div>  
+                        <button  type="button" class="year-tabbtn" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" (click)="toggleIcon()">
+                          <ion-icon name="caret-down-outline" [ngClass]="{'rotate': isCollapsed}"></ion-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div> -->
+                  <!-- </div> -->
+                </div>
+                <!-- </ng-container> -->
+                <div class="center" *ngIf="!userValueList">
+                  <div class="text-center cent-loader">
+                    <img src="./assets/dot.gif" width="20%">
+                  </div>
+                </div>
+                <div *ngIf="userValueList.length>0">
+
+                  <div class="text-center mt-3 btn-outer" >
+                    <ion-button shape="round" (click)="closePage()" [disabled]="disableButton"
+                      class="global-btn text-center" style="--background:#E93333 !important;" >
+                      OK
+                    </ion-button>
+                       <ion-item class="loader_btn" *ngIf="resStatus">
+                             <ion-spinner name="circular"></ion-spinner>
+                        </ion-item>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div> 
+        
+          <a class="back-btn desktop_display" (click)="changeSetting()" *ngIf="comeFromLogin"><ion-icon name="arrow-back-outline" (click)="changeSetting()"></ion-icon>&nbsp;&nbsp; Back to Login</a>
+       
+      </div>
+
+      </ion-col>
+      <ion-col size="1" size-md="7" size-lg="7">
+        <div class="row">
+          <div class="col-md-2 ">
+            <div class="salect-area">
+              <ng-container *ngIf="userValueList?.length">
+              <ng-container *ngFor="let data of userValueList; let i=index">
+                <ng-container  *ngIf="data.item_name=='G_USER_LANGUAGE'">
+                  <ion-icon name="earth-outline"></ion-icon>
+              <select class="form-select" aria-label="Default select example" [(ngModel)]="data.item_name1" (ngModelChange)="onLanguageChange($event)">
+            
+                <option *ngFor="let datas of data.result" [value]="datas.CODE">{{datas.VALUE | titlecase  }}</option>
+              </select>
+            </ng-container>
+            </ng-container>
+            </ng-container>
+            </div>
+          </div>
+          <div class="col-md-3 ">         
+          </div>
+        </div>
+        <div class="right-side">
+          <h1><span>Welcome to</span> Lighthouse ERP</h1>
+          <h2 class="sub-heading">Enabling IT as a strategic resource</h2>
+          <hr class="h-line">
+          <p>Whatever Be Your Business Making <span>IT </span> Work is Ours.</p>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="footer_copyright desktop_display">
+    <p>Powered by </p><img src="./assets/powerdby_lhs.png" >
+    </div>
+</ion-content>
+ <ion-footer class="login_footer mobile_display">
+  <ion-toolbar class="pt-0">
+    <ion-title>
+      <div class="logo-section"> 
+        <a class="back_page_btn d-flex align-items-center gap-2" (click)="changeSetting()"><ion-icon name="arrow-back-outline"></ion-icon>&nbsp;Back to Login Page</a>
+        <div style="cursor: pointer;" class="footer_copyright" style="position: relative;" (click)="changeSetting()" *ngIf="comeFromLogin">
+            <p>Powered By</p><img src="assets/powerdby_lhs.png" >
+        </div>
+    </div>
+  </ion-title>
+  </ion-toolbar>
+</ion-footer>

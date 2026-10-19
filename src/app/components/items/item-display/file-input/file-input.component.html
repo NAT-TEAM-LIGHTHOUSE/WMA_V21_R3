@@ -1,0 +1,36 @@
+<div *ngIf="fileInput.item_sub_type == 'SINGLE_FILE' ">
+  <p class="Upload-buton">
+    <span>{{fileInput.prompt_name}}</span>
+    <ion-icon name="cloud-upload-outline"></ion-icon>
+  <ion-input id="singlefile" type="file" (change)="readFile($event)" [accept]="acceptParameter" 
+  [disabled]="fileInput.item_enable_flag && fileInput.item_enable_flag=='F'"></ion-input>
+  </p>
+
+  <ng-container *ngIf="fileNames.length > 0">
+    <ion-chip *ngFor="let file of fileNames; let i = index;" color="primary">
+      <ion-label>{{file.name}}</ion-label>
+      <ion-icon name="close" (click)="removeItem(i)" color="danger"></ion-icon>
+    </ion-chip>
+  </ng-container>
+  <div class="error" *ngIf="!fileInput.isValid && fileInput.vadidateMsg">{{fileInput.vadidateMsg}}</div>
+<div class="error" *ngIf="fileInput.msgError">{{fileInput.msgError}}</div>
+<div class="error" *ngIf="fileInput.forced_error_msg">{{fileInput.forced_error_msg}}</div>
+
+</div>
+
+<div *ngIf="fileInput.item_sub_type == 'MULTI_FILE' ">
+  <p class="Upload-buton">
+    <span>{{fileInput.prompt_name}}</span>
+    <ion-icon name="cloud-upload-outline"></ion-icon>
+  <ion-input id="multifiles" type="file" multiple (change)="readFile($event)" [accept]="acceptParameter"
+   [disabled]="fileInput.item_enable_flag && fileInput.item_enable_flag=='F'"></ion-input>
+  </p>
+  <ion-chip *ngFor="let file of fileNames; let i = index;" >
+    <ion-label>{{file.name}}</ion-label>
+    <ion-icon name="swap-horizontal-outline"></ion-icon>
+    <ion-icon name="close" (click)="removeItem(i)" ></ion-icon>
+  </ion-chip>
+  <div class="error" *ngIf="!fileInput.isValid && fileInput.vadidateMsg">{{fileInput.vadidateMsg}}</div>
+<div class="error" *ngIf="fileInput.msgError">{{fileInput.msgError}}</div>
+<div class="error" *ngIf="fileInput.forced_error_msg">{{fileInput.forced_error_msg}}</div>
+</div>

@@ -1,0 +1,157 @@
+<!-- <h1 class="canavs_title" [ngClass]="recent ? 'active' : ''" (click)="getRecent();recent = !recent ; fav = false;"><span><ion-icon
+      name="time-outline"></ion-icon></span> Recently Viewed </h1> -->
+
+<nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link" id="nav-home-tab" type="button" role="tab" aria-controls="nav-home" [ngClass]="!recent ? 'active' : ''" (click)="recent = !recent;">Menu Module</button>
+          <button class="nav-link" id="nav-profile-tab"  type="button" role="tab" aria-controls="nav-profile" [ngClass]="recent ? 'active' : ''" (click)="getRecent();recent = !recent ; fav = false;">Recently View</button>
+         
+        </div>
+      </nav>
+      <!-- <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+          
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
+        
+    </div> -->
+
+
+
+
+<div class="main-body-panel tab-content" id="nav-tabContent">
+  <div class="tab-pane show active" id="nav-home" aria-labelledby="nav-home-tab" tabindex="0" *ngIf="!recent">
+    <div class="main-menu-tab pt-0">
+      <div class="main-menu-search mt-2">
+        <ion-icon name="folder-outline"></ion-icon> <ion-searchbar #searchbar showCancelButton="focus" class="custom"
+          (ionInput)="searchVal($event)"></ion-searchbar>
+  
+      </div>
+      <ul style="padding: 0px 0px 0px 5px;">
+  
+        <li *ngFor="let menu of filteredMenuData">
+          <a [title]="menu.childData.name">
+            <ion-icon name="folder-outline" [style]="menu.isClick ? color : ''" (click)="menuClicked(menu,menuFrame)"></ion-icon>
+  
+  
+            <span class="menu-text" [style]="menu.isClick ? color : ''" (click)="showTemplate(menu)">{{
+              menu.childData.name
+              }} <ion-icon name="chevron-forward-outline" class="right-menu chevron-frist"
+                *ngIf="menu.childData && menu.childData.isParent" [style]="menu.isClick ? color2 : ''"></ion-icon></span>
+  
+  
+          </a>
+  
+          <div class="sub-menu-tab" *ngIf="
+              (menu &&
+              menu.childData &&
+              menu.childData.isParent &&
+              menu.childData.id == menuId
+              && !recent) ||
+              (filteredDataflag)
+            ">
+            <ul>
+              <li *ngFor="let subMenu of menu.childData.child">
+                <a [title]="subMenu.childData.name">
+                  <ion-icon name="folder-outline" (click)="menuClicked(subMenu,menuFrame)"></ion-icon>
+  
+                  <span class="menu-text" [style]="subMenu.isClick ? color : ''" (click)="childClicked(subMenu)"> {{
+                    subMenu.childData.name }}
+                    <ion-icon name="chevron-down-outline" class="right-menu"
+                      *ngIf="subMenu.childData && subMenu.childData.isParent"
+                      [style]="subMenu.isClick ? color3 : ''"></ion-icon>
+                  </span>
+  
+                </a>
+                <div class="multisub-menu-tab">
+                  <ng-container *ngIf="subMenu.childData.id == childId">
+              <li *ngFor="let sub of subMenu.childData.child" class="new-tab-parent">
+                <a class="new-tab-section" [title]="sub.childData.name">
+                  <div (click)="menuClicked(sub,menuFrame)">
+                    <ion-icon name="ellipse-outline" class="ellipse-icon"></ion-icon>
+                    {{ sub.childData.name }}
+                  </div>
+                  <!-- <div class="tab-btn-section">
+                          <div class="tab-list">
+                            <ion-icon name="add-circle-outline"></ion-icon>New
+                          </div>
+                          <div class="tab-list">
+                            <ion-icon name="square-outline"></ion-icon> Manage
+                          </div>
+                          <div class="tab-list">
+                            <ion-icon name="document-outline"></ion-icon>Engine
+                          </div>
+                          <div class="tab-list">
+                            <ion-icon name="grid-outline"></ion-icon> Dashboard
+                          </div>
+                          <div class="tab-list">
+                            <ion-icon name="search-outline"></ion-icon> Search
+                          </div>
+  
+                          <ion-searchbar showCancelButton="focus" class="custom"></ion-searchbar>
+                        </div> -->
+                </a>
+              </li>
+              </ng-container>
+          </div>
+        </li>
+      </ul>
+    </div>
+  
+    </li>
+    </ul>
+  </div>
+
+
+
+
+
+ 
+</div>
+<div class="tab-pane show active" id="nav-profile" aria-labelledby="nav-profile-tab" tabindex="0" *ngIf="recent">
+   <div class="main-menu-tab recent_view pt-2 ">
+  <ng-container *ngIf="recent">
+      <div class="sub-menu-tab sub-menu-tab2 m-0 p-0">
+        <ul>
+          <li style="border:0px !important;display: flex;text-align: right;">
+            <div class="title"></div>
+            <div class="days_search"><label for="cars">Choose a days:</label>
+              <select name="days" id="recent_days" [(ngModel)] = "no_of_days" (change)="getRecent()">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+              </select>
+            </div>
+          </li>
+
+          <ng-container *ngIf="recentFrame && recentFrame.tableData">
+            <li *ngFor="let data of recentFrame.tableData" (click)="menuClicked(data,recentFrame)">
+              <div class="title_sec">
+                 <a><ion-icon name="timer-outline"></ion-icon> <b>{{data.prompt_name}} </b></a>
+                 <a> {{data.login_time}} </a>
+              </div> 
+              <div class="list_title_sec">
+                <ul>
+                  <!-- <li>&nbsp;<ion-icon name="chevron-forward-outline"></ion-icon>&nbsp;Apr 02/12/2024</li>
+                  <li>&nbsp;<ion-icon name="chevron-forward-outline"></ion-icon>&nbsp;Apr 02/12/2024</li>
+                  <li>&nbsp;<ion-icon name="chevron-forward-outline"></ion-icon>&nbsp;Apr 02/12/2024</li>
+                  <li>&nbsp;<ion-icon name="chevron-forward-outline"></ion-icon>&nbsp;Apr 02/12/2024</li> -->
+                </ul>
+              </div>
+            </li>
+          </ng-container>
+     
+     
+
+        </ul>
+      </div>
+  </ng-container>
+</div>
+</div>
+</div>

@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" *ngIf="!isModal">
+      <ion-menu contentId="my-content"></ion-menu>
+    </ion-buttons>
+    <ion-button slot="start" (click)="closeModal(false)" fill="clear" icon-only start *ngIf="isModal">
+      <ion-icon name="arrow-back" color="light"></ion-icon>
+    </ion-button>
+    <ion-title *ngIf="object_mast">{{object_mast.object_name}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-segment class="tab-container" scrollable  >
+  <div *ngFor="let item of object_mast.Level2;let i = index">
+    <div *ngIf="i==0" [hidden]="item.apps_page_name=='List of Approval'" >
+      <ion-segment-button (click)="selectTab(i)"  checked> {{item.apps_page_name}}</ion-segment-button>
+    </div>
+    <div checked *ngIf="i!=0" [hidden]="item.apps_page_name=='List of Approval'" >
+      <ion-segment-button (click)="selectTab(i)"> {{item.apps_page_name}}</ion-segment-button>
+    </div>
+  </div>
+</ion-segment>
+<ion-content>
+
+   <!-- RANJEET -->
+  <div>
+    <div *ngIf="l_approvalDetails.length>0">
+      <div *ngFor="let Level2 of object_mast.Level2;  let j = index" [hidden]="id!=j">
+        <div *ngFor="let pagedetails of l_approvalDetails[j].pageDetails">
+          <ion-card *ngFor="let Level3 of Level2.Level3;">
+            <ng-container *ngFor="let Level4 of Level3.Level4">
+              <ng-container *ngFor="let item of Level4.Level5; let z = index;">
+                <ion-item *ngIf="item.item_visible_flag!='F'">
+                  <ion-label class="label-name" [ngStyle]="item.display_setting_str">{{item.prompt_name}} </ion-label>
+                  <ion-label (click)="callObject(item,z)"  style=" white-space: break-spaces !important;" class="label label-value full-line" [ngStyle]="item.display_setting_str">{{pagedetails[item.item_name]}}</ion-label>
+                </ion-item>
+              </ng-container>
+            </ng-container>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- RANJEET -->
+
+</ion-content>
+<ion-footer [hidden]="hide_appr_buttons">
+  <ion-row>
+    <ion-col col-12  class="ion-text-center">
+      <ion-button shape="round" class="mr-1 globe-btn" color="primary" (click)="get_remark('Approve','A')">Approved
+      </ion-button>
+      <ion-button shape="round" color="medium globe-btn" (click)="get_remark('Reject','R')">Rejected</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

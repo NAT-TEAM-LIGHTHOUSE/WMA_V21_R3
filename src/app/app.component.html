@@ -1,0 +1,14 @@
+<div
+[ngClass]="globalObjects.lookandfeelChange ? 'theme-red  bgtheme-default' + ' ' + globalObjects.appLayout +' font-minimize font-weight font-letter-spacing font-color layout-default margin-default padding-default' : globalObjects.appTheme + ' ' + globalObjects.bgappTheme + ' ' +globalObjects.appLayout" id="theme_manage" >
+
+        <div id="sreenWidth" class="zoomEffect1">
+        <ion-app>
+            <ion-split-pane when="(min-width: 3000px)" contentId="main">
+            
+                <ion-router-outlet id="main"></ion-router-outlet>
+               
+            </ion-split-pane>
+           
+        </ion-app>
+    </div>
+</div>

@@ -1,0 +1,2172 @@
+<ng-container
+  *ngIf="frame.apps_frame_sub_type == 'BASIC' || frame.apps_frame_sub_type == 'COLLAPSE' || (frame.apps_frame_sub_type && frame.apps_frame_sub_type == 'SINGLE_ROW')">
+  <div [id]="frame.apps_page_frame_seqid">
+    <div class="collapse-list-container" *ngIf="frame.showCollapse || !frame.collapse">
+      <ion-item class="collapse-list" (click)="toggleFrame()">
+        {{frame.apps_page_frame_name}} <span style="margin-left: 10px;"
+          *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"
+            color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()">
+          </ion-icon></span>
+        <ion-icon name="add-circle-outline" slot="end" *ngIf="!frame.collapse"></ion-icon>
+        <ion-icon name="remove-circle-outline" slot="end" *ngIf="frame.collapse"></ion-icon>
+      </ion-item>
+    </div>
+    <div [class]="frame.showCollapse ? 'collapse-list-body' : 'non-collapse-table-wrapper'" *ngIf="frame.collapse">
+
+      <div *ngIf="filter">
+        <app-frame-canvas-filter [frametable]="frame" (passdataToframetable)="getdataFromcanvasFilter($event)"
+          [frame]='frame'></app-frame-canvas-filter>
+      </div>
+      <div class="card-frame-head">
+        <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse">
+          <ion-col [size]="searchFlag ? 12 : 12" style="padding-bottom: 0;" [hidden]="frame.cardFlag">
+            <div class="frame_card_head">
+              <h1 class="frame-name position-relative">
+                <div>{{frame.apps_page_frame_name}}
+                  <span style="margin-left: 10px;"
+                    *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+                    <ion-icon class="code-btn" color="primary" name="information-circle-outline"
+                      *ngIf="developerModeData" (click)="showDeveloperData()">
+                    </ion-icon>
+                  </span>
+                </div>
+
+              </h1>
+
+              <div class="card_action_container">
+
+                <div class="action-btn-bar">
+
+                  <ng-container *ngIf="frame.apps_frame_sub_type != 'COLLAPSE'">
+                    <ion-button class="icon-btn collapse_expand" (click)="SeeAllChanage()">{{!isSeeAll ? 'Expand' :
+                      'Collapse'}}</ion-button>
+                    <ion-button *ngIf="!isNotTool" class="icon-btn more" (click)="moreOption()" title="Filter"
+                      [attr.name]="frame.apps_page_frame_seqid+'btn'">
+                      <!-- <ion-icon name="ellipsis-vertical-outline"></ion-icon> -->
+                      <ion-icon name="construct-outline"></ion-icon>
+                      <ng-container
+                        *ngIf="(frame.filterAbleArr && frame.filterAbleArr.length>0) || (frame.ctrlBrkCond && frame.ctrlBrkCond.length>0) || (frame.selectedCols && frame.selectedCols.length>0) || (frame.aggregateFun && frame.aggregateFun.length>0)">
+                        <div class="filter_present"></div>
+                      </ng-container>
+                    </ion-button>
+                  </ng-container>
+                </div>
+                <div class="input-group primary-search-section d_v_search" *ngIf="searchFlag  && !filter ">
+
+                  <ion-input class="input-text" placeholder="Search Here..."
+                    (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                  </ion-input>
+
+                  <div class="input-group-append">
+                    <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                      small (click)="openMike()">
+                      <img src="/assets/imgs/google-speaker.png">
+                    </button>
+
+                  </div>
+
+                  <div class="input-group-append">
+                    <button class="lov-btn" ion-button icon-only small>
+                      <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                    </button>
+                  </div>
+
+                  <div class="input-group-append" *ngIf="enablefunnel">
+                    <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                      <ion-icon name="ios-funnel"></ion-icon>
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+              <div class="input-group primary-search-section m_v_search" *ngIf="searchFlag  && !filter ">
+
+                <ion-input class="input-text" placeholder="Search Here..."
+                  (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                </ion-input>
+
+                <div class="input-group-append">
+                  <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                    small (click)="openMike()">
+                    <img src="/assets/imgs/google-speaker.png">
+                  </button>
+
+                </div>
+
+                <div class="input-group-append">
+                  <button class="lov-btn" ion-button icon-only small>
+                    <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                  </button>
+                </div>
+
+                <div class="input-group-append" *ngIf="enablefunnel">
+                  <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                    <ion-icon name="ios-funnel"></ion-icon>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+          </ion-col>
+        </ion-row>
+      </div>
+      <ng-container *ngIf="isOpenMoreOption">
+        <app-table-tools [frame]="frame" [(fileTyle)]="fileTyle" [toolsExport]="toolsExport"
+          [(controlBreakArr)]="controlBreakArr" [(summaryRow)]="summaryRow"
+          [(conditionalFilterData)]="conditionalFilterData" [displayDataLen]="displayFixedrecordLength"
+          [(funArr)]="funArr" [(controlBreakFlag)]="controlBreakFlag" [(groupFlag)]="groupFlag"
+          [(footerRowFlag)]="footerRowFlag" [(filterAbleData)]="filterAbleData" [(thead)]="thead"
+          [(controlBreakHead)]="controlBreakHead" [(isAggrigate)]="isAggrigate" [(freezeColArr)]="freezeColArr"
+          [tableRows]="tableRows" (emitPass)="columnFilterEmitPass($event)" [isNotExport]="isNotExport"
+          [isNotExportPdf]="isNotExportPdf" [isNotExportExcel]="isNotExportExcel" [plt]="plt" [isNotExportCsv]="isNotExportCsv"></app-table-tools>
+      
+      </ng-container>
+      <div *ngIf="show_filter=='show' ">
+        <div *ngIf="toggleFilter">
+          <app-frame-canvas-filter [frame]="frame" [frametable]='frame'
+            (passdataToframetable)="getdataFromcanvasFilter($event)" (emitFilter)="getFilterParameter($event)">
+          </app-frame-canvas-filter>
+        </div>
+      </div>
+
+      <div *ngIf="!frame.loading">
+        <ng-container *ngIf="(!frame.canvasRows || frame.canvasRows.length > 0)">
+
+          <!-- <cdk-virtual-scroll-viewport [itemSize]="itemSize" minBufferPx="200" maxBufferPx="400" [ngStyle]="cardHeight"> -->
+          <div class="card-section-container small row m-0 mt-1">
+            <ion-col class="col-md-3 col-lg-3 col-12 p-0 d-flex justify-content-center"
+              *ngFor="let rows of frame.canvasRows; let j = index; trackBy: trackByFunction">
+              <div class="super-card {{rows ? rows.status : ''}}  position-relative" id="cardHeight">
+                <div class="sr-no position-absolute" [ngStyle]="j > 998 ? {'width':'auto'} : {}">{{j+1}}</div>
+                <div class="super-card-inner position-relative">
+
+                  <div class="card-title"
+                    *ngIf="(frame.cardtitleFlag  || rows.cardtitleFlag) && frame.tableRows && frame.tableRows[frame.active_row]">
+                    <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
+                      *ngFor="let itmGrp of frame.headerarr[j];let rowindex=index" appFocusDirective>
+                      <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                         @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                        <ng-container *ngIf="input_item.item_visible_flag =='T'">
+                          <ion-col class="px-1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+
+                            <div class="p-0"
+                              *ngIf=" input_item.item_type == 'SPECIAL' && input_item.item_sub_type =='CARD_TITLE'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                            <div class="p-0 " *ngIf="input_item.position =='CARD_HEADER'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                          </ion-col>
+                        </ng-container>
+                      </ng-container>
+                    </ion-row>
+                  </div>
+
+                  <div class="card-body">
+
+                    <div *ngIf="frame.left_flag && frame.cardLeftArray && frame.cardLeftArray.length > 0"
+                      class="right-border">
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                    <div class="middle-card">
+                      <ng-container *ngFor="let itemGroup of rows; let rowindex=index">
+                        <ng-container
+                          *ngIf="!frame.canvasRows[j].isSeeMore && !isSeeAll ? rowindex<frame.showCountData:true">
+
+
+                          <ng-container
+                            *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' && (itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL' || itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'); else cardFrame">
+                            <ng-container
+                              *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'">
+                              <ion-row class="px-1 py-0" appFocusDirective>
+                                <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                  <div class="container card-tabs-wrapper p-0 m-0">
+                                    <div class="card-tabs">
+                                      <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                        <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                          (click)="toggleCard(itemGroup, i)">
+                                          {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                        </ion-button>
+                                      </ng-container>
+                                    </div>
+                                  </div>
+                                  <div class="card-tab-content">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                        <ion-row
+                                          *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                          appFocusDirective>
+                                          <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                            [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                            [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                            style="padding: 1px 2px;">
+                                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                            <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                              [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                          </ion-col>
+                                        </ion-row>
+                                      </ng-container>
+                                    </ng-container>
+                                  </div>
+                                </ion-col>
+                              </ion-row>
+                            </ng-container>
+
+
+                            <ng-container
+                              *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL'">
+                              <ion-row class="px-1 py-0" appFocusDirective>
+                                <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                  <div class=" vertical-canvas-tabs-wrappper">
+                                    <div class="vertical-canvas-tabs">
+                                      <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                        <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                          (click)="toggleCard(itemGroup, i)">
+                                          {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                        </ion-button>
+                                      </ng-container>
+                                    </div>
+
+                                    <div class="vertical-canvas-tab-content">
+                                      <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                        <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                          <ion-row
+                                            *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                            appFocusDirective>
+                                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                              [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                              [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                              style="padding: 1px 2px;">
+                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                                [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                            </ion-col>
+                                          </ion-row>
+                                        </ng-container>
+                                      </ng-container>
+                                    </div>
+                                  </div>
+                                </ion-col>
+                              </ion-row>
+                            </ng-container>
+
+                          </ng-container>
+                          <ng-template #cardFrame>
+                            <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
+                                @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                              <ng-container
+                                *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
+                                <ion-row class="px-1 py-0" appFocusDirective>
+                                  <ion-col class="px=1 py-0" [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : 12 ">
+                                    <div *ngIf="input_item.item_sub_type !='CARD_TITLE'">
+                                      <ng-container *ngIf="input_item.item_type != 'FRAME_SEPARATOR'; else sepFrame">
+
+                                        <app-items [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                          [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+
+                                      </ng-container>
+
+                                      <ng-template #sepFrame>
+                                        <div class="collapse-list-container"
+                                          *ngIf="input_item.item_sub_type == 'COLLAPSE'; else sepp">
+                                          <ion-item class="collapse-list" (click)="toggleSep(input_item)">
+                                            {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                            <ion-icon name="remove-circle-outline" slot="end"
+                                              *ngIf="input_item.sepCollapse == 'SHOW'"> </ion-icon>
+                                            <ion-icon name="add-circle-outline" slot="end"
+                                              *ngIf="input_item.sepCollapse == 'HIDE'"></ion-icon>
+                                          </ion-item>
+                                        </div>
+
+
+                                        <ng-template #sepp>
+                                          <div>
+
+                                            <app-items [item]="input_item" [wscp]="wscp" [frame]="frame"
+                                              (emitPass)="itemClicked($event,j)"
+                                              (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                          </div>
+                                        </ng-template>
+
+                                        <ng-container *ngIf="input_item.sepCollapse == 'SHOW'">
+                                          <ng-container
+                                            *ngIf="input_item.item_sub_type=='BUTTON_CONTAINER' else noBUTTON_CONTAINER">
+                                            <ion-row
+                                              *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
+                                              <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                                [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                                style="padding: 1px 2px;">
+                                                  @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
+                                                  (emitPass)="itemClicked($event,rowindex)"
+                                                  (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                              </ion-col>
+                                            </ion-row>
+                                          </ng-container>
+                                          <ng-template #noBUTTON_CONTAINER>
+                                            <ion-row
+                                              *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;">
+                                              <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                                [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                                style="padding: 1px 2px;">
+                                                  @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
+                                                  (emitPass)="itemClicked($event,rowindex)"
+                                                  (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                              </ion-col>
+                                            </ion-row>
+                                          </ng-template>
+                                        </ng-container>
+                                      </ng-template>
+                                    </div>
+                                  </ion-col>
+                                </ion-row>
+                              </ng-container>
+
+                            </ng-container>
+                          </ng-template>
+
+
+                        </ng-container>
+                      </ng-container>
+
+                    </div>
+
+                    <div *ngIf="frame.right_flag && frame.cardRightArray && frame.cardRightArray.length > 0"
+                      class="left-border">
+
+
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="see_more" *ngIf="rows.running && !isSeeAll">
+                    <ion-button (click)="seeMore(frame.canvasRows,j)" class="see_more">{{!frame.canvasRows[j].isSeeMore
+                      ?
+                      'See more...' : 'Hide'}}</ion-button>
+                  </div>
+                  <div class="card-footer pl-1" *ngIf="frame.footerArr && frame.footerArr.length > 0">
+                   
+                    <div class="card-btn-container d-flex card-btn-container justify-content-end pt-1 pb-1"
+                      appFocusDirective>
+
+                      <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
+                        <ng-container *ngIf="ftI==0">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <div class="btn_div">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                     
+                      <div class="card_btn_new_section d-flex">
+                         <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
+                        <ng-container *ngIf="ftI>0">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <div class="btn_div main-btn" >
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                      </div>
+                     
+
+                      <!-- *ngIf="rows.runningBtn" -->
+                      <div class="btn_div main-btn see_more">
+                        <div class="select-container ion-text-center">
+                          <ion-button size="small"
+                            class="icon-btn md button button-small button-solid ion-activatable ion-focusable hydrated"
+                            title="More" (click)="moreButton(frame.footerArr[j],j,$event)">
+                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                          </ion-button>
+                        </div>
+
+                      </div> 
+
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </ion-col>
+          </div>
+          <!-- </cdk-virtual-scroll-viewport> -->
+        </ng-container>
+
+        <div class="center" *ngIf="(!frame.canvasRows || frame.canvasRows.length <= 0)">
+          {{noRecordMessage}}
+        </div>
+
+      </div>
+
+      <div class="center" *ngIf="frame.loading">
+        <div class="text-center cent-loader">
+          <img src="../../../../assets/dot.gif" width="20%">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</ng-container>
+
+<ng-container *ngIf="frame.apps_frame_sub_type == 'INPUT_CARD'">
+  <div [id]="frame.apps_page_frame_seqid">
+    <div class="collapse-list-container" *ngIf="frame.showCollapse || !frame.collapse">
+      <ion-item class="collapse-list" (click)="toggleFrame()">
+        {{frame.apps_page_frame_name}} <span style="margin-left: 10px;"
+          *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"
+            color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()">
+          </ion-icon></span>
+        <ion-icon name="add-circle-outline" slot="end" *ngIf="!frame.collapse"></ion-icon>
+        <ion-icon name="remove-circle-outline" slot="end" *ngIf="frame.collapse"></ion-icon>
+      </ion-item>
+    </div>
+    <div [class]="frame.showCollapse ? 'collapse-list-body' : 'non-collapse-table-wrapper'" *ngIf="frame.collapse">
+
+      <div *ngIf="filter">
+        <app-frame-canvas-filter [frametable]="frame" (passdataToframetable)="getdataFromcanvasFilter($event)"
+          [frame]='frame'></app-frame-canvas-filter>
+      </div>
+      <div class="card-frame-head">
+        <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse">
+          <ion-col [size]="searchFlag ? 12 : 12" style="padding-bottom: 0;" [hidden]="frame.cardFlag">
+            <div class="frame_card_head">
+              <h1 class="frame-name position-relative">
+                <div>{{frame.apps_page_frame_name}}
+                  <span style="margin-left: 10px;"
+                    *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+                    <ion-icon class="code-btn" color="primary" name="information-circle-outline"
+                      *ngIf="developerModeData" (click)="showDeveloperData()">
+                    </ion-icon>
+                  </span>
+                </div>
+
+
+              </h1>
+
+              <div class="card_action_container">
+
+                <div class="action-btn-bar">
+                  <ion-button *ngIf="!isNotTool" class="icon-btn" (click)="moreOption()" title="Filter"
+                    [attr.name]="frame.apps_page_frame_seqid+'btn'">
+                    <!-- <ion-icon name="ellipsis-vertical-outline"></ion-icon> -->
+                    <ion-icon name="construct-outline"></ion-icon>
+                    <ng-container
+                      *ngIf="(frame.filterAbleArr && frame.filterAbleArr.length>0) || (frame.ctrlBrkCond && frame.ctrlBrkCond.length>0) || (frame.selectedCols && frame.selectedCols.length>0) || (frame.aggregateFun && frame.aggregateFun.length>0)">
+                      <div class="filter_present"></div>
+                    </ng-container>
+                  </ion-button>
+
+                </div>
+                <div class="input-group primary-search-section d_v_search" *ngIf="searchFlag  && !filter ">
+
+                  <ion-input class="input-text" placeholder="Search Here..."
+                    (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                  </ion-input>
+
+                  <div class="input-group-append">
+                    <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                      small (click)="openMike()">
+                      <img src="/assets/imgs/google-speaker.png">
+                    </button>
+
+                  </div>
+
+                  <div class="input-group-append">
+                    <button class="lov-btn" ion-button icon-only small>
+                      <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                    </button>
+                  </div>
+
+                  <div class="input-group-append" *ngIf="enablefunnel">
+                    <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                      <ion-icon name="ios-funnel"></ion-icon>
+                    </button>
+                  </div>
+
+                </div>
+
+
+              </div>
+              <div class="input-group primary-search-section m_v_search" *ngIf="searchFlag  && !filter ">
+
+                <ion-input class="input-text" placeholder="Search Here..."
+                  (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                </ion-input>
+
+                <div class="input-group-append">
+                  <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                    small (click)="openMike()">
+                    <img src="/assets/imgs/google-speaker.png">
+                  </button>
+
+                </div>
+
+                <div class="input-group-append">
+                  <button class="lov-btn" ion-button icon-only small>
+                    <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                  </button>
+                </div>
+
+                <div class="input-group-append" *ngIf="enablefunnel">
+                  <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                    <ion-icon name="ios-funnel"></ion-icon>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ng-container *ngIf="isOpenMoreOption">
+        <app-table-tools [frame]="frame" [(fileTyle)]="fileTyle" [toolsExport]="toolsExport"
+          [(controlBreakArr)]="controlBreakArr" [(summaryRow)]="summaryRow"
+          [(conditionalFilterData)]="conditionalFilterData" [displayDataLen]="displayFixedrecordLength"
+          [(funArr)]="funArr" [(controlBreakFlag)]="controlBreakFlag" [(groupFlag)]="groupFlag"
+          [(footerRowFlag)]="footerRowFlag" [(filterAbleData)]="filterAbleData" [(thead)]="thead"
+          [(controlBreakHead)]="controlBreakHead" [(isAggrigate)]="isAggrigate" [(freezeColArr)]="freezeColArr"
+          [tableRows]="tableRows" (emitPass)="columnFilterEmitPass($event)" [isNotExport]="isNotExport"
+          [isNotExportPdf]="isNotExportPdf" [isNotExportExcel]="isNotExportExcel" [plt]="plt"></app-table-tools>
+       
+      </ng-container>
+      <div *ngIf="show_filter=='show' ">
+        <div *ngIf="toggleFilter">
+          <app-frame-canvas-filter [frame]="frame" [frametable]='frame'
+            (passdataToframetable)="getdataFromcanvasFilter($event)" (emitFilter)="getFilterParameter($event)">
+          </app-frame-canvas-filter>
+        </div>
+      </div>
+
+      <div *ngIf="!frame.loading">
+        <ng-container *ngIf="(!frame.canvasRows || frame.canvasRows.length > 0)">
+
+          <cdk-virtual-scroll-viewport  [itemSize]="itemSize" minBufferPx="200" maxBufferPx="400" [ngStyle]="cardHeight">
+          <div class="card-section-container larger row">
+            <ion-col class="col-md-12 col-lg-12 col-12"
+              *cdkVirtualFor="let rows of frame.canvasRows; let j = index; trackBy: trackByFunction">
+              <div class="super-card {{rows ? rows.status : ''}}  position-relative" id="cardHeight">
+                <div class="sr-no position-absolute" [ngStyle]="j > 998 ? {'width':'auto'} : {}">{{j+1}}</div>
+                <div class="super-card-inner position-relative">
+
+                  <div class="card-title"
+                    *ngIf="(frame.cardtitleFlag  || rows.cardtitleFlag) && frame.tableRows && frame.tableRows[frame.active_row]">
+                    <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
+                      *ngFor="let itmGrp of frame.headerarr[j];let rowindex=index" appFocusDirective>
+                      <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                        <ng-container *ngIf="input_item.item_visible_flag =='T'">
+                          <ion-col class="px-1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+
+                            <div class="p-0"
+                              *ngIf=" input_item.item_type == 'SPECIAL' && input_item.item_sub_type =='CARD_TITLE'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                            <div class="p-0 " *ngIf="input_item.position =='CARD_HEADER'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                          </ion-col>
+                        </ng-container>
+                      </ng-container>
+                    </ion-row>
+                  </div>
+
+                  <div class="card-body">
+
+                    <div *ngIf="frame.left_flag && frame.cardLeftArray && frame.cardLeftArray.length > 0"
+                      class="right-border">
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                    <div class="middle-card">
+                      <ng-container *ngFor="let itemGroup of rows; let rowindex=index">
+                        <!-- <ng-container *ngIf="!frame.canvasRows[j].isSeeMore ? rowindex<4:true"> -->
+
+
+                        <ng-container
+                          *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' && (itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL' || itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'); else cardFrame">
+                          <ng-container
+                            *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'">
+                            <ion-row class="px-1 py-0" appFocusDirective>
+                              <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                <div class="container card-tabs-wrapper p-0 m-0">
+                                  <div class="card-tabs">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                        (click)="toggleCard(itemGroup, i)">
+                                        {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                      </ion-button>
+                                    </ng-container>
+                                  </div>
+                                </div>
+                                <div class="card-tab-content">
+                                  <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                    <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                      <ion-row
+                                        *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                        appFocusDirective>
+                                        <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                          [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                          [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                          style="padding: 1px 2px;">
+                                            @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                          <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                            [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                        </ion-col>
+                                      </ion-row>
+                                    </ng-container>
+                                  </ng-container>
+                                </div>
+                              </ion-col>
+                            </ion-row>
+                          </ng-container>
+
+
+                          <ng-container
+                            *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL'">
+                            <ion-row class="px-1 py-0" appFocusDirective>
+                              <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                <div class=" vertical-canvas-tabs-wrappper">
+                                  <div class="vertical-canvas-tabs">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                        (click)="toggleCard(itemGroup, i)">
+                                        {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                      </ion-button>
+                                    </ng-container>
+                                  </div>
+
+                                  <div class="vertical-canvas-tab-content">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                        <ion-row
+                                          *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                          appFocusDirective>
+                                          <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                            [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                            [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                            style="padding: 1px 2px;">
+                                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                            <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                              [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                          </ion-col>
+                                        </ion-row>
+                                      </ng-container>
+                                    </ng-container>
+                                  </div>
+                                </div>
+                              </ion-col>
+                            </ion-row>
+                          </ng-container>
+
+                        </ng-container>
+                        <ng-template #cardFrame>
+                          <ion-row class="px-1 py-0" appFocusDirective>
+                            <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
+                                @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                              <ng-container
+                                *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
+                                <ion-col class="px=1 py-0" [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : 12 ">
+                                  <div *ngIf="input_item.item_sub_type !='CARD_TITLE'">
+                                    <ng-container *ngIf="input_item.item_type != 'FRAME_SEPARATOR'; else sepFrame">
+
+                                      <app-items [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                        [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+
+                                    </ng-container>
+
+                                    <ng-template #sepFrame>
+                                      <div class="collapse-list-container"
+                                        *ngIf="input_item.item_sub_type == 'COLLAPSE'; else sepp">
+                                        <ion-item class="collapse-list" (click)="toggleSep(input_item)">
+                                          {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                          <ion-icon name="remove-circle-outline" slot="end"
+                                            *ngIf="input_item.sepCollapse == 'SHOW'"> </ion-icon>
+                                          <ion-icon name="add-circle-outline" slot="end"
+                                            *ngIf="input_item.sepCollapse == 'HIDE'"></ion-icon>
+                                        </ion-item>
+                                      </div>
+
+
+                                      <ng-template #sepp>
+                                        <div>
+
+                                          <app-items [item]="input_item" [wscp]="wscp" [frame]="frame"
+                                            (emitPass)="itemClicked($event,j)"
+                                            (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                        </div>
+                                      </ng-template>
+
+                                      <ng-container *ngIf="input_item.sepCollapse == 'SHOW'">
+                                        <ng-container
+                                          *ngIf="input_item.item_sub_type=='BUTTON_CONTAINER' else noBUTTON_CONTAINER">
+                                          <ion-row
+                                            *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
+                                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                              [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                              style="padding: 1px 2px;">
+                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
+                                                (emitPass)="itemClicked($event,rowindex)"
+                                                (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                            </ion-col>
+                                          </ion-row>
+                                        </ng-container>
+                                        <ng-template #noBUTTON_CONTAINER>
+                                          <ion-row
+                                            *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;">
+                                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                              [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                              style="padding: 1px 2px;">
+                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
+                                                (emitPass)="itemClicked($event,rowindex)"
+                                                (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                            </ion-col>
+                                          </ion-row>
+                                        </ng-template>
+                                      </ng-container>
+                                    </ng-template>
+                                  </div>
+                                </ion-col>
+                              </ng-container>
+
+                            </ng-container>
+                          </ion-row>
+                        </ng-template>
+
+
+                        <!-- </ng-container> -->
+                      </ng-container>
+
+                    </div>
+
+                    <div *ngIf="frame.right_flag && frame.cardRightArray && frame.cardRightArray.length > 0"
+                      class="left-border">
+
+
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- <div class="see_more" *ngIf="rows.running">
+                    <ion-button (click)="seeMore(frame.canvasRows,j)" class="see_more">{{!frame.canvasRows[j].isSeeMore ? 'See more...' : 'Hide'}}</ion-button>
+                  </div> -->
+                  <div class="card-footer pl-1" *ngIf="frame.footerArr && frame.footerArr.length > 0">
+
+                    <div class="card-btn-container d-flex justify-content-end p-2" appFocusDirective>
+
+                      <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
+                        <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                          <ng-container *ngIf="ftI==0">
+                            <div class="btn_div">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+
+  <div class="card_btn_new_section d-flex">
+                      <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
+                        <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                          <ng-container *ngIf="ftI>0">
+                            <div class="btn_div main-btn">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+</div>
+
+                      <div class="btn_div main-btn see_more" *ngIf="rows.runningBtn">
+                        <div class="select-container ion-text-center">
+                          <ion-button size="small"
+                            class="icon-btn md button button-small button-solid ion-activatable ion-focusable hydrated"
+                            title="More" (click)="moreButton(frame.footerArr[j],j,$event)">
+                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                          </ion-button>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </ion-col>
+          </div>
+          </cdk-virtual-scroll-viewport>
+        </ng-container>
+
+        <div class="center" *ngIf="(!frame.canvasRows || frame.canvasRows.length <= 0)">
+          {{noRecordMessage}}
+        </div>
+
+      </div>
+
+      <div class="center" *ngIf="frame.loading">
+        <div class="text-center cent-loader">
+          <img src="../../../../assets/dot.gif" width="20%">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-container>
+
+
+
+<ng-container *ngIf="frame.apps_frame_sub_type == 'TABLE_CARD'">
+  <div [id]="frame.apps_page_frame_seqid">
+    <div class="collapse-list-container" *ngIf="frame.showCollapse || !frame.collapse">
+      <ion-item class="collapse-list" (click)="toggleFrame()">
+        {{frame.apps_page_frame_name}} <span style="margin-left: 10px;"
+          *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"
+            color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()">
+          </ion-icon></span>
+        <ion-icon name="add-circle-outline" slot="end" *ngIf="!frame.collapse"></ion-icon>
+        <ion-icon name="remove-circle-outline" slot="end" *ngIf="frame.collapse"></ion-icon>
+
+      </ion-item>
+    </div>
+    <div [class]="frame.showCollapse ? 'collapse-list-body' : 'non-collapse-table-wrapper'" *ngIf="frame.collapse">
+
+      <div *ngIf="filter">
+        <app-frame-canvas-filter [frametable]="frame" (passdataToframetable)="getdataFromcanvasFilter($event)"
+          [frame]='frame'></app-frame-canvas-filter>
+      </div>
+      <div class="card-frame-head">
+        <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse">
+          <ion-col [size]="searchFlag ? 6 : 12" style="padding-bottom: 0;" [hidden]="frame.cardFlag">
+            <div class="frame_card_head">
+              <h1 class="frame-name position-relative">
+                <div>{{frame.apps_page_frame_name}}
+                  <span style="margin-left: 10px;"
+                    *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+                    <ion-icon class="code-btn" color="primary" name="information-circle-outline"
+                      *ngIf="developerModeData" (click)="showDeveloperData()">
+                    </ion-icon>
+                  </span>
+                </div>
+
+
+              </h1>
+
+              <div class="card_action_container">
+                <div class="action-btn-bar">
+                  <ion-button *ngIf="!isNotTool" class="icon-btn" (click)="moreOption()" title="Filter"
+                    [attr.name]="frame.apps_page_frame_seqid+'btn'">
+                    <!-- <ion-icon name="ellipsis-vertical-outline"></ion-icon> -->
+                    <ion-icon name="construct-outline"></ion-icon>
+                    <ng-container
+                      *ngIf="(frame.filterAbleArr && frame.filterAbleArr.length>0) || (frame.ctrlBrkCond && frame.ctrlBrkCond.length>0) || (frame.selectedCols && frame.selectedCols.length>0) || (frame.aggregateFun && frame.aggregateFun.length>0)">
+                      <div class="filter_present"></div>
+                    </ng-container>
+                  </ion-button>
+                </div>
+                <div class="input-group primary-search-section d_v_search" *ngIf="searchFlag  && !filter ">
+
+                  <ion-input class="input-text" placeholder="Search Here..."
+                    (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                  </ion-input>
+
+                  <div class="input-group-append">
+                    <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                      small (click)="openMike()">
+                      <img src="/assets/imgs/google-speaker.png">
+                    </button>
+
+                  </div>
+
+                  <div class="input-group-append">
+                    <button class="lov-btn" ion-button icon-only small>
+                      <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                    </button>
+                  </div>
+
+                  <div class="input-group-append" *ngIf="enablefunnel">
+                    <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                      <ion-icon name="ios-funnel"></ion-icon>
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="input-group primary-search-section m_v_search" *ngIf="searchFlag  && !filter ">
+
+                <ion-input class="input-text" placeholder="Search Here..."
+                  (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                </ion-input>
+
+                <div class="input-group-append">
+                  <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                    small (click)="openMike()">
+                    <img src="/assets/imgs/google-speaker.png">
+                  </button>
+
+                </div>
+
+                <div class="input-group-append">
+                  <button class="lov-btn" ion-button icon-only small>
+                    <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                  </button>
+                </div>
+
+                <div class="input-group-append" *ngIf="enablefunnel">
+                  <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                    <ion-icon name="ios-funnel"></ion-icon>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ng-container *ngIf="isOpenMoreOption">
+        <app-table-tools [frame]="frame" [(fileTyle)]="fileTyle" [toolsExport]="toolsExport"
+          [(controlBreakArr)]="controlBreakArr" [(summaryRow)]="summaryRow"
+          [(conditionalFilterData)]="conditionalFilterData" [displayDataLen]="displayFixedrecordLength"
+          [(funArr)]="funArr" [(controlBreakFlag)]="controlBreakFlag" [(groupFlag)]="groupFlag"
+          [(footerRowFlag)]="footerRowFlag" [(filterAbleData)]="filterAbleData" [(thead)]="thead"
+          [(controlBreakHead)]="controlBreakHead" [(isAggrigate)]="isAggrigate" [(freezeColArr)]="freezeColArr"
+          [tableRows]="tableRows" (emitPass)="columnFilterEmitPass($event)" [isNotExport]="isNotExport"
+          [isNotExportPdf]="isNotExportPdf" [isNotExportExcel]="isNotExportExcel" [plt]="plt"></app-table-tools>
+       
+      </ng-container>
+      <div *ngIf="show_filter=='show' ">
+        <div *ngIf="toggleFilter">
+          <app-frame-canvas-filter [frame]="frame" [frametable]='frame'
+            (passdataToframetable)="getdataFromcanvasFilter($event)" (emitFilter)="getFilterParameter($event)">
+          </app-frame-canvas-filter>
+        </div>
+      </div>
+
+      <div *ngIf="!frame.loading">
+        <ng-container *ngIf="(!frame.canvasRows || frame.canvasRows.length > 0)">
+
+          <cdk-virtual-scroll-viewport [itemSize]="itemSize" minBufferPx="2000" maxBufferPx="4000"
+            [ngStyle]="cardHeight">
+            <ion-col *cdkVirtualFor="let rows of frame.canvasRows; let j = index; trackBy: trackByFunction">
+              <div class="super-card {{rows ? rows.status : ''}}  position-relative" id="cardHeight">
+                <div class="sr-no position-absolute" [ngStyle]="j > 998 ? {'width':'auto'} : {}">{{j+1}}</div>
+                <div class="super-card-inner position-relative">
+
+                  <div class="card-title"
+                    *ngIf="(frame.cardtitleFlag  || rows.cardtitleFlag) && frame.tableRows && frame.tableRows[frame.active_row]">
+                    <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
+                      *ngFor="let itmGrp of frame.tableRows[frame.active_row];let rowindex=index" appFocusDirective>
+                      <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                        <ng-container *ngIf="input_item.item_visible_flag =='T'">
+                          <ion-col class="px-1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+
+                            <div class="p-0"
+                              *ngIf=" input_item.item_type == 'SPECIAL' && input_item.item_sub_type =='CARD_TITLE'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                            <div class="p-0 " *ngIf="input_item.position =='CARD_HEADER'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                          </ion-col>
+                        </ng-container>
+                      </ng-container>
+                    </ion-row>
+                  </div>
+
+                  <div class="card-body">
+
+                    <div *ngIf="frame.left_flag && frame.cardLeftArray && frame.cardLeftArray.length > 0"
+                      class="right-border">
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                    <div class="table_to_card">
+                      <ng-container *ngFor="let itemGroup of rows; let rowindex=index">
+
+                        <ng-container
+                          *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' && (itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL' || itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'); else cardFrame">
+                          <ng-container
+                            *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'">
+                            <ion-row class="px-1 py-0" appFocusDirective>
+                              <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                <div class="container card-tabs-wrapper p-0 m-0">
+                                  <div class="card-tabs">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                        (click)="toggleCard(itemGroup, i)">
+                                        {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                      </ion-button>
+                                    </ng-container>
+                                  </div>
+                                </div>
+                                <div class="card-tab-content">
+                                  <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                    <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                      <ion-row
+                                        *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                        appFocusDirective>
+                                        <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                          [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                          [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                          style="padding: 1px 2px;">
+                                            @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                          <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                            [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                        </ion-col>
+                                      </ion-row>
+                                    </ng-container>
+                                  </ng-container>
+                                </div>
+                              </ion-col>
+                            </ion-row>
+                          </ng-container>
+
+
+                          <ng-container
+                            *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL'">
+                            <ion-row class="px-1 py-0" appFocusDirective>
+                              <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                <div class=" vertical-canvas-tabs-wrappper">
+                                  <div class="vertical-canvas-tabs">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                        (click)="toggleCard(itemGroup, i)">
+                                        {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                      </ion-button>
+                                    </ng-container>
+                                  </div>
+
+                                  <div class="vertical-canvas-tab-content">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                        <ion-row
+                                          *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                          appFocusDirective>
+                                          <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                            [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                            [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                            style="padding: 1px 2px;">
+                                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                            <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                              [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                          </ion-col>
+                                        </ion-row>
+                                      </ng-container>
+                                    </ng-container>
+                                  </div>
+                                </div>
+                              </ion-col>
+                            </ion-row>
+                          </ng-container>
+
+                        </ng-container>
+                        <ng-template #cardFrame>
+                          <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
+                              @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                            <ng-container
+                              *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
+                              <ion-row class="px-1 py-0" appFocusDirective>
+                                <ion-col class="px=1 py-0"
+                                  [hidden]="(input_item.item_visible_flag != 'T' || input_item.position=='CARD_RIGHT' || input_item.position=='CARD_LEFT' || input_item.position == 'CARD_FOOTER' || input_item.position == 'CARD_HEADER' || input_item.item_sub_type =='CARD_TITLE')"
+                                  [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : 12 ">
+                                  <div *ngIf="input_item.item_sub_type !='CARD_TITLE'">
+                                    <ng-container *ngIf="input_item.item_type != 'FRAME_SEPARATOR'; else sepFrame">
+
+                                      <app-items [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                        [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+
+                                    </ng-container>
+
+                                    <ng-template #sepFrame>
+                                      <div class="collapse-list-container"
+                                        *ngIf="input_item.item_sub_type == 'COLLAPSE'; else sepp">
+                                        <ion-item class="collapse-list" (click)="toggleSep(input_item)">
+                                          {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                          <ion-icon name="remove-circle-outline" slot="end"
+                                            *ngIf="input_item.sepCollapse == 'SHOW'"> </ion-icon>
+                                          <ion-icon name="add-circle-outline" slot="end"
+                                            *ngIf="input_item.sepCollapse == 'HIDE'"></ion-icon>
+                                        </ion-item>
+                                      </div>
+
+
+                                      <ng-template #sepp>
+                                        <div>
+
+                                          <app-items [item]="input_item" [wscp]="wscp"
+                                            (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                            (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                        </div>
+                                      </ng-template>
+                                      <ng-container *ngIf="input_item.sepCollapse == 'SHOW'">
+                                        <ng-container
+                                          *ngIf="input_item.item_sub_type=='BUTTON_CONTAINER' else noBUTTON_CONTAINER">
+                                          <ion-row
+                                            *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
+                                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                              [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                              style="padding: 1px 2px;">
+                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
+                                                (emitPass)="itemClicked($event,rowindex)"
+                                                (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                            </ion-col>
+                                          </ion-row>
+                                        </ng-container>
+                                        <ng-template #noBUTTON_CONTAINER>
+                                          <ion-row
+                                            *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;">
+                                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                              [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                              style="padding: 1px 2px;">
+                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
+                                                (emitPass)="itemClicked($event,rowindex)"
+                                                (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                            </ion-col>
+                                          </ion-row>
+                                        </ng-template>
+                                      </ng-container>
+                                    </ng-template>
+                                  </div>
+                                </ion-col>
+                              </ion-row>
+                            </ng-container>
+                          </ng-container>
+                        </ng-template>
+
+                      </ng-container>
+
+                    </div>
+
+                    <div *ngIf="frame.right_flag && frame.cardRightArray && frame.cardRightArray.length > 0"
+                      class="left-border">
+
+
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="card-footer pl-1" *ngIf="frame.footerArr && frame.footerArr.length > 0">
+                    <ion-row class="p-0 pt-1 pb-1" *ngFor="let itmGrp of frame.footerArr[j];let rowindex=index"
+                      appFocusDirective>
+                      <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                        <ion-col class="px=1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                          <app-items class="p-0" [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                            [frame]="frame" (LHSOnChange)="itemValueChange($event,j)">
+                          </app-items>
+                        </ion-col>
+                      </ng-container>
+                    </ion-row>
+                  </div>
+
+                </div>
+              </div>
+            </ion-col>
+
+          </cdk-virtual-scroll-viewport>
+        </ng-container>
+
+        <div class="center" *ngIf="(!frame.canvasRows || frame.canvasRows.length <= 0)">
+          {{noRecordMessage}}
+        </div>
+
+      </div>
+
+      <div class="center" *ngIf="frame.loading">
+        <div class="text-center cent-loader">
+          <img src="../../../../assets/dot.gif" width="20%">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="frame.apps_frame_sub_type == 'IMAGE'">
+  <div [id]="frame.apps_page_frame_seqid">
+    <div class="non-collapse-table-wrapper" id="image_card">
+
+      <div *ngIf="filter">
+        <app-frame-canvas-filter [frametable]="frame" (passdataToframetable)="getdataFromcanvasFilter($event)"
+          [frame]='frame'></app-frame-canvas-filter>
+      </div>
+      <div class="card-frame-head">
+        <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse">
+          <ion-col [size]="searchFlag ? 12 : 12" style="padding-bottom: 0;" [hidden]="frame.cardFlag">
+            <div class="frame_card_head">
+              <h1 class="frame-name position-relative">
+                <div>{{frame.apps_page_frame_name}}
+                  <span style="margin-left: 10px;"
+                    *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+                    <ion-icon class="code-btn" color="primary" name="information-circle-outline"
+                      *ngIf="developerModeData" (click)="showDeveloperData()">
+                    </ion-icon>
+                  </span>
+
+                </div>
+
+
+              </h1>
+
+              <div class="card_action_container">
+                <div class="action-btn-bar">
+                  <ion-button class="icon-btn collapse_expand" (click)="SeeAllChanage()">{{!isSeeAll ? 'Expand' :
+                    'Collapse'}}</ion-button>
+                  <ion-button *ngIf="!isNotTool" class="icon-btn" (click)="moreOption()" title="Filter"
+                    [attr.name]="frame.apps_page_frame_seqid+'btn'">
+                    <!-- <ion-icon name="ellipsis-vertical-outline"></ion-icon> -->
+                    <ion-icon name="construct-outline"></ion-icon>
+                    <ng-container
+                      *ngIf="(frame.filterAbleArr && frame.filterAbleArr.length>0) || (frame.ctrlBrkCond && frame.ctrlBrkCond.length>0) || (frame.selectedCols && frame.selectedCols.length>0) || (frame.aggregateFun && frame.aggregateFun.length>0)">
+                      <div class="filter_present"></div>
+                    </ng-container>
+                  </ion-button>
+                </div>
+                <div class="input-group primary-search-section d_v_search" *ngIf="searchFlag  && !filter ">
+
+                  <ion-input class="input-text" placeholder="Search Here..."
+                    (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                  </ion-input>
+
+                  <div class="input-group-append">
+                    <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                      small (click)="openMike()">
+                      <img src="/assets/imgs/google-speaker.png">
+                    </button>
+
+                  </div>
+
+                  <div class="input-group-append">
+                    <button class="lov-btn" ion-button icon-only small>
+                      <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                    </button>
+                  </div>
+
+                  <div class="input-group-append" *ngIf="enablefunnel">
+                    <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                      <ion-icon name="ios-funnel"></ion-icon>
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="input-group primary-search-section m_v_search" *ngIf="searchFlag  && !filter ">
+
+                <ion-input class="input-text" placeholder="Search Here..."
+                  (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                </ion-input>
+
+                <div class="input-group-append">
+                  <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                    small (click)="openMike()">
+                    <img src="/assets/imgs/google-speaker.png">
+                  </button>
+
+                </div>
+
+                <div class="input-group-append">
+                  <button class="lov-btn" ion-button icon-only small>
+                    <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                  </button>
+                </div>
+
+                <div class="input-group-append" *ngIf="enablefunnel">
+                  <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                    <ion-icon name="ios-funnel"></ion-icon>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ng-container *ngIf="isOpenMoreOption">
+        <app-table-tools [frame]="frame" [(fileTyle)]="fileTyle" [toolsExport]="toolsExport"
+          [(controlBreakArr)]="controlBreakArr" [(summaryRow)]="summaryRow"
+          [(conditionalFilterData)]="conditionalFilterData" [displayDataLen]="displayFixedrecordLength"
+          [(funArr)]="funArr" [(controlBreakFlag)]="controlBreakFlag" [(groupFlag)]="groupFlag"
+          [(footerRowFlag)]="footerRowFlag" [(filterAbleData)]="filterAbleData" [(thead)]="thead"
+          [(controlBreakHead)]="controlBreakHead" [(isAggrigate)]="isAggrigate" [(freezeColArr)]="freezeColArr"
+          [tableRows]="tableRows" (emitPass)="columnFilterEmitPass($event)" [isNotExport]="isNotExport"
+          [isNotExportPdf]="isNotExportPdf" [isNotExportExcel]="isNotExportExcel" [plt]="plt"></app-table-tools>
+       
+      </ng-container>
+      <div *ngIf="show_filter=='show' ">
+        <div *ngIf="toggleFilter">
+          <app-frame-canvas-filter [frame]="frame" [frametable]='frame'
+            (passdataToframetable)="getdataFromcanvasFilter($event)" (emitFilter)="getFilterParameter($event)">
+          </app-frame-canvas-filter>
+        </div>
+      </div>
+
+      <div *ngIf="!frame.loading">
+        <ng-container *ngIf="(!frame.canvasRows || frame.canvasRows.length > 0)">
+
+          <cdk-virtual-scroll-viewport [itemSize]="itemSize" minBufferPx="2000" maxBufferPx="4000"
+            [ngStyle]="cardHeight" class="row">
+
+            <div size="12" size-md="4" size-lg="3"
+              *cdkVirtualFor="let rows of frame.canvasRows; let j = index; trackBy: trackByFunction" size="3"
+              class="p-1 col-lg-3 colmd-4 col-12 d-flex justify-content-center">
+              <div class="super-card {{rows ? rows.status : ''}}  position-relative" id="cardHeight">
+                <div class="sr-no position-absolute" [ngStyle]="j > 998 ? {'width':'auto'} : {}">{{j+1}}</div>
+                <div class="super-card-inner position-relative">
+
+                  <div class="card-title"
+                    *ngIf="(frame.cardtitleFlag  || rows.cardtitleFlag) && frame.tableRows && frame.tableRows[frame.active_row]">
+                    <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
+                      *ngFor="let itmGrp of frame.headerarr[j];let rowindex=index" appFocusDirective>
+                      <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                        @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                        <ng-container *ngIf="input_item.item_visible_flag =='T'">
+                          <ion-col class="px-1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+
+                            <div class="p-0"
+                              *ngIf=" input_item.item_type == 'SPECIAL' && input_item.item_sub_type =='CARD_TITLE'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                            <div class="p-0 " *ngIf="input_item.position =='CARD_HEADER'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                          </ion-col>
+                        </ng-container>
+                      </ng-container>
+                    </ion-row>
+                  </div>
+
+                  <div class="card-body p-2">
+                    <div *ngIf="frame.left_flag && frame.cardLeftArray && frame.cardLeftArray.length > 0"
+                      class="right-border">
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                    <div class="table_to_card">
+                      <ng-container *ngFor="let itemGroup of rows; let rowindex=index">
+                        <ng-container
+                          *ngIf="!frame.canvasRows[j].isSeeMore && !isSeeAll? rowindex<frame.showCountData:true">
+
+                          <ng-container
+                            *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' && (itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL' || itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'); else cardFrame">
+                            <ng-container
+                              *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'">
+                              <ion-row class="px-1 py-0" appFocusDirective>
+                                <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                  <div class="container card-tabs-wrapper p-0 m-0">
+                                    <div class="card-tabs">
+                                      <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                                        @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                                        <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                          (click)="toggleCard(itemGroup, i)">
+                                          {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                        </ion-button>
+                                      </ng-container>
+                                    </div>
+                                  </div>
+                                  <div class="card-tab-content">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                        <ion-row
+                                          *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                          appFocusDirective>
+                                          <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                            [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                            [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                            style="padding: 1px 2px;">
+                                            @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                            <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                              [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                          </ion-col>
+                                        </ion-row>
+                                      </ng-container>
+                                    </ng-container>
+                                  </div>
+                                </ion-col>
+                              </ion-row>
+                            </ng-container>
+
+
+                            <ng-container
+                              *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL'">
+                              <ion-row class="px-1 py-0" appFocusDirective>
+                                <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                  <div class=" vertical-canvas-tabs-wrappper">
+                                    <div class="vertical-canvas-tabs">
+                                      <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                        <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                          (click)="toggleCard(itemGroup, i)">
+                                          {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                        </ion-button>
+                                      </ng-container>
+                                    </div>
+
+                                    <div class="vertical-canvas-tab-content">
+                                      <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                        <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                          <ion-row
+                                            *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                            appFocusDirective>
+                                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                              [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                              [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                              style="padding: 1px 2px;">
+                                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                                [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                            </ion-col>
+                                          </ion-row>
+                                        </ng-container>
+                                      </ng-container>
+                                    </div>
+                                  </div>
+                                </ion-col>
+                              </ion-row>
+                            </ng-container>
+
+                          </ng-container>
+
+                          <ng-template #cardFrame>
+                            <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
+                              @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                              <ng-container
+                                *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
+                                <ion-row class="px-1 py-0" appFocusDirective>
+                                  <ion-col class="px=1 py-0"
+                                    [hidden]="(input_item.item_visible_flag != 'T' || input_item.position=='CARD_RIGHT' || input_item.position=='CARD_LEFT' || input_item.position == 'CARD_FOOTER' || input_item.position == 'CARD_HEADER' || input_item.item_sub_type =='CARD_TITLE')"
+                                    [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : 12 ">
+                                    <div *ngIf="input_item.item_sub_type !='CARD_TITLE'">
+                                      <ng-container *ngIf="input_item.item_type != 'FRAME_SEPARATOR'; else sepFrame">
+
+                                        <app-items [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                          [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+
+                                      </ng-container>
+
+                                      <ng-template #sepFrame>
+                                        <div class="collapse-list-container"
+                                          *ngIf="input_item.item_sub_type == 'COLLAPSE'; else sepp">
+                                          <ion-item class="collapse-list" (click)="toggleSep(input_item)">
+                                            {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                            <ion-icon name="remove-circle-outline" slot="end"
+                                              *ngIf="input_item.sepCollapse == 'SHOW'"> </ion-icon>
+                                            <ion-icon name="add-circle-outline" slot="end"
+                                              *ngIf="input_item.sepCollapse == 'HIDE'"></ion-icon>
+                                          </ion-item>
+                                        </div>
+
+
+                                        <ng-template #sepp>
+                                          <div>
+
+                                            <app-items [item]="input_item" [wscp]="wscp" [frame]="frame"
+                                              (emitPass)="itemClicked($event,j)"
+                                              (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                          </div>
+                                        </ng-template>
+
+                                        <ng-container *ngIf="input_item.sepCollapse == 'SHOW'">
+
+                                          <div class="d-flex">
+                                            <ng-container
+                                              *ngIf="input_item.item_sub_type=='BUTTON_CONTAINER' else noBUTTON_CONTAINER">
+                                              <ng-container
+                                                *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;">
+                                                <div *ngFor="let item of itemGroup.Level5;let i=index"
+                                                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                                  style="padding: 1px 2px;">
+                                                  @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                  <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
+                                                    (emitPass)="itemClicked($event,rowindex)"
+                                                    (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                                </div>
+                                              </ng-container>
+                                            </ng-container>
+                                          </div>
+                                          <ng-template #noBUTTON_CONTAINER>
+                                            <ion-row
+                                              *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;">
+                                              <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                                [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                                style="padding: 1px 2px;">
+                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
+                                                  (emitPass)="itemClicked($event,rowindex)"
+                                                  (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                              </ion-col>
+                                            </ion-row>
+                                          </ng-template>
+
+
+                                        </ng-container>
+                                      </ng-template>
+                                    </div>
+                                  </ion-col>
+                                </ion-row>
+                              </ng-container>
+                            </ng-container>
+                          </ng-template>
+
+                        </ng-container>
+                      </ng-container>
+
+
+                    </div>
+
+                    <div *ngIf="frame.right_flag && frame.cardRightArray && frame.cardRightArray.length > 0"
+                      class="left-border">
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="see_more" *ngIf="rows.running && !isSeeAll">
+                    <ion-button (click)="seeMore(frame.canvasRows,j)" class="see_more">{{!frame.canvasRows[j].isSeeMore
+                      ?
+                      'See more...' : 'Hide'}}</ion-button>
+                  </div>
+                  <div class="card-footer pl-1" *ngIf="frame.footerArr && frame.footerArr.length > 0">
+                    <ion-row class="p-0 pt-1 pb-1 justify-content-end align-center" appFocusDirective>
+
+                      <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
+                        <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                          <ng-container *ngIf="ftI<2">
+                            <div class="px=1 py-0">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+                          </ng-container>
+
+                        </ng-container>
+                      </ng-container>
+                      <div class="px=1 py-0" *ngIf="rows.runningBtn">
+                        <div class="select-container ion-text-center">
+                          <ion-button size="small"
+                            class="icon-btn md button button-small button-solid ion-activatable ion-focusable hydrated"
+                            title="More" (click)="moreButton(frame.footerArr[j],j,$event)">
+                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                          </ion-button>
+                        </div>
+                      </div>
+                    </ion-row>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </cdk-virtual-scroll-viewport>
+        </ng-container>
+
+        <div class="center" *ngIf="(!frame.canvasRows || frame.canvasRows.length <= 0)">
+          {{noRecordMessage}}
+        </div>
+
+      </div>
+
+      <div class="center" *ngIf="frame.loading">
+        <div class="text-center cent-loader">
+          <img src="../../../../assets/dot.gif" width="20%">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="frame.apps_frame_sub_type == 'ATTACHMENT'">
+  <div [id]="frame.apps_page_frame_seqid">
+    <div class="non-collapse-table-wrapper" id="uploadimage_card">
+
+      <div class="card-frame-head">
+        <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse">
+          <ion-col [size]="searchFlag ? 12 : 12" style="padding-bottom: 0;" [hidden]="frame.cardFlag">
+            <div class="frame_card_head">
+              <h1 class="frame-name position-relative">
+                <div>{{frame.apps_page_frame_name}}
+                  <span style="margin-left: 10px;"
+                    *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+                    <ion-icon class="code-btn" color="primary" name="information-circle-outline"
+                      *ngIf="developerModeData" (click)="showDeveloperData()">
+                    </ion-icon>
+                  </span>
+                </div>
+
+              </h1>
+              <div class="card_action_container">
+                <div class="action-btn-bar">
+                  <ion-button *ngIf="!isNotTool" class="icon-btn" (click)="moreOption()" title="Filter"
+                    [attr.name]="frame.apps_page_frame_seqid+'btn'">
+                    <!-- <ion-icon name="ellipsis-vertical-outline"></ion-icon> -->
+                    <ion-icon name="construct-outline"></ion-icon>
+                    <ng-container
+                      *ngIf="(frame.filterAbleArr && frame.filterAbleArr.length>0) || (frame.ctrlBrkCond && frame.ctrlBrkCond.length>0) || (frame.selectedCols && frame.selectedCols.length>0) || (frame.aggregateFun && frame.aggregateFun.length>0)">
+                      <div class="filter_present"></div>
+                    </ng-container>
+                  </ion-button>
+                </div>
+                <div class="input-group primary-search-section d_v_search" *ngIf="searchFlag  && !filter ">
+
+                  <ion-input class="input-text" placeholder="Search Here..."
+                    (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                  </ion-input>
+
+                  <div class="input-group-append">
+                    <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                      small (click)="openMike()">
+                      <img src="/assets/imgs/google-speaker.png">
+                    </button>
+
+                  </div>
+
+                  <div class="input-group-append">
+                    <button class="lov-btn" ion-button icon-only small>
+                      <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                    </button>
+                  </div>
+
+                  <div class="input-group-append" *ngIf="enablefunnel">
+                    <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                      <ion-icon name="ios-funnel"></ion-icon>
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="input-group primary-search-section m_v_search" *ngIf="searchFlag  && !filter ">
+
+                <ion-input class="input-text" placeholder="Search Here..."
+                  (ionInput)="getSearchResult(searchAllData,500)" [(ngModel)]="frame.search">
+                </ion-input>
+
+                <div class="input-group-append">
+                  <button *ngIf="platform.is('ios') || platform.is('android')" class="lov-btn" ion-button icon-only
+                    small (click)="openMike()">
+                    <img src="/assets/imgs/google-speaker.png">
+                  </button>
+
+                </div>
+
+                <div class="input-group-append">
+                  <button class="lov-btn" ion-button icon-only small>
+                    <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+                  </button>
+                </div>
+
+                <div class="input-group-append" *ngIf="enablefunnel">
+                  <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+                    <ion-icon name="ios-funnel"></ion-icon>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ng-container *ngIf="isOpenMoreOption">
+        <app-table-tools [frame]="frame" [(fileTyle)]="fileTyle" [toolsExport]="toolsExport"
+          [(controlBreakArr)]="controlBreakArr" [(summaryRow)]="summaryRow"
+          [(conditionalFilterData)]="conditionalFilterData" [displayDataLen]="displayFixedrecordLength"
+          [(funArr)]="funArr" [(controlBreakFlag)]="controlBreakFlag" [(groupFlag)]="groupFlag"
+          [(footerRowFlag)]="footerRowFlag" [(filterAbleData)]="filterAbleData" [(thead)]="thead"
+          [(controlBreakHead)]="controlBreakHead" [(isAggrigate)]="isAggrigate" [(freezeColArr)]="freezeColArr"
+          [tableRows]="tableRows" (emitPass)="columnFilterEmitPass($event)" [isNotExport]="isNotExport"
+          [isNotExportPdf]="isNotExportPdf" [isNotExportExcel]="isNotExportExcel" [plt]="plt"></app-table-tools>
+      
+      </ng-container>
+      <div *ngIf="!frame.loading">
+        <ng-container *ngIf="(!frame.canvasRows || frame.canvasRows.length > 0)">
+
+          <cdk-virtual-scroll-viewport [itemSize]="itemSize" minBufferPx="2000" maxBufferPx="4000"
+            [ngStyle]="cardHeight" class="row">
+
+            <div *cdkVirtualFor="let rows of frame.canvasRows; let j = index; trackBy: trackByFunction"
+              class="p-0 pt-1 col-lg-3 col-md-4 col-12 d-flex justify-content-center">
+              <div class="super-card {{rows ? rows.status : ''}}  position-relative" id="cardHeight">
+                <div class="sr-no position-absolute" [ngStyle]="j > 998 ? {'width':'auto'} : {}">{{j+1}}</div>
+                <div class="super-card-inner position-relative">
+
+                  <div class="card-title"
+                    *ngIf="(frame.cardtitleFlag  || rows.cardtitleFlag) && frame.tableRows && frame.tableRows[frame.active_row]">
+                    <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
+                      *ngFor="let itmGrp of frame.headerarr[j];let rowindex=index" appFocusDirective>
+                      <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                        @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                        <ng-container *ngIf="input_item.item_visible_flag =='T'">
+                          <ion-col class="px-1 py-0" size="12">
+                            <!-- [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12" -->
+                            <div class="p-0"
+                              *ngIf=" input_item.item_type == 'SPECIAL' && input_item.item_sub_type =='CARD_TITLE'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                            <div class="p-0 " *ngIf="input_item.position =='CARD_HEADER'">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+
+                          </ion-col>
+                        </ng-container>
+                      </ng-container>
+                    </ion-row>
+                  </div>
+
+                  <div class="card-body p-2">
+                    <div *ngIf="frame.left_flag && frame.cardLeftArray && frame.cardLeftArray.length > 0"
+                      class="right-border">
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0 mb-1"
+                          *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                    <div>
+                      <ng-container *ngFor="let itemGroup of rows; let rowindex=index">
+                        <!-- <ng-container *ngIf="!frame.canvasRows[j].isSeeMore ? rowindex<5:true"> -->
+
+                        <ng-container
+                          *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_type == 'FRAME_SEPARATOR' && (itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL' || itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'); else cardFrame">
+                          <ng-container
+                            *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_HORIZONTAL'">
+                            <ion-row class="px-1 py-0" appFocusDirective>
+                              <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                <div class="container card-tabs-wrapper p-0 m-0">
+                                  <div class="card-tabs">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                        (click)="toggleCard(itemGroup, i)">
+                                        {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                      </ion-button>
+                                    </ng-container>
+                                  </div>
+                                </div>
+                                <div class="card-tab-content">
+                                  <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                    <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                      <ion-row
+                                        *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                        appFocusDirective>
+                                        <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                          [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                          [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                          style="padding: 1px 2px;">
+                                          @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                          <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                            [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                        </ion-col>
+                                      </ion-row>
+                                    </ng-container>
+                                  </ng-container>
+                                </div>
+                              </ion-col>
+                            </ion-row>
+                          </ng-container>
+
+
+                          <ng-container
+                            *ngIf="itemGroup.Level5 && itemGroup.Level5.length >0 && itemGroup.Level5[0].item_sub_type == 'TAB_VERTICAL'">
+                            <ion-row class="px-1 py-0" appFocusDirective>
+                              <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[0] : '12' ">
+                                <div class=" vertical-canvas-tabs-wrappper">
+                                  <div class="vertical-canvas-tabs">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
+                                        (click)="toggleCard(itemGroup, i)">
+                                        {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                      </ion-button>
+                                    </ng-container>
+                                  </div>
+
+                                  <div class="vertical-canvas-tab-content">
+                                    <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+                                      <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                                        <ion-row
+                                          *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;"
+                                          appFocusDirective>
+                                          <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                            [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
+                                            [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                            style="padding: 1px 2px;">
+                                            @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                            <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                              [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                          </ion-col>
+                                        </ion-row>
+                                      </ng-container>
+                                    </ng-container>
+                                  </div>
+                                </div>
+                              </ion-col>
+                            </ion-row>
+                          </ng-container>
+
+                        </ng-container>
+
+                        <ng-template #cardFrame>
+                          <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
+                            @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                            <ng-container
+                              *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
+                              <ion-row class="px-1 py-0" appFocusDirective>
+                                <ion-col class="px=1 py-0"
+                                  [hidden]="(input_item.item_visible_flag != 'T' || input_item.position=='CARD_RIGHT' || input_item.position=='CARD_LEFT' || input_item.position == 'CARD_FOOTER' || input_item.position == 'CARD_HEADER' || input_item.item_sub_type =='CARD_TITLE')"
+                                  [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : 12 ">
+                                  <div *ngIf="input_item.item_sub_type !='CARD_TITLE'">
+                                    <ng-container *ngIf="input_item.item_type != 'FRAME_SEPARATOR'; else sepFrame">
+
+                                      <app-items [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
+                                        [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
+
+                                    </ng-container>
+
+                                    <ng-template #sepFrame>
+                                      <div class="collapse-list-container"
+                                        *ngIf="input_item.item_sub_type == 'COLLAPSE'; else sepp">
+                                        <ion-item class="collapse-list" (click)="toggleSep(input_item)">
+                                          {{input_item.value ? input_item.value : input_item.prompt_name}}
+                                          <ion-icon name="remove-circle-outline" slot="end"
+                                            *ngIf="input_item.sepCollapse == 'SHOW'"> </ion-icon>
+                                          <ion-icon name="add-circle-outline" slot="end"
+                                            *ngIf="input_item.sepCollapse == 'HIDE'"></ion-icon>
+                                        </ion-item>
+                                      </div>
+
+
+                                      <ng-template #sepp>
+                                        <div>
+
+                                          <app-items [item]="input_item" [wscp]="wscp" [frame]="frame"
+                                            (emitPass)="itemClicked($event,j)"
+                                            (LHSOnChange)="itemValueChange($event,j)"></app-items>
+                                        </div>
+                                      </ng-template>
+
+                                      <ng-container *ngIf="input_item.sepCollapse == 'SHOW'">
+
+                                        <div class="d-flex">
+                                          <ng-container
+                                            *ngIf="input_item.item_sub_type=='BUTTON_CONTAINER' else noBUTTON_CONTAINER">
+                                            <ng-container
+                                              *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;">
+                                              <div *ngFor="let item of itemGroup.Level5;let i=index"
+                                                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                                style="padding: 1px 2px;">
+                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
+                                                  (emitPass)="itemClicked($event,rowindex)"
+                                                  (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                              </div>
+                                            </ng-container>
+                                          </ng-container>
+                                        </div>
+                                        <ng-template #noBUTTON_CONTAINER>
+                                          <ion-row
+                                            *ngFor="let itemGroup of input_item.containerRowss | canvasItemSearch :searchText;">
+                                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
+                                              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                              [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
+                                              style="padding: 1px 2px;">
+                                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                                              <app-items [item]="item" [wscp]="wscp" [frame]="frame"
+                                                (emitPass)="itemClicked($event,rowindex)"
+                                                (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                            </ion-col>
+                                          </ion-row>
+                                        </ng-template>
+
+
+                                      </ng-container>
+                                    </ng-template>
+                                  </div>
+                                </ion-col>
+                              </ion-row>
+                            </ng-container>
+                          </ng-container>
+                        </ng-template>
+
+                        <!-- </ng-container> -->
+                      </ng-container>
+
+
+                    </div>
+
+                    <div *ngIf="frame.right_flag && frame.cardRightArray && frame.cardRightArray.length > 0"
+                      class="left-border">
+                      <div class="icon-center">
+                        <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
+                          <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col class="px=1 py-0"
+                              [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
+                              [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </ion-col>
+                          </ng-container>
+                        </ion-row>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- <div class="see_more" *ngIf="rows.running">
+                  <ion-button (click)="seeMore(frame.canvasRows,j)" class="see_more">{{!frame.canvasRows[j].isSeeMore ?
+                    'See more...' : 'Hide'}}</ion-button>
+                </div> -->
+                  <div class="card-footer pl-1" *ngIf="frame.footerArr && frame.footerArr.length > 0">
+                    <ion-row class="p-0 pt-1 pb-1 justify-content-end align-center" appFocusDirective>
+
+                      <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
+                        <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                          <ng-container *ngIf="ftI<2">
+                            <div class="px=1 py-0">
+                              <app-items class="p-0" [item]="input_item" [wscp]="wscp"
+                                (emitPass)="itemClicked($event,j)" [frame]="frame"
+                                (LHSOnChange)="itemValueChange($event,j)">
+                              </app-items>
+                            </div>
+                          </ng-container>
+
+                        </ng-container>
+                      </ng-container>
+                      <div class="px=1 py-0" *ngIf="rows.runningBtn">
+                        <div class="select-container ion-text-center">
+                          <ion-button size="small"
+                            class="icon-btn md button button-small button-solid ion-activatable ion-focusable hydrated"
+                            title="More" (click)="moreButton(frame.footerArr[j],j,$event)">
+                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                          </ion-button>
+                        </div>
+
+
+
+                      </div>
+                    </ion-row>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </cdk-virtual-scroll-viewport>
+        </ng-container>
+
+        <div class="center" *ngIf="(!frame.canvasRows || frame.canvasRows.length <= 0)">
+          {{noRecordMessage}}
+        </div>
+
+      </div>
+
+      <div class="center" *ngIf="frame.loading">
+        <div class="text-center cent-loader">
+          <img src="../../../../assets/dot.gif" width="20%">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ng-container>

@@ -1,0 +1,119 @@
+.choose-file {
+    position: relative;
+    width: 35px;
+}
+.choose-file-ip{
+    position: absolute;
+    z-index: 99;
+    left: 0%;
+    opacity: 0;
+    width: 35px;
+    top: 0;
+}
+.choose-file-new {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    margin: auto;
+    cursor: pointer;
+}
+.choose-file-ip-new {
+    position: absolute;
+    z-index: 99;
+    left: 0%;
+    opacity: 0;
+    width: 150px;
+    height: 150px;
+    top: 0;
+    cursor: pointer;
+}
+.img-ic{
+    color: #fff;
+    padding: 0;
+    border-radius: 18px;
+    font-size: var(--font18);
+    width: 30px;
+    position: absolute;
+    left: 0;
+    top: 0px;
+        bottom: 0;
+    margin: auto;
+}
+.img-ic-new {
+    color: var(--text-dark);
+    padding: 0;
+    border-radius: 18px;
+    font-size: var(--font20);
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    cursor: pointer;
+}
+.img-capture-sec{
+    margin-right: 10px;
+}
+.choose-file-ip{
+    position: absolute;
+    z-index: 99;
+    left: 0%;
+    opacity: 0;
+    width: 35px;
+    top: 0;
+    bottom:0px;
+}
+.choose-file-ip-new {
+    position: absolute;
+    z-index: 99;
+    left: 0%;
+    opacity: 0;
+    width: 150px;
+    height: 150px;
+    top: 0;
+    cursor: pointer;
+}
+
+input {
+    width: 100%;       
+}
+
+.info {
+    background-color: aqua;            
+}
+
+.error {
+    background-color: red;
+    color: white;
+}
+.videoAlign {
+    width: 100%;
+    height: auto
+    ;
+}
+.video-container{
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+span.error-msg {
+    position: absolute;
+    text-align: center;
+    color: var(--blue-new);
+    font-size: var(--font20);
+    z-index: 1;
+}
+.pathname{
+    margin-top: 8px;
+    margin-left: 0;
+    --padding-start: 8;
+    padding-left: 9px;
+    word-break: break-word;
+    height: auto;
+    ion-icon{
+        font-size: 25px;
+    }
+}

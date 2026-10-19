@@ -1,0 +1,138 @@
+ <div class="frame-head">
+
+      <ion-row *ngIf="frame.apps_page_frame_name && ! frame.collapse" class="align-center">
+        <ion-col [size]=" 12" style="padding-bottom: 0;">
+          <div class="d-flex" style="justify-content: space-between;flex-wrap: wrap;">
+            <h1 class="frame-name">{{frame.apps_page_frame_name}}
+              <ng-container *ngIf="globalObjects.toggleDevloperMode()">
+                <span style="margin-left: 10px;">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]<ion-icon
+                    *ngIf="developerModeData" class="code-btn" color="primary" name="information-circle-outline"
+                    (click)="showDeveloperData()"></ion-icon>
+                </span>
+
+              </ng-container>
+
+            </h1>
+
+          </div>
+
+        </ion-col>
+
+
+      </ion-row>
+    </div>
+<div class="main-body-panel">
+  <div class="main-menu-tab">
+    <div class="main-menu-search">
+      <!-- <ion-icon name="folder-outline"></ion-icon>  -->
+      <ion-searchbar #searchbar showCancelButton="focus" class="custom"
+        (ionInput)="searchVal($event)"></ion-searchbar>
+
+    </div>
+    <ul style="padding: 0px 0px 0px 5px;">
+      <ng-container *ngIf="frame && frame.filteredData">
+        <li *ngFor="let menu of frame.filteredData">
+          <a>
+
+            <ion-checkbox color="primary" (ionChange)="cbCheck(menu)"
+              *ngIf="menu.cb_select != undefined; else icon" [checked]="menu.cb_select == 'Y'"></ion-checkbox>
+            <ng-template #icon>
+              <ion-icon name="folder-outline" [style]="menu.isClick ? color : ''"
+                (click)="menuClicked(menu,frame)"></ion-icon>
+            </ng-template>
+
+            <span class="menu-text" [style]="menu.isClick ? color : ''" (click)="showTemplate(menu)" title="{{menu.childData.name}}">{{
+              menu.childData.name
+              }} <ion-icon name="chevron-forward-outline" class="right-menu chevron-frist"
+                *ngIf="menu.childData && menu.childData.isParent"
+                [style]="menu.isClick ? color2 : ''"></ion-icon></span>
+
+
+          </a>
+
+          <div class="sub-menu-tab"
+            *ngIf="(menu && menu.childData && menu.childData.isParent && menu.childData.id == menuId && !recent) || (filteredDataflag)">
+            <ul>
+              <li *ngFor="let subMenu of menu.childData.child">
+                <a>
+                  <!-- <ion-icon name="folder-outline" (click)="menuClicked(subMenu,frame)"></ion-icon> -->
+                  <ion-checkbox color="primary" (ionChange)="cbCheck(subMenu)"
+                    *ngIf="subMenu.cb_select != undefined; else icon"
+                    [checked]="subMenu.cb_select == 'Y'"></ion-checkbox>
+                  <ng-template #icon>
+                    <ion-icon name="folder-outline" [style]="subMenu.isClick ? color : ''"
+                      (click)="menuClicked(subMenu,frame)"></ion-icon>
+                  </ng-template>
+
+                  <span class="menu-text" [style]="subMenu.isClick ? color : ''"
+                    (click)="childClicked(subMenu,null,'2')" title="{{subMenu.childData.name}}"> {{
+                    subMenu.childData.name }}
+                    <ion-icon name="chevron-down-outline" class="right-menu"
+                      *ngIf="subMenu.childData && subMenu.childData.isParent"
+                      [style]="subMenu.isClick ? color3 : ''"></ion-icon>
+                  </span>
+
+                </a>
+                <div class="sub-menu-tab">
+                  <ng-container
+                    *ngIf="subMenu.childData.id == childId?.id || subMenu.childData.id == childId?.parentId">
+              <li *ngFor="let sub of subMenu.childData.child" class="new-tab-parent">
+                <!-- <a class="new-tab-section">
+                  <div (click)="menuClicked(sub,frame)">
+                    <ion-icon name="ellipse-outline" class="ellipse-icon"></ion-icon>
+                    {{ sub.childData.name }}
+                  </div>
+                </a> -->
+
+                <a>
+                  <!-- <ion-icon name="folder-outline" (click)="menuClicked(sub,frame)"></ion-icon> -->
+                  <ion-checkbox color="primary" (ionChange)="cbCheck(sub)"
+                    *ngIf="sub.cb_select != undefined; else icon" [checked]="sub.cb_select == 'Y'"></ion-checkbox>
+                  <ng-template #icon>
+                    <ion-icon name="folder-outline" [style]="sub.isClick ? color : ''"
+                      (click)="menuClicked(sub,frame)"></ion-icon>
+                  </ng-template>
+
+                  <span class="menu-text" [style]="sub.isClick ? color : ''" (click)="childClicked(sub,null,'3')" title="{{sub.childData.name}}"> {{
+                    sub.childData.name }}
+                    <ion-icon name="chevron-down-outline" class="right-menu"
+                      *ngIf="sub.childData && sub.childData.isParent" [style]="sub.isClick ? color3 : ''"></ion-icon>
+                  </span>
+
+                </a>
+
+                <div class="multisub-menu-tab">
+                  <ul *ngIf="sub.childData.id == childId.id && sub.childData.flag ">
+                    <li *ngFor="let childSub of sub.childData.child" class="new-tab-parent">
+
+                      <a class="new-tab-section">
+                        <div (click)="menuClicked(childSub,frame)" class="d-flex align-items-center">
+                          <!-- <ion-icon name="ellipse-outline" class="ellipse-icon"></ion-icon> -->
+                          <ion-checkbox color="primary" (ionChange)="cbCheck(childSub)"
+                            *ngIf="childSub.cb_select != undefined; else icon"
+                            [checked]="childSub.cb_select == 'Y'" class="mt-1"></ion-checkbox>
+                          <ng-template #icon>
+                            <ion-icon name="folder-outline" [style]="childSub.isClick ? color : ''"
+                              (click)="menuClicked(childSub,frame)"></ion-icon>
+                          </ng-template>
+                          <span class="menu-text" title="{{childSub.childData.name }}">{{ childSub.childData.name }}</span>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                  <!-- </ng-container> -->
+                </div>
+
+
+              </li>
+      </ng-container>
+  </div>
+  </li>
+  </ul>
+</div>
+
+</li>
+</ng-container>
+</ul>
+</div>
+</div>

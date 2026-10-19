@@ -1,0 +1,217 @@
+<!-- <div class="object-filter-tab">
+  <div class="row m-0">
+    <div class="col-md-3 col-12 pr-0">
+      <div class="object-filter-tab-menu">
+        <ul>
+          <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
+            <ng-container *ngFor="let itemGroup of framedata">
+              <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                <li *ngIf="item.containerRowss;" (click)="toggleItm(itemGroup, i)" [ngClass]="item.sepFrame == 'SHOW' ? 'active' : '' "><a>{{item.prompt_name}}</a></li>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9 col-12">
+      <div class="container-fluid object-filter-tab-form">
+        <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
+          <ng-container *ngFor="let itemGroup of framedata">
+            <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+              <ng-container *ngIf="item.sepFrame == 'SHOW'">
+                <ng-container *ngIf="item.containerRowss">
+                  <div class="row" *ngFor="let itmGroup of item.containerRowss; let j=index">ng-container *ngFor="let itm of itmGroup.Level5 ; let i=index">
+                      <div [class]="itmGroup.groupCol ? 'col-md-'+itmGroup.groupCol[i] : 'col-md-12'"
+                        [hidden]="itm.item_visible_flag !='T'" style="padding: 1px 2px;">
+                        <app-items [item]="itm" (emitPass)="itemClicked($event,'notDismiss')" [frame]="frame"
+                          (LHSOnChange)="itemValueChange($event,'notDismiss')"></app-items>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col-md-12 col-12 pr-2">
+      <div class="filter-button">
+        <ng-container *ngFor="let framedata of frame.tableRows;let rowindex =index">
+          <ng-container *ngFor="let itemGroup of framedata">
+            <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+              <div class="" *ngIf="item.item_sub_type == 'SYS_CLEAR'">
+                <ion-icon class="code-btn" name="information-circle-outline" color="primary" *ngIf="globalObjects.toggleDevloperMode"
+                  (click)="showDeveloperData(item)"></ion-icon>
+                  <ion-button  (click)="itemClicked(item)">{{item.prompt_name}}</ion-button>
+              </div>
+              <div class="" *ngIf="item.item_sub_type == 'SYS_SHOW'">
+                <ion-icon class="code-btn" name="information-circle-outline" color="primary" *ngIf="globalObjects.toggleDevloperMode"
+                  (click)="showDeveloperData(item)"></ion-icon>
+                  <ion-button (click)="itemClicked(item)">{{item.prompt_name}} </ion-button>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="object-filter-tab" [id]="frame.apps_page_frame_seqid" #itemsContainer>
+  <div class="row m-0">
+    <div class="col-md-12 col-12 p-0 m-0">
+      <h2 class="frame-title">Filter</h2>
+      <div class="object-filter-tab-menu">
+
+        <ul>
+          <!-- <ng-container *ngFor="let itemGroup of grpByArr;let rowindex =index"> -->
+          <!-- <ng-container *ngFor="let itemGroup of framedata"> -->
+          <!-- {{itemGroup.baseArr.prompt_name}} -->
+          <!-- <li *ngIf="itemGroup.baseArr;" (click)="toogleGrp(itemGroup,rowindex)" [ngClass]="itemGroup.groupname == showGroup ? 'active' : '' "><a>{{itemGroup.baseArr.prompt_name}}</a></li>
+              <li *ngIf="itemGroup.groupname=='all';" (click)="toogleGrp(itemGroup,rowindex)" [ngClass]="itemGroup.groupname == showGroup ? 'active' : '' "><a>All</a></li> -->
+
+          <!-- <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                <li *ngIf="itemGroup.baseArr;" (click)="toggleItm(itemGroup, i)" [ngClass]="itemGroup.baseArr.sepFrame == 'SHOW' ? 'active' : '' "><a>{{itemGroup.baseArr.prompt_name}}</a></li>
+              </ng-container> -->
+          <!-- </ng-container> -->
+          <!-- </ng-container> -->
+          <!-- <li (click)="toggleItemGroup($event,'','','all')" [ngClass]="frame.showAllFlag? 'active' : '' "><a>All</a></li> -->
+          <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
+            <ng-container *ngFor="let itemGroup of framedata">
+              <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                <li *ngIf="item.containerRowss && !frame.showAllFlag;"
+                  (click)="toggleItemGroup(itemGroup,item, i,'other')"
+                  [ngClass]="curr_item_seqno == item.item_seqno ? 'active' : ''" title="{{item.prompt_name}}">
+                  <a>{{item.prompt_name}}</a></li>
+                <li *ngIf="item.containerRowss && frame.showAllFlag;"
+                  (click)="toggleItemGroup(itemGroup,item, i,'other')" title="{{item.prompt_name}}">
+                  <a>{{item.prompt_name}}</a></li>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <li (click)="toggleItemGroup($event,'','','all')" [ngClass]="frame.showAllFlag? 'active' : '' "><a>All</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-12 col-12 p-0">
+      <div class="container-fluid object-filter-tab-form">
+
+        <!-- curr.item_seqno.toString().split(".")[0] -->
+
+        <!-- <ng-container *ngIf="!frame.showAllFlag">
+        <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
+          <ng-container *ngFor="let itemGroup of framedata">
+            <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+
+              <ng-container *ngIf="item.sepFrame == 'SHOW'">
+                <ng-container *ngIf="item.containerRowss">
+                  <div class="row" *ngFor="let itmGroup of item.containerRowss; let j=index">
+
+                    <ng-container *ngFor="let itm of itmGroup.Level5 ; let i=index">
+                     
+                      <div [class]="itmGroup.groupCol ? 'col-md-'+itmGroup.groupCol[i] : 'col-md-12'"
+                        [hidden]="itm.item_visible_flag !='T'" style="padding: 1px 2px;">
+                        <app-items [item]="itm" (emitPass)="itemClicked($event,'notDismiss')" [frame]="frame"
+                          (LHSOnChange)="itemValueChange($event,'notDismiss')"></app-items>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container> 
+      </ng-container> -->
+
+        <ng-container *ngIf="!frame.showAllFlag">
+          <ng-container *ngFor="let itmGroup1 of frame.tableRows;">
+            <ng-container *ngFor="let item of itmGroup1 ; let i=index">
+              <div class="row" (keyup.enter)="handleEnterKey()">
+                <ng-container *ngFor="let itm of item.Level5 ; let i=index">
+                  <ng-container *ngIf="itm.item_type != 'FRAME_SEPARATOR';">
+
+                    <ng-container *ngIf="curr_item_seqno == itm.item_seqno.toString().split('.')[0]">
+                      <div [class]="item.groupCol[i] ? 'col-md-'+item.groupCol[i] + ' col-'+item.groupCol[i] : 'col-md-12'"
+                        [hidden]="itm.item_visible_flag !='T'" style="padding: 1px 2px;">
+                        <app-items [item]="itm" (emitPass)="itemClicked($event,'notDismiss')" [frame]="frame"
+                          (LHSOnChange)="itemValueChange($event,'notDismiss')"></app-items>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+          </ng-container>
+
+        </ng-container>
+
+
+        <ng-container *ngIf="frame.showAllFlag">
+          <ng-container *ngFor="let itmGroup1 of frame.tableRows;">
+            <ng-container *ngFor="let item of itmGroup1 ; let i=index">
+              <div class="row" (keyup.enter)="handleEnterKey()">
+                <ng-container *ngFor="let itm of item.Level5 ; let i=index">
+                  <ng-container *ngIf="itm.item_type != 'FRAME_SEPARATOR';">
+                    <!-- {{item.groupCol[i]}} -->
+
+                    <div [class]="item.groupCol[i] ? 'col-md-'+item.groupCol[i] + ' col-'+item.groupCol[i] : 'col-md-12'"
+                      [hidden]="itm.item_visible_flag !='T'" style="padding: 1px 2px;">
+                      <app-items [item]="itm" (emitPass)="itemClicked($event,'notDismiss')" [frame]="frame"
+                        (LHSOnChange)="itemValueChange($event,'notDismiss')"></app-items>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </ng-container>
+          </ng-container>
+
+        </ng-container>
+
+        <!-- <ng-container *ngFor="let itemGroup of grpByArr;let rowindex =index">
+            <ng-container *ngIf="itemGroup.groupname==showGroup">
+              
+            <div *ngFor="let itm of itemGroup.groupnameARR">
+              <app-items [item]="itm" (emitPass)="itemClicked($event,'notDismiss')" [frame]="frame"
+                          (LHSOnChange)="itemValueChange($event,'notDismiss')"></app-items>
+            </div>
+
+
+
+            </ng-container>
+        </ng-container> -->
+      </div>
+    </div>
+    <div class="col-md-12 col-12 pr-2">
+      <div class="filter-button">
+
+
+
+        <ng-container *ngFor="let framedata of frame.tableRows;let rowindex =index">
+          <ng-container *ngFor="let itemGroup of framedata">
+            <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+
+
+              <div class="" *ngIf="item.item_sub_type == 'SYS_CLEAR'" (keyup.enter)="handleEnterKey()">
+                <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+                  *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+                <ion-button [disabled]="item.item_enable_flag == 'F'"
+                  (click)="itemClicked(item,'SYS_CLEAR')">{{item.prompt_name}}</ion-button>
+              </div>
+
+              <div class="" *ngIf="item.item_sub_type == 'SYS_SHOW'" (keyup.enter)="handleEnterKey()">
+                <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+                  *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+                <ion-button [disabled]="item.item_enable_flag == 'F'" (click)="itemClicked(item)">{{item.prompt_name}}
+                </ion-button>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

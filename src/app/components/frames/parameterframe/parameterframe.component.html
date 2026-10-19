@@ -1,0 +1,13 @@
+<ion-row>
+  <ng-container *ngIf="object_mast && object_mast.Level2 && object_mast.Level2[page_no]">
+    <ng-container *ngFor="let frame of object_mast.Level2[page_no].Level3">
+      <ion-col size="12"
+        *ngIf="(frame.apps_page_frame_seqid == (object_mast.Level2[page_no].object_code + '-PARA')) ">
+       
+        <app-frame-canvas [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+          [sessionObj]="sessionObj" [wsdpcl]="wsdpcl">
+        </app-frame-canvas>
+      </ion-col>
+    </ng-container>
+  </ng-container>
+</ion-row>

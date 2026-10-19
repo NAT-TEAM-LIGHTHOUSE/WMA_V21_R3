@@ -1,0 +1,260 @@
+.contract-container {
+    position: relative;
+    width: 99%;
+    padding: 10px 8px;
+    margin-bottom: 10px;
+    .contract-item{
+        font-weight: bold;
+        font-size: var(--font15) !important;
+    }
+    .add-icon-btn {
+        font-size: var(--font17);
+        padding: 0px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: -14px;
+        top: 32px;
+        text-align: center;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        ion-icon{
+              width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 1;
+    padding: 3px;
+        }
+    }
+    .sub-header{
+        .label{
+            display: block;
+        }
+        span{
+    font-weight: bold;
+        }
+    }
+    ion-input{
+        --padding-top:2px;
+        --padding-bottom:2px;
+    }
+}
+
+
+.frame-name {
+         // padding: 10px 15px 0px 15px !important;
+          font-size: var(--font14) !important;
+          font-weight: 600;
+      }
+
+table td.td-fixed-right {
+  position: sticky;
+  right: 0;
+  z-index: 99;
+  width: auto;
+  min-width: auto;
+}
+
+table thead tr th {
+  position: sticky !important;
+  top: 0px;
+  z-index: 9;
+  // white-space: nowrap;
+  white-space: normal;
+   font-size: var(--font14) !important;
+    font-weight: 600 !important;
+}
+
+
+// table thead tr:nth-child(2) th {
+//   position: sticky !important;
+//   top: 33px;
+//   z-index: 9;
+//   // white-space: nowrap;
+//   white-space: normal; 
+// } 
+table .tfooter tr td {
+  position: sticky !important;
+  bottom: -1px;
+  padding: 5px;
+}
+
+.num-right {
+  text-align: right;
+}
+
+.table-home-btn {
+  display: flex;
+  visibility: hidden;
+  float: right;
+  padding: 0px 0px;
+  align-items: center;
+  position: absolute;
+  margin-left: 10px;
+  background: #f0f0f0;
+  right: 0;
+  top: 0;
+  bottom: 3px;
+
+  &-icon {
+    color: var(--blackNew);
+    cursor: pointer;
+    background: transparent;
+    --background: transparent;
+    --box-shadow: 0;
+    width: 20px;
+    height: 20px !important;
+    font-size: var(--font10);
+    --padding-start: 0px !important;
+    --padding-end: 0px !important;
+    --border-radius: 50%;
+    --padding-bottom: 0px;
+    --padding-top: 0px;
+
+    &-action {
+      font-size: var(--font14) !important;
+      padding: 5px 5px;
+      color: var(--blackNew);
+
+      &:hover {
+        background: rgb(221, 221, 221);
+      }
+    }
+  }
+}
+
+table {
+  width: 100%;
+margin:0px 0px !important;
+  th{
+    padding: 0px 10px;
+   // white-space: nowrap !important;
+  }
+
+  tr:first-child {
+    border-radius: 0rem 0 0 0rem;
+  }
+
+  th:first-child {
+    border-radius: 0rem 0 0 0rem;
+  }
+
+  th:last-child {
+    border-radius: 0 0rem 0rem 0;
+    border-right: none !important;
+  }
+
+  td {
+  //  white-space: nowrap !important;
+    min-height: 1.5rem !important;
+    height: 1.5rem !important;
+    padding: 0px 5px ;
+    border-width: 0px 0px 0px 0;
+    border-color: var(--table-border);
+    color: var(--blackNew);
+    white-space: wrap;
+    font-size: var(--font13);
+    font-weight: 400;
+    position: relative;
+    text-overflow: ellipsis;
+   // overflow: hidden;
+    ion-checkbox {
+      margin: 0px 0px !important;
+    }
+   
+    ion-label{
+      font-size: var(--font12) !important;
+    font-weight: 400 ;
+    }
+     table td{
+      border:0px !important;
+      padding: 1px 10px !important;
+     
+     } 
+     .globe-btn {
+        margin-bottom: 0px !important;
+        height: 22px !important;
+      }
+      .select-container.ion-text-center .icon-btn ion-icon {
+        color: var(--blackNew);
+        font-size: var(--font14) !important;
+      }
+
+      &:has(.td-fixed-left){
+        padding: 0px 0px;
+        .td-fixed-left{
+          padding: 0px 5px;
+        }
+      }
+
+      &:after{
+        content: "";
+    position: absolute;
+    top: 0;
+    bottom: 1px;
+    right: 0;
+    width: 100%;
+    height: 0.5px;
+    z-index: 1;
+    background: var(--table-border);
+      }
+       &:before{
+        content: '';
+        position: absolute;
+        top:0;
+        bottom: 0;
+        right:0;
+        width: 1.2px;
+        z-index: 1;    
+        background: var(--table-border);
+      }
+  }
+
+  thead {
+    background: var(--table-bg-header);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    th {
+      height: 2rem;
+      // background: var(--table-bg-header);
+      border-right: 0px solid var(--table-border) !important;
+      font-weight: 500;
+      opacity: 1;
+     padding:0px 10px ;
+      text-align: left !important;
+      white-space: wrap;
+      margin: 0px 0px !important;
+      padding: 0px 10px;
+      height: 1.5rem;
+      font-size: var(--font12);
+      font-weight: 500;
+      ion-checkbox {
+        margin: 0px 0px !important;
+      }
+
+      &:hover{
+        .table-home-btn{
+            
+            visibility: visible !important;
+        }
+      }
+         &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 2.2px;
+    z-index: 9;
+    background: var(--table-border);
+      }
+    }
+  }
+}

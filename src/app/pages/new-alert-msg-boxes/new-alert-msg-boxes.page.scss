@@ -1,0 +1,251 @@
+.messag-box{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    position: relative;
+}
+.messag-box .msg-para{
+padding: 0px 0px 0px 0px;
+margin: 0px 0px 0px 0px;
+max-height: 200px;
+}
+.messag-box .msg-para p{
+    padding: 20px 30px 10px 30px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+    font-size: var(--font16);
+}
+
+.messag-box .msg-header{
+    // padding: 0px 0px 0px 0px;
+    // margin: 0px 0px 0px 0px;
+    padding: 10px 0px 10px 0px;
+    text-align: right;
+    background: #d5e9ff;
+}
+.messag-box .msg-footer{
+    padding: 10px 0px 10px 0px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+}
+.messag-box .msg-header ion-icon{
+    // padding: 3px 3px 3px 3px;
+    // margin: 3px 3px 0px 0px;
+    // font-size: var(--font18);
+    // text-align: right;
+    // background: #6eaaef;
+    // color: white;
+    // /* font-weight: 600; */
+    // border-radius: 50%;
+   //position: absolute;
+   // top: 5px;
+    //right: 5px;
+    color: #787676;
+    font-size: var(--font18);
+    padding: 3px 5px 6px 7px;
+}
+.messag-box .msg-footer ion-button{
+    padding: 0px 10px 0px 10px;
+}
+
+
+
+
+.messag-box-red{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    position: relative;
+}
+.messag-box-red .msg-para{
+padding: 0px 0px 0px 0px;
+margin: 0px 0px 0px 0px;
+max-height: 200px;
+}
+.messag-box-red .msg-para p{
+    padding: 20px 30px 10px 30px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+    font-size: var(--font16);
+    color:violet;
+}
+
+.messag-box-red .msg-header{
+    // padding: 0px 0px 0px 0px;
+    // margin: 0px 0px 0px 0px;
+    padding: 10px 0px 10px 0px;
+    text-align: right;
+    background: #d5e9ff;
+}
+.messag-box-red .msg-footer{
+    padding: 10px 0px 10px 0px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+}
+.messag-box-red .msg-header ion-icon{
+    // padding: 3px 3px 3px 3px;
+    // margin: 3px 3px 0px 0px;
+    // font-size: var(--font18);
+    // text-align: right;
+    // background: #6eaaef;
+    // color: white;
+    // /* font-weight: 600; */
+    // border-radius: 50%;
+   //position: absolute;
+   // top: 5px;
+    //right: 5px;
+    color: #787676;
+    font-size: var(--font18);
+    padding: 3px 5px 6px 7px;
+}
+.messag-box-red .msg-footer ion-button{
+    padding: 0px 10px 0px 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.warning-messag-box{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    position: relative;
+}
+.warning-messag-box .msg-para{
+padding: 0px 0px 0px 0px;
+margin: 0px 0px 0px 0px;
+max-height: 200px;
+text-align: center;
+}
+.warning-messag-box .msg-para p{
+    padding: 10px 30px 30px 30px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+    font-size: var(--font16);
+    color: #5c5c5c;
+}
+
+.warning-messag-box .msg-header{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+    height: 40px;
+    background-color: #dd4141;
+}
+.warning-messag-box .msg-footer{
+    padding: 10px 0px 20px 0px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+}
+
+.warning-messag-box .msg-footer ion-button{
+    padding: 0px 0px 0px 0px;
+    width: 150px !important;
+}
+
+
+
+.warning-messag-box-voilet{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    position: relative;
+}
+.warning-messag-box-voilet .msg-para{
+padding: 0px 0px 0px 0px;
+margin: 0px 0px 0px 0px;
+max-height: 200px;
+text-align: center;
+}
+.warning-messag-box-voilet .msg-para p{
+    padding: 10px 30px 30px 30px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+    font-size: var(--font16);
+    color: #5c5c5c;
+}
+
+.warning-messag-box-voilet .msg-header{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+    height: 40px;
+    background-color: #dd4141;
+}
+.warning-messag-box-voilet .msg-footer{
+    padding: 10px 0px 20px 0px;
+    margin: 0px 0px 0px 0px;
+    text-align: center;
+}
+
+.warning-messag-box-voilet .msg-footer ion-button{
+    padding: 0px 10px 0px 10px;
+    width: 150px !important;
+}
+
+
+
+
+
+
+.success-messag-box{
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+        width: 100%;
+        position: relative;
+    }
+    .success-messag-box .msg-para{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    max-height: 200px;
+    text-align: center;
+    }
+    .success-messag-box .msg-para p{
+        padding: 10px 30px 30px 30px;
+        margin: 0px 0px 0px 0px;
+        text-align: center;
+        font-size: var(--font16);
+        color: #5c5c5c;
+    }
+
+    .success-messag-box .msg-header{
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
+        text-align: center;
+        height: 40px;
+        background-color: #4990e2cc;
+    }
+    .success-messag-box .msg-footer{
+        padding: 10px 0px 20px 0px;
+        margin: 0px 0px 0px 0px;
+        text-align: center;
+    }
+
+    .success-messag-box .msg-footer ion-button{
+        padding: 0px 10px 0px 10px;
+        width: 150px !important;
+    }
+
+    .msg-footer{
+        position: relative;
+
+        .code-btn{
+            position: absolute;
+            left: 2%;
+            top: 21px;
+        }
+       
+    }
+
+    ion-button:focus {
+        outline: 2px solid #3880ff; /* Change focus outline color */
+        box-shadow: 0 0 5px #3880ff; /* Add glow effect */
+      }
+      

@@ -1,0 +1,150 @@
+.main-body-panel {
+    // overflow: auto;
+    // height: 77vh;
+}
+
+
+.new-tab-section {
+
+    .tab-btn-section {
+        display: none;
+        position: absolute;
+        // display: inline-flex;
+        top: 40px;
+        left: 6px;
+
+        ion-icon {
+            background: transparent !important;
+            color: #333333fc !important;
+            margin: 0px 5px 0px 10px;
+            font-size: var(--font14);
+            border-radius: 0 !important;
+        }
+
+        .tab-list {
+            display: inline-flex;
+            align-items: center;
+            color: var(--text-light-1) !important;
+
+        }
+    }
+
+    &:hover {
+        height: 60px;
+
+        .tab-btn-section {
+            display: block;
+        }
+
+    }
+}
+
+ion-searchbar {
+    margin-left: 3px;
+    width: 100%;
+    height: 30px;
+}
+
+.searchbar-input {
+    border: 1px solid #c3c3c3 !important;
+    height: 36px;
+    box-shadow: none;
+}
+
+.searchbar-search-icon {
+    background: transparent !important;
+    color: #8d8d8dfc !important;
+    margin: -3px 5px 0px -7px !important;
+    font-size: var(--font14);
+    border-radius: 0 !important;
+}
+
+.main-menu-search {
+    padding: 0px 7px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #d1d1d1;
+    border-radius: 0px;
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 2;
+
+    ion-icon[name="folder-outline"] {
+        font-size: var(--font18) !important;
+    }
+
+}
+
+.canvas_faviorites {
+    margin: 7px 0px 15px 0px;
+    font-size: var(--font16);
+    font-weight: 500;
+    color: var(--blackNew);
+}
+
+.canvas_faviorites.active,
+.canavs_title.active {
+    color: var(--blue-new) !important;
+}
+
+.title_sec {
+    a b {
+        max-width: 235px;
+        white-space: wrap;
+
+    }
+}
+
+
+@media only screen and (min-width:1024px) and (max-width:1199px) {
+    .tab-list {
+        font-size: var(--font12);
+    }
+
+    .canvas_faviorites {
+        font-size: var(--font15);
+    }
+}
+
+.days_search {
+    // position: absolute;
+    // right: 10px;
+    // top: 0;
+    // bottom: 0;
+    // margin: auto;
+    // display: flex;
+    // align-items: center;
+    margin-right: 10px;
+
+    select {
+        border: 1px solid #d9d9d9;
+        width: 6vh;
+        border-radius: 3px;
+        font-size: 13px;
+
+        &>option {
+            border: 1px solid #d9d9d9;
+        }
+    }
+
+    label {
+        color: var(--blackNew);
+        font-size: var(--font14);
+        padding-right: 5px;
+    }
+}
+
+nav .nav-tabs {
+    button {
+        font-size: 14px;
+        font-weight: 500;
+        padding: 5px 10px;
+        color: var(--blue-new);
+
+        &.active {
+            background: var(--blue-new);
+            color: #fff;
+        }
+    }
+}

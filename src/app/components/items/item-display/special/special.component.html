@@ -1,0 +1,93 @@
+<ng-container *ngIf="(specialinput.item_sub_type =='CARD_TITLE' || specialinput.item_sub_type == 'CARD_FOOTER' ) ">
+  <ion-label class="input-label" (click)="itemClick($event)"
+    [ngStyle]="specialinput.display_setting_str">
+    <p>{{specialinput.prompt_name}} : {{specialinput.value}}</p>
+  </ion-label>
+</ng-container>
+
+<ng-container *ngIf="(specialinput.item_sub_type =='DIALER' ) ">
+  <ng-container *ngIf="(frame_type !='TABLE' && frame_type != 'ENTRY_TABLE'  ) ">
+    <ion-label class="input-label" [ngStyle]="specialinput.display_setting_str">
+      {{specialinput.prompt_name}}:<a class="communication phone-communication" href="tel:{{specialinput.value}}"
+        (click)="itemClick($event)"><span class="communication-value">{{specialinput.value}}</span></a>
+    </ion-label>
+  </ng-container>
+
+  <ng-container *ngIf="(frame_type =='TABLE' || frame_type == 'HORIZONTAL_TABLE' ||frame_type == 'ENTRY_TABLE'  ) ">
+    <ion-label class="input-label" [ngStyle]="specialinput.display_setting_str"><a
+        class="communication phone-communication" href="tel:{{specialinput.value}}" (click)="itemClick($event)"><span
+          class="communication-value">{{specialinput.value}}</span></a>
+
+    </ion-label>
+  </ng-container>
+
+
+</ng-container>
+
+
+<ng-container *ngIf="specialinput.item_sub_type =='TOGGLE'">
+  <ion-label style="float: left;margin: 0px 10px 0px 0px;font-weight: 500;font-size: 14px;">{{specialinput.prompt_name}}</ion-label>
+  <ion-toggle style="float:left" color="" slot="end" [(ngModel)]="toggleMode" [id]="specialinput.apps_item_seqid"
+    (ionChange)="itemClick(toggleMode)" [disabled]="specialinput.item_enable_flag == 'F'"
+    [checked]="specialinput.value == 'Y' || specialinput.value == '1'"></ion-toggle>
+</ng-container>
+
+
+
+<ion-list *ngIf="specialinput.item_sub_type =='QR_CODE'" class="menu-list menu-list2"
+  [ngStyle]="{'cursor': ishover(specialinput) ? 'pointer' : 'context-menu' }">
+  <ion-item class="ion-no-padding" (click)="barcodescanner($event)">
+    <div class="thumbnail-container2">
+      <img src="../../../../../assets/imgs/Qrcode.png">
+    </div>
+    <h2>{{specialinput.prompt_name}}<span *ngIf="specialinput.value"> > </span>{{specialinput.value}}</h2>
+    <ion-icon name="ios-arrow-forward" slot="end" color="primary" class="i1"></ion-icon>
+  </ion-item>
+</ion-list>
+
+
+<ng-container *ngIf="specialinput.item_sub_type =='RT'">
+  <div class="rating-input" *ngIf="specialinput.item_enable_flag == 'T' && stars.length>0">
+    <ion-col *ngFor="let star of stars; let i = index" tappable (click)="setRating(i+1,specialinput.itemDbName)">
+      <ion-icon [name]="star" class="filled-star"></ion-icon>
+    </ion-col>
+  </div>
+  <div class="rating-input" *ngIf="specialinput.item_enable_flag == 'F' && stars.length>0">
+    <ion-col *ngFor="let star of stars; let i = index">
+      <ion-icon [name]="star" class="filled-star"></ion-icon>
+    </ion-col>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="specialinput.item_sub_type =='FAVOURITE'">
+
+  <div class="rating-input" *ngIf="specialinput.item_enable_flag == 'T' && stars.length>0">
+    <ion-col tappable (click)="setRating(0,specialinput.itemDbName)">
+      <ion-icon [name]="stars[0]" class="filled-star"></ion-icon>
+    </ion-col>
+  </div>
+  <div class="rating-input" *ngIf="specialinput.item_enable_flag == 'F' && stars.length>0">
+    <ion-col>
+      <ion-icon [name]="stars[0]" class="filled-star"></ion-icon>
+    </ion-col>
+  </div>
+</ng-container>
+
+
+
+<ng-container *ngIf="specialinput.item_sub_type =='SC'">
+  <ion-list class="marquee-container">
+    <ion-item class="ion-no-padding">
+      <ion-icon name="notifications" slot="start"></ion-icon>
+      <marquee *ngIf="specialinput.value; else templateName" width="100%" direction="left" scrollamount="10" scrolldelay="400">
+        {{specialinput.value}}
+      </marquee>
+      <ng-template #templateName>
+        <marquee width="100%" direction="left">
+          {{date}}
+        </marquee>
+      </ng-template>
+    </ion-item>
+  </ion-list>
+</ng-container>

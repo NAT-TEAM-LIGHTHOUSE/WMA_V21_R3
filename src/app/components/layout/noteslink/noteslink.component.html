@@ -1,0 +1,45 @@
+<div class="noteslink-container">
+  <ng-container *ngFor="let framedata of frame.tableRows[0];let rowindex =index">
+    <ng-container *ngFor="let item of framedata.Level5;let i=index">
+      <ng-container *ngIf="item.item_name=='SYS_ADD' && item.item_visible_flag == 'T'">
+        <div (click)="itemClicked(item)">
+          {{item.prompt_name}}
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <div class=" container-fluid p-0 m-0 row">
+    <div class="col-md-12 pl-0 pr-1">
+      <div class="search-note-sbar">
+        <ion-input placeholder="Search notes"></ion-input>
+        <div class="action-search">
+          <ion-icon name="search-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="notes-container">
+        <ion-row>
+          <ng-container *ngFor="let data of frame.tableData;let rowindex =index">
+            <ion-col size="12" size-md="6" size-lg="6" class="p-1 h-100">
+              <div class="notes">
+
+                <div class="notes_header">
+
+                  <div class="notes_header_btn">
+                    <ion-icon name="create-outline"></ion-icon>
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </div>
+                </div>
+                <div class="notes_content">
+                  <h4>{{data.SYS_TITLE}}</h4>
+                  <p>{{data.SYS_DESC}}</p>
+                </div>
+              </div>
+            </ion-col>
+          </ng-container>
+        </ion-row>
+
+      </div>
+    </div>
+  </div>
+</div>

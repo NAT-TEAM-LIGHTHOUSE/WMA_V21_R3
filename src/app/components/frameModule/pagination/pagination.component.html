@@ -1,0 +1,84 @@
+<!-- <div class="table_pagination_frame pagination-tab" >
+  <div class="left_column columns" *ngIf="pagination">
+    <div class="item_column">
+     <label>Show</label> 
+     <select (change)="rowsPerPage()" [(ngModel)]="frame.displayDataLen">
+      <option *ngFor="let rowPage of frame.rowsPageList" [value]="rowPage">{{rowPage}}</option>
+    </select>
+
+      <div class="item_column">
+      <label>Page</label> 
+      <ion-button class="pagination_btn" [attr.disabled]="frame.page_no !=1 ? null :''" (click)="go_first_page()"><ion-icon name="chevron-back-outline"></ion-icon><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+      <ion-button class="pagination_btn" (click)='paginate(+frame.page_no-1);' [attr.disabled]="frame.page_no !=1 ? null :''"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+      <select  (change)="paginate(page)" (blur)="selectShow = true" [(ngModel)]="page">
+        <option *ngFor="let page of frame.pageNumberList" [value]="page">{{page}}</option>
+      </select>
+      <ion-button class="pagination_btn" [attr.disabled]="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages ? null :''"
+      (click)='paginate(+frame.page_no+1);'><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
+      <ion-button class="pagination_btn"  [attr.disabled]="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages? null :''"
+      (click)="go_last_page()"><ion-icon name="chevron-forward-outline"></ion-icon><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
+     </div>
+  </div>
+  <div class="right_column columns">
+    <div class="item_column " *ngIf="!frame.design_control_type || frame.design_control_type >= 4 ">
+      <a [title]="frame.searchableData ? 'On Record / Filtered Records  / Total Records' : 'On Record / Total Record'">
+  
+        <label>Records  : </label> {{frame.rowCount+1}} <ng-container  *ngIf="frame.searchableData && frame.searchableData.length>0">
+         / {{frame.searchableData.length}}
+        </ng-container>
+     
+        /{{frame.total_no_of_record}}
+       </a>
+  
+     </div>
+  </div>
+</div>
+ -->
+
+
+ <div class="table_pagination_frame pagination-tab" >
+  <div class="left_column columns" *ngIf="pagination">
+    <div class="item_column">
+     <label>Show</label> 
+     <select (change)="rowsPerPage()" [(ngModel)]="frame.displayDataLen">
+      <option *ngFor="let rowPage of frame.rowsPageList" [value]="rowPage">{{rowPage}}</option>
+    </select>
+    </div>
+  
+      <div class="item_column">
+      <label>Page</label> 
+      <ion-button class="pagination_btn" [attr.disabled]="frame.page_no !=1 ? null :''" (click)="go_first_page()"><ion-icon name="chevron-back-outline"></ion-icon><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+      <ion-button class="pagination_btn" (click)='paginate(+frame.page_no-1);' [attr.disabled]="frame.page_no !=1 ? null :''"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+      <select  (change)="paginate(page)" (blur)="selectShow = true" [(ngModel)]="page">
+        <option *ngFor="let page of frame.pageNumberList" [value]="page">{{page}}</option>
+      </select>
+      <ion-button class="pagination_btn" [attr.disabled]="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages ? null :''"
+      (click)='paginate(+frame.page_no+1);'><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
+      <ion-button class="pagination_btn"  [attr.disabled]="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages? null :''"
+      (click)="go_last_page()"><ion-icon name="chevron-forward-outline"></ion-icon><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
+     </div>
+  </div>
+  <div class="right_column columns">
+    <div class="item_column " *ngIf="!frame.design_control_type || frame.design_control_type >= 4 ">
+      <a [title]="frame.searchableData ? 'On Record / Filtered Records  / Total Records' : 'On Record / Total Record'">
+  
+        <label>Records  : </label> {{frame.rowCount+1}} <ng-container  *ngIf="frame.searchableData && frame.searchableData.length>0">
+         / {{frame.searchableData.length}}
+        </ng-container>
+        <!-- <ng-container
+          *ngIf="frame && frame.tableData && frame.canvasRows && frame.tableData.length > 0 && frame.canvasRows.length < frame.tableData.length; else tabRecords">
+          /  {{frame.tableData.length}}
+        </ng-container>
+  
+        <ng-template #tabRecords>
+          <ng-container *ngIf="frame && frame.canvasRows" class="number"> /
+              {{frame.canvasRows.length}}</ng-container>
+        </ng-template> -->
+        /{{frame.temp_count ? frame.temp_count() : frame.total_no_of_record}}
+       </a>
+  
+     </div>
+  </div>
+</div>
+
+

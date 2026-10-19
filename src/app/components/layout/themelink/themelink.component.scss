@@ -1,0 +1,626 @@
+.user-profile {
+  position: absolute;
+  background: var(--blue-new);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  p {
+    font-size: var(--font16);
+    color: #ffffff;
+    font-weight: 500;
+    padding: 5px 0px;
+  }
+}
+
+
+.theme-content {
+  h3 {
+    font-size: var(--font13);
+    font-weight: 500;
+    color: var(--blackNew);
+    margin: 5px 0px 5px 0px;
+    padding: 0px 0px;
+  }
+
+  .color-theme {
+    display: flex;
+
+    .dark-theme,
+    .light-theme {
+      cursor: pointer;
+      width: 60px;
+      height: 60px;
+      border: 1px solid #bdbdbd;
+      border-radius: 5px;
+      text-align: center;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin: 10px 10px 10px 0px;
+
+      ion-icon {
+        font-size: 30px;
+        color: #4a4a4a;
+      }
+
+      &.active {
+        border: 1px solid var(--blue-new);
+
+        ion-icon {
+          color: var(--blue-new);
+        }
+      }
+    }
+
+    .color-btn {
+      width: 30px;
+      height: 60px;
+      margin: 10px 10px 10px 0px;
+      border-radius: 10px;
+      ;
+    }
+
+    .red-color-btn {
+      background-color: red;
+    }
+
+    .blue-color-btn {
+      background-color: rgb(26, 96, 177);
+    }
+
+    .green-color-btn {
+      background-color: rgb(27, 175, 163);
+    }
+
+    .gray-color-btn {
+      background-color: rgb(27, 27, 27);
+    }
+
+    .maroon-color-btn {
+      background-color: rgb(172, 17, 17);
+    }
+
+    .zoom-tab {
+          position: relative;
+    font-size: var(--font14);
+    font-weight: 500;
+    color: var(--blackNew);
+    width: 50px;
+    margin: 10px 10px 10px 0px;
+    height: 30px;
+    background: #ffffff;
+    border: 1px solid #d6d6d6;
+    text-align: center;
+    border-radius: 3px;
+    padding: 3px 0px;
+    cursor: pointer;
+
+    }
+
+    // .z-middle {
+    //   background: var(--blue-new);
+    //   color: #fff;
+    // }
+
+
+  }
+
+  .layout-theme {
+
+    .theme-layoutn {
+      width: 145px;
+      height: 85px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 10px 13px 10px 0px;
+      display: inline-block;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+}
+
+ion-item {
+  --padding-start: 0px;
+}
+
+.item-native[part="native"] {
+  padding: 0px 0px;
+  margin: 0px 0px;
+  --padding-start: 0px;
+}
+
+.layout-segment {
+  min-height: 100%;
+  margin: 0px;
+  justify-content: flex-start;
+  display: inline-block;
+  background: transparent;
+  ion-segment-button {
+    min-height: 80px;
+    max-height: 80px;
+    min-width: 140px;
+    max-width: 140px;
+    border-radius: 5px;
+    position: relative;
+    float: left;
+    margin: 10px 5px 20px 5px;
+    transform: scale(1);
+    transition: all 0.2s ease-in;
+
+
+    &:hover {
+          border-radius: 5px;
+    transform: scale(1.02);
+    border: 1px solid var(--blue-new);
+    }
+
+  }
+
+  .blue-layout-btn-main {
+    background: url(../../../../assets/application/leagacy1.svg);
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    &::after {
+      content: "Legacy";
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      padding: -4px 0px;
+      margin: -4px 0px;
+      color: #2c2c2c;
+      bottom: -20px;
+      font-size: var(--font12);
+      text-transform: capitalize;
+      letter-spacing: 0;
+    }
+
+
+  }
+
+  .blue-layout-btn {
+    background: url(../../../../assets/application/leagacy2.svg);
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    &::after {
+      content: "Legacy 75%";
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      padding: -4px 0px;
+      margin: -4px 0px;
+      color: #2c2c2c;
+      bottom: -20px;
+      font-size: var(--font12);
+      text-transform: capitalize;
+      letter-spacing: 0;
+    }
+
+
+  }
+
+  .green-layout-btn {
+    background: #00afad;
+    position: relative;
+
+    &::after {
+      content: "M";
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      padding: -4px 0px;
+      margin: -4px 0px;
+      color: #2c2c2c;
+      bottom: -20px;
+      font-size: var(--font12);
+      text-transform: capitalize;
+    }
+
+
+
+
+  }
+
+  .green-layout-btn1 {
+    background: url(../../../../assets/application/mordern1.svg);
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    &::after {
+      content: "M2";
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      padding: -4px 0px;
+      margin: -4px 0px;
+      color: #2c2c2c;
+      bottom: -20px;
+      font-size: var(--font12);
+    }
+  }
+
+  .mordern-leagacy-btn {
+    background: url(../../../../assets/application/zoom-out.png);
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    &::after {
+      content: "Default";
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    padding: -4px 0px;
+    margin: auto;
+    color: #2c2c2c;
+    bottom: 0px;
+    top: 0;
+    font-size: var(--font12);
+    text-transform: capitalize;
+    letter-spacing: 0;
+
+    }
+  }
+
+  .mordern-leagacy75-btn {
+    background: url(../../../../assets/application/zoom-out.png);
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    &::after {
+      content: "75% Zoom Out";
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    padding: -4px 0px;
+    margin: auto;
+    color: #2c2c2c;
+    bottom: 0px;
+    top: 0;
+    font-size: var(--font12);
+    text-transform: capitalize;
+    letter-spacing: 0;
+
+    }
+  }
+
+  .mordern4 {
+    background: #4fc2c0;
+    position: relative;
+
+    &::after {
+      content: "M3";
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      padding: -4px 0px;
+      margin: -4px 0px;
+      color: #2c2c2c;
+      bottom: -20px;
+      font-size: var(--font12);
+    }
+  }
+
+  .mordern5 {
+    background: #4fc2c0;
+    position: relative;
+
+    &::after {
+      content: "M4";
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      padding: -4px 0px;
+      margin: -4px 0px;
+      color: #2c2c2c;
+      bottom: -20px;
+      font-size: var(--font12);
+    }
+  }
+
+  .mearge1 {
+    background: url(../../../../assets/application/mordern-mearge.svg);
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    &::after {
+      content: "MG1";
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      padding: -4px 0px;
+      margin: -4px 0px;
+      color: #2c2c2c;
+      bottom: -20px;
+      font-size: var(--font12);
+    }
+  }
+
+  .all-layout-btn {
+    background: #989898;
+    position: relative;
+
+    &::after {
+      content: "M1";
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      padding: -4px 0px;
+      margin: -4px 0px;
+      color: #2c2c2c;
+      bottom: -20px;
+      font-size: var(--font12);
+    }
+  }
+
+  .maroon-layout-btn {
+    background: #BF0A0A;
+  }
+
+
+
+}
+
+.theme-segment {
+  height: 45px;
+  margin: 0px -4px;
+  justify-content: flex-start;
+  display: inline-block;
+  background: transparent;
+
+  ion-segment-button {
+   min-height: 30px;
+    max-height: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    border-radius: 5px;
+    margin-right: 15px;
+    border-radius: 50%;
+    margin-right: 4px;
+    position: relative;
+    float: left;
+    margin-bottom: 2px;
+    transform: scale(1);
+    transition: all 0.2s ease-in;
+    margin-top: 5px;
+    margin-left: 5px;
+
+    &:hover {
+      //  transform: scale(1.2);
+      border-radius: 5px;
+    }
+
+
+  }
+
+
+}
+
+ion-segment-button {
+  --indicator-height: 0px !important;
+}
+
+.blue-theme-btn {
+  background: #2E6ADF;
+}
+
+.green-theme-btn {
+  background: #00255b;
+  // background: #467D2C;
+}
+
+.dark-theme-btn {
+  background: #000;
+  display: none;
+}
+
+.all-theme-btn {
+  background: #392567;
+}
+
+
+.maroon-theme-btn {
+  background: #BF0A0A;
+
+}
+
+.grey-theme-btn {
+  background: #acacac;
+}
+
+.brown-theme-btn {
+  background: #752A07;
+}
+
+.dark-green-theme-btn {
+  background: #004D47;
+}
+
+
+.red-bgtheme-btn {
+  background: #ffeded;
+}
+
+.green-bgtheme-btn {
+  background: #e7fff9;
+  // background: #467D2C;
+}
+
+.blue-bgtheme-btn {
+  background: #d8e5ff;
+}
+
+.voilet-bgtheme-btn{
+  background: #e7e0f8;
+}
+.pink-bgtheme-btn{
+  background: #ffe6f0;
+}
+
+.default-bgtheme-btn {
+  background: #EFEFEF;
+
+}
+
+
+.segment-button-checked.ion-segment-button {
+  border-bottom: 4px solid #575757;
+  box-shadow: rgba(9, 9, 9, 0.77) 0px 0px 5px;
+}
+
+.mearge-theme-main-btn {
+  background: #4990e2;
+}
+
+
+.red-theme-btn {
+  background: #E93333;
+}
+
+.pink-theme-btn {
+  background: #159AAE;
+  // background: #B2408C;
+}
+
+.voilet-theme-btn {
+  background: #563D7C;
+}
+
+.yellow-theme-btn {
+  background: #F48F32;
+}
+
+.segment-button-checked::before {
+  //  @include before-after;
+  width: 18px;
+  height: 18px;
+  //  background:url(../assets/imgs/sidebarIcons/theme-select.png) no-repeat;
+  background-size: contain;
+  //left: 6px;
+  //top: 6px;
+}
+.font-section{
+  ion-label{
+    font-size: var(--font14);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .reset_font{
+    --background: #ffffff;
+    color: var(--blackNew);
+    height: 30px !important;
+    --box-shadow: none;
+    border: 1px solid rgb(223, 223, 223);
+    margin: 0px 0px;
+  }
+  ion-select{
+    height:30px !important;
+    border:1px solid rgb(223, 223, 223);
+    color:var(--blackNew);
+  }
+}
+
+.font-size-options{
+  ul{
+    display: flex;
+    align-items: center;
+    gap:5px;
+    li{
+      list-style: none;
+    padding: 3px 10px;
+    border: 1px solid rgb(223, 223, 223);
+    color: var(--blackNew);
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: var(--font14);
+
+    &.active,
+      &:hover{
+        border:1px solid var(--blue-new);
+        border-radius: 3px;
+        transform: scale(1.02);
+      }
+    }
+  }
+}
+.font-weight-options{
+  ul{
+    display: flex;
+    align-items: center;
+    gap:5px;
+    li{
+      list-style: none;
+    padding: 3px 10px;
+    border: 1px solid rgb(223, 223, 223);
+    color: var(--blackNew);
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: var(--font14);
+&.active,
+      &:hover{
+        border:1px solid var(--blue-new);
+        border-radius: 3px;
+        transform: scale(1.02);
+      }
+    }
+  }
+}
+.tag-line{
+      padding: 6px 6px;
+  p{
+    font-size: var(--font14);
+    color:var(--blue-new) !important;
+  }
+}
+.theme_btn_update{
+  --background: var(--blue-new);
+  color: #fff;
+  height: 30px !important;
+  --box-shadow: none;
+  border: 1px solid var(--blue-new);
+      border-radius: 5px;
+    --border-radius: 5px;
+}
+
+/*responsive start*/
+@media screen and (min-width:1280px) and (max-width:1366px) {
+  .theme-content {
+    h3 {
+      padding: 0px 0px;
+    }
+
+  
+    .layout-theme{
+      margin-top: -13px;
+      ion-item{
+        margin-top: 0 !important;
+      }
+    }
+  }
+}
+@media screen and (max-width:768px){
+.mordern-leagacy75-btn{
+  display: none !important;
+}
+.layout-theme{
+   display: none !important;
+}
+}
+/*responsive end*/

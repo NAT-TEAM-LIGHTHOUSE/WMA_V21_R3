@@ -1,0 +1,197 @@
+.calendar-card {
+  border-radius: 20px;
+    box-shadow: none;
+    padding: 0px;
+    background: #ffffff;
+    margin: 0px 0px;
+}
+.calendar-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+
+  .title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .go-to-calendar-btn {
+    background: transparent;
+    border: none;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+}
+
+.calendar-wrapper {
+  background: #f8f8f8;
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 14px;
+
+  .month-label {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2f2f2f;
+  }
+
+  .icon-btn {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: #3c3c3c;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+  }
+
+  .menu-btn {
+    position: absolute;
+    right: 0;
+  }
+
+  .icon-btn:first-child {
+    position: absolute;
+    left: 0;
+  }
+
+  .icon-btn:nth-child(3) {
+    position: absolute;
+    right: 36px;
+  }
+}
+
+.weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.weekdays {
+  margin-bottom: 6px;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  padding: 6px 0;
+}
+
+.day-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.day-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2f2f2f;
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+  transition: 0.2s ease;
+}
+
+.other-month .day-circle {
+  color: #a3a3a3;
+}
+
+.day-circle.today {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.day-circle.present {
+  background: #cdeee4;
+  color: #1f1f1f;
+}
+
+.day-circle.leave {
+  background: #f4d1a5;
+  color: #1f1f1f;
+}
+
+.day-circle.absent {
+  background: #f49a9a;
+  color: #ffffff;
+}
+
+.day-circle.holiday {
+  background: #d8c8ff;
+  color: #1f1f1f;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #666;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.today {
+  background: #14c7c3;
+}
+
+.dot.present {
+  background: #cdeee4;
+}
+
+.dot.leave {
+  background: #f4d1a5;
+}
+
+.dot.absent {
+  background: #f49a9a;
+}
+
+.dot.holiday {
+  background: #d8c8ff;
+}
+
+.day-circle.half_leave {
+  background: linear-gradient(
+    to right,
+    #f4d1a5 50%,   // leave color
+    #cdeee4 50%    // present color
+  );
+  color: #1f1f1f;
+}

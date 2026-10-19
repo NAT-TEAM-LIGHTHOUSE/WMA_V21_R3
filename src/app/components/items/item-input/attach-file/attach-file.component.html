@@ -1,0 +1,18 @@
+<p>
+  attach-file works!
+</p>
+<div>
+  
+</div>
+<div *ngIf="fileInput.item_sub_type=='EMAIL' ">
+  <ion-item>
+    <ion-icon ios="ios-attach" md="md-attach" (click)="uplaod2()"></ion-icon>
+  </ion-item>
+</div>
+<div *ngIf="fileInput.item_sub_type!='EMAIL' ">
+  <ion-item>
+    <ion-input  [readonly]='true' id="upload" >
+      <ion-label slot="end" id="profile_image" color="primary" stacked (click)="uplaod2()">Choose File</ion-label>
+    </ion-input>
+  </ion-item>
+</div>

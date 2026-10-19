@@ -1,0 +1,538 @@
+<ion-row>
+  <!-- <app-frame-mmt-json-filter></app-frame-mmt-json-filter> -->
+  <ion-col [size]="col9">
+    <ng-container
+      *ngIf="frame.apps_frame_sub_type == 'NEW' || frame.apps_frame_sub_type == 'COLLAPSE' || (frame.apps_frame_sub_type && frame.apps_frame_sub_type == 'SINGLE_ROW')">
+
+      <div class="table-frame-filter a" id="{{frame.apps_page_frame_seqid}}"
+        [ngClass]="!frame.design_control_type || frame.design_control_type >= 8 ? '':'table_icon_show' ">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="frame-head">
+
+              <div class="header_main_table">
+                <div class="farme-left-hedaer d-flex text-left">
+
+                  <h2 class="frame-name">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;"
+                      *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]<ion-icon
+                        class="code-btn" color="primary" name="information-circle-outline" *ngIf="developerModeData"
+                        (click)="showDeveloperData()">
+                      </ion-icon></span>
+
+                    <span *ngIf="switchFlag" style="float: right;">
+                      <i class="fa fa-id-card-o  code-btn " style="cursor: pointer;color:#4990e2;" color="primary"
+                        aria-hidden="true" (click)="onSwitch()">
+                      </i>
+                    </span>
+                  </h2>
+                  <ng-container *ngIf="!frame.collapse">
+                    <ion-button (click)="onEmitChange()" class="db_edit" *ngIf="globalObjects.toggleDevloperMode()">
+                      <ion-icon color="primary" name="create-outline"></ion-icon>
+                    </ion-button>
+                  </ng-container>
+                </div>
+
+                <div class="action-btn-bar toggle" *ngIf="frame.collapse">
+                  <ion-button class="icon-btn" (click)="toggleFrame(frame.apps_frame_sub_type)">
+                    <ion-icon class="action-icon" name="add-circle-outline"></ion-icon>
+                  </ion-button>
+                </div>
+
+                <ng-container *ngIf="!frame.collapse">
+                  <div class="farme-right-hedaer">
+
+                    <div class="action-btn-bar notToggle">
+                      <div class="primary-search-section-filer" [ngStyle]="!isSearch ? {'display': 'none'}: {}">
+                        <ion-input class="input-text" placeholder="Search Here..."
+                          (ionInput)="getSearchResult('searchAllData',500)" [(ngModel)]="frame.search"
+                          #searchInput></ion-input>
+                        <div class="primary-search-section-filer-action">
+                          <ion-icon name="mic" *ngIf="platform.is('ios') || platform.is('android')" color="primary"
+                            (click)="openMike()"></ion-icon>
+                          <ion-icon name="search-outline"></ion-icon>
+                          <ion-icon name="close-outline" (click)="clearSearch()"></ion-icon>
+                        </div>
+                      </div>
+
+                      <ion-button class="icon-btn" (click)="searchData()" *ngIf="!isSearch  && !isNotSearch"><ion-icon
+                          class="action-icon" name="search-outline"></ion-icon></ion-button>
+                      <ng-container *ngIf="frame.tableRows && frame.tableRows[frame.active_row]">
+                        <ng-container *ngFor="let itemGroup of frame.tableRows[frame.active_row]">
+                          <ng-container *ngFor="let item of itemGroup.Level5">
+                            <ng-container
+                              *ngIf="item.item_type == 'FRAME_BUTTON_ICON' && item.item_visible_flag == 'T'">
+                              <app-items [item]="item" [wscp]="wscp_send_input" [frame_type]="frame.apps_frame_type"
+                                [frame]="frame"
+                                (emitPass)="itemClick(item,frame.tableRows[frame.active_row],frame.active_row)"
+                                (LHSOnChange)="itemValueChange($event,frame.active_row,frame.tableRows[frame.active_row])">
+                              </app-items>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                      <ion-button *ngIf="!isNotTool" class="icon-btn" title="Filter" (click)="moreOption()"
+                        [name]="frame.apps_page_frame_seqid+'btn'">
+                        <!-- <ion-icon class="action-icon" name="ellipsis-horizontal-outline"></ion-icon> -->
+                        <ion-icon name="construct-outline"></ion-icon>
+                        <ng-container
+                          *ngIf="(frame.filterAbleArr && frame.filterAbleArr.length>0) || (frame.ctrlBrkCond && frame.ctrlBrkCond.length>0) || (frame.selectedCols && frame.selectedCols.length>0) || (frame.aggregateFun && frame.aggregateFun.length>0)">
+                          <div class="filter_present"></div>
+                        </ng-container>
+                      </ion-button>
+
+
+                      <ng-container *ngIf="frame.apps_frame_sub_type == 'COLLAPSE'">
+                        <ion-button class="icon-btn" (click)="toggleFrame(frame.apps_frame_sub_type)">
+                          <ion-icon name="remove-circle-outline"></ion-icon>
+                        </ion-button>
+                      </ng-container>
+                    </div>
+
+
+
+
+                  </div>
+                </ng-container>
+              </div>
+              <ng-container *ngIf="isOpenMoreOption">
+                <!-- <app-table-tools [frame]="frame" [tableData]="tableData" [(fileTyle)]="fileTyle" [toolsExport]="toolsExport" [(controlBreakArr)]="controlBreakArr" [(summaryRow)]="summaryRow" [(conditionalFilterData)]="conditionalFilterData" [displayDataLen]="displayDataLen" [(funArr)]="funArr" [(controlBreakFlag)]="controlBreakFlag" [(groupFlag)]="groupFlag" [(footerRowFlag)]="footerRowFlag" [(filterAbleData)]="filterAbleData" [(thead)]="thead" [(controlBreakHead)]="controlBreakHead" [(isAggrigate)]="isAggrigate" [(freezeColArr)]="freezeColArr" [(gpRHead)]="gpRHead" [(groupHeadArr)]="groupHeadArr" [(dragedDiv)]="dragedDiv" [(groupInnerHeader)]="groupInnerHeader" [tableRows]="tableRows" (emitPass)="columnFilterEmitPass($event)" [(isSingleSelectRecord)]="isSingleSelectRecord" [isNotExport]="isNotExport" [isNotExportPdf]="isNotExportPdf" [isNotExportExcel]="isNotExportExcel" [plt]="plt"></app-table-tools> -->
+                <app-table-tools [frame]="frame" [tableData]="tableData" [(fileTyle)]="fileTyle"
+                  [toolsExport]="toolsExport" [(controlBreakArr)]="controlBreakArr" [(summaryRow)]="summaryRow"
+                  [(conditionalFilterData)]="conditionalFilterData" [displayDataLen]="frame.displayDataLen"
+                  [(funArr)]="funArr" [(controlBreakFlag)]="controlBreakFlag" [(groupFlag)]="groupFlag"
+                  [(footerRowFlag)]="footerRowFlag" [(filterAbleData)]="filterAbleData" [(thead)]="thead"
+                  [(controlBreakHead)]="controlBreakHead" [(isAggrigate)]="isAggrigate" [(freezeColArr)]="freezeColArr"
+                  [(dragedDiv)]="dragedDiv"
+                  [(groupInnerHeader)]="groupInnerHeader" [tableRows]="tableRows"
+                  (emitPass)="columnFilterEmitPass($event)" [(isSingleSelectRecord)]="isSingleSelectRecord"
+                  [isNotExport]="isNotExport" [isNotExportPdf]="isNotExportPdf" [isNotExportExcel]="isNotExportExcel" [isNotExportCsv]="isNotExportCsv"
+                  [plt]="plt" [(selectedText)]="selectedText" [(frametable)]="frametable" [(isAIUsed)]="isAIUsed"
+                  [(isSelecting)]="isSelecting" [(col9)]="col9" [(rowCount)]="rowCount" [(page)]="page"
+                  [parentDiv]="parentDiv"  (aiInputData)="aiInputDataChange($event)"></app-table-tools>
+
+
+              </ng-container>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="table-filter-block entry_table_section c"
+          *ngIf="!controlBreakFlag && !groupFlag && frame.apps_frame_type == 'ENTRY_TABLE' && !frame.collapse"
+          (keydown.PageUp)="pageUp($event)" (keyup.PageDown)="pageDown($event)"
+          (keydown.ArrowDown)="selectedTable2Row($event)" (keydown.ArrowUp)="selectedTable2Row($event)" #parentDiv
+          [id]="frame.apps_page_frame_seqid" [style.maxHeight]="isNotScroll ? '100%' : ''">
+          <table>
+            <thead class="thead_filter " [id]="frame.apps_page_frame_seqid+'#thead'">
+
+              <tr class="tr-tab  table-row" *ngIf="frame.showTd == 'SHOW'">
+                <ng-container *ngFor="let itemGroup of frame.headers; let i=index">
+                  <ng-container *ngIf="!isFrameSeparator(itemGroup)">
+                    <ng-container *ngFor="let it of itemGroup.Level5">
+                      <th *ngIf="isCellVisible(it)" class="p-0 fixed-col" [ngClass]="cellClass(it,'header')"
+                        [title]="titleToolTip(it)" [ngStyle]="cellStyle(it)"
+                        [id]="frame.apps_page_frame_seqid+'thead'+(i+1)" [class]="'freezeCss'+it.apps_item_seqid">
+                      </th>
+                    </ng-container>
+                  </ng-container>
+
+                  <!-- FRAME_SEPARATOR -->
+                  <ng-container *ngIf="isFrameSeparator(itemGroup)">
+                    <ng-container *ngFor="let item of itemGroup.Level5">
+                      <ng-container *ngIf="isCellVisible(item)">
+                        <th [colSpan]="item.colspan ? item.colspan : 1" [ngClass]="cellClass(item,'header')"
+                          [title]="titleToolTip(item) "
+                          [ngClass]="itemGroup.Level5[0].item_sub_type == 'TAB_OPEN' ? 'new-th-background' : ''"
+                          *ngIf="item.sepFrame == 'SHOW'" [id]="frame.apps_page_frame_seqid+'thead'+(i+1)"
+                          [class]="'freezeCss'+item.apps_item_seqid+i">
+                          <div class="d-flex" style="height:100%;">
+                            <div class="container table-tabs-wrapper p-0 m-0">
+                              <div class="tab-table">
+                                <ng-container *ngIf="item.item_sub_type == 'TAB_OPEN';else otherTab ">
+                                  <ion-button style="border:1px ridge" class="new-ion-size"
+                                    [ngClass]="item.sepFrame == 'SHOW' ? 'current-active' : '' ">
+                                    <!-- {{item.prompt_name}} -->
+                                    {{!item.prompt_name ?
+                                    ((frame.apps_page_frame_seqid).charAt((frame.apps_page_frame_seqid).length - 1) ==
+                                    'A' ? item.tool_tip : item.prompt_name) : item.prompt_name}}
+                                  </ion-button>
+                                </ng-container>
+
+                                <ng-template #otherTab>
+                                  <ng-container *ngFor="let itm of itemGroup.Level5; let x=index">
+                                    <ng-container *ngIf="isCellVisible(itm)">
+                                      <ion-button (click)="toggleTable(i, x,itm)"
+                                        [ngClass]="itm.sepFrame == 'SHOW' ? 'current-active' : '' ">
+                                        <!-- {{itm.prompt_name}} -->
+                                        {{!itm.prompt_name ?
+                                        ((frame.apps_page_frame_seqid).charAt((frame.apps_page_frame_seqid).length - 1)
+                                        == 'A' ? itm.tool_tip : itm.prompt_name) : itm.prompt_name}}
+                                      </ion-button>
+                                    </ng-container>
+                                  </ng-container>
+                                </ng-template>
+                              </div>
+                            </div>
+                          </div>
+                        </th>
+                      </ng-container>
+
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </tr>
+              <tr *ngIf="item_search_flagData" class="table-row">
+
+                <ng-container *ngFor="let itemGroup of frame.headers">
+
+                  <ng-container *ngIf="!isFrameSeparator(itemGroup)">
+                    <ng-container
+                      *ngIf="itemGroup.Level5 && itemGroup.Level5.length > 1 && (itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'BUTTON_ICON' || itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'CHECK_BOX'); else childTd">
+                      <th>
+                      </th>
+                    </ng-container>
+
+                    <ng-template #childTd>
+                      <ng-container *ngIf="itemGroup.Level5">
+                        <ng-container *ngFor="let input_item of itemGroup.Level5">
+                          <th [ngClass]="cellClass(input_item,'header')" [title]="titleToolTip(input_item)"
+                            [class]="'freezeCss'+input_item.apps_item_seqid" *ngIf="isCellVisible(input_item)"
+                            class="thWidth" [ngStyle]="cellStyle(input_item)">
+                            <div class="table_inputdiv">
+                              <ion-input type="text" class="inputThead" [(ngModel)]="input_item.search"
+                                (ionInput)="getSearchResult('filterColumn',200,input_item)"></ion-input> <ion-icon
+                                name="close-outline" (click)="clearInputColumn(input_item)"></ion-icon>
+                            </div>
+
+                          </th>
+                        </ng-container>
+                      </ng-container>
+                    </ng-template>
+                  </ng-container>
+                  <ng-container *ngIf="isFrameSeparator(itemGroup)">
+                    <ng-container *ngFor="let input_item of itemGroup.Level5">
+                      <ng-container *ngIf="isCellVisible(input_item)">
+                        <ng-container *ngIf="input_item.sepFrame === 'SHOW'">
+                          <ng-container *ngFor="let itemGrp of input_item.containerRowss">
+                            <ng-container *ngFor="let item of itemGrp.Level5">
+                              <th *ngIf="isCellVisible(item)" [ngClass]="cellClass(item,'header')" class="thWidth"
+                                [class]="'freezeCss'+item.apps_item_seqid" [ngStyle]="cellStyle(item)">
+                                <div class="table_inputdiv">
+                                  <ion-input type="text" class="inputThead" [(ngModel)]="item.search"
+                                    (ionInput)="getSearchResult('filterColumn',200,item)"></ion-input> <ion-icon
+                                    name="close-outline" (click)="clearInputColumn(item)"></ion-icon>
+                                </div>
+                              </th>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+
+
+                </ng-container>
+
+              </tr>
+              <tr class="table-row">
+
+                <ng-container *ngFor="let itemGroup of frame.headers;let i=index;">
+                  <!-- NORMAL -->
+                  <ng-container *ngIf="!isFrameSeparator(itemGroup)">
+
+                    <ng-container
+                      *ngIf="itemGroup.Level5 && itemGroup.Level5.length > 1 && (itemGroup.Level5.length > 0 && itemGroup.Level5[0].item_type == 'BUTTON_ICON'); else childTd">
+
+
+                      <th *ngIf="isCellVisible(itemGroup.Level5[0])" [title]="titleToolTip(itemGroup.Level5[0])"
+                        class="text-left thWidth " [ngClass]="cellClass(itemGroup.Level5[0],'header')"
+                        [ngStyle]="cellStyle(itemGroup.Level5[0])" [id]="frame.apps_page_frame_seqid+'thead'+(i+1)"
+                        [class]="'freezeCss'+itemGroup.Level5[0].apps_item_seqid">
+
+
+                        <div class="thead_name">
+                          <ion-label>
+                            <!-- {{itemGroup.Level5[0].prompt_name}} -->
+                            {{!itemGroup.Level5[0].prompt_name ?
+                            ((frame.apps_page_frame_seqid).charAt((frame.apps_page_frame_seqid).length - 1) == 'A' ?
+                            itemGroup.Level5[0].tool_tip : itemGroup.Level5[0].prompt_name) :
+                            itemGroup.Level5[0].prompt_name}}
+                          </ion-label>
+                          <div class="table-home-btn">
+                            <app-table-column-tool [item]="itemGroup.Level5[0]" [frame]="frame" 
+                              [itemSortName]="itemGroup.Level5[0].item_name" [(clickedHead)]="clickedHead"
+                              (tablecolumnFilterrEmitPass)="tablecolumnFilter($event,itemGroup.Level5[0],i+1,frame.apps_page_frame_seqid)"></app-table-column-tool>
+                          </div>
+                        </div>
+                      </th>
+                    </ng-container>
+                    <ng-template #childTd>
+                      <ng-container *ngFor="let input_item of itemGroup.Level5">
+
+                        <th *ngIf="isCellVisible(input_item)" [title]="titleToolTip(input_item)"
+                          class="text-left thWidth " [ngStyle]="cellStyle(input_item)"
+                          [ngClass]="cellClass(input_item,'header')" [id]="frame.apps_page_frame_seqid+'thead'+(i+1)"
+                          [class]="'freezeCss'+input_item.apps_item_seqid">
+
+
+                          <div class="thead_name">
+                            <ng-container *ngIf="input_item.item_type =='CHECK_BOX'">
+                              <ion-item lines="none" class="ion-no-padding table-checkbox inline-flex">
+
+                                <ion-checkbox color="primary" [(ngModel)]="input_item.isChecked"
+                                  [disabled]="input_item.item_enable_flag && input_item.item_enable_flag=='F'"
+                                  [hidden]="input_item.summary_flag == 'N'"
+                                  (ionChange)="cbEvent(input_item.isChecked,input_item.item_name)"></ion-checkbox>
+
+                              </ion-item>
+                            </ng-container>
+                            <ion-label>
+                              <!-- {{input_item.prompt_name}} -->
+                              {{!input_item.prompt_name ?
+                              ((frame.apps_page_frame_seqid).charAt((frame.apps_page_frame_seqid).length - 1) == 'A' ?
+                              input_item.tool_tip : input_item.prompt_name) : input_item.prompt_name}}
+                            </ion-label>
+                            <div class="table-home-btn">
+                              <app-table-column-tool [item]="input_item" [frame]="frame" 
+                                [itemSortName]="itemGroup.Level5[0].item_name" [(clickedHead)]="clickedHead"
+                                (tablecolumnFilterrEmitPass)="tablecolumnFilter($event,input_item,i+1,frame.apps_page_frame_seqid)"></app-table-column-tool>
+                            </div>
+                          </div>
+                        </th>
+
+                      </ng-container>
+                    </ng-template>
+
+                  </ng-container>
+                  <ng-container *ngIf="isFrameSeparator(itemGroup)">
+                    <ng-container *ngFor="let input_item of itemGroup.Level5">
+                      <ng-container *ngIf="isCellVisible(input_item)">
+
+                        <ng-container *ngIf="input_item.sepFrame === 'SHOW'">
+                          <ng-container
+                            *ngFor="let itemGrp of input_item.containerRowss;let j=index">
+                            <ng-container *ngFor="let item of itemGrp.Level5">
+
+                              <th *ngIf="isCellVisible(item)" [ngStyle]="cellStyle(item)"
+                                [ngClass]="cellClass(item,'header')" [title]="titleToolTip(item)"
+                                [id]="frame.apps_page_frame_seqid+'#'+input_item.apps_item_seqid+'thead'+(j+1)"
+                                [class]="'freezeCss'+item.apps_item_seqid">
+
+                                <div class="thead_name">
+                                  <ng-container *ngIf="input_item.item_type =='CHECK_BOX'">
+                                    <ion-item lines="none" class="ion-no-padding table-checkbox inline-flex">
+
+                                      <ion-checkbox color="primary" [(ngModel)]="input_item.isChecked"
+                                        [disabled]="input_item.item_enable_flag && input_item.item_enable_flag=='F'"
+                                        [hidden]="input_item.summary_flag == 'N'"
+                                        (ionChange)="input_item.touched=true;cbEvent(input_item.isChecked,input_item.item_name)"></ion-checkbox>
+
+                                    </ion-item>
+                                  </ng-container>
+                                  <ion-label>
+                                    <!-- {{item.prompt_name}} -->
+                                    {{!item.prompt_name ?
+                                    ((frame.apps_page_frame_seqid).charAt((frame.apps_page_frame_seqid).length - 1) ==
+                                    'A' ? item.tool_tip : item.prompt_name) : item.prompt_name}}
+                                  </ion-label>
+                                  <div class="table-home-btn">
+                                    <app-table-column-tool [item]="item" [frame]="frame" [itemSortName]="itemGrp.Level5[0].item_name" [(clickedHead)]="clickedHead" (tablecolumnFilterrEmitPass)="tablecolumnFilter($event,item,i+1,frame.apps_page_frame_seqid,'FRAME_SEPARATOR',j+1,frame.apps_page_frame_seqid+'#'+input_item.apps_item_seqid)"></app-table-column-tool>
+                                  </div>
+                                </div>
+
+                              </th>
+
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </thead>
+
+
+            <tbody *ngIf="!frame.loading" #tableBody>
+              <ng-container *ngIf="frame.canvasRows?.length; else dataNotFoundBlock">
+
+                <tr *ngFor="let tableData of frame.canvasRows; let rowindex=index"
+                  class="table-row" [class.trow-active]="isActiveRow(tableData)" [id]="rowDomId(tableData)" tabindex="0"
+                  (dblclick)="dbClickpopover(true, tableData, rowindex)"
+                  (contextmenu)="onRightClick($event, tableData)">
+
+                  <ng-container *ngIf="!tableData.isDeleted">
+
+                    <ng-container *ngFor="let itemGroup of tableData">
+
+                      <!-- NORMAL -->
+                      <ng-container *ngIf="!isFrameSeparator(itemGroup)">
+
+                        <ng-container *ngFor="let cell of itemGroup.Level5">
+                          <ng-container *ngIf="isCellVisible(cell)">
+
+                            <td (click)="itemClicked(cell, tableData, rowindex)" [ngStyle]="cellStyle(cell)"
+                              [ngClass]="cellClass(cell)" *ngIf="isTextCell(cell); else cellEditor">
+
+                              <app-para-text [itemInput]="cell" [frame_type]="frame.apps_frame_type" [frameSeqId]="frame.apps_page_frame_seqid">
+                              </app-para-text>
+                            </td>
+
+
+                            <ng-template #cellEditor>
+                              <td [ngStyle]="cellStyle(cell)" [ngClass]="cellClass(cell)">
+                                <app-items [item]="cell" [wscp]="wscp_send_input" [frame]="frame"
+                                  [frame_type]="frame.apps_frame_type" (emitPass)="itemClick(cell, tableData, rowindex)"
+                                  (LHSOnChange)="itemValueChange($event, rowindex, tableData)">
+                                </app-items>
+                              </td>
+                            </ng-template>
+
+                          </ng-container>
+
+                        </ng-container>
+
+                      </ng-container>
+
+                      <!-- FRAME_SEPARATOR -->
+                      <ng-container *ngIf="isFrameSeparator(itemGroup)">
+                        <ng-container *ngFor="let sep of itemGroup.Level5">
+                          <ng-container *ngIf="sep.sepFrame === 'SHOW'">
+                            <ng-container *ngFor="let inner of sep.containerRowss">
+                              <ng-container *ngFor="let cell of inner.Level5">
+
+                                <ng-container *ngIf="isCellVisible(cell)">
+
+                                  <td (click)="itemClicked(cell, tableData, rowindex)" [ngStyle]="cellStyle(cell)"
+                                    [ngClass]="cellClass(cell)" *ngIf="isTextCell(cell); else sepEditor">
+                                    <app-para-text [itemInput]="cell" [frame_type]="frame.apps_frame_type" [frameSeqId]="frame.apps_page_frame_seqid">
+                                    </app-para-text>
+
+                                  </td>
+
+
+                                  <ng-template #sepEditor>
+                                    <td [ngStyle]="cellStyle(cell)" [ngClass]="cellClass(cell)">
+                                      <app-items [item]="cell" [wscp]="wscp_send_input" [frame]="frame"
+                                        [frame_type]="frame.apps_frame_type"
+                                        (emitPass)="itemClick(cell, tableData, rowindex)"
+                                        (LHSOnChange)="itemValueChange($event, rowindex, tableData)">
+                                      </app-items>
+                                    </td>
+                                  </ng-template>
+
+                                </ng-container>
+
+
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+
+                    </ng-container>
+
+                  </ng-container>
+                </tr>
+
+              </ng-container>
+
+              <ng-template #dataNotFoundBlock>
+                <tr>
+                  <td colspan="100%" style="text-align:center;padding:5% !important;">
+                    <div class="notfound-img">
+                      <img src="../../../../assets/imgs/Nodata-found.svg">
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </tbody>
+
+
+
+            <tfoot class="tfooter" *ngIf="frame.summary_flag && frame.summary_rows && frame.summary_rows.length > 0">
+              <tr>
+                <ng-container *ngFor="let itemGroup of frame.summary_rows">
+                  <ng-container *ngIf="!isFrameSeparator(itemGroup)">
+                    <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                      <ng-container *ngIf="isCellVisible(input_item)">
+                        <td [ngClass]="cellClass(input_item,'footer')" [ngStyle]="cellStyle(input_item)"
+                          [hidden]="!isCellVisible(input_item)" (dblclick)="tableSummaryClick(input_item.item_name)">
+                          <ng-container *ngIf="isNotFormareMask(input_item) ; else formateMask">
+                            {{input_item.summaryValue}}
+                          </ng-container>
+                          <ng-template #formateMask>
+                            {{input_item.summaryValue | formatMask :input_item.format_mask }}
+                          </ng-template>
+                        </td>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+
+                  <ng-container *ngIf="isFrameSeparator(itemGroup)">
+                    <ng-container *ngFor="let input_item of itemGroup.Level5;">
+                      <ng-container *ngIf="isCellVisible(input_item)">
+                        <ng-container *ngIf="input_item.sepFrame == 'SHOW'">
+                          <ng-container *ngIf="input_item.containerRowss">
+
+                            <ng-container *ngFor="let containerRows of input_item.containerRowss">
+                              <ng-container *ngIf="containerRows.Level5">
+                                <ng-container *ngFor="let item of containerRows.Level5">
+                                  <td [ngClass]="cellClass(item,'footer')" [ngStyle]="cellStyle(item)"
+                                    [hidden]="!isCellVisible(item)" (dblclick)="tableSummaryClick(item.item_name)">
+                                    <ng-container *ngIf="isNotFormareMask(input_item) ; else formateMask">
+                                      {{item.summaryValue}}
+                                    </ng-container>
+                                    <ng-template #formateMask>
+                                      {{item.summaryValue | formatMask :item.format_mask }}
+                                    </ng-template>
+                                  </td>
+                                </ng-container>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+            </tfoot>
+          </table>
+        </div>
+
+
+
+        <!--------------------------------control break------------>
+
+
+
+        <div class="center cent-loader" *ngIf="frame.loading">
+          <div class="text-center ">
+            <img src="../../../../assets/dot.gif" width="20%">
+          </div>
+        </div>
+
+
+
+
+
+        <ng-container *ngIf="!frame.collapse && frame.canvasRows && frame.canvasRows.length>0 && !isNotPaginate">
+          <app-pagination [frame]="frame" [(page)]="page" [parentDiv]="parentDiv"
+            [(rowCount)]="rowCount"></app-pagination>
+        </ng-container>
+
+      </div>
+
+
+
+
+    </ng-container>
+
+  </ion-col>
+  <ion-col size="3" class="ai_section" style="display: none;">
+    <ng-container *ngIf="isAIUsed">
+      <app-frame-ai-data [frame]="frametable" [selectedText]="selectedText"></app-frame-ai-data>
+    </ng-container>
+  </ion-col>
+</ion-row>

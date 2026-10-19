@@ -1,0 +1,27 @@
+
+<ng-container *ngIf="plt !='android'">
+
+  <div class="d-flex align-items-center justify-content-between">
+    <h4 class="document-title">{{docName}}</h4> 
+    <ion-button  (click)="downloadFile()" *ngIf="documentUrl">
+      <ion-icon name="download-outline" ></ion-icon>
+      <!-- *ngIf="globalObject.parentAppkey =='AMRESS'" -->
+    </ion-button>
+  </div>
+  <div class="form-group " style="margin: 10px;">
+    <ion-textarea [hidden]="true" [(ngModel)]="doc.value" (ionChange)="loadDocument()"></ion-textarea>
+    
+    
+  </div>
+
+  
+  <div   class="document-viewer ">
+    <iframe [src]="sanitizedUrl" id="excelIframe" width="100%" height="100%" class="pdf-iframe"  style=" user-select: none !important;" ></iframe>
+    <div class="overlap_div">
+    </div>
+  </div>
+</ng-container>  
+
+
+
+  

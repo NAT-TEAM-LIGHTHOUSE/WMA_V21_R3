@@ -1,0 +1,391 @@
+<!-- Browser input start here -->
+<ng-container *ngIf="frame_type != 'ENTRY_TABLE' && frame_type != 'TABLE'">
+  <div class="input-type6-containter"
+    *ngIf="selectinput.item_sub_type == 'DROP_DOWN_BOX_LEFT' || selectinput.item_sub_type == 'DROP_DOWN_CB_BOX_LEFT' || selectinput.item_sub_type == 'DROP_DOWN_UL_LEFT' || selectinput.item_sub_type == 'DROP_DOWN_CB_UL_LEFT' || selectinput.item_sub_type == 'COMBO_BOX_LEFT' || selectinput.item_sub_type == 'COMBO_UL_LEFT'">
+    <div
+      *ngIf="selectinput.item_sub_type == 'DROP_DOWN_BOX_LEFT' || selectinput.item_sub_type == 'DROP_DOWN_CB_BOX_LEFT' || selectinput.item_sub_type == 'COMBO_BOX_LEFT'"
+      class="newIp-type3">
+
+      <ion-row>
+        <ion-col [size]="col1" *ngIf="selectinput.prompt_name">
+             <p class="input-group-label pt-0" [title]="selectinput.prompt_name">{{selectinput.prompt_name}} </p>
+            <span>
+              <ion-button *ngIf="globalObjects.toggleDevloperMode()"  [title]="selectinput.apps_item_seqid" class="code-btn developer_btn me-2 " (click)="showDeveloperData()">
+              <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+                              </ion-button>
+            </span>
+        </ion-col>
+        <ion-col [size]="selectinput.prompt_name ? col2 : '12'">
+          <div class="input-div a">
+
+            <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_BOX_LEFT'">
+              <ng-select name="fieldName a" [(ngModel)]="selectinput.value" class="ng-select-dropdown" [items]="selectinput.dropdownList || []"
+                bindLabel="key" bindValue="val" [title]="getSelectedLabel(selectinput.value)"
+                [searchable]="selectinput.item_enable_flag != 'F'"
+                [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" (clear)="clearValue($event)"
+                (change)="onChange(selectinput.value)" (blur)="validateInput()" (click)="itemClicked(selectinput)">
+                <!-- Dropdown list -->
+                <ng-template ng-option-tmp let-item="item">
+                  <span [attr.title]="item.key">
+                    {{ item.key }}
+                  </span>
+                </ng-template>
+              
+                <!-- Selected value -->
+                <!-- <ng-template ng-label-tmp let-item="item">
+                  <span [attr.title]="item?.key">
+                    {{ item?.key }}
+                  </span>
+                </ng-template> -->
+              
+              </ng-select>
+            </ng-container>
+
+            <ng-container *ngIf="selectinput.item_sub_type == 'COMBO_BOX_LEFT'">
+              <!-- <ng-select name="fieldName b" [(ngModel)]="selectModel" class="ng-select-dropdown" (click)="itemClicked(selectinput)"
+                [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'"
+                (clear)="clearValue($event)" (change)="onChange(selectModel)" (blur)="validateInput()" bindLabel="key"
+                bindValue="val">
+
+                <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val">{{c.key }}</ng-option>
+              </ng-select> -->
+              <ng-select name="fieldName b" [items]="selectinput.dropdownList || []" [(ngModel)]="selectModel" class="ng-select-dropdown" (click)="itemClicked(selectinput)"
+                [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'"
+                (clear)="clearValue($event)" (change)="onChange(selectModel)" (blur)="validateInput()" bindLabel="key"
+                bindValue="val"></ng-select>
+            </ng-container>
+
+            <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_CB_BOX_LEFT'">
+              <ng-select name="fieldName c" [(ngModel)]="selectinput.valueArr" class="ng-select-dropdown new-multi" [multiple]="true"
+                (clear)="clearValue($event)" (click)="itemClicked(selectinput)"
+                [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" [closeOnSelect]="false"
+                [items]="selectinput.dropdownList" bindLabel="key" bindValue="val" (change)="onChange(selectinput.valueArr)"
+                (blur)="validateInput()">
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                  <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"  [ngModelOptions]="{ standalone : true }"/> {{item.key }}
+                </ng-template>
+              </ng-select>
+            </ng-container>
+          </div>
+        </ion-col>
+
+        <div class="error" *ngIf="!selectinput.isValid && selectinput.vadidateMsg">{{selectinput.vadidateMsg}}</div>
+        <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+        <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+      </ion-row>
+    </div>
+
+    <div
+      *ngIf="selectinput.item_sub_type == 'DROP_DOWN_UL_LEFT' || selectinput.item_sub_type == 'DROP_DOWN_CB_UL_LEFT' || selectinput.item_sub_type == 'COMBO_UL_LEFT'"
+      class="newIp-type5">
+      <ion-row>
+        <ion-col *ngIf="selectinput.prompt_name" [size]="col1" class="bg-prompt d-flex">
+  <p class="input-group-label pt-0" [title]="selectinput.prompt_name">{{selectinput.prompt_name}}</p>
+          <span> <ion-button  *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn me-1 mt-1" (click)="showDeveloperData()">
+              <ion-icon class="code-btn m-0" color="primary" name="information-circle-outline" slot="end"></ion-icon>
+                              </ion-button></span>
+
+        </ion-col>
+        <ion-col [size]="selectinput.prompt_name ? col2 : '12'" class="input-container">
+          <div class="bg-input">
+
+            <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_UL_LEFT'">
+              <!-- <ng-select name="fieldName" [(ngModel)]="selectinput.value" class="ng-select-dropdown no_un_input"
+                [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" (click)="itemClicked(selectinput)"
+                (change)="onChange(selectinput.value)" (blur)="validateInput()" bindLabel="key" bindValue="val"
+                [searchable]="selectinput.item_enable_flag != 'F'">
+
+                <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val">{{c.key }}</ng-option>
+              </ng-select> -->
+                <ng-select name="fieldName" [items]="selectinput.dropdownList || []" [(ngModel)]="selectinput.value" class="ng-select-dropdown no_un_input"
+                [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" (click)="itemClicked(selectinput)"
+                (change)="onChange(selectinput.value)" (blur)="validateInput()" bindLabel="key" bindValue="val"
+                [searchable]="selectinput.item_enable_flag != 'F'"></ng-select>
+            </ng-container>
+
+            <ng-container *ngIf="selectinput.item_sub_type == 'COMBO_UL_LEFT'">
+              <!-- <ng-select name="fieldName" [(ngModel)]="selectModel" class="ng-select-dropdown no_un_input"
+                [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" (click)="itemClicked(selectinput)"
+                (clear)="clearValue($event)" (change)="onChange(selectModel)" (blur)="validateInput()" bindLabel="key"
+                bindValue="val">
+
+                <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val">{{c.key }}</ng-option>
+              </ng-select> -->
+              <ng-select name="fieldName" [items]="selectinput.dropdownList || []"  [(ngModel)]="selectModel" class="ng-select-dropdown no_un_input"
+                [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" (click)="itemClicked(selectinput)"
+                (clear)="clearValue($event)" (change)="onChange(selectModel)" (blur)="validateInput()" bindLabel="key"
+                bindValue="val"></ng-select>
+            </ng-container>
+
+            <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_CB_UL_LEFT'">
+              <ng-select name="fieldName" [(ngModel)]="selectinput.valueArr" class="ng-select-dropdown no_un_input"
+                (clear)="clearValue($event)" [multiple]="true" (click)="itemClicked(selectinput)"
+                [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" [closeOnSelect]="false"
+                [items]="selectinput.dropdownList" bindLabel="key" bindValue="val" (change)="onChange(selectinput.valueArr)"
+                (blur)="validateInput()">
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                  <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.key }}
+                </ng-template>
+              </ng-select>
+            </ng-container>
+
+          </div>
+             <div class="error" *ngIf="!selectinput.isValid && selectinput.vadidateMsg">{{selectinput.vadidateMsg}}</div>
+         <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+        <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+        </ion-col>
+
+        <!-- <div class="error" *ngIf="!selectinput.isValid && selectinput.vadidateMsg">{{selectinput.vadidateMsg}}</div>
+        <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div> -->
+
+      </ion-row>
+    </div>
+  </div>
+
+  <ng-container
+    *ngIf="selectinput.item_sub_type == 'DROP_DOWN_BOX_TOP' || selectinput.item_sub_type == 'DROP_DOWN_CB_BOX_TOP' || selectinput.item_sub_type == 'COMBO_BOX_TOP'  || selectinput.item_sub_type == 'DROP_DOWN_CHIP'" >
+    <ion-label>{{selectinput.prompt_name}}</ion-label>
+
+    <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_BOX_TOP'">
+      <!-- <ng-select name="fieldName" [(ngModel)]="selectinput.value" class="ng-select-dropdown box_top_input no-border"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" (clear)="clearValue($event)"
+        (change)="onChange(selectinput.value)" (blur)="validateInput()" bindLabel="key" bindValue="val"
+        [searchable]="selectinput.item_enable_flag != 'F'" (click)="itemClicked(selectinput)">
+
+        <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val">{{c.key }}</ng-option>
+      </ng-select> -->
+         <ng-select name="fieldName" [items]="selectinput.dropdownList || []" [(ngModel)]="selectinput.value" class="ng-select-dropdown box_top_input no-border"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" (clear)="clearValue($event)"
+        (change)="onChange(selectinput.value)" (blur)="validateInput()" bindLabel="key" bindValue="val"
+        [searchable]="selectinput.item_enable_flag != 'F'" (click)="itemClicked(selectinput)"></ng-select>
+    </ng-container>
+
+
+
+    <ng-container *ngIf="selectinput.item_sub_type =='DROP_DOWN_CHIP'">
+   
+      <div class="chips_area">
+       <ion-row>
+         <ion-col [size]="">
+           <div class="selct-input-div" >
+            <ion-select id="id" class="box_top_input" [(ngModel)]="selectinput.value" interface="popover"
+           (ionChange)="selectModel = selectinput.value;onChange(selectModel);" (click)="itemClicked(selectinput)"
+           [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'">
+           <ion-select-option *ngFor="let c of selectinput.dropdownList" [value]="c.val" [selected]="selectinput.value == c.val">
+             {{c.key}} </ion-select-option>
+         </ion-select>
+           <div class="select-action-container">
+             <ion-icon name="close-outline" (click)="clearValue($event)"></ion-icon>
+           </div>
+         </div>
+         </ion-col>
+       </ion-row>
+      </div>
+     </ng-container>
+
+
+    <ng-container *ngIf="selectinput.item_sub_type == 'COMBO_BOX_TOP'">
+      <!-- <ng-select name="fieldName" [(ngModel)]="selectModel" class="ng-select-dropdown box_top_input"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" (clear)="clearValue($event)"
+        (change)="onChange(selectModel)" (blur)="validateInput()" bindLabel="key" bindValue="val" (click)="itemClicked(selectinput)">
+
+        <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val">{{c.key }}</ng-option>
+      </ng-select> -->
+      <ng-select name="fieldName" [items]="selectinput.dropdownList || []" [(ngModel)]="selectModel" class="ng-select-dropdown box_top_input"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" (clear)="clearValue($event)"
+        (change)="onChange(selectModel)" (blur)="validateInput()" bindLabel="key" bindValue="val" (click)="itemClicked(selectinput)"></ng-select>
+    </ng-container>
+
+    <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_CB_BOX_TOP'">
+      <ng-select name="fieldName" [(ngModel)]="selectinput.valueArr" class="ng-select-dropdown box_top_input" [multiple]="true"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" [closeOnSelect]="false"
+        (clear)="clearValue($event)" [items]="selectinput.dropdownList" bindLabel="key" bindValue="val"
+        (change)="onChange(selectinput.valueArr)" (blur)="validateInput()" (click)="itemClicked(selectinput)">
+        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+          <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.key }}
+        </ng-template>
+      </ng-select>
+    </ng-container>
+
+    <div class="error" *ngIf="!selectinput.isValid && selectinput.vadidateMsg">{{selectinput.vadidateMsg}}</div>
+    <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+    <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+  </ng-container>
+
+  <ng-container
+    *ngIf="selectinput.item_sub_type == 'DROP_DOWN_UL_FLOATING' || selectinput.item_sub_type == 'DROP_DOWN_CB_UL_FLOATING' || selectinput.item_sub_type == 'COMBO_UL_FLOATING'">
+    <ion-item lines="none">
+      <ion-label position="floating">{{selectinput.prompt_name}}</ion-label>
+
+      <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_UL_FLOATING'">
+        <!-- <ng-select name="fieldName" [(ngModel)]="selectinput.value" class="ng-select-dropdown"
+          (change)="onChange(selectinput.value)" (blur)="validateInput()" (click)="itemClicked(selectinput)"
+          [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key"
+          bindValue="val" [searchable]="selectinput.item_enable_flag != 'F'">
+
+          <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val">{{c.key }}</ng-option>
+        </ng-select> -->
+         <ng-select name="fieldName" [items]="selectinput.dropdownList || []" [(ngModel)]="selectinput.value" class="ng-select-dropdown"
+          (change)="onChange(selectinput.value)" (blur)="validateInput()" (click)="itemClicked(selectinput)"
+          [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key"
+          bindValue="val" [searchable]="selectinput.item_enable_flag != 'F'"></ng-select>
+      </ng-container>
+
+      <ng-container *ngIf="selectinput.item_sub_type == 'COMBO_UL_FLOATING'">
+        <!-- <ng-select name="fieldName" [(ngModel)]="selectModel" class="ng-select-dropdown"
+          (change)="onChange(selectModel)" (blur)="validateInput()" (clear)="clearValue($event)"
+          [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key"
+          bindValue="val" (click)="itemClicked(selectinput)">
+
+          <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val">{{c.key }}</ng-option>
+        </ng-select> -->
+        <ng-select name="fieldName" [items]="selectinput.dropdownList || []" [(ngModel)]="selectModel" class="ng-select-dropdown"
+          (change)="onChange(selectModel)" (blur)="validateInput()" (clear)="clearValue($event)"
+          [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key"
+          bindValue="val" (click)="itemClicked(selectinput)"></ng-select>
+      </ng-container>
+
+      <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_CB_UL_FLOATING'">
+        <ng-select name="fieldName" [(ngModel)]="selectinput.valueArr" class="ng-select-dropdown" [multiple]="true"
+          (clear)="clearValue($event)" [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'"
+          [closeOnSelect]="false" [items]="selectinput.dropdownList" bindLabel="key" bindValue="val"
+          (change)="onChange(selectinput.valueArr)" (blur)="validateInput()" (click)="itemClicked(selectinput)">
+          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.key }}
+          </ng-template>
+        </ng-select>
+      </ng-container>
+
+    </ion-item>
+
+    <div class="error" *ngIf="!selectinput.isValid && selectinput.vadidateMsg">{{selectinput.vadidateMsg}}</div>
+    <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+    <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+  </ng-container>
+
+  <ng-container
+    *ngIf="selectinput.item_sub_type == 'DROP_DOWN_UL_TOP' || selectinput.item_sub_type == 'DROP_DOWN_CB_UL_TOP' || selectinput.item_sub_type == 'COMBO_UL_TOP'">
+    <ion-label>{{selectinput.prompt_name}}</ion-label>
+
+    <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_UL_TOP'">
+      <!-- <ng-select name="fieldName" [(ngModel)]="selectinput.value" class="ng-select-dropdown un_input"
+        (change)="onChange(selectinput.value)" (blur)="validateInput()" (click)="itemClicked(selectinput)"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key" bindValue="val"
+        [searchable]="selectinput.item_enable_flag != 'F'">
+
+        <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val">{{c.key }}</ng-option>
+      </ng-select> -->
+        <ng-select name="fieldName" [items]="selectinput.dropdownList || []" [(ngModel)]="selectinput.value" class="ng-select-dropdown un_input"
+        (change)="onChange(selectinput.value)" (blur)="validateInput()" (click)="itemClicked(selectinput)"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key" bindValue="val"
+        [searchable]="selectinput.item_enable_flag != 'F'"></ng-select>
+    </ng-container>
+
+    <ng-container *ngIf="selectinput.item_sub_type == 'COMBO_UL_TOP'">
+      <!-- <ng-select name="fieldName" [(ngModel)]="selectModel" class="ng-select-dropdown un_input"
+        (change)="onChange(selectModel)" (blur)="validateInput()" (clear)="clearValue($event)"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key"
+        bindValue="val" (click)="itemClicked(selectinput)">
+
+        <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val">{{c.key }}</ng-option>
+      </ng-select> -->
+        <ng-select name="fieldName" [items]="selectinput.dropdownList || []" [(ngModel)]="selectModel" class="ng-select-dropdown un_input"
+        (change)="onChange(selectModel)" (blur)="validateInput()" (clear)="clearValue($event)"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key"
+        bindValue="val" (click)="itemClicked(selectinput)"></ng-select>
+    </ng-container>
+
+    <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_CB_UL_TOP'">
+      <ng-select name="fieldName" [(ngModel)]="selectinput.valueArr" class="ng-select-dropdown un_input" [multiple]="true"
+        [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" [closeOnSelect]="false"
+        (clear)="clearValue($event)" [items]="selectinput.dropdownList" bindLabel="key" bindValue="val"
+        (change)="onChange(selectinput.valueArr)" (blur)="validateInput()" (click)="itemClicked(selectinput)">
+        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+          <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.key }}
+        </ng-template>
+      </ng-select>
+    </ng-container>
+    <div class="error" *ngIf="!selectinput.isValid && selectinput.vadidateMsg">{{selectinput.vadidateMsg}}</div>
+    <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+    <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+
+  </ng-container>
+</ng-container>
+<!-- Browser input end here -->
+
+<ng-container *ngIf="frame_type == 'ENTRY_TABLE' || frame_type == 'HORIZONTAL_TABLE' || frame_type == 'TABLE'">
+  <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_BOX_TOP'">
+    <ion-col [size]="col1" *ngIf="selectinput.prompt_name">
+      <span style="position: absolute;"><ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon  class="code-btn" style="position: absolute;left: 0;" color="primary" name="information-circle-outline"></ion-icon>
+                          </ion-button></span>
+
+
+
+    </ion-col>
+    <div class="selct-input-div">
+       <ion-select id="id" class="box_top_input" [(ngModel)]="selectinput.value" interface="popover"
+      (ionChange)="selectModel = selectinput.value;onChange(selectModel);" (click)="itemClicked(selectinput)"
+      [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'">
+      <ion-select-option *ngFor="let c of selectinput.dropdownList" [value]="c.val" [selected]="selectinput.value == c.val">
+        {{c.key}} </ion-select-option>
+    </ion-select>
+      <div class="select-action-container">
+        <ion-icon name="close-outline" (click)="clearValue($event)"></ion-icon>
+      </div>
+    </div>
+   
+  </ng-container>
+   <ng-container *ngIf="selectinput.item_sub_type =='DROP_DOWN_CHIP'">
+   
+    <div class="chips_area">
+     <ion-row>
+       <ion-col [size]="">
+         <div class="selct-input-div" >
+          <ion-select id="id" class="box_top_input" [(ngModel)]="selectinput.value" interface="popover"
+         (ionChange)="selectModel = selectinput.value;onChange(selectModel);" (click)="itemClicked(selectinput)"
+         [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'">
+         <ion-select-option *ngFor="let c of selectinput.dropdownList" [value]="c.val" [selected]="selectinput.value == c.val">
+           {{c.key}} </ion-select-option>
+       </ion-select>
+         <div class="select-action-container">
+           <ion-icon name="close-outline" (click)="clearValue($event)"></ion-icon>
+         </div>
+       </div>
+       </ion-col>
+      
+     </ion-row>
+    </div>
+ 
+   </ng-container>
+
+  <ng-container *ngIf="selectinput.item_sub_type == 'COMBO_BOX_TOP'">
+    <!-- <ng-select name="fieldName" [(ngModel)]="selectinput" class="ng-select-dropdown box_top_input"
+      (clear)="clearValue($event)" (change)="onChange(selectModel)" (blur)="validateInput()" (click)="itemClicked(selectinput)"
+      [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key" bindValue="val">
+
+      <ng-option *ngFor="let c of selectinput.dropdownList" [value]="c.val" [selected]="selectModel == c.val">{{c.key }}</ng-option>
+    </ng-select> -->
+    <ng-select name="fieldName" [items]="selectinput.dropdownList || []" [(ngModel)]="selectinput" class="ng-select-dropdown box_top_input"
+      (clear)="clearValue($event)" (change)="onChange(selectModel)" (blur)="validateInput()" (click)="itemClicked(selectinput)"
+      [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'" bindLabel="key" bindValue="val"></ng-select>
+  </ng-container>
+
+  <ng-container *ngIf="selectinput.item_sub_type == 'DROP_DOWN_CB_BOX_TOP'">
+    <div class="selct-input-div">
+    <ion-select multiple id="id" class="box_top_input" [(ngModel)]="selectinput.valueArr" interface="popover"
+      (ionChange)="onChange(selectinput.valueArr);" (clear)="clearValue($event)" (click)="itemClicked(selectinput)"
+      [disabled]="selectinput.item_enable_flag && selectinput.item_enable_flag == 'F'">
+
+      <ion-select-option *ngFor="let c of selectinput.dropdownList" [value]="c.val" [selected]="selectModel == c.val">
+        {{c.key}} </ion-select-option>
+    </ion-select>
+    <div class="select-action-container">
+      <ion-icon name="close-outline" (click)="clearValue($event)"></ion-icon>
+    </div>
+  </div>
+  </ng-container>
+  <div class="error" *ngIf="!selectinput.isValid && selectinput.vadidateMsg">{{selectinput.vadidateMsg}}</div>
+  <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+  <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+</ng-container>

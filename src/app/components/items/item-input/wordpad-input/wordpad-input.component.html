@@ -1,0 +1,10 @@
+<div class="table-input-container"
+    [ngStyle]="{'cursor': ishover(wordpadInput) ? 'pointer' : 'context-menu' }">
+        <angular-editor  [ngStyle]="wordpadInput.display_setting_str" 
+        (blur)="onBlur()" id="{{wordpadInput.item_name}}" [(ngModel)]="wordpadInput.value" 
+        ></angular-editor>
+    <div class="input-buttons-container"
+        *ngIf="wordpadInput.value && (!(wordpadInput.item_enable_flag && (!(wordpadInput.item_enable_flag.indexOf(current_page_parameter.MODE)>-1)||(wordpadInput.item_enable_flag=='F')))) ">
+    </div>
+</div>
+ 

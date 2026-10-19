@@ -1,0 +1,760 @@
+<ng-container *ngIf="textband.item_visible_flag == 'T'">
+
+  <ng-container *ngIf="textband.item_sub_type == 'KPI'">
+
+    <div [ngClass]="globalObjects.toggleDevloperMode() ? 'text-band-dm icon' : 'text-band-ndm icon'">
+      <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+
+
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid"
+          class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+        </ion-button>
+
+
+
+      </div>
+      <div class="text-band back h-100" [ngStyle]="textband.display_setting_str">
+        <!-- [title]="textband.tool_tip?textband.tool_tip:''" -->
+        <div class="inner-textband" (click)="itemClick($event)" (contextmenu)="onRightClick($event)">
+         <div class="image_bg" [ngStyle]="{'background-color': bgColor}" *ngIf="baseImg">
+          <img [src]="baseImg" />
+         </div>
+          <ng-container *ngIf="val.length > 0 && val.length < 3">
+            <h4 class="mgt-5 mgb-5 mgr-0 mgl-0">{{val[1]}}</h4>
+            <h5 class="mgt-5 mgt-5 mgr-0 mgl-0">{{val[0]}}</h5>
+          </ng-container>
+
+          <ng-container *ngIf="val.length >= 3 ">
+            <h5 style="margin-top: 10px;">{{val[0]}}</h5>
+            <h4 style="margin-top: 5px;">{{val[1]}}</h4>
+            <h5 class="m-0">{{val[2]}}</h5>
+          </ng-container>
+
+
+          <ng-container *ngIf="val.length <= 0 && textband.value">
+            <h4>{{textband.value}}</h4>
+            <h5 class="mt-3">{{textband.prompt_name}}</h5>
+          </ng-container>
+
+          <ng-container *ngIf="!textband.value">
+            <h5>{{textband.prompt_name}}</h5>
+          </ng-container>
+        </div>
+        <ion-icon name="refresh-outline" (click)="refreshItem($event)" *ngIf="!frame.executed_from"></ion-icon>
+        <img style="width: 34px;" *ngIf="textband.loading && textband.value == undefined"
+          src=".././../../../../assets/dot.gif">
+      </div>
+    </div>
+
+  </ng-container>
+
+
+  <ng-container *ngIf="textband.item_sub_type == 'KPI_BOTTOM'">
+
+    <div [ngClass]="globalObjects.toggleDevloperMode() ? 'text-band-dm' : 'text-band-ndm'">
+      <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid"
+          class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+      <div class="text-band back h-100" [ngStyle]="textband.display_setting_str">
+        <!-- title="textband.tool_tip"[title]="textband.tool_tip?textband.tool_tip:''" -->
+        <div class="inner-textband" (click)="itemClick($event)" (contextmenu)="onRightClick($event)">
+
+          <ng-container *ngIf="val.length > 0 && val.length < 3">
+            <h5 class="mt-3">{{val[0]}}</h5>
+            <h4>{{val[1]}}</h4>
+
+          </ng-container>
+
+          <ng-container *ngIf="val.length >= 3 ">
+            <h5 style="margin-top: 10px;">{{val[0]}}</h5>
+            <h4 style="margin-top: 5px;">{{val[1]}}</h4>
+            <h5 class="m-0">{{val[2]}}</h5>
+          </ng-container>
+
+
+          <ng-container *ngIf="val.length <= 0 && textband.value">
+            <h5 class="mt-3">{{textband.prompt_name}}</h5>
+            <h4>{{textband.value}}</h4>
+          </ng-container>
+
+          <ng-container *ngIf="!textband.value">
+            <h5>{{textband.prompt_name}}</h5>
+          </ng-container>
+        </div>
+        <i class="fa fa-refresh refresh-ic" (click)="refreshItem($event)" *ngIf="!frame.executed_from"></i>
+        <img style="width: 34px;"
+          *ngIf="textband.loading && (!textband.value || textband.value && textband.value.length <= 0)"
+          src=".././../../../../assets/dot.gif">
+      </div>
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="textband.item_sub_type == 'ACTION_H'">
+
+    <div>
+      <!-- [title]="textband.tool_tip?textband.tool_tip:''" title="textband.tool_tip" -->
+      <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid"
+          class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="kpi-container kpi-container2 " (click)="itemClick($event)" (contextmenu)="onRightClick($event)">
+        <ng-container *ngIf="val.length > 0 && val.length < 3">
+          <div class="kpi-count">
+            <h4>{{val[1]}}</h4>
+            <ion-icon name="refresh-outline" *ngIf="isIconVisible && !frame.executed_from"
+              (click)="refreshItem($event)"></ion-icon>
+            <img *ngIf="!isIconVisible" src="../../../../../assets/page-small-loader-img2.gif" alt="Icon 2"
+              (click)="toggleIcon()" />
+          </div>
+        </ng-container>
+        <ng-container *ngIf="val.length >= 3 ">
+          <div class="kpi-count">
+            <h4>{{val[1]}}</h4>
+            <ion-icon name="refresh-outline" *ngIf="isIconVisible && !frame.executed_from"
+              (click)="refreshItem($event)"></ion-icon>
+            <img *ngIf="!isIconVisible" src="../../../../../assets/page-small-loader-img2.gif" alt="Icon 2"
+              (click)="toggleIcon()" />
+            <h4 class="m-0">{{val[2]}}</h4>
+
+          </div>
+        </ng-container>
+        <ng-container *ngIf="val.length <= 0 && textband.value">
+          <div class="kpi-count">
+            <h4>{{textband.value}}</h4>
+          </div>
+          <p title="{{textband.prompt_name}}">{{textband.prompt_name}}</p>
+        </ng-container>
+        <ng-container *ngIf="!textband.value">
+          <p class="mt-0 prompt_name" title="{{textband.tool_tip?textband.tool_tip:textband.prompt_name}}">
+            {{textband.prompt_name}}</p>
+        </ng-container>
+      </div>
+
+    </div>
+  </ng-container>
+
+  <!-- ----------------------Type2-------------------------------------------------------------------------- -->
+
+  <ng-container *ngIf="textband.item_sub_type == 'ACTION_V'">
+    <div>
+      <!-- [title]="textband.tool_tip?textband.tool_tip:''" title="textband.tool_tip" -->
+      <!-- <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid"
+          class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+        </ion-button>
+      </div> -->
+
+
+      <div class="kpi-container kpi-container2 kpi-container3" (click)="itemClick($event)"
+        (contextmenu)="onRightClick($event)">
+        <div>
+          <ng-container *ngIf="val.length > 0 && val.length < 3">
+            <div class="kpi-count">
+              <h4>{{val[1]}}</h4>
+            </div>
+            <p title="{{val[0]}}">{{val[0]}}</p>
+          </ng-container>
+
+          <ng-container *ngIf="val.length >= 3 ">
+            <div class="kpi-count">
+              <h4>{{val[1]}}</h4>
+              <h4 class="m-0">{{val[2]}}</h4>
+            </div>
+            <p title="{{val[0]}}">{{val[0]}}</p>
+          </ng-container>
+
+
+          <ng-container *ngIf="val.length <= 0 && textband.value">
+            <div class="kpi-count">
+              <h4>{{textband.value}}</h4>
+            </div>
+            <p title="{{textband.tool_tip ? textband.tool_tip : textband.prompt_name}}">{{textband.prompt_name}}</p>
+          </ng-container>
+
+          <ng-container *ngIf="!textband.value">
+            <p class="mt-0 prompt_name" title="{{textband.tool_tip?textband.tool_tip:textband.prompt_name}}">
+              {{textband.prompt_name}}</p>
+          </ng-container>
+          <div class="icon_sect">
+          <ion-icon name="refresh-outline" *ngIf="isIconVisible && !frame.executed_from"
+            (click)="refreshItem($event)"></ion-icon>
+          <img *ngIf="!isIconVisible" src="../../../../../assets/page-small-loader-img2.gif" alt="Icon 2"
+            (click)="toggleIcon()" />
+              <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid" 
+          class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+        </div>
+      </div>
+
+    </div>
+
+  </ng-container>
+
+
+  <!-- ----------------------------------TYPE3 -------------------------------------------------------------->
+  <ng-container *ngIf="textband.item_sub_type == 'INFO'">
+    <!-- <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+      <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid"
+        class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+      </ion-button>
+    </div> -->
+    <div class="kpi-container">
+
+
+      <div>
+        <!-- [title]="textband.tool_tip?textband.tool_tip:''" title="textband.tool_tip" -->
+        <div (click)="itemClick($event)" (contextmenu)="onRightClick($event)">
+
+          <ng-container *ngIf="val.length > 0 && val.length < 3">
+            <div class="kpi-count">
+
+              <h4>{{val[1]}}</h4>
+            </div>
+            <p title="{{val[0]}}">{{val[0]}}</p>
+          </ng-container>
+
+          <ng-container *ngIf="val.length >= 3 ">
+            <div class="kpi-count">
+              <h4>{{val[1]}}</h4>
+              <h4 class="m-0">{{val[2]}}</h4>
+            </div>
+            <p title="{{val[0]}}">{{val[0]}}</p>
+          </ng-container>
+
+
+          <ng-container *ngIf="val.length <= 0 && textband.value">
+            <div class="kpi-count">
+              <h4>{{textband.value}}</h4>
+            </div>
+            <p title="{{textband.tool_tip ? textband.tool_tip : textband.prompt_name}}">{{textband.prompt_name}}</p>
+          </ng-container>
+
+          <ng-container *ngIf="!textband.value">
+            <p class="mt-0 prompt_name" title="{{textband.tool_tip?textband.tool_tip:textband.prompt_name}}">
+              {{textband.prompt_name}}</p>
+          </ng-container>
+
+
+        </div>
+
+      </div>
+      <div class="icon_sect">
+      <ion-icon name="refresh-outline" *ngIf="isIconVisible && !frame.executed_from"
+        (click)="refreshItem($event)"></ion-icon>
+      <!-- <ion-icon name="arrow-redo-outline" *ngIf="isIconVisible" (click)="refreshItem($event)"></ion-icon> -->
+      <img *ngIf="!isIconVisible" src="../../../../../assets/page-small-loader-img2.gif" alt="Icon 2"
+        (click)="toggleIcon()" />
+           <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid"
+        class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-button 
+           (click)="itemClick($event)"> -->
+      <ion-icon *ngIf="targetItem" (click)="targetClick()" name="open-outline"></ion-icon>
+      <!-- </ion-button> -->
+       </div>
+    </div>
+  </ng-container>
+
+
+
+
+  <!-- Two D Kpi Html Starts -->
+
+  <ng-container *ngIf="textband.item_sub_type == 'KPI_TOP'">
+
+    <ng-container *ngIf="val.length > 0">
+      <div class="h-100">
+        <div class='twod-kpi h-100 {{textband.css_class | lowercase}}' (click)="itemClick($event)">
+          <div class="kpi-header">
+            {{val[0]}}
+          </div>
+          <div class="kpi-body">
+            <ion-row>
+              <ng-container>
+                <ion-col size="12">
+                  {{val[1]}}
+                </ion-col>
+              </ng-container>
+
+            </ion-row>
+          </div>
+          <div>
+            <p *ngIf="val[2]">{{val[2]}}</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <!-- -----------------------New Type Development-------------------------------------------------------- -->
+
+
+
+    <ng-container *ngIf="val.length <= 0 && textband.value">
+      <div class="h-100">
+        <div class='twod-kpi h-100 {{textband.css_class | lowercase}}' (click)="itemClick($event)">
+          <div class="kpi-header">
+            {{textband.prompt_name}}
+          </div>
+          <div class="kpi-body">
+            <ion-row>
+              <ng-container>
+                <ion-col size="12">
+                  {{textband.value}}
+                </ion-col>
+              </ng-container>
+
+            </ion-row>
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+
+
+    <ng-container *ngIf="!textband.value">
+      <div class="h-100">
+        <div class='twod-kpi h-100 {{textband.css_class | lowercase}}' (click)="itemClick($event)">
+          <div class="kpi-header">
+            {{textband.prompt_name}}
+          </div>
+          <div class="kpi-body">
+            <ion-row>
+              <ng-container>
+                <ion-col size="12">
+                </ion-col>
+              </ng-container>
+
+            </ion-row>
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+
+
+  <!-- Summary Card Html Starts -->
+
+  <ng-container *ngIf="textband.item_sub_type == 'KPI_LEFT'">
+    <ion-item class="summary-item-blue" lines="none" (click)="itemClick($event)" *ngIf="num==1">
+      <ion-label>{{textband.prompt_name}}</ion-label>
+      <ion-note slot="end">{{textband.value}}</ion-note>
+    </ion-item>
+
+    <ion-item class="summary-item-yellow" lines="none" (click)="itemClick($event)" *ngIf="num==2">
+      <ion-label>{{textband.prompt_name}}</ion-label>
+      <ion-note slot="end">{{textband.value}}</ion-note>
+    </ion-item>
+
+
+    <ion-item class="summary-item-green" lines="none" (click)="itemClick($event)" *ngIf="num==3">
+      <ion-label>{{textband.prompt_name}}</ion-label>
+      <ion-note slot="end">{{textband.value}}</ion-note>
+    </ion-item>
+
+    <ion-item class="summary-item-purple" lines="none" (click)="itemClick($event)" *ngIf="num==4">
+      <ion-label>{{textband.prompt_name}}</ion-label>
+      <ion-note slot="end">{{textband.value}}</ion-note>
+    </ion-item>
+
+  </ng-container>
+
+
+  <!-- TAB Html Start -->
+
+  <ion-list *ngIf="textband.item_sub_type =='TAB'" class="menu-list  a"
+    [ngStyle]="{'cursor': textband.click_events_str ? 'pointer' : 'context-menu' }"
+    [ngStyle]="textband.display_setting_str" title="{{textband.prompt_name}}{{textband.value}}">
+    <ion-item class="ion-no-padding" (click)="itemClick($event)" (contextmenu)="onRightClick($event)">
+      <div class="thumbnail-container">
+        <ion-thumbnail slot="start">
+          <img [src]="baseImg" (error)="onImgError($event)">
+        </ion-thumbnail>
+      </div>
+      <h2 [ngStyle]="textband.display_setting_str">{{textband.prompt_name}}{{textband.value}}</h2>
+      <ion-icon name="chevron-forward-outline" slot="end" color="primary" class="i1 "></ion-icon>
+    </ion-item>
+  </ion-list>
+
+
+  <!-- badges Html Start -->
+
+  <ion-list *ngIf="textband.item_sub_type =='TAB_NOIMAGE'" class="menu-list b icon" [ngStyle]="{'background-color': bgColor}"
+    [ngStyle]="{'cursor': textband.click_events_str ? 'pointer' : 'context-menu' }"
+    [ngStyle]="textband.display_setting_str" title="{{textband.prompt_name}}{{textband.value}}">
+    
+     <div class="image_bgg" [ngStyle]="{'background-color': bgColor}" *ngIf="baseImg">
+          <img [src]="baseImg"  />
+      </div>
+    
+    <ion-item class="ion-no-padding" (click)="itemClick($event)" (contextmenu)="onRightClick($event)">
+
+      <h2 [ngStyle]="textband.display_setting_str">{{textband.prompt_name}}{{textband.value}}</h2>
+      <ion-icon name="chevron-forward-outline" slot="end" color="primary" class="i1 "></ion-icon>
+    </ion-item>
+  </ion-list>
+
+
+  <!-- badges Html Start -->
+
+  <ng-container *ngIf="textband.item_sub_type == 'BADGES'">
+    <div class="badges-area">
+      <ion-item (click)="itemClick($event)">
+        <ion-label>{{textband.prompt_name}}</ion-label>
+        <ion-badge class="badge-color" slot="end">{{textband.value}}</ion-badge>
+      </ion-item>
+    </div>
+  </ng-container>
+
+
+  <!-- BAND Html Start -->
+
+  <ion-list *ngIf="textband.item_sub_type =='BADGE'" class="menu-list c"
+    [ngStyle]="{'cursor': textband.click_events_str ? 'pointer' : 'context-menu' }">
+
+  </ion-list>
+
+  <!-- TAB_IMAGE Html Start -->
+
+  <ion-list class="new-menu-list" *ngIf="textband.item_sub_type =='TAB_IMAGE'">
+    <ion-item class="ion-no-padding" (click)="itemClick($event)" (contextmenu)="onRightClick($event)">
+      <div class="new-menu-list-section">
+        <div class="thumbnail-container">
+          <ion-thumbnail slot="start">
+            <img [src]="baseImg" (error)="onImgError($event)">
+          </ion-thumbnail>
+        </div>
+        <h2>{{textband.prompt_name}}{{textband.value}}</h2>
+      </div>
+
+    </ion-item>
+  </ion-list>
+
+
+  <!-- TAB_QRCODE Html Start -->
+
+  <ion-list *ngIf="textband.item_sub_type=='TAB_QRCODE'" class="menu-list menu-list2"
+    [ngStyle]="{'cursor': textband.click_events_str ? 'pointer' : 'context-menu' }"
+    title="{{textband.prompt_name}}{{textband.value}}">
+    <ion-item class="ion-no-padding" (click)="barcodescanner($event)">
+      <div class="thumbnail-container2">
+        <ion-thumbnail slot="start">
+          <img src="../../../../../assets/imgs/Qrcode.png">
+        </ion-thumbnail>
+      </div>
+      <h2 [ngStyle]="textband.display_setting_str">{{textband.prompt_name}}{{textband.value}}</h2>
+    </ion-item>
+  </ion-list>
+
+
+
+
+  <!-- TAB_3D Html Start -->
+
+  <ng-container *ngIf="textband.item_sub_type == 'TAB_3D'">
+    <ion-row class="threeD-textband-container" *ngIf="Tab3Dnum==1">
+      <ion-col (click)="itemClick($event)">
+
+        <div class="threeD-textband-card threeD-blue h-100">
+          <div class="threeD-textband-body" style="cursor: pointer;">
+            <h5>{{textband.prompt_name}}</h5>
+          </div>
+          <div class="threeD-textband-footer">
+            {{textband.value}}
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row class="threeD-textband-container" *ngIf="Tab3Dnum==2">
+      <ion-col (click)="itemClick($event)">
+
+        <div class="threeD-textband-card threeD-grey h-100">
+          <div class="threeD-textband-body">
+            <h5>{{textband.prompt_name}}</h5>
+          </div>
+          <div class="threeD-textband-footer">
+            {{textband.value}}
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row class="threeD-textband-container" *ngIf="Tab3Dnum==3">
+      <ion-col (click)="itemClick($event)">
+
+        <div class="threeD-textband-card threeD-green h-100">
+          <div class="threeD-textband-body">
+            <h5>{{textband.prompt_name}}</h5>
+          </div>
+          <div class="threeD-textband-footer">
+            {{textband.value}}
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row class="threeD-textband-container" *ngIf="Tab3Dnum==4">
+      <ion-col (click)="itemClick($event)">
+
+        <div class="threeD-textband-card threeD-yellow h-100">
+          <div class="threeD-textband-body">
+            <h5>{{textband.prompt_name}}</h5>
+          </div>
+          <div class="threeD-textband-footer">
+            {{textband.value}}
+          </div>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ng-container>
+
+
+  <!-- TAB_3D Html Start  theme-blue-->
+  <div class="count-list" (click)="itemClick($event)" *ngIf="textband.item_sub_type=='TAB_COUNT'">
+    <div class="approval-container">
+      <div class="approval-body">
+        <ion-item *ngIf='val.length > 0' floating>
+          <ion-label>{{val[0]}}</ion-label>
+          <div class="count" *ngIf='val[1]'>
+            <p>{{val[1]}}</p>
+          </div>
+        </ion-item>
+
+        <ion-item *ngIf='val.length <= 0' floating>
+          <ion-label>{{textband.value}}</ion-label>
+
+        </ion-item>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- GTAB Html Start -->
+
+  <div class="tab-menu text-center" (click)="itemClick($event)" (contextmenu)="onRightClick($event)"
+    *ngIf="textband.item_sub_type == 'GTAB'">
+    <div class="tab-menu-container">
+      <div class="img-container">
+        <div class="img-circle">
+          <img [ngStyle]="textband.display_setting_str" [src]="baseImg" (error)="onImgError($event)">
+        </div>
+      </div>
+      <div class="name-container">
+        <h6>{{textband.prompt_name}}</h6>
+      </div>
+    </div>
+  </div>
+
+
+<!-- imge TAB Html Start as for mahesh --> 
+
+<div class="application-card" (click)="itemClick($event)" (contextmenu)="onRightClick($event)"
+  *ngIf="textband.item_sub_type == 'GTAB_IMAGE'">
+  <div class="application-card-image">
+
+    <img [ngStyle]="textband.display_setting_str" [src]="baseImg" (error)="onImgError($event)">
+    
+  </div>
+  <h3>{{textband.prompt_name}}</h3>
+   <div class="VisitNowbtn">
+              
+                   <ion-button class="external_app_btn" (click)="itemClicked($event)">
+                 <img src="assets/imgs/app_external.svg" />
+               </ion-button>
+                </div>
+</div>
+
+
+
+  <!-- IMAGE Html Start -->
+
+  <div class="tab-menu-large text-center" (click)="itemClick($event)" (contextmenu)="onRightClick($event)"
+    *ngIf="textband.item_sub_type =='IMAGE'">
+
+    <div class="img-container">
+      <div class="img-circle">
+        <img [ngStyle]="textband.display_setting_str" [src]="baseImg" (error)="onImgError($event)">
+      </div>
+    </div>
+    <div class="name-container">
+      <h6>{{textband.prompt_name}}</h6>
+    </div>
+  </div>
+
+
+  <!-- KPI BAR RECORD Html Start -->
+
+
+  <ng-container *ngIf="textband.item_sub_type=='KPI_BAR_RECORDS'">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="progress-bar-area">
+            <ion-list>
+              <ion-list-header>
+                <ion-label><span>{{val[0]}}</span> /{{val[1]}}</ion-label>
+              </ion-list-header>
+              <ion-progress-bar [value]="percent"></ion-progress-bar>
+              <ion-list-header>
+                <ion-label>{{text_bar_promptname}}</ion-label>
+              </ion-list-header>
+            </ion-list>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+
+
+
+
+  <!-- ==========================================DESK KPI ==================================================================== -->
+  <ng-container *ngIf="textband.item_sub_type == 'DASH_KPI'">
+
+    <div [ngClass]="globalObjects.toggleDevloperMode() ? 'text-band-dm' : 'text-band-ndm'">
+      <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid"
+          class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+      <div class="dashboard_kpi">
+        <div class="dashboard_kpi_name" title="{{textband.tool_tip ? textband.tool_tip : textband.prompt_name}}">
+          <p>{{textband.prompt_name}}</p>
+        </div>
+        <div class="dashboard_kpi_value">
+          <h3> {{textband.value}}</h3>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <!-- =========================  MENU TAB ======================-->
+  <ng-container *ngIf="textband.item_sub_type=='MENU_TAB'">
+
+    <div [ngClass]="globalObjects.toggleDevloperMode() ? 'text-band-dm' : 'text-band-ndm'">
+      <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid"
+          class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+      <div class="menu-tab-area">
+        <div class="new-menu-tab" (click)="itemClick($event)">
+
+          <ion-icon name="folder-outline"></ion-icon>
+          <h6 class="menu-heading" title="{{textband.tool_tip ? textband.tool_tip : textband.prompt_name}}">
+            {{textband.prompt_name ? textband.prompt_name : textband.value }}</h6>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="textband.item_sub_type=='TARGET_KPI'">
+
+    <div>
+      <!-- [title]="textband.tool_tip?textband.tool_tip:''" title="textband.tool_tip" -->
+      <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid"
+          class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+
+      <div class="target_kpi" (click)="itemClick($event)" [ngStyle]="textband.display_setting_str" (contextmenu)="onRightClick($event)">
+        <div class="target_kpi_inner">
+          <!-- <ng-container *ngIf="val.length > 0 ">
+           <p title="{{val[0]}}">{{val[0]}}</p>
+          <div class="kpi-count">
+            <h4>{{val[1]}}</h4>
+          </div>
+          <p title="{{val[0]}}">{{val[2]}}{{val[2]}}</p>
+        </ng-container> -->
+          <!-- <ng-container *ngIf="!textband.value"> -->
+          <p title="{{textband.tool_tip ? textband.tool_tip : textband.prompt_name}}">{{textband.prompt_name}}</p>
+          <!-- </ng-container> -->
+          <ng-container *ngIf="textband.val && textband.val.length > 0 ;else elsetag">
+
+            <div class="target_kpi-count">
+              <h4 title="{{textband.val[1]}}">{{textband.val[0]}}</h4>
+            </div>
+            <div class="d-flex align-items-center justify-content-end">
+              <p title="{{textband.val[2]}}">{{textband.val[1]}} &nbsp;</p>
+              <p title="{{textband.val[3]}}">
+                 <!-- <ion-icon name="caret-down-outline"></ion-icon>  -->
+                {{textband.val[2]}} </p>
+            </div>
+
+          </ng-container>
+          <ng-template #elsetag>
+            <div class="target_kpi-count">
+              <h4 title="{{textband.value}}">{{textband.value}}</h4>
+            </div>
+          </ng-template>
+
+          <ion-icon *ngIf="targetItem" (click)="targetClick()" style="position: absolute;top: 5px;left: 5px;cursor: pointer;padding: 5px;" name="open-outline"></ion-icon>
+          <!-- <ion-icon name="refresh-outline" *ngIf="isIconVisible" (click)="refreshItem($event)"></ion-icon>
+        <img *ngIf="!isIconVisible" src="../../../../../assets/page-small-loader-img2.gif" alt="Icon 2"
+          (click)="toggleIcon()" /> -->
+        </div>
+      </div>
+
+    </div>
+
+  </ng-container>
+
+
+
+
+
+<ng-container *ngIf="textband.item_sub_type == 'TILES_AI_KPI'">
+    <div >
+     
+      <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textband.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+                          </ion-button>
+      </div>
+
+
+    <div class="ai_kpi_card" (click)="itemClick($event)" (contextmenu)="onRightClick($event)">
+             <img class="star_image" src="assets/imgs/star-svg.svg"/>
+            <img class="after_image" src="assets/imgs/after-img.png"/>
+             <p title="{{textband.tool_tip ? textband.tool_tip : textband.prompt_name}}">{{textband.prompt_name}}</p>
+          </div>
+    </div>
+
+  </ng-container>
+
+</ng-container>
+

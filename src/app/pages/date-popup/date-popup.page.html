@@ -1,0 +1,89 @@
+<ion-content> 
+  <ng-container *ngIf="platformValue == 'browser';else mobTag">
+
+    <ion-row class="calendar_parent">
+      <ion-col class="p-2" *ngIf="dateinput.datatype == 'DUAL_DATE'">
+         <h6>Persian Calendar </h6>
+        <div class="date-picker">
+          <div class="head">
+            <label for="year">سال:</label>
+            <select id="year" [(ngModel)]="selectedYear" (change)="onYearChange($event)">
+              <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+            </select>
+
+            <label for="month">ماه:</label>
+            <select id="month" [(ngModel)]="selectedMonth" (change)="onMonthChange($event)">
+              <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+            </select>
+          </div>
+          <div class="calendar">
+            <div class="calendar-header">
+              <div *ngFor="let day of persianWeekDays" class="calendar-day">
+                {{ day }}
+              </div>
+            </div>
+            <div class="calendar-body">
+              <div *ngFor="let day of days" class="calendar-day" [class.disabled]="!day" [class.today]="isToday(day)"
+                [class.selected]="isSelected(day)" (click)="day && selectDate(day)">
+                {{ day }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="text" id="persianInputDate" placeholder="JJJJ/MM/DD" (blur)="blurPersianDateText()">
+
+
+      </ion-col>
+      <!-- ///////////////////////////////////////////persian date picker end///////////////////// -->
+      <ion-col class="p-2">
+        <ng-container *ngIf="dateinput.datatype == 'DUAL_DATE'">
+        <h6>Gregorian Calendar </h6>
+      </ng-container>
+        <ngb-datepicker *ngIf="dateinput.datatype !='TIME'" id="dp" #dp name="datepicker" [startDate]="dateModel1"
+          [ngModel]="dateModel1" [minDate]="minDate" [maxDate]="maxDate" (dateSelect)="onDateChange($event, dp)"
+          [markDisabled]="">
+        </ngb-datepicker>
+
+        <div class="mt-auto" *ngIf="dateinput.datatype =='DATETIME' || dateinput.datatype =='TIME' ">
+          <ngb-timepicker #tp name="timepicker" [ngModel]="datetimeModel" (ngModelChange)="onTimeChange(tp)"
+            [seconds]="seconds" [hourStep]="hourStep" [minuteStep]="minuteStep" [secondStep]="secondStep">
+          </ngb-timepicker>
+        </div>
+        <ng-container *ngIf="dateinput.datatype == 'DUAL_DATE'">
+
+          <input type="text" id="simpleInputDate" placeholder="YYYY/MM/DD" (blur)="blurSimpleDateText()">
+        </ng-container>
+
+      </ion-col>
+
+    </ion-row>
+    <ng-container *ngIf="dateinput.datatype == 'DUAL_DATE'">
+      <ion-button class="ok-btn" (click)="getpersianDate()">Ok</ion-button>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #mobTag>
+    <ng-container *ngIf="dateinput.datatype =='DATE' ">
+      <ion-datetime presentation="date" #dp [value]="displayValue"
+        (ionChange)="onDateChange($event, dp)"></ion-datetime>
+    </ng-container>
+
+    <ng-container *ngIf="dateinput.datatype =='DATETIME'">
+      <ion-datetime #datetime [value]="displayValue" hourCycle="h23" (ionChange)="onDateChange($event, datetime)">
+        <ion-buttons slot="buttons">
+          <ion-button color="danger" (click)="datetime.reset()">Cancel</ion-button>
+          <ion-button color="primary" (click)="datetime.confirm();">Done</ion-button>
+        </ion-buttons>
+      </ion-datetime>
+    </ng-container>
+
+    <ng-container *ngIf="dateinput.datatype =='TIME'">
+      <ion-datetime presentation="time" #tp [value]="displayValue" (ionChange)="onDateChange($event, tp)">
+        <ion-buttons slot="buttons">
+          <ion-button color="danger" (click)="tp.reset()">Cancel</ion-button>
+          <ion-button color="primary" (click)="tp.confirm();">Done</ion-button>
+        </ion-buttons>
+      </ion-datetime>
+    </ng-container>
+  </ng-template>
+</ion-content>

@@ -1,0 +1,59 @@
+.summary-card
+{
+
+    padding: 5px 5px;
+    margin: 15px 15px 15px 15px;
+    border-radius: 5px;
+    border: 1px solid var(--blue-light-5);
+    /* border-bottom: 2px solid var(--gray); */
+    box-shadow: 3px 0px 10px var(--gray-5), -3px 0px 10px var(--gray-5);
+}
+.summary-card-main.summary-item-blue
+{
+    .blue-avatar
+    {
+        background: var(--blue-new);
+    }
+    .ion-note
+    {
+        color: var(--blue-new);
+    }
+}   
+.summary-card-main.summary-item-yellow
+{
+    .ion-avatar
+    {
+        background: #e28a08;
+    }
+    .ion-note
+    {
+        color: #e28a08;
+    }
+    
+}
+
+    
+.summary-card-main.summary-item-green
+{
+    .ion-avatar
+    {
+        background: #46a74a;
+    }
+    .ion-note
+    {
+        color: #46a74a;
+    }
+    
+}
+.summary-card-main.summary-item-purple
+{
+    .ion-avatar
+    {
+        background: #9667e8;
+    }
+    .ion-note
+    {
+        color: #9667e8;
+    }
+    
+}

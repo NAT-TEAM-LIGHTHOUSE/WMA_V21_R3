@@ -1,0 +1,88 @@
+<div class="userinfo_menubar">
+  <ion-icon slot="end" name="close" class="cross-button"   (click)="popDismiss()"></ion-icon>
+  <div class="user_login_info">
+    <div class="user_profile_container">
+      <div class="user_profile">
+      <ng-container class="img-fluid">{{userInitials}}</ng-container>
+    </div>
+    <div class="user_name">
+      <h1>{{userDetails.wma_user_name}} </h1>
+      <h4>{{userDetails.wma_user_code}}</h4>
+    </div>
+    </div>
+    
+    <div class="login_info login_background">
+      <div class="login_info_row mobile_display" style="border: 1px solid #c3c3c3;border-radius: 5px;padding: 10px 15px;justify-content: center;" *ngIf="userDetails.g_entity_img">
+        <img  [src]="'data:image/png;base64,' + userDetails.g_entity_img" alt="Login Icon" class="login_icon" style="max-height: 45px; object-fit: contain;">
+        <!-- *ngIf="userDetails.g_entity_img" [src]="'data:image/png;base64,' + userDetails.g_entity_img" -->
+      </div>
+
+      <div class="login_info_row">
+        <span><ion-icon name="briefcase-outline"></ion-icon></span>
+        <p> Company : <a> {{userDetails.G_ENTITY_NAME}}</a></p>
+      </div>
+      <!-- <div class="login_info_row">
+        <span><ion-icon name="business-outline"></ion-icon></span>
+        <p> Department : {{userDetails.g_default_dept_code}}</p>
+      </div>
+      <div class="login_info_row">
+        <span><ion-icon name="calendar-number-outline"></ion-icon></span>
+        <p> FY Year : {{userDetails.G_ACC_YEAR}}</p>
+      </div> -->
+       <div class="login_info_row">
+        <span><ion-icon name="business-outline"></ion-icon></span>
+        <p> Division Group : {{userDetails.G_DIV_GROUP_NAME}}</p>
+      </div>
+      <div class="login_info_row">
+        <span><ion-icon name="calendar-number-outline"></ion-icon></span>
+        <p> Division : {{userDetails.G_DIV_NAME}}</p>
+      </div> 
+      <div class="login_info_row">
+        <span><ion-icon name="key-outline"></ion-icon></span>
+        <p> Appkey : {{userDetails.appkey | uppercase}}</p>
+      </div>
+      <div class="login_info_row">
+        <span><ion-icon name="earth-outline"></ion-icon></span>
+        <p> Language : {{userDetails.G_USER_LANGUAGE}}</p>
+      </div>
+      <div class="login_info_row">
+        <span><ion-icon name="cash-outline"></ion-icon></span>
+        <p> Currency : {{userDetails.G_CURRENCY_CODE}}</p>
+      </div>
+      <div class="login_info_row">
+        <span><ion-icon name="alarm-outline"></ion-icon></span>
+        <p>Login Since : {{userLoginDate}} </p>
+      </div>
+      <div class="login_info_row">
+       
+        <span><ion-icon name="calendar-number-outline"></ion-icon></span>
+        <p>  DB-SYSDATE : {{globalObjects.sysdateTime}} </p>
+     
+      </div>
+      
+    </div>
+      <div class="login_info_sec " (click)="resetLocalDb()">
+     <p> <span><ion-icon name="refresh-circle-outline"></ion-icon></span> Refresh Object
+      </p> 
+    </div>
+       <div class="login_info_sec " (click)="ChangeLoginParameter()">
+     <p> <span><ion-icon name="log-in-outline"></ion-icon></span> Change Login Parameter
+      </p> 
+    </div>
+    <div class="login_info_sec " (click)="ChangepasswordLinks()">
+       <p> <span><ion-icon name="lock-closed-outline"></ion-icon></span> Change Password </p>
+    </div>
+  
+    <div class="footer-iserinfo">
+      <div class="btn-footer">
+        <ion-button (click)="logout()"> <div style="margin: 0px auto 0px 0px;"><img src="./assets/imgs/new-theme-icons/logout-white-img.png" class="img-fluid">&nbsp;Log out</div>
+          <div style="opacity: 0.8;">(Alt + L)</div></ion-button>
+      </div>
+    </div>
+  </div>
+ 
+ <div class="footer_copyright-n ">
+    <img src="assets/powerdby_lhs.png" >
+    <div class="powered_by_text"> <b style="color:var(--blue-new);font-weight:700;">V7</b>&nbsp;|&nbsp; Version {{globalObjects.android_version_numeric}}</div>
+  </div>
+</div>

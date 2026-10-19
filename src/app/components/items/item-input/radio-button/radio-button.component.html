@@ -1,0 +1,559 @@
+<!-- Radio buttons start here -->
+<ng-container *ngIf="radioButton.item_type == 'RADIO_BUTTON'">
+  <div class="input-type6-containter"
+    *ngIf="radioButton.item_sub_type == 'UL_LEFT' || radioButton.item_sub_type == 'BOX_LEFT'">
+    <div class="newIp-type3" *ngIf="radioButton.item_sub_type == 'BOX_LEFT'">
+      <ion-row>
+        <ion-col [size]="col1" *ngIf="radioButton.prompt_name" class="d-flex">
+              <p class="input-group-label" [title]="radioButton.prompt_name">{{radioButton.prompt_name}}</p> 
+          <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="radioButton.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+              <ion-icon class="code-btn" color="primary"   name="information-circle-outline"></ion-icon>
+                              </ion-button>
+
+
+
+         
+        </ion-col>
+        <ion-col [size]="radioButton.prompt_name ? col2 : '12'">
+          <div class="box_left_radio_btn" style="font-size: 14px;padding: 3px 2px;" >
+            <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+              <ion-radio-group class="bg-input a" [(ngModel)]="radioButton.value"
+                style="flex-wrap: wrap; align-items: center;" [ngStyle]="radioButton.display_setting_str"
+                (click)="onChange(c);">
+                 <ion-item lines="none" class="radio-item ion-no-padding">
+                <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" class="radio-bttn m-0" slot="start"
+                  [disabled]="radioButton.item_enable_flag != 'T'"></ion-radio>
+                   <ion-label>{{ c.key }}</ion-label>
+                  </ion-item>
+              </ion-radio-group>
+            </ng-container>
+          </div>
+        </ion-col>
+        <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+        <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+        <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+      </ion-row>
+    </div>
+
+    <div class="newIp-type5" *ngIf="radioButton.item_sub_type == 'UL_LEFT'">
+      <ion-row style="display:flex;">
+        <ion-col *ngIf="radioButton.prompt_name" [size]="col1" class="bg-prompt d-flex">
+          <p class="input-group-label" [title]="radioButton.prompt_name">{{radioButton.prompt_name}}</p>
+          <ion-icon class="code-btn" name="information-circle-outline" color="primary" slot="end"
+            *ngIf="globalObjects.toggleDevloperMode()"></ion-icon>
+        </ion-col>
+        <ion-col [size]="radioButton.prompt_name ? col2 : '12'" class="input-container">
+          <div class="bg-input"  style="font-size: 14px;padding: 3px 2px;">
+            <ion-radio-group [(ngModel)]="radioButton.value" (click)="onChange($event);"
+              style="display: flex;flex-wrap: wrap; align-items: center;gap: 5px;">
+              <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+                <ion-item lines="none" class="radio-item ion-no-padding" style="display: inline-flex;align-items: center;width: auto;">
+                <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" class="radio-bttn m-0" slot="start" 
+                  [ngStyle]="radioButton.display_setting_str"
+                  [disabled]="radioButton.item_enable_flag != 'T'"></ion-radio>
+                   <ion-label>{{ c.key }}</ion-label>
+                  </ion-item>
+              </ng-container>
+            </ion-radio-group>
+          </div>
+        </ion-col>
+        <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+        <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+        <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+      </ion-row>
+    </div>
+  </div>
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'BOX_TOP'">
+    <ion-label>{{radioButton.prompt_name}}</ion-label>
+
+    <ion-radio-group [(ngModel)]="radioButton.value"
+      style="display: flex;flex-wrap: wrap; align-items: center; border: 1px solid #ccc;gap: 5px;">
+      <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+        <ion-item lines="none" class="radio-item ion-no-padding" style="display: inline-flex;align-items: center;width: auto;">
+
+          <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" class="radio-bttn m-0" slot="start"
+            [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+            (click)="onChange(c);"></ion-radio>
+          <ion-label>{{c.key}}</ion-label>
+        </ion-item>
+      </ng-container>
+    </ion-radio-group>
+
+
+    <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+    <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+    <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+  </ng-container>
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'TOGGLE_LEFT'">
+    <div class="customradio">
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+      <ion-list>
+        <ion-radio-group>
+          <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+            <ion-item lines="none" class="ion-no-padding">
+              <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" slot="start" class="radio-bttn mr-1 "
+                [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+                (click)="onChange(c);"></ion-radio>
+              {{c.key}}&nbsp;
+            </ion-item>
+          </ng-container>
+        </ion-radio-group>
+      </ion-list>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'RB_TAB_CENTER'">
+    <div class="customradio-btn-center">
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+      <div class="customradio">
+        <ion-list>
+          <ion-radio-group>
+            <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" slot="start" class="radio-bttn mr-1 "
+                  [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+                  (click)="onChange(c);"></ion-radio>
+                <ion-label>{{c.key}}</ion-label>
+              </ion-item>
+            </ng-container>
+          </ion-radio-group>
+        </ion-list>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <!-- New Item Sub_type -->
+  <ng-container *ngIf="radioButton.item_sub_type == 'RB_TAB_LEFT'">
+    <div class="">
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+      <div class="customradio">
+        <ion-list>
+          <ion-radio-group>
+            <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" slot="start" class="radio-bttn mr-1 "
+                  [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+                  (click)="onChange(c);"></ion-radio>
+                <ion-label>{{c.key}}</ion-label>
+              </ion-item>
+            </ng-container>
+          </ion-radio-group>
+        </ion-list>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'RB_TAB_RIGHT'">
+    <div class="customradio-btn-right">
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+      <div class="customradio">
+        <ion-list>
+          <ion-radio-group>
+            <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+              <ion-item lines="none" [id]="radioButton.apps_item_seqid" class="ion-no-padding"
+                [style]="radioButton.stringStyle">
+                <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" slot="start" class="radio-bttn mr-1 "
+                  [disabled]="radioButton.item_enable_flag != 'T'" (click)="onChange(c);"></ion-radio>
+                <ion-label>{{c.key}}</ion-label>
+              </ion-item>
+            </ng-container>
+          </ion-radio-group>
+        </ion-list>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'RB_CIRCLE'">
+    <div>
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+      <div class="new_custom_radio_round">
+        <ion-list>
+          <ion-radio-group>
+            <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" slot="start" class="radio-bttn mr-1 "
+                  [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+                  (click)="onChange(c);"></ion-radio>
+                <ion-label>{{c.key}}</ion-label>
+              </ion-item>
+            </ng-container>
+          </ion-radio-group>
+        </ion-list>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'RB_SQUARE'">
+
+    <div class="radio_tab_section">
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+      <div class="new_custom_radio_sqr  new-background">
+        <ion-list>
+          <ion-radio-group>
+            <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+              <ion-item lines="none" class="ion-no-padding" [ngStyle]="radioButton.display_setting_str">
+                <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" slot="start" class="radio-bttn mr-1 "
+                  [disabled]="radioButton.item_enable_flag != 'T'" (click)="onChange(c);"></ion-radio>
+                <ion-label>{{c.key}}</ion-label>
+              </ion-item>
+            </ng-container>
+          </ion-radio-group>
+        </ion-list>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'RB_TAB_VERTICAL'">
+    <div class="vert-customradio">
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+      <ion-list>
+        <ion-radio-group>
+          <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+            <ion-item lines="none" class="ion-no-padding" [ngStyle]="radioButton.display_setting_str">
+              <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" slot="start" class="radio-bttn mr-1 "
+                [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+                (click)="onChange(c);"></ion-radio>
+              {{c.key}}&nbsp;
+            </ion-item>
+          </ng-container>
+        </ion-radio-group>
+      </ion-list>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'UL_TOP'">
+    <ion-label>{{radioButton.prompt_name}}</ion-label>
+    <ion-radio-group [(ngModel)]="selectModel"
+      style="display: flex;flex-wrap: wrap; align-items: center; border:1px solid #ccc;gap: 5px;">
+      <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+        <ion-item lines="none" class="radio-item ion-no-padding" style="display: inline-flex;align-items: center;width: auto;">
+        <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" class="radio-bttn mr-1" slot="start"
+          [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+          (click)="onChange(c);"></ion-radio>
+           <ion-label>{{ c.key }}</ion-label>
+          </ion-item>
+      </ng-container>
+    </ion-radio-group>
+
+    <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+    <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+    <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+  </ng-container>
+
+  <div class="input-type6-containter"
+    *ngIf="radioButton.item_sub_type == 'UL_LEFT_VERTICAL' || radioButton.item_sub_type == 'BOX_LEFT_VERTICAL'">
+    <div class="newIp-type3" *ngIf="radioButton.item_sub_type == 'BOX_LEFT_VERTICAL'">
+      <ion-row>
+        <ion-col [size]="col1" *ngIf="radioButton.prompt_name" class="d-flex">
+           <p class="input-group-label" [title]="radioButton.prompt_name">{{radioButton.prompt_name}}</p>
+            <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="radioButton.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+              <ion-icon class="code-btn" color="primary" style="position: absolute;"  name="information-circle-outline"></ion-icon>
+                              </ion-button>
+        
+        </ion-col>
+
+        <ion-col [size]="radioButton.prompt_name ? col2 : '12'">
+          <div class="input-div">
+            <ion-radio-group class="bg-input" [(ngModel)]="selectModel"
+              style="display: flex;flex-wrap: wrap; align-items: center;">
+              <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+                <ion-item lines="none" class="radio-item ion-no-padding">
+                  <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" class="radio-bttn mr-1"
+                    slot="start" [ngStyle]="radioButton.display_setting_str"
+                    [disabled]="radioButton.item_enable_flag != 'T'" (click)="onChange(c);"></ion-radio>{{c.key}} &nbsp;
+                </ion-item>
+              </ng-container>
+            </ion-radio-group>
+          </div>
+        </ion-col>
+        <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+        <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+        <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+      </ion-row>
+    </div>
+
+    <div class="newIp-type5" *ngIf="radioButton.item_sub_type == 'UL_LEFT_VERTICAL'">
+      <ion-row>
+        <ion-col *ngIf="radioButton.prompt_name" [size]="col1" class="bg-prompt">
+          <p class="input-group-label" [title]="radioButton.prompt_name">{{radioButton.prompt_name}}</p>
+          <ion-icon class="code-btn" name="information-circle-outline" color="primary" slot="end"
+            *ngIf="globalObjects.toggleDevloperMode()"></ion-icon>
+          
+        </ion-col>
+        <ion-col [size]="radioButton.prompt_name ? col2 : '12'" class="input-container">
+          <div class="bg-input">
+            <ion-radio-group [(ngModel)]="selectModel" style="display: flex;flex-wrap: wrap; align-items: center;">
+              <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+                <ion-item lines="none" class="radio-item ion-no-padding">
+                  <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" class="radio-bttn mr-1"
+                    slot="start" [ngStyle]="radioButton.display_setting_str"
+                    [disabled]="radioButton.item_enable_flag != 'T'" (click)="onChange(c);"></ion-radio>{{c.key}} &nbsp;
+                </ion-item>
+              </ng-container>
+            </ion-radio-group>
+          </div>
+        </ion-col>
+        <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+        <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+        <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+      </ion-row>
+    </div>
+  </div>
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'BOX_TOP_VERTICAL'">
+    <ion-label>{{radioButton.prompt_name}}</ion-label>
+
+    <ion-radio-group [(ngModel)]="selectModel"
+      style="display: flex;flex-wrap: wrap; align-items: center;border:1px solid #ccc;">
+      <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+        <ion-item lines="none" class="radio-item ion-no-padding">
+          <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" class="radio-bttn mr-1" slot="start"
+            [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+            (click)="onChange(c);"></ion-radio>{{c.key}} &nbsp;
+        </ion-item>
+      </ng-container>
+    </ion-radio-group>
+
+
+    <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+    <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+    <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+  </ng-container>
+
+
+  <ng-container *ngIf="radioButton.item_sub_type == 'UL_TOP_VERTICAL'">
+    <ion-label>{{radioButton.prompt_name}}</ion-label>
+    <ion-radio-group [(ngModel)]="selectModel" style="display: flex;flex-wrap: wrap; align-items:center;">
+      <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+        <ion-item lines="none" class="radio-item ion-no-padding">
+          <ion-radio [value]="c.val" *ngIf="(i == 0 ? (c.val != '') : true)" class="radio-bttn mr-1" slot="start"
+            [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+            (click)="onChange(c);"></ion-radio>{{c.key}} &nbsp;
+        </ion-item>
+      </ng-container>
+    </ion-radio-group>
+
+    <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+    <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+    <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+  </ng-container>
+
+</ng-container>
+<!-- Radio buttons end here -->
+
+<!-- Check boc code start here -->
+<ng-container *ngIf="radioButton.item_type == 'CHECK_BOX'">
+  <ng-container *ngIf="frame_type !='TABLE' && frame_type != 'ENTRY_TABLE' && frame_type != 'FRAME_COLLAPSE'">
+    <div class="input-type6-containter"
+      *ngIf="radioButton.item_sub_type == 'UL_LEFT' || radioButton.item_sub_type == 'BOX_LEFT'">
+      <ng-container *ngIf="radioButton.item_sub_type == 'BOX_LEFT'">
+        <div class="newIp-type3">
+          <ion-row>
+            <ion-col [size]="col1" *ngIf="radioButton.prompt_name">
+               <p class="input-group-label" [title]="radioButton.prompt_name">{{radioButton.prompt_name}}</p>
+              <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="radioButton.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+                <ion-icon class="code-btn" color="primary" style="position: absolute;"  name="information-circle-outline"></ion-icon>
+                                </ion-button>
+             
+            </ion-col>
+            <ion-col [size]="radioButton.prompt_name ? col2 : '12'">
+              <ion-list style="align-items: center; margin: 0; padding: 0;">
+                <div style="font-size: 14px;padding: 3px 2px;">
+                  <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+                    <ion-checkbox color="primary" [(ngModel)]="c.isChecked" *ngIf="(i == 0 ? (c.val != '') : true)"
+                      class="mr-1" [checked]="radioButton.value == 'Y' || radioButton.value == '1'"
+                      [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+                      (ionChange)="onChange(c);"  label-placement="end" justify="start">{{c.key}} &nbsp;
+                    </ion-checkbox>
+                  </ng-container>
+                </div>
+              </ion-list>
+            </ion-col>
+            <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+            <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+            <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+          </ion-row>
+        </div>
+      </ng-container>
+
+
+      <ng-container *ngIf="radioButton.item_sub_type == 'UL_LEFT'">
+        <div class="newIp-type5" *ngIf="radioButton.item_sub_type == 'UL_LEFT'">
+          <ion-row>
+            <ion-col *ngIf="radioButton.prompt_name" [size]="col1" class="bg-prompt">
+                <div class="d-flex align-items-center w-100">
+                <p class="input-group-label" [title]="radioButton.prompt_name">{{radioButton.prompt_name}}</p>
+               <!-- <ion-icon class="code-btn" name="information-circle-outline" color="primary" slot="end"
+                *ngIf="globalObjects.toggleDevloperMode"></ion-icon> -->
+                <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="radioButton.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+                <ion-icon class="code-btn" color="primary"   name="information-circle-outline"></ion-icon>
+                                </ion-button>
+              </div>
+            </ion-col>
+            <ion-col [size]="radioButton.prompt_name ? col2 : '12'" class="input-container">
+              <div class="bg-input" style="font-size: 14px;padding: 3px 2px;">
+                <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+                  <ion-checkbox color="primary" [(ngModel)]="c.isChecked" *ngIf="(i == 0 ? (c.val != '') : true)"
+                    class="mr-1" [checked]="radioButton.value == 'Y' || radioButton.value == '1'"
+                    [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+                    (ionChange)="onChange(c);" label-placement="end" justify="start">{{c.key}} &nbsp;
+                  </ion-checkbox>
+                </ng-container>
+              </div>
+            </ion-col>
+            <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+            <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+            <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+          </ion-row>
+        </div>
+      </ng-container>
+    </div>
+
+    <ng-container *ngIf="radioButton.item_sub_type == 'BOX_TOP'">
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+      <ion-list style="display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0;font-size: 14px;">
+        <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+
+          <ion-checkbox color="primary" [(ngModel)]="c.isChecked" *ngIf="(i == 0 ? (c.val != '') : true)" class="mr-1"
+            [checked]="radioButton.value == 'Y' || radioButton.value == '1'" [ngStyle]="radioButton.display_setting_str"
+            [disabled]="radioButton.item_enable_flag != 'T'" (ionChange)="onChange(c);" label-placement="end" justify="start">{{c.key}} &nbsp;
+          </ion-checkbox>
+
+        </ng-container>
+      </ion-list>
+      <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+      <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+      <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+
+    </ng-container>
+    <ng-container *ngIf="radioButton.item_sub_type == 'UL_TOP'">
+      <ion-label class="ul_top-check">{{radioButton.prompt_name}}</ion-label>
+      <div style="font-size: 14px;padding: 3px 2px;">
+      <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+        <ion-checkbox color="primary" [(ngModel)]="c.isChecked" *ngIf="(i == 0 ? (c.val != '') : true)" class="mr-1"
+          [checked]="radioButton.value == 'Y' || radioButton.value == '1'" [ngStyle]="radioButton.display_setting_str"
+          [disabled]="radioButton.item_enable_flag != 'T'" (ionChange)="onChange(c);" label-placement="end" justify="start">{{c.key}} &nbsp;
+        </ion-checkbox>
+      </ng-container>
+      </div>
+      <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+      <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+      <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+    </ng-container>
+    <div class="input-type6-containter"
+      *ngIf="radioButton.item_sub_type == 'UL_LEFT_VERTICAL' || radioButton.item_sub_type == 'BOX_LEFT_VERTICAL'">
+      <ng-container *ngIf="radioButton.item_sub_type == 'BOX_LEFT_VERTICAL'">
+        <div class="newIp-type3">
+          <ion-row>
+             <ion-col [size]="col1" *ngIf="radioButton.prompt_name" class="d-flex align-items-center">
+             
+              <p class="input-group-label" [title]="radioButton.prompt_name">{{radioButton.prompt_name}}</p>
+               <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="radioButton.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+                <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+                                </ion-button>
+            </ion-col>
+            <ion-col [size]="radioButton.prompt_name ? col2 : '12'">
+              <div class="input-div" style="display: block;font-size: 14px;">
+                <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+                  <ion-item lines="none" class="ion-no-padding checkbox-item">
+                    <ion-checkbox color="primary" [(ngModel)]="c.isChecked" *ngIf="(i == 0 ? (c.val != '') : true)"
+                      class="mr-1" [checked]="radioButton.value == 'Y' || radioButton.value == '1'"
+                      [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+                      (ionChange)="onChange(c);" label-placement="end" justify="start">{{c.key}} &nbsp;
+                    </ion-checkbox>
+                  </ion-item>
+                </ng-container>
+              </div>
+            </ion-col>
+            <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+            <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+            <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+          </ion-row>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="radioButton.item_sub_type == 'UL_LEFT_VERTICAL'">
+        <div class="newIp-type5" *ngIf="radioButton.item_sub_type == 'UL_LEFT_VERTICAL'">
+          <ion-row>
+           <ion-col *ngIf="radioButton.prompt_name" [size]="col1" class="bg-prompt d-flex align-items-center">
+             
+              <p class="input-group-label" [title]="radioButton.prompt_name">{{radioButton.prompt_name}}</p>
+              <ion-icon class="code-btn" name="information-circle-outline" color="primary" slot="end"
+                *ngIf="globalObjects.toggleDevloperMode()"></ion-icon>
+            </ion-col>
+            <ion-col [size]="radioButton.prompt_name ? col2 : '12'" class="input-container">
+              <div class="bg-input" style="display: block;font-size: 14px;">
+                <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+                  <ion-item lines="none" class="ion-no-padding checkbox-item">
+                    <ion-checkbox color="primary" [(ngModel)]="c.isChecked" *ngIf="(i == 0 ? (c.val != '') : true)"
+                      class="mr-1" [checked]="radioButton.value == 'Y' || radioButton.value == '1'"
+                      [ngStyle]="radioButton.display_setting_str" [disabled]="radioButton.item_enable_flag != 'T'"
+                      (ionChange)="onChange(c);" label-placement="end" justify="start">{{c.key}} &nbsp;
+                    </ion-checkbox>
+                  </ion-item>
+                </ng-container>
+              </div>
+            </ion-col>
+            <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+            <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+            <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+          </ion-row>
+        </div>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="radioButton.item_sub_type == 'BOX_TOP_VERTICAL'">
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+
+      <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+        <ion-item lines="none" class="ion-no-padding checkbox-item">
+          <ion-checkbox color="primary" [(ngModel)]="c.isChecked" *ngIf="(i == 0 ? (c.val != '') : true)" class="mr-1"
+            [checked]="radioButton.value == 'Y' || radioButton.value == '1'" [ngStyle]="radioButton.display_setting_str"
+            [disabled]="radioButton.item_enable_flag != 'T'" (ionChange)="onChange(c);"  label-placement="end" justify="start">{{c.key}} &nbsp;
+          </ion-checkbox>
+        </ion-item>
+      </ng-container>
+      <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+      <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+      <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+
+    </ng-container>
+    <ng-container *ngIf="radioButton.item_sub_type == 'UL_TOP_VERTICAL'">
+      <ion-label>{{radioButton.prompt_name}}</ion-label>
+
+      <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+        <ion-item lines="none" class="ion-no-padding checkbox-item">
+          <ion-checkbox color="primary" [(ngModel)]="c.isChecked" *ngIf="(i == 0 ? (c.val != '') : true)" class="mr-1"
+            [checked]="radioButton.value == 'Y' || radioButton.value == '1'" [ngStyle]="radioButton.display_setting_str"
+            [disabled]="radioButton.item_enable_flag != 'T'" (ionChange)="onChange(c);" label-placement="end" justify="start">{{c.key}} &nbsp;
+          </ion-checkbox>
+        </ion-item>
+      </ng-container>
+      <div class="error" *ngIf="!radioButton.isValid && radioButton.vadidateMsg">{{radioButton.vadidateMsg}}</div>
+      <div class="error" *ngIf="radioButton.msgError">{{radioButton.msgError}}</div>
+      <div class="error" *ngIf="radioButton.forced_error_msg">{{radioButton.forced_error_msg}}</div>
+
+    </ng-container>
+  </ng-container>
+
+  <div class="checkbox-container checkbox"
+    *ngIf="frame_type =='TABLE' || frame_type == 'ENTRY_TABLE' || frame_type == 'HORIZONTAL_TABLE' || frame_type == 'FRAME_COLLAPSE'">
+    <ng-container *ngFor="let c of radioButton.radioArray;let i = index">
+      <ion-item lines="none" class="ion-no-padding checkbox-item" >
+        <ion-checkbox color="primary" [(ngModel)]="c.isChecked"  class="mr-1"
+          [checked]="radioButton.value == 'Y' || radioButton.value == '1'" [ngStyle]="radioButton.display_setting_str"
+          [disabled]="radioButton.item_enable_flag != 'T'" (ionChange)="onChange(c);" label-placement="end" justify="start">
+          {{c.key}} &nbsp;
+        </ion-checkbox>
+      </ion-item>
+    </ng-container>
+  </div>
+
+</ng-container>
+<!-- Check boc code end here -->

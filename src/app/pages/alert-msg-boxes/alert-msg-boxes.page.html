@@ -1,0 +1,314 @@
+<ion-content class="alert-boxes">
+
+
+ <div class="alert-div" *ngIf="alertMessage.para_type == 'OTPSENT'">
+    <div class="head">
+      <div class="alert-header">
+        <span>Mobile Number Verification</span>
+        <ion-icon name="close" (click)="closeAlert('OK')"></ion-icon>
+      </div>
+    </div>
+    <div class="body">
+      <ion-row>
+        <ion-col size="12">
+          <div class="success-icon">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+             <div class="success" *ngIf="alertMessage.para_head ==='otpSent'">
+            <h5>{{alertMessage.para_value}}</h5>
+            <!-- <p>{{alertMessage.para_value}} </p>
+            <p>{{alertMessage.para_value1}} </p> -->
+            <!-- <p>An OTP has been sent to your registered email id {{alertMessage.para_value1}}.
+Please check your email to proceed with password reset. </p> -->
+            <!-- <p>{{alertMessage.para_value3}} </p> -->
+          </div>
+          <div class="success" *ngIf="alertMessage.para_value1">
+            <h5>SMS Sent Successfully</h5>
+            <!-- <p>{{alertMessage.para_value}} </p>
+            <p>{{alertMessage.para_value1}} </p> -->
+            <p>An OTP has been sent to your registered email id {{alertMessage.para_value1}}.
+Please check your email to proceed with password reset. </p>
+            <!-- <p>{{alertMessage.para_value3}} </p> -->
+          </div>
+             <div class="success" *ngIf="alertMessage.para_value2">
+            <h5>SMS Sent Successfully</h5>
+            <!-- <p>{{alertMessage.para_value}} </p>
+            <p>{{alertMessage.para_value1}} </p> -->
+            <p>An OTP has been sent to your registered mobile number {{alertMessage.para_value2}}.
+Please check your messages to proceed with password reset. </p>
+            <!-- <p>{{alertMessage.para_value3}} </p> -->
+          </div>
+        </ion-col>
+      </ion-row>
+     
+      <ion-row>
+        <ion-col size="12" class="text-center">
+          <div class="alert-button-area">
+            <div style="width: 100%; text-align: center;">
+              
+            </div>
+            <ion-button color="" size="small" shape="round" (click)="closeAlert('OK')">Ok</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  
+  </div>
+
+
+
+
+
+
+  <div class="alert-div" *ngIf="alertMessage.para_type == 'MI' || alertMessage.para_type == 'JMI'">
+    <div class="head">
+      <div class="alert-header">
+        <span>{{alertMessage.para_name}}</span>
+        <ion-icon name="close" (click)="closeAlert('OK')"></ion-icon>
+      </div>
+    </div>
+    <div class="body">
+      <ion-row>
+        <ion-col size="12">
+          <div class="success-icon">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div class="success">
+            <h5>Success</h5>
+            <p>{{alertMessage.para_value}} </p>
+          </div>
+        </ion-col>
+      </ion-row>
+     
+      <ion-row>
+        <ion-col size="12" class="text-center">
+          <div class="alert-button-area">
+            <div style="width: 100%; text-align: center;">
+              <ion-icon class="code-btn" name="information-circle-outline" color="" slot="end" color="primary"
+                (click)="showDeveloperData()"></ion-icon>
+            </div>
+            <ion-button color="" size="small" shape="round" (click)="closeAlert('OK')">Ok</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  
+  </div>
+
+
+
+  <div class="alert-div" *ngIf="alertMessage.para_type == 'JPMW'">
+    <div class="head">
+      <div class="alert-header">
+        <span>{{alertMessage.para_name}}</span>
+        <ion-icon name="close" (click)="closeAlert('OK')"></ion-icon>
+      </div>
+    </div>
+    <div class="body">
+      <ion-row>
+        <ion-col size="12">
+          <div class="success-icon text-center">
+            <img src="assets/imgs/patch icons.png">
+          <!-- <ion-icon name="checkmark-circle-outline"></ion-icon> -->
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div class="success">
+            <h5>Patch Updating In Progress</h5>
+            <p>{{alertMessage.para_value}} </p>
+          </div>
+        </ion-col>
+      </ion-row>
+     
+      <ion-row>
+        <ion-col size="12" class="text-center">
+          <div class="alert-button-area">
+            <div style="width: 100%; text-align: center;">
+              <ion-icon class="code-btn" name="information-circle-outline" color="" slot="end" color="primary"
+                (click)="showDeveloperData()"></ion-icon>
+            </div>
+            <ion-button color="" size="small" shape="round" (click)="closeAlert('OK')">Ok</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  
+  </div>
+
+    <div class="alert-div" *ngIf="alertMessage.para_type == 'JPMS'">
+    <div class="head">
+      <div class="alert-header">
+        <span>{{alertMessage.para_name}}</span>
+        <ion-icon name="close" (click)="closeAlert('OK')"></ion-icon>
+      </div>
+    </div>
+    <div class="body">
+      <ion-row>
+        <ion-col size="12">
+          <div class="success-icon text-center">
+            <img src="assets/imgs/patch_Stop.png">
+          <!-- <ion-icon name="checkmark-circle-outline"></ion-icon> -->
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div class="error">
+            <h5>Patch Updating Is Stop</h5>
+            <p><img src="assets/imgs/stop-p.png" style="height: 15px;" />&nbsp;{{alertMessage.para_value}} </p>
+          </div>
+        </ion-col>
+      </ion-row>
+     
+      <ion-row>
+        <ion-col size="12" class="text-center">
+          <div class="alert-button-area">
+            <div style="width: 100%; text-align: center;">
+              <ion-icon class="code-btn" name="information-circle-outline" color="" slot="end" color="primary"
+                (click)="showDeveloperData()"></ion-icon>
+            </div>
+            <ion-button color="" size="small" shape="round" (click)="closeAlert('OK')">Ok</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  
+  </div>
+
+
+
+  <div class="warning-alert message_model" *ngIf="alertMessage.para_type == 'MWY' || alertMessage.para_type == 'MWN'">
+    <div class="head">
+      <div class="alert-header">
+        <span>{{alertMessage.para_name}}</span>
+        <ion-icon name="close" (click)="closeAlert('OK')"></ion-icon>
+      </div>
+    </div>
+    <!-- <div class="alert alert-warning d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:">
+        <use xlink:href="#exclamation-triangle-fill" />
+      </svg>
+      <div>
+        {{alertMessage.para_value}}    
+      </div>
+    </div>
+    <ion-row>
+      <ion-col id="test">
+        <ion-button tabindex="0" [class]="alertMessage.para_type == 'MWY' ? 'warning-btn selected' : 'warning-btn'"
+          shape="round" size="small" (click)="closeAlert('Y')">Yes</ion-button>
+        <ion-button tabindex="1" [class]="alertMessage.para_type == 'MWN' ? 'warning-btn selected' : 'warning-btn'"
+          shape="round" size="small" (click)="closeAlert('N')">NO</ion-button>
+      </ion-col>
+    </ion-row> -->
+
+    <div class="body">
+      <ion-row>
+        <ion-col size="12">
+          <div class="warning-icon">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div class="warning">
+            <p>  {{alertMessage.para_value}}     </p>
+          </div>
+        </ion-col>
+      </ion-row>
+     
+      <ion-row>
+        <ion-col size="12" class="text-center">
+          <div class="alert-button-area">
+            <ion-row>
+              <ion-col id="test">
+                <ion-button tabindex="0" [class]="alertMessage.para_type == 'MWY' ? 'warning-btn selected' : 'warning-btn'"
+                  shape="round" size="small" (click)="closeAlert('Y')">Yes</ion-button>
+                <ion-button tabindex="1" [class]="alertMessage.para_type == 'MWN' ? 'warning-btn selected' : 'warning-btn'"
+                  shape="round" size="small" (click)="closeAlert('N')">NO</ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+
+
+  </div>
+  <div class="alert-Type1 danger-alert-type1" *ngIf="alertMessage.para_type == 'MS' || alertMessage.para_type == 'JMS'">
+    <div class="alert-header">
+      <span>{{alertMessage.para_name}}</span>
+      <ion-icon name="close" (click)="closeAlert('OK')"></ion-icon>
+    </div>
+    <div class="alert-body">
+      <ion-row>
+        <ion-col size="12">
+          <div class="success-icon">
+            <ion-icon name="close-circle-outline" style="color:#E93333;"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+      <div class="alert-statement" role="alert">
+        <!-- <ion-icon name="alert"></ion-icon> -->
+        <div class="alert">
+          <h5>Failed</h5>
+          <p>{{alertMessage.para_value}}  </p>
+        </div>
+      </div>
+    </div>
+    <div class="alert-footer">
+      <div style="width: 100%; text-align: center;">
+        <ion-icon class="code-btn" name="information-circle-outline" color="" slot="end" color="primary"
+          (click)="showDeveloperData()"></ion-icon>
+      </div>
+      <ion-button class="success-btn" shape="round" size="medium" (click)="closeAlert('OK')">
+        <ion-icon name="thumbs-up"></ion-icon> OK
+        
+      </ion-button>
+    </div>
+  </div>
+
+
+  <div class="warning-alert message_model" *ngIf="alertMessage.para_type == 'cbm'">
+    
+    <div class="body">
+     <ion-row>
+        <ion-col size="12">
+          <div class="warning-icon">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div class="warning">
+            <p>  {{alertMessage.para_value}}     </p>
+          </div>
+        </ion-col>
+     </ion-row>
+     <ion-row>
+        <ion-col size="12" class="text-center">
+          <div class="alert-button-area">
+            <ion-row>
+              <ion-col id="test">
+                <ion-button tabindex="0" (click)="dismissClickEvent('Y')">Yes</ion-button>
+                <ion-button tabindex="1"(click)="dismissClickEvent('N')">NO</ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-col>
+      </ion-row>
+</div>
+  </div>
+</ion-content>

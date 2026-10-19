@@ -1,0 +1,249 @@
+<div class="tableOpenPopup">
+
+<div class="tab-filter tableOpenPopupy ">
+  <ul>
+    <li (click)="tablefilter($event,'Conditional Filter')">
+      <a title="Tools">
+        <!-- <i class="fi fi-rr-tools"></i> -->
+         <img src="assets/icon/tools.svg">
+        <span class="filter_present"
+          *ngIf="(frame.filterAbleArr && frame.filterAbleArr.length>0) || (frame.ctrlBrkCond && frame.ctrlBrkCond.length>0) || (frame.selectedCols && frame.selectedCols.length>0) || (frame.aggregateFun && frame.aggregateFun.length>0)"></span>
+        <b>Tools</b> </a>
+    </li>
+    <!-- <li (click)="tablefilter($event,'Group By')">
+      <a title="Group By"><ion-icon name="menu"></ion-icon>  <span class="filter_present" *ngIf="frame.ctrlBrkCond && frame.ctrlBrkCond.length>0"></span></a>
+      </li>
+      <li (click)="tablefilter($event,'Column')">
+      <a title=" Column">  <ion-icon name="grid"></ion-icon> <span class="filter_present" *ngIf="frame.selectedCols && frame.selectedCols.length>0"></span></a>
+      </li>
+      <li (click)="tablefilter($event,'Function')">
+      <a title=" Function"> <img src="assets/imgs/groupbybk.png" style="width: 20px;"> <span class="filter_present" *ngIf="frame.aggregateFun && frame.aggregateFun.length>0"></span> </a>
+      </li> -->
+    <!-- <li (click)="personalization()"><ion-icon name="construct-outline"></ion-icon> Personalisation</li> (click)="onSwitch()"-->
+     
+<!-- <li (click)="aifullScreen(frame,'1')" id="{{frame.apps_page_frame_seqid}}aiscreen_btn1" style="display: inherit;"> 
+            <a title="Ai Screen"><i class="fi fi-rr-artificial-intelligence"></i> <b>Table GPT </b>  </a></li>
+          <li (click)="aifullScreen(frame,'0')" id="{{frame.apps_page_frame_seqid}}aiscreen_btn2" style="display: none;"> 
+              <a title="Ai Screen"><i class="fi fi-rr-microchip-ai"></i><b>Table GPT</b> </a></li> -->
+          
+            
+
+    <li (click)="fullScreen(frame.apps_page_frame_seqid,'1')"
+      id="{{frame.apps_page_frame_seqid}}fullscreen_btn1" class="mobilefullscreen" [style]="!frame.fullScreen ? 'display: inherit;':'display: none;'">
+      <a title="Full Screen">
+        <!-- <i class="fi fi-rr-expand"></i>  -->
+         <img src="assets/icon/expand.svg">
+        <b>Full Screen</b> </a>
+    </li>
+    <li (click)="fullScreen(frame.apps_page_frame_seqid,'0')"
+      id="{{frame.apps_page_frame_seqid}}fullscreen_btn2" [style]="frame.fullScreen ? fullScreenCss:'display: none;'">
+      <a title="Full Screen">
+        <!-- <i class="fi fi-rr-compress icon_fullscreen"></i>  -->
+          <img src="assets/icon/compress.svg">
+        <b>Resize Screen</b> </a>
+    </li>
+    <!-- <li (click)="toggleWrap()"><a title="Row Height"> <ion-icon name="menu"></ion-icon>  </a></li> -->
+    <li *ngIf="!isNotExport">
+      <a title="Export" (click)="clickShare=true"> <span>
+         <img src="assets/icon/file-export.svg">
+        <!-- <i class="fi fi-rr-file-export"></i> -->
+        </span><b>Export</b> </a>
+      <div *ngIf="clickShare" class="parent_sub_export_filter">
+        <div class="sub-tab-filter">
+          <h5>Export File</h5>
+
+          <ion-radio-group [(ngModel)]="selectedExportDataType">
+            <ion-radio value="allData" aria-label="All Data"></ion-radio> <span
+              style="color:var(--blackNew) !important;">&nbsp;All Data
+            </span> &nbsp; &nbsp;
+            <ion-radio value="selectData" aria-label="Select Data"></ion-radio>
+            <span style="color:var(--blackNew) !important;">&nbsp;Filtered Data </span>
+          </ion-radio-group>
+
+          <p style="margin-top: 8px;">Select the file type to export data</p>
+          <ng-container>
+            <ul sclass="sub-tab-filter-template" style="display: flex;">
+              <!-- <li *ngIf="plt =='browser'" class="inner-dropShare" [ngClass]="fileTyle=='print'? 'active':''">
+                 <p (click)="selectFile('print')">CSV</p>  
+                </li> -->
+              <ng-conatiner *ngIf="controlBreakFlag || groupFlag;else simpleExport">
+                <li class="inner-dropShare active">
+                  <p (click)="selectFile('groupFilterpdf')">PDF</p>
+                </li>
+              </ng-conatiner>
+              <ng-template #simpleExport>
+                <li class="inner-dropShare" [ngClass]="fileTyle=='pdf'? 'active':''"
+                  *ngIf="!isNotExportPdf">
+                  <!-- <img (click)="getDataForGraph('pdf','')" src="./assets/imgs/pdficon.png"> -->
+                  <p (click)="selectFile('pdf')">PDF</p>
+                </li>
+                <li class="inner-dropShare" [ngClass]="fileTyle=='excel'? 'active':''"
+                  *ngIf="!isNotExportExcel">
+                  <!-- <img (click)="getDataForGraph('excel','')" src="./assets/imgs/excelicon.png"> -->
+                  <p (click)="selectFile('excel')">EXCEL</p>
+                </li>
+                  <li class="inner-dropShare" [ngClass]="fileTyle=='csv'? 'active':''"
+                  *ngIf="!isNotExportCsv">
+                  <p (click)="selectFile('csv')">CSV</p>
+                </li>
+                <li *ngIf="plt =='ios' ||  plt=='android'" class="inner-dropShare"
+                  [ngClass]="fileTyle=='email'? 'active':''">
+                  <!-- <img (click)="getShare('email')" src="./assets/imgs/emailicon.png"> -->
+                  <p (click)="getShare('email')">EMAIL</p>
+                </li>
+              </ng-template>
+            </ul>
+          </ng-container>
+
+          <div class="footer-area">
+            <ion-button size="small" shape="round" class="global-main-copy" (click)="cancelExport()">
+              Cancel
+            </ion-button>
+            <ion-button size="small" shape="round" class="global-main-copy active"
+              (click)="confirmExport()">
+              Ok
+            </ion-button>
+
+          </div>
+        </div>
+      </div>
+    </li>
+    <ng-container *ngIf="frame.apps_frame_type != 'CARD'">
+      <li (click)="toggleWrap()"
+      [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped}">
+      <a title="Table Wrap">
+        <!-- <i class="fi fi-rr-poll-h"></i> -->
+          <img src="assets/icon/poll-h.svg">
+        <b>Table Wrap</b></a>
+    </li>
+    <!-- <i class="fi fi-rr-table-pivot"></i> -->
+    <!-- <li (click)="openPivot()" class="pivot_table"> <a title="Pivot Table">
+        <img src="assets/icon/table-pivot.svg">
+      <b>Pivot
+          Table</b></a></li> -->
+           <li (click)="openPivot('new')" class="pivot_table"> <a title="Pivot Table">
+      <!-- <i class="fi fi-rr-table-pivot"></i> -->
+        <img src="assets/icon/table-pivot.svg">
+      <b>Pivot
+          Table</b></a></li>
+    <li (click)="singleSelectRecord()" [ngClass]="isSingleSelectRecord? 'wrap-text' :''"> <a
+        title="Single Record View">
+        <img src="assets/icon/table-rows.svg">
+        <!-- <i class="fi fi-rr-table-rows"></i> -->
+        <b>Single Record View</b></a></li>
+    </ng-container>
+    
+    <!-- <li> <a title="Table View"><img src="assets/imgs/tabler_tab.svg" /><b>Table View</b></a></li> -->
+    <!-- <li (click)="onSwitchHorizontal()"> <a title="Horizental Table View"><i
+          class="fi fi-rr-table-list"></i><b>Horizontal Table View</b></a></li> -->
+          <ng-container *ngIf="(frame.apps_frame_type == 'HORIZONTAL_TABLE' || frame.apps_frame_type == 'CARD');else entryTable">
+            <li (click)="horizontalToTable()" > <a title="Table View">
+               <img src="assets/icon/table.svg">
+              <!-- <i class="fa fa-table" aria-hidden="true"></i> -->
+              <b>Table View</b></a></li>
+           </ng-container>
+           <ng-template #entryTable>
+            <li (click)="onSwitchHorizontal()"> <a title="Horizental Table View">
+                 <img src="assets/icon/table-list.svg">
+              <!-- <i class="fi fi-rr-table-list"></i> -->
+              <b>Horizontal Table View</b></a></li>
+           </ng-template>
+           <ng-container *ngIf="frame.apps_frame_type != 'CARD'">
+            <li (click)="onSwitch()"> <a title="Card View">
+                <img src="assets/icon/credit-card.svg">
+              <!-- <i class="fi fi-rr-credit-card"></i> -->
+              <b>Card
+              View</b></a></li>
+           </ng-container>
+ 
+ <ng-container *ngIf="frame.apps_frame_type == 'TABLE' || frame.apps_frame_type == 'ENTRY_TABLE'">
+    <li (click)="aifullScreen(frame,'1')" id="{{frame.apps_page_frame_seqid}}aiscreen_btn1" style="display: inherit;" class="table_gpt"> 
+      <a title="Ai Screen">
+          <img src="assets/icon/artificial-intelligence.svg">
+         <!-- <i class="fi fi-rr-artificial-intelligence"></i> -->
+         <b>Table GPT </b>  </a></li>
+    <li (click)="aifullScreen(frame,'0')" id="{{frame.apps_page_frame_seqid}}aiscreen_btn2" style="display: none;"> 
+        <a title="Ai Screen">
+          <!-- <i class="fi fi-rr-artificial-intelligence icon_gpt"></i> -->
+            <img src="assets/icon/artificial-intelligence.svg">
+          <b>Table GPT</b> </a></li>
+          <li (click)="columnResizeTable()" [ngClass]="isResizable ? 'activeSize':''"> <a title="column resize"><ion-icon name="resize-outline"></ion-icon><b>Column Resize</b></a></li>
+  </ng-container>
+
+
+        
+</ul>
+</div>
+
+<ion-row>
+  <ion-col size="12">
+    <div class="chipsForPerformedAction">
+      <div class="seprate-filter">
+        <ng-container *ngIf="frame.ctrlBrkCond && frame.ctrlBrkCond.length>0">
+          <div class="frame-head-chip">
+            <ul>
+              <li class="p-0"><ion-label> Group By :</ion-label></li>
+              <li class="chips" *ngFor="let a of frame.ctrlBrkCond ; let i = index">
+                <ion-label>{{a.coloumns.prompt_name}}</ion-label>
+                <ion-icon name="close-outline" role="img" class="ios hydrated" aria-label="close circle"
+                  color="primary" (click)="clear(i,'groupBy')"></ion-icon>
+              </li>
+
+            </ul>
+          </div>
+
+          <ion-button size="small" color="secondary" shape="round" class="clear-filter"
+            *ngIf="(frame.ctrlBrkCond && frame.ctrlBrkCond.length > 0)" (click)="clearData('Group')">
+            Clear All
+          </ion-button>
+        </ng-container>
+
+      </div>
+      <div class="seprate-filter">
+        <ng-container *ngIf="frame.filterAbleArr && frame.filterAbleArr.length>0">
+
+
+          <div class="frame-head-chip">
+            <ul>
+              <li class="p-0"><ion-label> Filter By :</ion-label></li>
+              <!-- <li (click)="onSwitch()">
+                    <a>
+                      <ion-icon name="ellipse-outline"></ion-icon>
+                      <span>Multi Card</span>
+                    </a>
+
+                  </li>
+                  <li>
+                    <a>
+                      <ion-icon name="ellipse-outline"></ion-icon>
+                      <span>Single Card</span>
+                    </a>
+
+                  </li> -->
+              <li class="chips" *ngFor="let a of frame.filterAbleArr ; let i = index">
+                <ion-label>{{a.coloumns.prompt_name}}</ion-label>
+                <ion-icon name="close-outline" role="img" class="ios hydrated" aria-label="close circle"
+                  color="primary" (click)="clear(i,'filter')"></ion-icon>
+              </li>
+
+            </ul>
+          </div>
+          <ion-button size="small" color="secondary" class="clear-filter" shape="round"
+            *ngIf="(frame.filterAbleArr && frame.filterAbleArr.length > 0)"
+            (click)="clearData('filter')">
+            Clear All
+          </ion-button>
+        </ng-container>
+
+      </div>
+    </div>
+  </ion-col>
+  <ng-container
+    *ngIf="frame.filterAbleArr && frame.filterAbleArr.length>0 || frame.ctrlBrkCond && frame.ctrlBrkCond.length>0 || frame.visibleItems && frame.visibleItems.length>0">
+    <ion-col><ion-button (click)="clearAllFilter()" class="clear_all_filter">Clear All
+        Filter</ion-button></ion-col>
+  </ng-container>
+
+</ion-row>
+
+</div>

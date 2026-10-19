@@ -1,0 +1,42 @@
+<ng-container *ngIf="frame.tabsArr.length>0">
+    <div class="frame-tab-table" id="{{frame.apps_page_frame_seqid}}">
+        <div class="frame-tab-container">
+            <ul class="action-frame-head">
+            <ng-container *ngFor="let tab of frame.tabsArr">
+                <ng-container *ngIf="tab.apps_frame_type != 'F'">
+                    <li class="ion-tab-btn " [ngClass]="tab.apps_page_frame_seqid==tabFrame.apps_page_frame_seqid ? 'active' :''" (click)="tabClick(tab)" title="{{tab.apps_page_frame_name}}">{{tab.apps_page_frame_name}}
+                    <ion-icon class="code-btn" *ngIf="globalObjects.toggleDevloperMode()"
+                    name="information-circle-outline" color="primary" (click)="showDeveloperData(tab)"></ion-icon>
+                    </li>
+                </ng-container>
+            </ng-container>
+               </ul>
+        <div class="frame-tab-btn">
+             <ion-button  class="external-tablelink border-none" (click)="fullScreen(frame.apps_page_frame_seqid,'1')" id="{{frame.apps_page_frame_seqid}}fullscreen_btn1"  style="display: inherit;"><ion-icon name="expand-outline"></ion-icon></ion-button>
+            <ion-button  class="external-tablelink two border-none" (click)="fullScreen(frame.apps_page_frame_seqid,'0')" id="{{frame.apps_page_frame_seqid}}fullscreen_btn2"  style="display: none;"><ion-icon name="contract-outline"></ion-icon></ion-button>
+        </div>
+        </div>
+        
+            <div class="tabtable-section">
+                <ng-container *ngFor="let tab of frame.tabsArr">
+                    <ng-container *ngIf="tab.apps_frame_type != 'F'">
+                        <ng-container *ngIf="tab.apps_page_frame_seqid==tabFrame.apps_page_frame_seqid">
+                            <app-frame-selector [frame]="tab" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp]="wscp"
+                            [object_mast]="object_mast" [page_no]="page_no" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+                            </app-frame-selector>
+                        </ng-container>
+                    </ng-container>
+                    
+                </ng-container>
+                <!-- <app-frame-selector [frame]="tabFrame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp]="wscp"
+                    [object_mast]="object_mast" [page_no]="page_no" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+                </app-frame-selector> -->
+                <!-- <ng-template #selectFrame let-f="frametab">
+                    <app-frame-selector [frame]="f" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp]="wscp"
+                    [object_mast]="object_mast" [page_no]="page_no" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+                </app-frame-selector>
+                </ng-template>
+                <ng-container *ngTemplateOutlet="selectFrame; context:{frametab:tabFrame}"></ng-container> -->
+            </div>
+        </div>
+    </ng-container>

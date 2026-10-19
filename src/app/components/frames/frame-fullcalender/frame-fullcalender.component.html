@@ -1,0 +1,31 @@
+<ng-container *ngIf="frame.apps_frame_sub_type == 'BASIC'">
+     <h2 class="frame-name w-100">{{frame.apps_page_frame_name}}
+        <span style="margin-left: 10px;"
+          *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline" (click)="showDeveloperData()" >
+          </ion-icon>
+        </span>
+      </h2>
+  <!-- <div>
+    <ion-button (click)="showevent()">click me</ion-button>
+  </div> -->
+
+  <!-- <span style="margin-left: 10px;">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]<ion-icon
+       class="code-btn" color="primary" name="information-circle-outline"
+        (click)="showDeveloperData()"></ion-icon>
+  </span> -->
+
+<!-- <div>
+  //  <ion-button (click)="changeView('dayGridMonth')">Month View</ion-button>
+    <ion-button (click)="changeView('timeGridWeek')">Week View</ion-button>
+    <ion-button (click)="changeView('dayGridYear')">Year View</ion-button>
+  </div>  -->
+
+  <div class='demo-app'>
+    <div class='demo-app-main'>
+      <full-calendar *ngIf='calendarVisible' [events]="EventInput" [options]='calendarOptions'
+        #fullCalendar></full-calendar>
+    </div>
+  </div>
+
+</ng-container>

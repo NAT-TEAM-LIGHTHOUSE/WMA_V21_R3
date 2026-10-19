@@ -1,0 +1,79 @@
+<ion-content>
+
+  <div class="messag-box" *ngIf="type == 'MI'">
+    <div class="msg-header">
+      <ion-icon class="msg-icon" name="close-outline" (click)="close()"></ion-icon>
+    </div>
+    <ion-row>
+      <ion-col size="12">
+        <div class="messag-box-icon">
+          <ion-icon name="information-circle-outline" style="color:#4990e2;"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+    <div class="msg-para">
+      <h5>Options</h5>
+      <p>
+        {{msg}}
+      </p>
+    </div>
+
+      <div class="msg-footer">
+        <div style="width: 100%; text-align: center;" >
+          <ion-icon class="code-btn" name="information-circle-outline" color="" slot="end" color="primary"
+            (click)="showDeveloperData()"></ion-icon>
+        </div>
+        <ion-button slot="end" *ngFor="let b of btArr;let i = index" [id]="i+1" tabindex="1" (click)="dismiss(b)" class="button1">{{b.name}}</ion-button>
+      </div>
+
+</div>
+      <div class="warning-messag-box" *ngIf="type == 'MS'">
+        <div class="msg-header">
+        </div>
+        <div class="msg-para">
+          <p>
+            {{msg}}
+          </p>
+        </div>
+        <div class="msg-footer">
+          <div style="width: 100%; text-align: center;">
+            <ion-icon class="code-btn" name="information-circle-outline" color="" slot="end" color="primary"
+              (click)="showDeveloperData()"></ion-icon>
+          </div>
+          <ion-button  #actionBtn slot="end" color="secondary"*ngFor="let b of btArr;let i = index" tabindex="1" [id]="i+1"  (keydown.enter)="dismiss(b)"
+  (keydown.space)="dismiss(b)" (click)="dismiss(b)" 
+            class="button2">{{b.name}}</ion-button>
+        </div>
+      </div>
+
+      <div class="messag-box-red" *ngIf="type == 'JMI'">
+        <div class="msg-header">
+          <ion-icon class="msg-icon" name="close-outline" (click)="close()"></ion-icon>
+        </div>
+        <div class="msg-para">
+          <p>
+            {{msg}}
+          </p>
+        </div>
+        <div class="msg-footer">
+          <div style="width: 100%; text-align: center;">
+            <ion-icon class="code-btn" name="information-circle-outline" color="" slot="end" color="primary"
+              (click)="showDeveloperData()"></ion-icon>
+          </div>
+          <ion-button slot="end" *ngFor="let b of btArr;let i = index" [id]="i+1" tabindex="1" (click)="dismiss(b)"  class="button3">{{b.name}}</ion-button>
+
+        </div>
+      </div>
+
+    <div class="warning-messag-box-voilet" *ngIf="type == 'JMS'">
+      <div class="msg-header">
+
+      </div>
+      <div class="msg-para">
+
+        <p>
+          {{msg}}
+        </p>
+      </div>
+    </div>
+</ion-content>

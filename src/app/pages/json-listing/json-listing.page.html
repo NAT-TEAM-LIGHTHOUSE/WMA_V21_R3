@@ -1,0 +1,52 @@
+<div>
+  <ion-toolbar>
+    <div class="toolbar-container">
+
+      <ion-buttons slot="start" class="start">
+        <ion-button color="medium" (click)="cancel()">
+          <ion-icon name="arrow-back" color="light"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
+
+  <!-- <ng-container > -->
+  <div class="scroll-bar-table">
+    <table style="border: 1px solid black; ">
+      <thead>
+        <tr>
+          <th *ngFor="let kk of value[0] | keyvalue">
+            {{kk.key}}
+          </th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr *ngFor="let kk of value | keyvalue">
+          <ng-container *ngFor="let nn of kk.value | keyvalue">
+            <td>
+              {{nn.value}}
+
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+      <tfoot>
+        <div class="pagination-container">
+          <ul class="paginator my-1">
+            <li>
+              Total Records: {{value.length}}
+            </li>
+            <li>
+              <ion-icon *ngIf="pageno !=1" name="play-skip-back-sharp" (click)="previous();"></ion-icon>
+            </li>
+            <li>
+              <ion-icon (click)="next()" name="play-skip-forward-sharp"></ion-icon>
+            </li>
+          </ul>
+        </div>
+
+      </tfoot>
+    </table>
+
+  </div>

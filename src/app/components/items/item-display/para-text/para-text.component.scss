@@ -1,0 +1,220 @@
+.name-value-text
+{
+    --min-height:25px;
+    --padding-start: 0px;
+    border-bottom: 1px solid var(--grey-5) ;
+   .label-name,.label-value
+   {
+    white-space: normal;
+    text-overflow: unset;
+    display: flex;
+    align-items: center;
+   }
+    .label-name
+    {
+        background: var(--grey-4);
+    margin: 0px !important;
+    height: 100%;
+    padding-left: 10px;
+    color: #6f6969;
+    margin-right: 8px !important;
+    display: flex;
+    align-items: center;
+    }
+}
+
+.block-text ion-label{
+    text-overflow: unset !important;
+    white-space: break-spaces !important;
+}
+.item.sc-ion-label-md-h, .item .sc-ion-label-md-h {
+    font-size: var(--font13);
+}
+.timeline-p{
+    // font-size: var(--font14);
+    font-weight: 500;
+   
+}
+// .timeline-p{
+//   span{
+//     &:first-child{
+//       font-weight: 700;
+//     }
+//     &:last-child{
+//       margin-left: 7px;
+//     }
+//   }
+// }
+
+
+  .timeline-p span:first-child {
+   font-weight: 500 !important;
+    //font-size: var(--font13) ;
+    // color: var(--blackNew) !important; 
+  }
+  .timeline-p span:last-child {
+    font-weight: 400 !important;
+     //font-size: var(--font13) !important;
+     color: var(--blackNew) !important; 
+     --padding-top: 0px;
+     --padding-bottom: 0px;
+     cursor: pointer;
+     img{
+      min-width: 13px;
+      width:13px;
+      &:hover{
+      filter: invert(26%) sepia(93%) saturate(5931%) hue-rotate(211deg) brightness(95%) contrast(102%); //blue 
+      }
+     }
+     .fi{
+      margin-right: 5px;
+      padding: 0px 0px;
+      font-size: var(--font12);
+      border-radius: 50%;
+      cursor: pointer;
+      border: 0px !important;
+      &:hover{
+        color:var(--blue-new);
+       
+      }
+     }
+    &:hover{
+      &:has(.fi){
+       background: var(--blue-light-5);
+       color:var(--blue-new) !important;
+       
+     }  
+       &:has(img){
+     filter: invert(26%) sepia(93%) saturate(5931%) hue-rotate(211deg) brightness(95%) contrast(102%); //blue 
+       
+     }  
+    }
+    
+   }
+
+.text-ellipsis {
+    display: block;
+    display: -webkit-box;
+    line-height: 1.5;
+    -webkit-line-clamp: 2;
+    // min-height: 40px;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.prompt-area{  
+    div.prompt-flied{
+      // border: 1px solid var(--grey-5);
+      // border-width: 0 1px 1px 1px;
+      display: flex;
+      .left-prompt {
+        word-break: break-all;
+        min-width: 20%;
+        padding: 0 0 0 10px;
+        display: inline-flex;
+        margin: 0;
+        line-height: 26px;
+        vertical-align: middle;
+        font-weight: 00;
+        min-height: 26px;
+        align-items: center;
+        border-radius: 3px;
+        ion-label{
+          font-weight: 700;
+        }
+      }
+      .right-prompt{
+        padding: 0 0 0 10px;
+        display: inline-flex;
+        margin: 0;
+        min-width: 80%;
+        vertical-align: middle;
+        font-weight: 400;
+        min-height: 26px;
+        align-items: center;
+        ion-label{
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width:767px){
+    .prompt-area{
+      div.prompt-flied{      
+        .left-prompt {
+          min-width: 30%;
+        }
+        .right-prompt{
+          min-width: 70%;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width:480px){
+    .prompt-area{
+      div.prompt-flied{      
+        .left-prompt {
+          min-width: 35%;
+          max-width: 35%;
+        }
+        .right-prompt{
+          min-width: 65%;
+          max-width: 65%;
+        }
+      }
+    }
+  }
+
+    .display_top {
+      p {
+        font-size: var(--font13) !important;
+      }
+  
+      h3 {
+        // font-size: var(--font12) !important;
+      }
+    }
+    @media only screen and (min-width:700px) and (max-width:1366px){
+      .display_top {
+        p {
+          font-size: 11.5px !important;
+        }
+    
+        h3 {
+          font-size: var(--font11) !important;
+        line-height: 16px;
+        padding-bottom: 6px;
+        &:last-child{
+          padding-bottom: 12px;
+        }
+        }
+      }
+    }
+
+    .aligned_text{
+      width: 100%;
+      display: block;
+      //text-align: right;
+      span:first-child{
+        text-align: left !important;
+      }
+      span{
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 50%;
+        display: inline-block;
+      }
+    }
+
+    ion-label{
+        img{
+      min-width: 12px;
+      width:12px;
+      &:hover{
+      filter: invert(26%) sepia(93%) saturate(5931%) hue-rotate(211deg) brightness(95%) contrast(102%); //blue 
+      }
+     }
+    }

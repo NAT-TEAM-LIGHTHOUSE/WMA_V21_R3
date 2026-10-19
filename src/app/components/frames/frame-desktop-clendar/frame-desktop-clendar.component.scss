@@ -1,0 +1,82 @@
+// .calender-area{
+//     text-align: center;
+//     height: calc(100vh - 20vh);
+//     width: 100%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     h1{
+//         font-size: 90px;
+//         font-weight: 600;
+//         color: #d9d9d9;
+//     }
+// }
+
+
+.desk-calendar-frame{
+margin:0px;
+border: 0px solid #bababa !important;
+background: #ffffff;
+border-radius: 5px;
+overflow: hidden;
+
+
+ion-header{
+    ion-toolbar{
+        ion-title{
+
+        }
+       ion-button.buttons-last-slot{
+
+       }
+    }
+}
+ calendar{
+   
+    .table-bordered > tbody > tr > td,
+     .table-bordered > tfoot > tr > td {
+        border: 1px solid #ddd;
+        width: 120px !important;
+        height: 150px !important;
+        min-height: 150px !important;
+    }
+        
+    table.monthview-datetable{
+        thead{
+
+        }
+        tbody{
+
+        }
+        td{
+            height:150px !important;
+            width:120px !important;
+        }
+        
+       td.text-muted{
+
+       }
+
+       td.monthview-secondary-with-event.text-muted{
+
+       }
+
+       td.monthview-selected.monthview-current{
+
+        }
+        td.monthview-primary-with-event{
+
+        }
+    }
+
+    }
+
+
+
+}
+
+
+
+ion-list{ display: flex;}
+   
+

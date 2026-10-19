@@ -1,0 +1,333 @@
+<!-- <p>{{frame.apps_frame_type}}</p>
+<ng-container *ngFor="let p of parentRows ;let h=index">
+  <div class="contract-container">
+    <ion-row class="row">
+      <ng-container *ngFor="let itemGroup of p.cardRow">
+        <ng-container *ngFor="let item of itemGroup.Level5">
+          <ng-container *ngIf="item.item_sub_type == 'ONLY_VIEW_PARENT'">
+            <ion-label class="contract-item label label-md">
+              <span> {{item.prompt_name}} </span>: {{item.value}}
+            </ion-label>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <span class="add-icon-btn">
+        <ion-icon name="add" role="img" class="icon icon-md ion-md-add" aria-label="add" ng-reflect-name="add"
+          *ngIf="!p.showTable" (click)="showItemTab(p)">
+        </ion-icon>
+
+        <ion-icon name="remove" role="img" class="icon icon-md ion-md-remove" aria-label="remove"
+          ng-reflect-name="remove" *ngIf="p.showTable" (click)="showItemTab(p)">
+        </ion-icon>
+      </span>
+    </ion-row>
+
+    <ion-grid class="sub-header grid">
+      <ion-row class="row">
+        <ng-container *ngFor="let itemGroup of p.cardRow">
+          <ng-container *ngFor="let item of itemGroup.Level5">
+            <ng-container *ngIf="item.item_visible_flag == 'T'">
+              <ion-col class="col" col-4="" *ngIf="item.item_sub_type == 'ONLY_VIEW_COUNT'">
+                <ion-label class="label label-md">{{item.prompt_name}}
+                </ion-label>
+                <span>{{item.value}}</span>
+              </ion-col>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+
+    <div class="table-responsive" *ngIf="p.showTable">
+      <table>
+        <thead>
+          <tr>
+            <ng-container *ngFor="let h of thead">
+              <th [ngStyle]="h.display_setting_str">{{h.prompt_name}}</th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let itemData of p.parentRow ;let rowindex=index">
+            <ng-container *ngFor="let itemGroup of itemData;">
+              <ng-container *ngFor="let input_item of itemGroup.Level5; let i = index">
+                <td [ngStyle]="input_item.display_setting_str"
+                  *ngIf="input_item.item_sub_type != 'ONLY_VIEW_COUNT' && input_item.item_sub_type != 'ONLY_VIEW_PARENT' && input_item.item_visible_flag == 'T'">
+
+
+                  <ng-container [ngSwitch]="input_item.item_type">
+                    <div *ngSwitchCase="'TEXT'">
+                      {{input_item.value}}
+                    </div>
+
+                    <div *ngSwitchCase="'T'">
+                     <app-text-input-n [textinput]="input_item" [frame_type]="frame.apps_frame_type"
+                        (emitOnChange)="itemValueChange(input_item,rowindex,h, itemData)">
+                      </app-text-input-n>
+                    </div>
+
+                    <div *ngSwitchCase="'L'">
+                      <app-items [item]="input_item" [wscp]="wscp_send_input" (emitPass)="itemClicked($event,itemData,i,rowindex)" 
+                        (LHSOnChange)="itemValueChange(input_item,rowindex,h, itemData)" [frame]="frame"></app-items>
+                    </div>
+
+                    <div *ngSwitchCase="'N'" class="number-value">
+
+                      <ion-input type="number" [min]="input_item.from_value" [max]="input_item.to_value"
+                        class="text-right" maxlength="{{input_item.item_size}}" id="{{input_item.item_name}}"
+                        pattern="{{input_item.input_pattern}}" [(ngModel)]="input_item.value"
+                        [readonly]="input_item.item_enable_flag && (input_item.item_enable_flag=='F')" [required]="input_item.data_required_flag && input_item.data_required_flag=='T' 
+                          ||input_item.prompt_name[input_item.prompt_name.length -1] =='*'" #input_itemname="ngModel"
+                        name="{{input_item.item_name}}" placeholder="{{input_item.prompt_name}}"
+                        (ionChange)="input_item.isValid=input_itemname.valid; input_item.touched=true;"
+                        (ionBlur)="input_item.touched=true;itemValueChange(input_item,rowindex,h, itemData)"
+                        (ngInit)="input_item.isValid=input_itemname.valid">
+                      </ion-input>
+
+
+                      <div class="error" *ngIf="input_itemname.hasError('maxlength')"> {{input_item.prompt_name}} max
+                        {{input_item.item_size}} digit</div>
+
+                      <div class="error" *ngIf="input_itemname.hasError('min')"> {{input_item.prompt_name}} should
+                        not be less
+                        {{input_item.from_value}}
+                      </div>
+
+                      <div class="error" *ngIf="input_itemname.hasError('max')"> {{input_item.prompt_name}} should
+                        not be above
+                        {{input_item.to_value}}</div>
+
+                      <div class="error" *ngIf="input_itemname.hasError('required') && input_item.touched"> Please Enter
+                        {{input_item.prompt_name}}
+                      </div>
+
+                      <div class="error" *ngIf="input_itemname.hasError('pattern')">Invalid Number or Invalid
+                        Decimal Place</div>
+
+                    </div>
+                  </ng-container>
+                </td>
+              </ng-container>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</ng-container> -->
+<!-- <ng-container *ngIf="!scrollFlag"> -->
+   <div class="frame-head mb-2">
+  <div class="header_main_table">
+    <div class="farme-left-hedaer d-flex text-left">
+      <h2 class="frame-name">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;"
+          *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]<ion-icon
+            class="code-btn" color="primary" name="information-circle-outline" *ngIf="developerModeData"
+            (click)="showDeveloperData()">
+          </ion-icon></span>
+      </h2>
+      <ng-container *ngIf="!frame.collapse">
+        <ion-button (click)="onEmitChange()" class="db_edit" *ngIf="globalObjects.toggleDevloperMode()">
+          <ion-icon color="primary" name="create-outline"></ion-icon>
+        </ion-button>
+      </ng-container>
+    </div>
+  </div>
+  </div>
+  <ng-container *ngFor="let p of parentRows ;let h=index">
+    <div class="contract-container">
+      <ion-row class="row">
+        <ng-container *ngFor="let itemGroup of p.cardRow">
+          <ng-container *ngFor="let item of itemGroup.Level5">
+            <ng-container *ngIf="item.item_sub_type == 'ONLY_VIEW_PARENT'">
+              <ion-label class="contract-item label label-md">
+                <span> {{item.prompt_name}} </span>: {{item.value}}
+              </ion-label>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <div class="add-icon-btn" >
+          <ion-icon name="add"  (click)="showItemTab(p)" role="img" class="icon icon-md ion-md-add" aria-label="add" ng-reflect-name="add"
+            *ngIf="!p.showTable" >
+          </ion-icon>
+
+          <ion-icon name="remove"  (click)="showItemTab(p)" role="img" class="icon icon-md ion-md-remove" aria-label="remove"
+            ng-reflect-name="remove" *ngIf="p.showTable">
+          </ion-icon>
+        </div>
+      </ion-row>
+
+      <ion-grid class="sub-header grid">
+        <ion-row class="row">
+          <ng-container *ngFor="let itemGroup of p.cardRow">
+            <ng-container *ngFor="let item of itemGroup.Level5">
+              <ng-container *ngIf="item.item_visible_flag == 'T'">
+                <ion-col class="col" col-4="" *ngIf="item.item_sub_type == 'ONLY_VIEW_COUNT'">
+                  <ion-label class="label label-md">{{item.prompt_name}}
+                  </ion-label>
+                  <span>{{item.value}}</span>
+                </ion-col>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <!-- <ion-col class="col" col-4="">
+              <ion-label class="label label-md">Executed Qty
+              </ion-label>
+              <span>0.0 </span>
+            </ion-col>
+    
+            <ion-col class="col" col-4="">
+              <ion-label class="label label-md">Balance </ion-label>
+              <span>0.000/1.000 </span>
+            </ion-col> -->
+        </ion-row>
+      </ion-grid>
+
+      <div class="table-responsive" *ngIf="p.showTable">
+        <table>
+          <thead>
+            <tr>
+              <ng-container *ngFor="let h1 of thead">
+                <th [ngStyle]="getParsedJson(h1.display_setting_str)">{{h1.prompt_name}}</th>
+              </ng-container>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let itemData of p.parentRow ;let rowindex=index">
+              <ng-container *ngFor="let itemGroup of itemData;">
+                <ng-container *ngFor="let input_item of itemGroup.Level5; let i = index">
+                  <ng-container *ngIf="input_item.item_visible_flag == 'T'">
+                    <td [ngStyle]="getParsedJson(input_item.display_setting_str)"
+                      *ngIf="input_item.item_sub_type != 'ONLY_VIEW_COUNT' && input_item.item_sub_type != 'ONLY_VIEW_PARENT' && input_item.item_visible_flag == 'T'">
+                      <ng-container *ngIf="input_item.datatype=='NUMBER';else notNum">
+                       <app-items [item]="input_item" [wscp]="wscp_send_input"  [frame]="frame" [frame_type]="frame.apps_frame_type"
+                            (LHSOnChange)="itemValueChange($event,rowindex,h,itemData)">
+                          </app-items>
+                      </ng-container>
+                      <ng-template #notNum>
+                        <app-items [item]="input_item" [wscp]="wscp_send_input"  [frame]="frame" [frame_type]="frame.apps_frame_type"
+                            (emitPass)="itemClicked($event,itemData,i,rowindex)" (LHSOnChange)="itemValueChange($event,rowindex,h,itemData)">
+                          </app-items>
+                      </ng-template>
+ 
+                      <!-- <ng-container [ngSwitch]="input_item.item_type">
+                        <div *ngSwitchCase="'TEXT'">
+                          {{input_item.value}}
+                        </div>
+
+                        <div *ngSwitchCase="'T'">
+                          <app-text-input [textinput]="input_item" [frame_type]="frame.apps_frame_type"
+                            (emitOnChange)="itemValueChange($event,rowindex)">
+                          </app-text-input>
+                        </div>
+
+                        <div *ngSwitchCase="'L'">
+                          <app-items [item]="input_item" [wscp]="wscp_send_input"
+                            (emitPass)="itemClicked($event,rowindex)" (LHSOnChange)="itemValueChange($event,rowindex)">
+                          </app-items>
+                        </div>
+
+                        <div *ngSwitchCase="'N'" class="number-value">
+
+                          <ion-input type="number" [customMin]="input_item.from_value" [customMax]="input_item.to_value"
+                            class="text-right" maxlength="{{input_item.item_size}}" id="{{input_item.item_name}}"
+                            pattern="{{input_item.input_pattern}}" [(ngModel)]="input_item.value"
+                            [readonly]="input_item.item_enable_flag && (input_item.item_enable_flag=='F')" [required]="input_item.data_required_flag && input_item.data_required_flag=='T' 
+                          ||input_item.prompt_name[input_item.prompt_name.length -1] =='*'" #input_itemname="ngModel"
+                            name="{{input_item.item_name}}" placeholder="{{input_item.prompt_name}}"
+                            (ionChange)="input_item.isValid=input_itemname.valid; input_item.touched=true;"
+                            (ionBlur)="input_item.touched=true;itemValueChange(input_item,rowindex,h, itemData)">
+                          </ion-input>
+
+
+                          <div class="error" *ngIf="input_itemname.hasError('maxlength')"> {{input_item.prompt_name}}
+                            max
+                            {{input_item.item_size}} digit</div>
+
+                          <div class="error" *ngIf="input_itemname.hasError('customMin')"> {{input_item.prompt_name}}
+                            should
+                            not be less
+                            {{input_item.from_value}}
+                          </div>
+
+                          <div class="error" *ngIf="input_itemname.hasError('customMax')"> {{input_item.prompt_name}}
+                            should
+                            not be above
+                            {{input_item.to_value}}</div>
+
+                          <div class="error" *ngIf="input_itemname.hasError('required') && input_item.touched"> Please
+                            Enter
+                            {{input_item.prompt_name}}
+                          </div>
+
+                          <div class="error" *ngIf="input_itemname.hasError('pattern')">Invalid Number or Invalid
+                            Decimal Place</div>
+
+                        </div>
+                      </ng-container> -->
+                    </td>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+
+
+
+              <!--  <td>10kg single bundle</td>
+            <td>
+              <ion-input class="form-control" type="number"></ion-input>
+            </td>
+            <td>
+              <ion-input class="form-control" type="number" placeholder="Quantity"></ion-input>
+            </td>
+            <td>MT</td>
+            <td>
+              <ion-input class="form-control text-right" type="text" placeholder="Total"></ion-input>
+            </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    
+  </ng-container>
+
+  <div *ngIf="summaryRow.length > 0">
+    <div>
+      <h1 style="font-size:16px;font-weight:600;">Order Details Summary</h1>
+      </div>
+    <table>
+      <thead>
+        <tr>
+          <ng-container *ngFor="let h1 of summaryRow">
+            <th [ngStyle]="getParsedJson(h1.display_setting_str)">{{h1.prompt_name}}</th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <ng-container *ngFor="let item of summaryRow">
+            <td>{{item.value}}</td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+<!-- </ng-container> -->
+
+<!-- <ng-container class="center" *ngIf="scrollFlag">
+  <div class="text-center">
+    <img src="../../../../assets/dot.gif" width="10%">
+  </div>
+</ng-container> -->
+<div class="center cent-loader" *ngIf="frame.loading">
+  <div class="text-center ">
+    <img src="../../../../assets/dot.gif" width="20%">
+  </div>
+</div>

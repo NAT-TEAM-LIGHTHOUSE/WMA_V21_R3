@@ -1,0 +1,37 @@
+<div class="desk-calendar-frame">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title slot="start" id="desk_calendar_title">
+
+
+        <ion-list>
+          <ion-item>
+            <ion-select aria-label="Fruit" interface="popover" placeholder="Select year" [(ngModel)]="currentYear"
+              (ionChange)="datechange()">
+              <ion-select-option *ngFor="let val of fullyear" [value]="val">{{val}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-select aria-label="Fruit" interface="popover" placeholder="Select month" [(ngModel)]="currentMonth"
+              (ionChange)="datechange()">
+              <ion-select-option *ngFor="let m of fullmonths" [value]="m.val">{{m.key}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button [disabled]="isToday" (click)="today()">Today</ion-button>
+        <ion-button (click)="loadEvents()">All Events</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <!-- <calendar id="desk_calendar" [eventSource]="eventSource" [queryMode]="calendar.queryMode"
+    [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" [step]="calendar.step"
+    [preserveScrollPosition]="calendar.preserveScrollPosition" [startHour]="calendar.startHour"
+    [scrollToHour]="calendar.scrollToHour" (onCurrentDateChanged)="onCurrentDateChanged($event)"
+    (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    (dblclick)="func2($event)">
+  </calendar> -->
+</div>

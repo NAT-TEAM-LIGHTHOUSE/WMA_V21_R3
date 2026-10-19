@@ -1,0 +1,20 @@
+table tbody tr:nth-child(even) {
+    background: var(--white);
+}
+.inner-table{
+    background: var(--gray-5);
+    border-bottom: 3px solid var(--gray);
+}
+.inner-table1{
+    background: var(--gray-5);
+    border-bottom: 3px solid var(--gray);
+}
+ion-icon{
+    font-size: var(--font16);
+    margin-right: 10px;
+    cursor: pointer;
+}
+.collapse-td{
+    display: flex;
+    align-items: center;
+}

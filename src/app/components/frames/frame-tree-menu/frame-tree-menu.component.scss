@@ -1,0 +1,170 @@
+ .p-tree .p-tree-filter-container .p-tree-filter{
+    height: 35px;
+    padding: 5px 10px;
+  }
+  .tree-menucontainer {
+    input[type="checkbox"] {
+      display: none;
+    }
+  
+    ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+  
+    li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 5px;
+    }
+  
+    li:before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 0;
+      border-left: 1px dashed var(--dark-grey-0);
+      height: 100%;
+    }
+  
+    li:last-child:before {
+      height: 50%;
+      /* Adjust the height for the last child */
+    }
+  
+    input[type="checkbox"]+label {
+      cursor: pointer;
+      display: block;
+    }
+  
+    input[type="checkbox"]+label:before {
+      content: '\25B6';
+      /* Unicode character for right-pointing triangle */
+      display: inline-block;
+      margin-right: 5px;
+      transition: transform 0.3s;
+    }
+  
+    input[type="checkbox"]:checked+label:before {
+      transform: rotate(90deg);
+    }
+  
+    ul ul {
+      display: none;
+    }
+  
+    input[type="checkbox"]:checked+label+ul {
+      display: block;
+    }
+  
+    a {
+      text-decoration: none;
+      color:var(--text-light-1);
+    }
+  }
+  
+  
+  .tree-menu-section{
+       width: 100%;
+    .input-group-append{
+      border: none !important;
+    }
+    .btn-secondary {
+      color: var(--white);
+      background-color: var(--blue-new) !important;
+      border-color: var(--dark-grey-0) !important;
+  }
+  .search-tree-item{
+    padding: 20px 0 0 20px;
+  }
+  }
+  
+  :host ::ng-deep .p-tree{
+    background: transparent;
+    border: none;
+  }
+  :host ::ng-deep .p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
+    height: 18px;
+    width: 18px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: all 0.4s;
+    border-radius: 2px;
+    background: #e7e7e7;
+    color: rgb(61 61 61);
+    &:hover{
+      color: var(--white);
+      background: var(--blue-new);
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+     
+    }
+    &:hover + .p-treenode-label{
+      color: var(---text-dark);
+    }
+   
+    .pi:before {
+          font-size: var(--font10);
+      line-height: 22px;
+      font-weight: 900;
+     
+  }
+  
+  }
+  :host ::ng-deep span.p-treenode-label{
+    font-size: var(--font12);
+    line-height: 12px;
+    font-weight: 500;
+    transition: all 0.4s;
+    padding: 2px 5px;
+    color: rgb(97 97 97);
+    letter-spacing: 0.5px;
+  }
+  
+  :host ::ng-deep .p-tree .p-tree-container .p-treenode .p-treenode-content  {
+    padding:2px;
+    position: relative;
+    &:focus{
+      box-shadow: none;
+    }
+  }
+  
+  :host ::ng-deep .p-tree .p-tree-container .p-treenode {
+    position: relative;
+    &::before{
+      content: "";
+      border-left: 1px dotted rgb(103 103 103 / 38%);
+      position: absolute;
+      left: 12px;
+      top: 0;
+      height: 100%;
+      }
+  }
+  :host ::ng-deep .pi-chevron-right:before {
+    content: "\e90d";
+  }
+  .tree-menubtn{
+    button{
+        background:none !important;
+        ion-icon{
+          font-size: var(--font22);
+          color: var(--blackNew)
+        }
+    }
+  }
+
+  .frame-head{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .pi-search:before {
+   
+      content:'⌕' !important;
+       position: absolute;
+       width:20px;
+       height:20px;
+       top :0px;
+       color:var(--blackNew);
+
+    
+  }

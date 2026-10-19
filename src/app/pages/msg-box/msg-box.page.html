@@ -1,0 +1,70 @@
+<ion-content>
+  <div class="alert-box">
+    <div class="close-btn-box" (click)="close()">
+      <ion-icon name="close-outline"></ion-icon>
+    </div>
+    
+    <ion-row>
+      <ion-col size="12">
+        <div class="model-icon">
+          <ion-icon name="information-circle-outline" style="color:#4990e2;"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <div class="icon-msg">
+      <ion-icon name="fa-solid fa-spinner"></ion-icon>
+    </div>
+    <div class="model-msg">
+      <h5>Information</h5>
+      {{msg}}
+    </div>
+
+
+    <div class="msg-model">
+      <ion-button *ngIf="msgArr" (click)="msgtoggleAccordion()">Know More...</ion-button>
+      <ion-accordion-group #accordionGroup>
+        <ion-accordion value="msgModelb">
+          <div class="ion-padding" slot="content">
+            <div class="msg-table">
+              <table class="table">
+                <tr>
+                  <th>Frame</th>
+                  <th>Prompt Name</th>
+                  <th>Item Name</th>
+                  <th>Index</th>
+                </tr>
+                <ng-container *ngFor="let msg of msgArr">
+                  <ng-container *ngFor="let m of msg">
+                    <tr>
+                      <td>{{lhs_lib.get_frame_config(m.apps_page_frame_seqid).apps_page_frame_name}}</td>
+                      <td>{{m.prompt_name}}</td>
+                      <td (click)="go(m.apps_page_frame_seqid + '.' + m.item_name,m.indexcount)" style="text-decoration: underline;cursor: pointer;">{{m.item_name}}</td>
+                      <td>{{m.indexcount}}</td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </table>
+            </div>
+            
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
+    
+    <div class="model-button">
+       
+   
+      <form name="appkey" class="key-container" (submit)="close()">
+        <div style="width: 100%; text-align: center;" *ngIf="globalObjects.toggleDevloperMode()">
+          <ion-icon class="code-btn" name="information-circle-outline" color="" slot="end" color="primary"
+            (click)="showDeveloperData()"></ion-icon>
+        </div>
+      <ion-button class="box-btn"  tabindex="0" type="submit" tabindex="0" autofocus="true" #autofocus>
+        OK</ion-button>
+      </form>
+
+    </div>
+
+  </div>
+</ion-content>

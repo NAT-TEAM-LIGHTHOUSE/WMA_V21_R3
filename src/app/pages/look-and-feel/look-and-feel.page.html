@@ -1,0 +1,133 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" (click)="closePage()" fill="clear" icon-only start>
+      <ion-icon name="arrow-back" color="light"></ion-icon>
+    </ion-button>
+    <ion-title>
+      Look and Feel
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="bg-shrink">
+  <div class="shrinkMyscreen" style="padding: 10px;">
+    <ion-row>
+      <ion-col size="12" style="text-align: right;">
+        <ion-button color="primary" (click)="resetSetting()" size="small" shape="round">Reset</ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <div class="font-container">
+      <ion-row>
+        <ion-col size="12" class="header">
+          <h3>Font - Items and Frames</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3">
+          <div class="font-card">
+            <p>Font Family</p>
+            <ion-item>
+              <ion-select  interface="popover" placeholder="Select One" [(ngModel)] = "ftFamily" (ionChange)="fontFamilyChange($event)">
+                <ion-select-option *ngFor="let t of fontFamily" [value]="t.value">{{t.name}}</ion-select-option>
+              </ion-select>
+            </ion-item> 
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="font-card">
+            <p>Font Size(Height)</p>
+            <ion-item>
+              <ion-range min="8" max="30" pin color="primary" [(ngModel)]="fontSize" (ionChange) = "changeStyle('--minFontSize',fontSize + 'px')">
+                <ion-label slot="start" color="primary">8</ion-label>
+                <ion-label slot="end" color="primary">30</ion-label>
+              </ion-range> 
+      
+            </ion-item>
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="font-card">
+            <p>Font Weight(Boldness)</p>
+            <ion-item>
+              <ion-range min="400" max="700" step="2" pin color="primary" [(ngModel)]="fontWeight" (ionChange) = "changeStyle('--fontWeight',fontWeight)">
+                <ion-label slot="start" color="primary">400</ion-label>
+                <ion-label slot="end" color="primary">700</ion-label>
+              </ion-range> 
+            </ion-item>
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="font-card">
+            <p>Font Color</p>
+            <ion-item>
+              <ion-range min="400" max="700" pin color="primary">
+                <ion-label slot="start" color="primary">Light</ion-label>
+                <ion-label slot="end" color="primary">Dark</ion-label>
+              </ion-range> 
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3">
+          <div class="font-card">
+            <p>Letter Spacing</p>
+            <ion-item>
+              <ion-range min="0" max="4" pin color="primary" [(ngModel)]="letterSpacing" (ionChange) = "changeStyle('--fontLetterSpacing2x',letterSpacing + 'px')">
+                <ion-label slot="start" color="primary">0</ion-label>
+                <ion-label slot="end" color="primary">4px</ion-label>
+              </ion-range> 
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="font-container">
+      <ion-row>
+        <ion-col size="12" class="header">
+          <h3>Layout - Items and Frames</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3">
+          <div class="font-card">
+            <p>Margin</p>
+            <ion-item>
+              <ion-range min="0" max="50" pin color="primary" [(ngModel)]="margin" (ionChange) = "changeStyle('--margin',margin + 'px')">
+                <ion-label slot="start" color="primary">0</ion-label>
+                <ion-label slot="end" color="primary">50px</ion-label>
+              </ion-range> 
+            </ion-item>
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="font-card">
+            <p>Padding</p>
+            <ion-item>
+              <ion-range min="0" max="50" pin color="primary" [(ngModel)]="padding" (ionChange) = "changeStyle('--padding',padding + 'px')">
+                <ion-label slot="start" color="primary">0</ion-label>
+                <ion-label slot="end" color="primary">50</ion-label>
+              </ion-range> 
+            </ion-item>
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="font-card">
+            <p>Height</p>
+            <ion-item>
+              <ion-range min="0" max="50" pin color="primary">
+                <ion-label slot="start" color="primary">0</ion-label>
+                <ion-label slot="end" color="primary">100px</ion-label>
+              </ion-range> 
+            </ion-item>
+          </div>
+        </ion-col>
+      
+      </ion-row>
+     
+    </div>
+  </div>
+</ion-content>

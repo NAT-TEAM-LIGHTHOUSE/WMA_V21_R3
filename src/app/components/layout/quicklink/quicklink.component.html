@@ -1,0 +1,51 @@
+<!-- <app-super #superpage></app-super> -->
+
+<ion-button class="global-main-copy" (click)="openObject()">Manage</ion-button>
+<h1 class="canavs_title">Quick Menu</h1>
+<ng-container *ngIf="frame; else noMenu">
+  <!-- <ng-container  *ngIf="frame.apps_frame_sub_type == 'BASIC' || frame.apps_frame_sub_type == 'COLLAPSE'||frame.apps_frame_type=='FOOTER_BAR'"> -->
+  <ion-footer color="primary">
+    <ion-grid>
+      
+      <div class="Quiklink-records">
+        <!-- <cdk-virtual-scroll-viewport itemSize="20" class="virtual-scroll-viewport"> -->
+        <!-- <ion-row>
+              <ng-container *ngFor="let item of footerArr ; let i = index">
+                <ng-container *ngIf="item.item_visible_flag == 'T'">
+                <ion-col size="12"  (click)="itemClicked(item, frame.Level4, 0)">
+                    <div class="Quiklink-container" >
+                      <ion-icon name="folder-outline" (error)="onImgError($event)"></ion-icon>
+                    <span>{{item.prompt_name}}</span>   
+                  </div>
+                </ion-col>
+              </ng-container>
+              </ng-container>
+          </ion-row> <ion-icon name="calendar-outline"> </ion-icon>-->
+        
+          <ion-row *ngFor="let item of frame.tableData ; let i = index">
+            <ion-col size="12">
+
+              <div class="Quiklink-update-container" (click)="itemClicked(item, i)">
+                <div class="prompt_cont">
+                  <ion-icon name="folder-outline"></ion-icon>
+                  <span>{{item.prompt_name}}</span>
+                </div>
+                <div class="prompt_cont_update">
+                  <h4> <span>{{item.menu_option_name}} </span></h4>
+                  <h4> <span> {{item.menu_option_code}}</span></h4>
+                </div>
+              </div>
+            </ion-col>
+
+          </ion-row>
+        <!-- </cdk-virtual-scroll-viewport> -->
+        </div>
+      
+    </ion-grid>
+  </ion-footer>
+</ng-container>
+<!-- </ng-container> -->
+
+<ng-template #noMenu>
+  <p>No menu available</p>
+</ng-template>

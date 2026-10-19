@@ -1,0 +1,5 @@
+<ion-row>
+  <ion-col [hidden]="item.ITEM_VISIBLE_FLAG=='F'">
+      <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event)" [frame]="frame"></app-items>
+  </ion-col>
+</ion-row> 

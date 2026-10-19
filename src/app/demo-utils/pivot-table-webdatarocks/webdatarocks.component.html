@@ -1,0 +1,43 @@
+<!-- <ion-wbr-pivot #pivot1 [toolbar]="true"
+[width]="'100%'"
+[height]="500"
+[customizeCell]="onCustomizeCell"
+(ready)="onPivotReady($event)"
+(reportcomplete)="onReportComplete()">
+WebDataRocks will appear here
+</ion-wbr-pivot> -->
+
+
+<!-- <ion-wbr-pivot
+  [customizeCell]="onCustomizeCell"
+(ready)="onPivotReady($event)"
+(reportcomplete)="onReportComplete()"
+(dataloaded)="onDataLoaded($event)"
+  (cellclick)="onCellClick($event)"
+></ion-wbr-pivot> -->
+
+<!-- <div id="wdr-component" class="wbr-ng-wrapper" style="overflow: auto;height: 400px; width: 100%;"
+></div> -->
+
+
+
+<ng-container *ngIf="!isnew;else newpivot">
+ <div id="wdr-component" class="wbr-ng-wrapper" style="overflow: auto;height: 400px; width: 100%;"></div>
+</ng-container>
+<ng-template #newpivot>
+<p class="new_pivot_title">{{this.frame.apps_page_frame_name}}</p>
+  <iframe name="wdr-frame" id="wdr-component" class="wbr-ng-wrapper" 
+    style="overflow: auto;height: calc(100dvh - 17dvh);; width: 100%;position: relative;"></iframe>
+  
+  <!-- Hidden form for POST request -->
+  <form #postForm id="iframeForm" style="width: 100%;height: 100%;" method="POST" target="wdr-frame" style="display: none;">
+    <!-- Add your POST parameters here dynamically -->
+  </form>
+  <ng-container *ngIf="loaderFlag">
+    <div class="loader-container" style="position: absolute;top:0;bottom: 0;right:0;left:0;place-content: center;text-align: center;">
+    <img src="./../../../assets/page-loader-img.gif" alt="Loading..." class="loader-img" style="margin: auto;">
+  </div>
+    
+  </ng-container>
+
+</ng-template>

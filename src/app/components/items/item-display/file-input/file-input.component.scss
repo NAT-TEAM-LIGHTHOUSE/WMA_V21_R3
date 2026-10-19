@@ -1,0 +1,56 @@
+.Upload-buton {
+    width: 100%;
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    height: 27px;
+    border-radius: 3px;
+    border: 1px solid #d9d9d9;
+    cursor: pointer;
+    background: #ffffff !important;
+    font-size: 14px;
+    
+    span{
+        margin-left: 18px;
+        color: #8c8c8c;
+        z-index: 0;
+        position: absolute;
+        left: 1px;
+        cursor: pointer;
+        
+    }
+    ion-icon{
+        right: 18px;
+        color: var(--blackNew);
+        font-size: var(--font20);
+        position: absolute;
+        z-index: 0;
+        cursor: pointer;
+     
+    }
+    ion-input{
+        cursor: pointer;
+        width: 100%;
+        height: var(--inputh);
+        z-index: 9;
+        opacity: 0;
+        
+    }
+}
+
+ion-chip{
+    // height :30px;
+    background: #f4f4f4;
+    ion-label{
+        color: var(--blackNew);
+        font-weight: 400;
+            white-space: wrap;
+    word-break: break-all;
+    }
+    ion-icon{
+        color: var(--blackNew);
+        margin-left:10px;
+    }
+}

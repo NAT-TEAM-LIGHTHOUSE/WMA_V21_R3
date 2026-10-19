@@ -1,0 +1,41 @@
+.header-row {
+    font-weight: bold;
+    background-color: #f4f4f4;
+  }
+  
+  ion-col {
+    font-size: 12px;
+    word-wrap: break-word;
+  }
+  .table-container{
+    max-height: calc(100vh - 280px);
+    overflow: auto;
+    table{
+      width: 100%;
+      td{
+        padding: 0px 5px;
+        font-size: 13px;
+        font-weight: 400;
+        color: #000;
+        border-right: 1px solid #c0c0c0;
+      }
+      th{
+        padding: 5px 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #ffffff;
+        background: var(--blue-new);
+        position: sticky;
+        top: 0;
+        z-index: 9;
+        border-right: 1px solid #fff;
+
+      }
+      tr:nth-child(even){
+ background: #e7e7e7;
+      }
+
+    }
+  }
+
+ 

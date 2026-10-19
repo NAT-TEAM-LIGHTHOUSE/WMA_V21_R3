@@ -1,0 +1,107 @@
+<div class="dashborad_user_section" >
+  
+ 
+  <ion-grid>
+    <ion-row >
+      <ion-col size="12" size-md="8" size-lg="10">
+        <div class="dashboard_welcome_text mb-3">
+          <ion-chip style="background: var(--blue-light-6);">Welcome To</ion-chip>
+          <ng-container *ngFor="let framedata of frame.Level4">
+
+  <ng-container *ngFor="let itemdata of framedata.Level5">
+          <h2 *ngIf="itemdata.item_name == 'SYS_HEADING'  ">{{itemdata.value}}</h2>
+          <p *ngIf="itemdata.item_name =='SYS_SUB_HEADING'">{{itemdata.value}}</p>
+              </ng-container>
+  </ng-container>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-md="4" size-lg="2" class="text-end">
+        <div class="dashboard_btn_container mb-3">
+            <ng-container *ngFor="let framedata of frame.Level4">
+
+  <ng-container *ngFor="let itemdata of framedata.Level5">
+          <ion-button *ngIf="itemdata.item_name =='SYS_LANDING_DASHBOARD'" class="dashboard_btn" 
+          style="--background: var(--blue-light-4);background: var(--blue-light-4);  border:1px dashed var(--blue-new);color:var(--blue-new);" (click)="itemClicked(itemdata)" >Go to Landing Page</ion-button>
+           <ion-button *ngIf="itemdata.item_name =='SYS_QUICK_MENU'" class="dashboard_btn ms-2"
+            style="--background: #fff2e5;background: #fff2e5;  border:1px dashed #FF7E0D;color:#FF7E0D;" (click)="itemClicked(itemdata)" >Quick Menu</ion-button>
+  </ng-container>
+            </ng-container>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ng-container *ngFor="let framedata of frame.Level4">
+
+  <ng-container *ngFor="let itemdata of framedata.Level5">
+      <ion-col size="0" size-md="7" size-lg="8.5" *ngIf="itemdata.item_name =='SYS_COVER_IMAGE'">
+        <!-- {{itemdata.value}} -->
+        <div class="dashboard_hero_section">
+          <!-- {{imgData}} -->
+          <img   [src]="imgData" alt="dashboard-hero-img"/>
+        </div>
+      </ion-col>
+               </ng-container>
+  </ng-container>
+       <ion-col size="12" size-md="5" size-lg="3.5">
+          <div class="dashboard_profile_card pb-3">
+            <div class="profile_card_header">
+              <img src="assets/imgs/dashboard_bg.png" alt="profile-card-bg" class="profile_card_bg"/>
+            </div>
+            <div class="profile_card_body">
+              <div class="profile_card_avatar mb-2">
+                <img *ngIf="userDetails.g_entity_img" [src]="'data:image/png;base64,' + userDetails.g_entity_img" />
+                <h3 *ngIf="!userDetails.g_entity_img"> {{userDetails.G_ENTITY_NAME}}</h3>
+              </div>
+              <!-- <div class="profile_user text-center">
+                <h3>{{userDetails.wma_user_name}}</h3>
+                <p>{{userDetails.wma_user_code}}</p>
+              </div> -->
+              <div class="dashboard_user_info">
+                <ul>
+                  <li>
+                    <ion-icon name="person-outline"></ion-icon>
+                    <div class="user_info_seprator">
+                     <p class="pe-2">Username&nbsp;</p><p class="ps-0" title="{{userDetails.G_ENTITY_NAME}}"><b>{{userDetails.wma_user_name}}</b></p>
+                    </div>
+                  </li>
+                  <li>
+                    <ion-icon name="briefcase-outline"></ion-icon> 
+                    <div class="user_info_seprator">
+                     <p class="pe-2">Company&nbsp;</p><p class="ps-0" title="{{userDetails.G_ENTITY_NAME}}"><b>{{userDetails.G_ENTITY_NAME}}</b></p>
+                    </div>
+                  </li>
+                   <li *ngIf="userDetails.G_DIV_GROUP_NAME">
+                    <ion-icon name="business-outline"></ion-icon>
+                     <div class="user_info_seprator">
+                     <p class="pe-2">Division Group&nbsp;</p><p class="ps-0" title="{{userDetails.G_DIV_GROUP_NAME}}"><b>{{userDetails.G_DIV_GROUP_NAME}}</b></p>
+                    </div>
+                  </li>
+                   <li *ngIf="userDetails.G_DIV_NAME">
+                       <ion-icon name="calendar-clear-outline"></ion-icon> 
+                       <div class="user_info_seprator">
+                       <p class="pe-2">Division&nbsp;</p><p class="ps-0" title="{{userDetails.G_DIV_NAME}}"><b>{{userDetails.G_DIV_NAME}}</b></p>
+                      </div>
+                      </li>
+                  <!--     <li><ion-icon name="key-outline"></ion-icon> <p class="pe-2">Appkey</p><p class="ps-2" title="{{userDetails.appkey | uppercase}}"><b>{{userDetails.appkey | uppercase}}</b></p></li> -->
+                      <li>
+                         <ion-icon name="alarm-outline"></ion-icon> 
+                         <div class="user_info_seprator">
+                         <p class="pe-2">Login Since&nbsp;</p><p class="ps-0" title="{{userLoginDate}}"><b>{{userLoginDate}}</b></p>
+                        </div>
+                      </li>
+                   
+                </ul> 
+              </div>
+            </div>
+          </div>
+       
+       </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col size="12" class="text-center">
+        <p class="dashboardc_powered"> Powered by&nbsp;&nbsp;<img src="assets/powerdby_lhs.png"/></p>
+        </ion-col>
+    </ion-row> -->
+  </ion-grid> 
+
+</div>

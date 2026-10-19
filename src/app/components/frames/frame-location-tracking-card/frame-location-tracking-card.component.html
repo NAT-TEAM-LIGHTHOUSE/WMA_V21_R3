@@ -1,0 +1,37 @@
+<div class="location-tracking" *ngFor="let rows of frame.tableRows |tableSearch :tablerowsfilter;let j=index;">
+  <ul class="card-container">
+    <li class="timeline-card">
+
+      <div *ngFor="let itemGroup of rows; let i=index" class="">
+        <div class="" *ngFor="let input_item of itemGroup.Level5;let i=index"
+          [hidden]="input_item.item_visible_flag!='T'">
+          <div *ngIf="input_item.item_sub_type =='CARD_TITLE'">
+            <app-items class="p-0 timeline-icon" [item]="input_item" (emitPass)="itemClicked($event,j)" [frame]="frame"></app-items>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-label">
+        <div class="header">
+        </div>
+        <div class="card-body">
+          <div *ngFor="let itemGroup of rows; let i=index" class="">
+            <div class="" *ngFor="let input_item of itemGroup.Level5;let i=index"
+              [hidden]="input_item.item_visible_flag!='T'">
+              <div *ngIf="input_item.item_sub_type !='CARD_TITLE'">
+                <div>
+                  <label class="location">
+                    <ion-icon name="pin" color="primary" class="location-icon"
+                      (click)="openGoogleMap(input_item)"></ion-icon>
+                    <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,j)" [frame]="frame"></app-items>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

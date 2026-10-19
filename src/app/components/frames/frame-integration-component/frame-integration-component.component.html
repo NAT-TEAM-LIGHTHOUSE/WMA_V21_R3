@@ -1,0 +1,42 @@
+<div class="header">
+  <div class="column">
+    <img [src]="baseImg">
+  </div>
+  <div class="column">
+    <h2>{{title}}</h2>
+  </div>
+  <!-- For buttons -->
+  <div class="column">
+    <div class="btn_panel">
+      <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
+        <ng-container *ngFor="let itemGroup of framedata">
+          <ng-container *ngIf="itemGroup.Level5 && itemGroup.Level5.length">
+            <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+              <ng-container *ngIf="item.item_type=='BUTTON' && item.item_visible_flag=='T'">
+                  <ion-button (click)="itemClicked(item)" [disabled]="item.item_enable_flag == 'F'">{{item.prompt_name}}</ion-button>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- For EMBEDDED_LINK -->
+  <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
+    <ng-container *ngFor="let itemGroup of framedata">
+      <ng-container *ngIf="itemGroup.Level5 && itemGroup.Level5.length">
+  
+        <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+          <ng-container *ngIf="item.item_type=='EMBEDDED_LINK' && item.item_visible_flag=='T'">
+            <!-- <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)" [frame]="frame"
+            (LHSOnChange)="itemValueChange($event,rowindex)">
+          </app-items> -->
+          <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event)" [frame]="frame">
+          </app-items>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>

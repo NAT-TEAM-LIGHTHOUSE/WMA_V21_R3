@@ -1,0 +1,224 @@
+<ion-header class="login_header mobile_display">
+  <ion-toolbar>
+    <ion-title> 
+      <div class="logo-section"> 
+           <img [src]= "globalObjects.applogo ? 'data:image/png;base64,' + globalObjects.applogo : 'assets/application/lhs-logo.png'" alt="lhs-logo">    
+       
+    </div>
+     
+  </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="login-ion-content page-login bg-shrink">
+
+  <div class="shrinkMyscreen">
+    <ion-grid class="p-0 m-0">
+      <ion-row class=" align-items-center login-section">
+        <ion-col size="12" size-md="12" size-lg="5">
+          <div class="left-panel">
+
+            <header class="desktop_display">
+              <nav class="navbar">
+                <div class="container-fluid">
+                  <a class="navbar-brand">
+                    <img
+                      [src]="globalObjects.applogo ? 'data:image/png;base64,' + globalObjects.applogo : 'assets/application/lhs-logo.png'"
+                      alt="lhs-logo">
+                    <!-- <img src= "../../../assets/application/lhs-logo.png" alt="lhs-logo"> -->
+
+                    <ng-container *ngIf="appkeyFlag">
+                      <a class="back-btn mobile" (click)="changeSetting()"><ion-icon
+                          name="arrow-back-outline"></ion-icon>&nbsp;&nbsp; Back to Appkey Page</a>
+                    </ng-container>
+                  </a>
+                </div>
+              </nav>
+            </header>
+            <div class="app-area login-area">
+              <div class="row justify-content-center p-0 login-area-row m-0">
+                <div class="col-lg-9 col-md-12">
+                  <h3>Log In</h3>
+                  <p>Please enter your user id and password </p>
+                  <p>to log in for this Appkey: <span style="color:rgb(224, 60, 60);">{{globalObjects.parentAppkey |
+                      uppercase }}</span></p>
+                  <div class="sidebar-menu">
+                    <form class="loginForm" #form="ngForm" focusDir>
+
+                      <div class="mb-2 mt-2">
+                        <ion-label class="form-label">User ID</ion-label>
+                        <div class="item-has-focus">
+                          <ion-icon name="person-outline" item-start></ion-icon>
+                          <ion-input #autofocus type="text" autocomplete='on' placeholder="User ID" id="username"
+                            [(ngModel)]="loginCredentials.user_code" name="userCode" required></ion-input>
+                        </div>
+                      </div>
+                      <div id="pawwordlHelp" class="form-text forgot-password mb-1"> <a
+                          (click)="forgotPassword('username')">Forgot User ID?</a></div>
+                      <div class="mb-2 mt-1">
+                        <ion-label class="form-label">Password</ion-label>
+                        <div class="item-has-focus">
+                          <ion-input type="{{inputType}}" autocomplete="on" placeholder="Password" id="password"
+                            [(ngModel)]="loginCredentials.password" name="password" required
+                            (keyup)="proceed($event)"></ion-input>
+
+
+                          <ion-icon name="{{iconName}}" item-end (click)="hideShowPassword()"></ion-icon>
+                        </div>
+                      </div>
+                      <div id="pawwordlHelp" class="form-text forgot-password"> <a
+                          (click)="forgotPassword('password')">Forgot Password?</a></div>
+                      <!-- <div id="pawwordlHelp" class="form-text forgot-password"> <a  (click)="loginOtp()">Login with Otp</a></div> -->
+                      <ion-item lines="none" class="remember-me mb-2">
+                        <ion-checkbox style="margin: 0px 5px !important;" slot="start" [(ngModel)]="rememberMe"
+                          name="rememberMe">
+                        </ion-checkbox>
+                        <ion-label style="font-size: 14px;">Remember Me</ion-label>
+                      </ion-item>
+                      <div class="login-btn-wrap text-center">
+                        <div class="btn-outer">
+                          <ion-button icon-only round expand="block" class="button-round button-round-md global-btn"
+                            slot="center" [disabled]="(!form.valid) || userAuth.isProcessingLogin" (click)="doLogin()">
+                            Login
+                          </ion-button>
+                          <ion-item class="loader_btn">
+                            <ion-spinner name="circular"></ion-spinner>
+                          </ion-item>
+                        </div>
+                        <h2 style="font-size: 14px;color:#000000;font-weight: 500;text-align: center;margin: 15px;">Or
+                        </h2>
+                        <div class="parent-login d-flex justify-content-center align-items-center">
+                          <div class="btn-outer container-btn" (click)="loginOtp()">
+                            <ion-button icon-only round expand="block" class="button-round button-round-md"
+                              slot="center">
+                              <ion-icon name="code-working-outline"></ion-icon>
+                            </ion-button>
+                            <p>Login with OTP</p>
+                            <ion-item class="loader_btn" *ngIf="resStatus">
+                              <ion-spinner name="circular"></ion-spinner>
+                            </ion-item>
+                          </div>
+                          <div class="btn-outer container-btn" (click)="loginWith('google')">
+                            <ion-button icon-only round expand="block" class="button-round button-round-md "><ion-icon
+                                name="logo-google" style="color:#dd6b70;"></ion-icon></ion-button>
+                            <p>Login with Google</p>
+                          </div>
+                          <div class="btn-outer container-btn" (click)="loginWith('microsoft')">
+                            <ion-button icon-only round expand="block" class="button-round button-round-md "><ion-icon
+                                name="logo-microsoft" style="color:#3f93d3;"></ion-icon></ion-button>
+                            <p>Login with Microsoft</p>
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <!-- <ion-button (click)="presentPopover($event)">Click Me</ion-button> -->
+                    </form>
+                  </div>
+                </div>
+                <!-- <div style="cursor: pointer;" class="footer_copyright mobile" (click)="openPoweredSite()">
+                        <p>Powered By</p><img src="assets/powerdby_lhs.png" >
+                   </div> -->
+                <ng-container *ngIf="appkeyFlag">
+                  <a class="back-btn dektop  desktop_display" (click)="changeSetting()"><ion-icon
+                      name="arrow-back-outline"></ion-icon>&nbsp;&nbsp; Back to Appkey Page</a>
+                </ng-container>
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </ion-col>
+        <ion-col size="0" size-md="7" size-lg="7">
+          <div class="row">
+            <div class="col-md-2 ">
+            </div>
+            <div class="col-md-3 ">
+            </div>
+          </div>
+          <div class="right-side">
+            <h1><span>Welcome to</span> Lighthouse ERP</h1>
+            <h2 class="sub-heading">Enabling IT as a strategic resource</h2>
+            <hr class="h-line">
+            <p>Whatever Be Your Business Making <span>IT </span> Work is Ours.</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div style="cursor: pointer;" class="footer_copyright desktop_display" (click)="openPoweredSite()">
+      <p>Powered By</p><img src="assets/powerdby_lhs.png">
+    </div>
+  </div>
+  <ion-popover [isOpen]="isTwoFactorOtpVerify" id="two_factorauth" side="center" [backdropDismiss]="false"
+    alignment="center">
+    <ng-template>
+
+      <ion-content class="ion-padding ">
+        <ion-row class="p-4">
+          <ion-col size="12">
+            <h2>Welcome back</h2>
+            <h3>Log in to your account</h3>
+            <h4>Two - factor Authentication (2FA)</h4>
+            <p>
+              <!-- Enter the 6-digit OTP :<br> -->
+              <b>{{msgShowotp}}</b>
+            </p>
+          </ion-col>
+          <ion-col size="12" class="mt-2">
+            <p class="mt-2 mb-2">2FA Code</p>
+
+            <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" *ngIf="showOtpComponent"
+              [config]="config"></ng-otp-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-button class="globe-btn-auth" [disabled]="otp.length < 6"
+              (click)="verifyOtpOfauthType()">Verify</ion-button>
+          </ion-col>
+          <ng-container
+            *ngIf="loginValid.responseData.two_fa=='EML_2FA' || loginValid.responseData.two_fa=='MOB_2FA' || loginValid.responseData.two_fa=='EM_2FA'">
+            <ion-col size="12">
+              <p class="text-center mt-2 ">Didn't receive the code?
+                <ng-container *ngIf="countdown==0;else countdownshow"><a (click)="resendOtp()" class="text-primary"
+                    style="text-decoration: none;cursor:pointer;"><b>Resend</b></a></ng-container>
+
+                <ng-template #countdownshow> <b>{{countdown}} seconds</b></ng-template>
+              </p>
+            </ion-col>
+          </ng-container>
+          <ion-col size="12" class="text-center mt-2">
+            <p (click)="backToLogin()" class="text-center d-flex align-items-center justify-content-center"
+              style="color:var(--blue-new);font-size: 16px;cursor: pointer;"><ion-icon name="arrow-back-outline"
+                class="me-3"></ion-icon>Back to login</p>
+          </ion-col>
+        </ion-row>
+
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+</ion-content>
+ <ion-footer class="login_footer mobile_display">
+<ion-toolbar class="pt-0">
+    <ion-title>
+      <div class="logo-section"> 
+        <a class="back_page_btn d-flex align-items-center gap-2" (click)="changeSetting()" *ngIf="appkeyFlag"><ion-icon name="arrow-back-outline"></ion-icon>&nbsp;Back to Appkey Page</a>
+        <div style="cursor: pointer;" class="footer_copyright" style="position: relative;" (click)="openPoweredSite()">
+            <p>Powered By</p><img src="assets/powerdby_lhs.png" >
+        </div>
+    </div>
+  </ion-title>
+  </ion-toolbar>
+</ion-footer>
+
+<div class="text-center new-bottom-loader-dotted" *ngIf="userAuth.isProcessingLogin || globalObjects.loaderFlag">
+
+  <ion-item class="new-bottom-loader-dotted-item">
+
+    <ion-spinner name="dots"></ion-spinner>
+    <!-- <ion-spinner name="circular"></ion-spinner> <span> </span> <span class="cancel-btn"><a
+      (click)="terminate()">Cancel</a></span> --> 
+      <!-- <span class="cancel-btn"><a
+      (click)="terminate()"><ion-icon name="close-outline"></ion-icon></a></span> -->
+  </ion-item>
+ 
+</div>

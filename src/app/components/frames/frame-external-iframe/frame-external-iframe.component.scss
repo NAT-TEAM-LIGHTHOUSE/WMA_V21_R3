@@ -1,0 +1,26 @@
+iframe{
+    min-height: 82vh;
+}
+.external-tablelink{
+    --padding-end:0px !important;
+    border:0px !important;
+ion-icon{
+        color: var(--blackNew);
+    transform: none !important;
+}
+
+&:hover{
+    ion-icon{
+        color: var(--blue-new);
+}
+}
+&.active{
+     color: var(--blue-new);
+      ion-icon{
+        color: var(--blue-new);
+}
+}
+}
+.frame-tab-btn{
+    padding: 0px 5px ;
+}

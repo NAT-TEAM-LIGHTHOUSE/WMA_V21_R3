@@ -1,0 +1,552 @@
+<ng-container *ngIf="selectinput.item_type == 'DD'">
+  <div class="select-container" *ngIf="selectinput.item_sub_type == 'M'">
+    <ion-item
+      class="{{(selectinput.css_class == null) ? 'ion-input-select-item ion-input-select-item-border' : selectinput.css_class}}">
+      <ion-label position="{{(selectinput.position == null) ? 'stacked' : selectinput.position}}"
+        [ngStyle]="selectinput.labelStyle">
+        {{selectinput.prompt_name}}</ion-label>
+
+
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline" slot="end"></ion-icon>
+                          </ion-button>
+
+      <ion-select multiple id="id" name="selectinput.column_name" [(ngModel)]="selectModel" interface="popover"
+        (ionChange)="onChange(selectModel);selectinput.isValid=selectinputName.valid"
+        [ngStyle]="selectinput.marginStyle" (ngInit)="selectinput.isValid=selectinputName.valid"
+        #selectinputName='ngModel' [disabled]="selectinput.item_enable_flag != 'T'">
+
+        <ion-select-option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}"
+          [selected]="selectModel == c.key">
+          {{c.key}} </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+      {{selectinput.prompt_name}}
+    </div>
+    <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+    <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+  </div>
+
+  <!-- //autocomplete Code// -->
+
+  <div
+    class="{{(selectinput.css_class == null) ? 'ion-input-select-item ion-input-select-item-border' : selectinput.css_class}}"
+    *ngIf="selectinput.item_sub_type == 'LIST_COMBO_BOX'">
+    <ion-label position="{{(selectinput.position == null) ? 'stacked' : selectinput.position}}">
+      {{selectinput.prompt_name}}</ion-label>
+
+      <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn" color="primary" name="information-circle-outline" slot="end"></ion-icon>
+                        </ion-button>
+
+
+    <div style="border-bottom:#ccc;">
+      <div style="position: relative;">
+        <ion-input type="text" class="select-inp" [(ngModel)]="autoValue" (keydown)="keyDown($event)"
+          (ionFocus)="myFunction();" [required]="(current_page_parameter.MODE && (selectinput.data_required_flag && 
+   (selectinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+   ||selectinput.data_required_flag=='T' 
+   ||(selectinput.prompt_name && selectinput.prompt_name[selectinput.prompt_name.length -1] =='*')"
+          (ionChange)="onChangeFirst(autoValue);selectinput.isValid=selectinputName.valid" (ionBlur)="onBlur(autoValue)"
+          (ngInit)="selectinput.isValid=selectinputName.valid" #selectinputName='ngModel'></ion-input>
+        <button class="input-btn float-right butn" ion-button icon-only small style="right: 35px;"
+          (click)="fullListFun()" (keydown)="keyDown($event)">
+          <ion-icon name="ios-arrow-down"></ion-icon>
+        </button>
+        <button class="input-btn float-right butn" ion-button icon-only small (click)="onClear()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="select-dropdown-new" *ngIf="selectinput.flag">
+        <ng-container>
+          <ion-list *ngFor="let x of selectinput.dropdownList |multileveltabsearch :autoValue;let i=index">
+            <ion-item tappable (click)="getMode(x);" [ngClass]="i == arrowkeyLocation ? 'active':''">{{x.key}}
+            </ion-item>
+          </ion-list>
+        </ng-container>
+      </div>
+
+      <div class="select-dropdown-new" *ngIf="fullList">
+        <ng-container>
+          <ion-list *ngFor="let x of selectinput.dropdownList;let i=index">
+            <ion-item tappable (click)="getMode(x);" [ngClass]="i == arrowkeyLocation ? 'active':''">{{x.key}}
+            </ion-item>
+          </ion-list>
+        </ng-container>
+      </div>
+
+      <div class="error" *ngIf="selectinputName.hasError('required') && selectinput.touched"> Please Enter
+        {{selectinput.prompt_name}}
+      </div>
+
+      <div class="error" *ngIf="selectinput.blurError && (selectinput.data_required_flag=='T' 
+    ||(selectinput.prompt_name && selectinput.prompt_name[selectinput.prompt_name.length -1] =='*'))">
+        {{selectinput.blurError}}
+        {{selectinput.prompt_name}}</div>
+    </div>
+    <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+    <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+
+  </div>
+
+
+
+  <div
+    class="{{(selectinput.css_class == null) ? 'ion-input-select-item ion-input-select-item-border' : selectinput.css_class}}"
+    *ngIf="selectinput.item_sub_type == 'COMBO_BOX'">
+    <ion-label position="{{(selectinput.position == null) ? 'stacked' : selectinput.position}}">
+      {{selectinput.prompt_name}}</ion-label>
+
+      <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn" color="primary" name="information-circle-outline" slot="end"></ion-icon>
+                        </ion-button>
+
+
+    <div style="border-bottom:#ccc;">
+      <div style="position: relative;">
+        <ion-input type="text" class="select-inp" [(ngModel)]="autoValue" (click)="myFunction();" [required]="(current_page_parameter.MODE && (selectinput.data_required_flag && 
+   (selectinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+   ||selectinput.data_required_flag=='T' 
+   ||(selectinput.prompt_name && selectinput.prompt_name[selectinput.prompt_name.length -1] =='*')"
+          (ionBlur)="onBlur(autoValue)" (ionChange)="onChangeFirst(autoValue);selectinput.isValid=selectinputName.valid"
+          (ngInit)="selectinput.isValid=selectinputName.valid" #selectinputName='ngModel'></ion-input>
+        <button class="input-btn float-right butn" ion-button icon-only small style="right: 35px;"
+          (click)="fullListFun()">
+          <ion-icon name="ios-arrow-down"></ion-icon>
+        </button>
+        <button class="input-btn float-right butn" ion-button icon-only small (click)="onClear()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="select-dropdown-new" *ngIf="selectinput.flag">
+        <ng-container>
+          <ion-list *ngFor="let x of selectinput.dropdownList |multileveltabsearch :autoValue;let i=index">
+            <ion-item tappable (click)="getMode(x);">{{x.key}}</ion-item>
+          </ion-list>
+        </ng-container>
+      </div>
+
+      <div class="select-dropdown-new" *ngIf="fullList">
+        <ng-container>
+          <ion-list *ngFor="let x of selectinput.dropdownList;let i=index">
+            <ion-item tappable (click)="getMode(x);">{{x.key}}</ion-item>
+          </ion-list>
+        </ng-container>
+      </div>
+
+      <div class="error" *ngIf="selectinputName.hasError('required') && selectinput.touched"> Please Enter
+        {{selectinput.prompt_name}}
+      </div>
+
+      <div class="error" *ngIf="selectinput.blurError && (selectinput.data_required_flag=='T' 
+    ||(selectinput.prompt_name && selectinput.prompt_name[selectinput.prompt_name.length -1] =='*'))">
+        {{selectinput.blurError}}
+        {{selectinput.prompt_name}}</div>
+    </div>
+    <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+    <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+
+  </div>
+
+
+
+  <div
+    class="{{(selectinput.css_class == null) ? 'ion-input-select-item ion-input-select-item-border' : selectinput.css_class}}"
+    *ngIf="selectinput.item_sub_type == 'A_C2'">
+    <ion-label position="{{(selectinput.position == null) ? 'stacked' : selectinput.position}}">
+      {{selectinput.prompt_name}}</ion-label>
+
+      <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn" color="primary" name="information-circle-outline" slot="end"></ion-icon>
+                        </ion-button>
+
+
+    <div style="border-bottom:#ccc;">
+      <div style="position: relative;">
+        <ion-input type="text" style="border-bottom: 1px solid #ccc;" [(ngModel)]="autoValue" (click)="myFunction();">
+        </ion-input>
+        <button class="input-btn float-right butn" ion-button icon-only small style="right: 35px;">
+          <ion-icon name="ios-arrow-down"></ion-icon>
+        </button>
+        <button class="input-btn float-right butn" ion-button icon-only small (click)="onClear()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+
+      </div>
+      <div class="select-dropdown-new" *ngIf="selectinput.flag">
+        <ng-container>
+          <ion-list *ngFor="let x of selectinput.dropdownList |multileveltabsearch :autoValue;let i=index">
+            <ion-item tappable (click)="getMode(x);">{{x.key}}</ion-item>
+          </ion-list>
+        </ng-container>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="select-container"
+    *ngIf="selectinput.item_sub_type != 'M' && selectinput.item_sub_type != 'LIST_COMBO_BOX' && selectinput.item_sub_type != 'COMBO_BOX' && selectinput.item_sub_type != 'TABLE' &&  selectinput.item_sub_type != 'RADIO' && selectinput.item_sub_type != 'CHECKBOX'  && selectinput.item_sub_type != 'T_LIST' && selectinput.item_sub_type != 'D_T'" >
+    <ion-item
+      class="{{ (selectinput.css_class == null) ? 'ion-input-select-item ion-input-select-item-border' : selectinput.css_class}}">
+      <ion-label position="{{(selectinput.position == null) ? 'stacked' : selectinput.position}}"
+        [ngStyle]="selectinput.labelStyle">
+        {{selectinput.prompt_name}}</ion-label>
+
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline" slot="end"></ion-icon>
+                          </ion-button>
+
+
+      <ion-select id="id" name="selectinput.column_name" [(ngModel)]="selectModel" interface="popover"
+        (ionChange)="selectinput.isValid=selectinputName.valid;onChange(selectModel);"
+        (ionBlur)="selectinput.isValid=selectinputName.valid" (ngInit)="selectinput.isValid=selectinputName.valid"
+        [ngStyle]="selectinput.marginStyle" #selectinputName='ngModel' [disabled]="selectinput.item_enable_flag != 'T'">
+
+        <ion-select-option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}"
+          [selected]="selectModel == c.key">
+          {{c.key}} </ion-select-option>
+      </ion-select>
+
+    </ion-item>
+    <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+      {{selectinput.prompt_name}}
+    </div>
+    <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+    <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+  </div>
+  <div class="select-container select-dropdown-fixed-container" *ngIf="selectinput.item_sub_type == 'T_LIST'">
+
+    <ion-label>
+      {{selectinput.prompt_name}}</ion-label>
+
+      <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+        <ion-icon class="code-btn" color="primary" name="information-circle-outline" slot="end"></ion-icon>
+                        </ion-button>
+
+    <div class="select-dropdown-fixed">
+      <ion-list *ngFor="let c of selectinput.dropdownList; let i = index">
+        <ion-item (click)="onChangeTlist(c.val, i);selectinput.touched=true"
+          [ngClass]="i == arrowkeyLocation && selectinput.touched ? 'active':''">
+          <ion-label> {{c.key}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+
+  <div *ngIf="selectinput.item_sub_type == 'TABLE'">
+    <ion-item style="--min-height: 29px;">
+      <ion-select id="id" name="selectinput.column_name" [(ngModel)]="selectModel" interface="popover" style="--padding-top: 3px;
+          --padding-end: 0;
+          --padding-bottom: 4px;
+          --padding-start: 0;
+          width:100%;
+          max-width: 100%;
+          font-size: 14px;" (ionChange)="onChange(selectModel);" (ionBlur)="selectinput.isValid=selectinputName.valid"
+        (ngInit)="selectinput.isValid=selectinputName.valid" #selectinputName='ngModel'
+        [disabled]="selectinput.item_enable_flag != 'T'">
+
+        <ion-select-option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}"
+          [selected]="selectModel == c.key">
+          {{c.key}} </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+      {{selectinput.prompt_name}}
+    </div>
+    <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+    <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+  </div>
+
+  <div class="table-input-container" style="display:none;" *ngIf="selectinput.item_sub_type == 'S_T'">
+    <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+      <ion-icon class="code-btn" color="primary" name="information-circle-outline" slot="end"></ion-icon>
+                      </ion-button>
+
+    <ion-select class="table-input" interface="popover" id="id" name="selectinput.column_name"
+      [(ngModel)]="selectinput.value" interface="popover"
+      (ionChange)="onChange('ionChange');selectinput.isValid=selectinputName.valid"
+      (ionBlur)="selectinput.isValid=selectinputName.valid" (ngInit)="selectinput.isValid=selectinputName.valid"
+      #selectinputName='ngModel' [disabled]="selectinput.item_enable_flag != 'T'">
+      <ion-select-option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}"> {{c.key}} </ion-select-option>
+
+    </ion-select>
+
+    <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+      {{selectinput.prompt_name}}
+    </div>
+    <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+    <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+  </div>
+  <!-- Radio Buttons Start -->
+  <div class="select-container radio-input-container" *ngIf="selectinput.item_sub_type == 'RADIO'">
+    <ion-item class="radio-cont">
+      <ion-label class="main-label"> {{selectinput.prompt_name}}</ion-label>
+      <div class="radio-inputs">
+        <ion-radio-group style="display: flex;overflow-x: auto;" [(ngModel)]="selectModel">
+          <ng-container *ngFor="let c of selectinput.dropdownList">
+            <ion-item>
+              <ion-radio [value]="c.val" class="radio-bttn" slot="start" [ngStyle]="selectinput.marginStyle"
+                [disabled]="selectinput.item_enable_flag != 'T'" (click)="onChange(c.val);"></ion-radio>
+              <ion-label> {{c.key}}</ion-label>
+            </ion-item>
+          </ng-container>
+        </ion-radio-group>
+      </div>
+    </ion-item>
+  </div>
+  <!-- Radio Buttons End -->
+
+  <!-- Checkbox Buttons Start -->
+  <div class="select-container radio-input-container" *ngIf="selectinput.item_sub_type == 'CHECKBOX'">
+    <ion-item class="radio-cont">
+      <ion-label class="main-label"> {{selectinput.prompt_name}}</ion-label>
+      <div class="radio-inputs">
+        <ion-radio-group style="display: flex;overflow-x: auto;">
+          <ng-container *ngFor="let c of selectinput.dropdownList">
+            <ion-item>
+              <ion-checkbox color="primary" class="radio-bttn" [(ngModel)]="c.isChecked"
+                [disabled]="c.item_enable_flag && c.item_enable_flag=='F'" #checkName="ngModel" [required]="c.data_required_flag=='T' 
+    || (c.prompt_name && c.prompt_name[c.prompt_name.length -1] =='*')" (ionChange)="c.touched=true;onChange(c)"
+                (ngInit)="c.isValid=checkName.valid"></ion-checkbox>
+              <ion-label> {{c.key}}</ion-label>
+            </ion-item>
+          </ng-container>
+        </ion-radio-group>
+      </div>
+
+    </ion-item>
+
+  </div>
+  <!-- Checkbox Buttons End -->
+
+  <div class="new-input-item-type" style="border-bottom:none !important;"
+  *ngIf="selectinput.item_sub_type == 'D_T'">
+  <ion-row>
+    <ion-col  size="12">
+
+      <select class="form-select form-select-sm" [(ngModel)]="selectModel" (change)="onChange(selectModel);"
+        [disabled]="selectinput.item_enable_flag != 'T'" (blur)="selectinput.isValid=selectinputName.valid" #selectinputName='ngModel'>
+        <option  value="null">Select</option>
+        <option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}">
+          {{c.key}} </option>
+      </select>
+
+      <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+        {{selectinput.prompt_name}}
+      </div>
+      <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+      <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+    </ion-col>
+  </ion-row>
+</div>
+</ng-container>
+
+<ng-container *ngIf="selectinput.item_type == 'DD_BROWSER'">
+  <div class="select-container new-input-item-type" *ngIf="selectinput.item_sub_type == 'M'">
+    <ion-row>
+      <ion-col [size]="col1" class="text-left" *ngIf="selectinput.prompt_name">
+        <span>{{selectinput.prompt_name}}</span>
+      </ion-col>
+      <ion-col  [size]="selectinput.prompt_name ? col2 : '12'" >
+
+        <select multiple class="form-select form-select-sm" [(ngModel)]="selectModel" (change)="onChange(selectModel);"
+          [disabled]="selectinput.item_enable_flag != 'T'" (blur)="selectinput.isValid=selectinputName.valid"
+          [ngStyle]="selectinput.marginStyle" #selectinputName='ngModel'>
+          <option  value="null">Select</option>
+          <option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}">
+            {{c.key}} </option>
+        </select>
+
+        <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+          {{selectinput.prompt_name}}
+        </div>
+        <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+        <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="new-input-item-type"
+    *ngIf="selectinput.item_sub_type != 'M' && selectinput.item_sub_type != 'LIST_COMBO_BOX' && selectinput.item_sub_type != 'COMBO_BOX' && selectinput.item_sub_type != 'TABLE' &&  selectinput.item_sub_type != 'RADIO' && selectinput.item_sub_type != 'CHECKBOX' ">
+    <ion-row>
+      <ion-col [size]="col1" class="text-left" *ngIf="selectinput.prompt_name">
+        <span>{{selectinput.prompt_name}}</span>
+      </ion-col>
+      <ion-col  [size]="selectinput.prompt_name ? col2 : '12'">
+
+        <select class="form-select form-select-sm" [(ngModel)]="selectModel" (change)="onChange(selectModel);"
+          [disabled]="selectinput.item_enable_flag != 'T'" (blur)="selectinput.isValid=selectinputName.valid"
+          [ngStyle]="selectinput.marginStyle" #selectinputName='ngModel'>
+
+          <option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}">
+            {{c.key}} </option>
+        </select>
+
+        <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+          {{selectinput.prompt_name}}
+        </div>
+        <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+        <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="selectinput.item_type == 'DD_BROWSER2'">
+  <div class="input-type6-containter">
+  <div *ngIf="selectinput.item_sub_type == 'M'" class="newIp-type5">
+
+    <ion-row>
+      <ion-col [size]="col1"  class="bg-prompt" *ngIf="selectinput.prompt_name">
+        <p class="input-group-label" [title]="selectinput.prompt_name">{{selectinput.prompt_name}}</p>
+      </ion-col>
+      <ion-col [size]="selectinput.prompt_name ? col2 : '12'"  class="input-container">
+        <div class="bg-input">
+         
+
+          <select class="custom-options" multiple="true" [(ngModel)]="selectModel" 
+          [(ngModel)]="selectModel" 
+          [required]="(current_page_parameter.MODE && (selectinput.data_required_flag && 
+          (selectinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+          ||selectinput.data_required_flag=='T' 
+          ||(selectinput.prompt_name && selectinput.prompt_name[selectinput.prompt_name.length -1]) =='*'"
+          (change)="selectinput.isValid=selectinputName.valid;onChange(selectModel);" (blur)="selectinput.isValid=selectinputName.valid"
+          [disabled]="selectinput.item_enable_flag != 'T'"
+          (ngInit)="selectinput.isValid=selectinputName.valid"
+           #selectinputName='ngModel'>
+           <option  value="null">Select</option>
+            <option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}"> {{c.key}}</option>
+          </select>
+        </div>
+        <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+          {{selectinput.prompt_name}}
+        </div>
+        <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+        <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="newIp-type5"
+    *ngIf="selectinput.item_sub_type != 'M' && selectinput.item_sub_type != 'LIST_COMBO_BOX' && selectinput.item_sub_type != 'COMBO_BOX' && selectinput.item_sub_type != 'TABLE' &&  selectinput.item_sub_type != 'RADIO' && selectinput.item_sub_type != 'CHECKBOX' ">
+
+    <ion-row>
+      <ion-col [size]="col1" class="bg-prompt" *ngIf="selectinput.prompt_name">
+        <p class="input-group-label" [title]="selectinput.prompt_name">{{selectinput.prompt_name}}</p>
+      </ion-col>
+      <ion-col [size]="selectinput.prompt_name ? col2 : '12'" class="input-container">
+        <div class="bg-input">
+          <select class="custom-options"  [(ngModel)]="selectModel" 
+          [(ngModel)]="selectModel" 
+          [required]="(current_page_parameter.MODE && (selectinput.data_required_flag && 
+          (selectinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+          ||selectinput.data_required_flag=='T' 
+          ||(selectinput.prompt_name && selectinput.prompt_name[selectinput.prompt_name.length -1]) =='*'"
+          (change)="selectinput.isValid=selectinputName.valid;onChange(selectModel);" (blur)="selectinput.isValid=selectinputName.valid"
+          [disabled]="selectinput.item_enable_flag != 'T'"
+          (ngInit)="selectinput.isValid=selectinputName.valid"
+           #selectinputName='ngModel'>
+            <option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}"> {{c.key}}</option>
+          </select>
+        </div>
+        <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+          {{selectinput.prompt_name}}
+        </div>
+        <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+        <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+</ng-container>
+
+<ng-container *ngIf="selectinput.item_type == 'DD_BROWSER1'">
+  <div class="input-type6-containter">
+  <div *ngIf="selectinput.item_sub_type == 'M'" class="newIp-type3">
+
+    <ion-row>
+      <ion-col [size]="col1" *ngIf="selectinput.prompt_name">
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline" slot="end"
+          style="position: absolute;left: 0;" color="primary"></ion-icon>
+                          </ion-button>
+
+
+
+
+        <p class="input-group-label" [title]="selectinput.prompt_name">{{selectinput.prompt_name}}</p>
+      </ion-col>
+      <ion-col [size]="selectinput.prompt_name ? col2 : '12'">
+        <div class="input-div b">
+          <select class="custom-options" multiple="true" [(ngModel)]="selectModel" 
+          [(ngModel)]="selectModel" 
+          [required]="(current_page_parameter.MODE && (selectinput.data_required_flag && 
+          (selectinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+          ||selectinput.data_required_flag=='T' 
+          ||(selectinput.prompt_name && selectinput.prompt_name[selectinput.prompt_name.length -1]) =='*'"
+          (change)="selectinput.isValid=selectinputName.valid;onChange(selectModel);" (blur)="selectinput.isValid=selectinputName.valid"
+          [disabled]="selectinput.item_enable_flag != 'T'"
+          (ngInit)="selectinput.isValid=selectinputName.valid"
+           #selectinputName='ngModel'>
+           <option  value="null">Select</option>
+            <option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}"> {{c.key}}</option>
+          </select>
+        </div>
+        <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+          {{selectinput.prompt_name}}
+        </div>
+        <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+        <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+ 
+  <div class="newIp-type3"
+    *ngIf="selectinput.item_sub_type != 'M' && selectinput.item_sub_type != 'LIST_COMBO_BOX' && selectinput.item_sub_type != 'COMBO_BOX' && selectinput.item_sub_type != 'TABLE' &&  selectinput.item_sub_type != 'RADIO' && selectinput.item_sub_type != 'CHECKBOX' ">
+
+    <ion-row>
+      <ion-col [size]="col1" *ngIf="selectinput.prompt_name">
+
+        <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="selectinput.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline" slot="end" style="position: absolute;left: 0;" color="primary"
+          style="position: absolute;left: 0;" color="primary"></ion-icon>
+                          </ion-button>
+
+
+
+        <p class="input-group-label" [title]="selectinput.prompt_name">{{selectinput.prompt_name}}</p>
+      </ion-col>
+      <ion-col [size]="selectinput.prompt_name ? col2 : '12'">
+        <div class="input-div a">
+          <select class="custom-options"  [(ngModel)]="selectModel" 
+          [(ngModel)]="selectModel" 
+          [required]="(current_page_parameter.MODE && (selectinput.data_required_flag && 
+          (selectinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+          ||selectinput.data_required_flag=='T' 
+          ||(selectinput.prompt_name && selectinput.prompt_name[selectinput.prompt_name.length -1]) =='*'"
+          (change)="selectinput.isValid=selectinputName.valid;onChange(selectModel);" (blur)="selectinput.isValid=selectinputName.valid"
+          [disabled]="selectinput.item_enable_flag != 'T'"
+          (ngInit)="selectinput.isValid=selectinputName.valid"
+           #selectinputName='ngModel'>
+           <option  value="null">Select</option>
+            <option *ngFor="let c of selectinput.dropdownList" value="{{c.val}}"> {{c.key}}</option>
+          </select>
+          
+        </div>
+        <div class="error" *ngIf="!selectinput.isValid && selectinput.touched"> Please Enter
+          {{selectinput.prompt_name}}
+        </div>
+        <div class="error" *ngIf="selectinput.msgError">{{selectinput.msgError}}</div>
+        <div class="error" *ngIf="selectinput.forced_error_msg">{{selectinput.forced_error_msg}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+</ng-container>

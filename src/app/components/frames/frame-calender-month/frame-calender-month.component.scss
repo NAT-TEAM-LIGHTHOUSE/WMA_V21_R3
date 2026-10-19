@@ -1,0 +1,74 @@
+.plsql-container{
+    ion-label {
+        font-size: var(--font18) !important;
+    }
+    table {
+        border: 1px solid var(--grey-5);
+        tbody{
+            td{
+                border: none !important;
+                 width: 14.2857%;
+                padding:0;
+                span{
+                    display: block;
+                }
+            }
+        }
+    }
+.month {
+    text-align: center;
+}
+.stat{
+    float: right;
+}
+.prev-month{
+    opacity: 0.3;
+}
+.date {
+    font-size: var(--font22);
+}
+.task-primary {
+    color: #2196F3;
+}
+.task-urgent{
+    color: red;
+}
+.task-low{
+    color: orange;
+}
+.booked-activity {
+    background: #d22323;
+    color: var(--white);
+    padding: 4px;
+}
+.task-not-so-imp{
+    color: var(--grey);
+}
+.sunday{
+    color: red
+}
+}
+table tbody tr:nth-child(even) {
+    background: var(--white) !important;
+}
+ table thead th {
+    background: var(--dark-grey-2) !important;
+}
+
+.bg-info{
+    background-color: var(--blue-light-1);
+}
+
+.mystyle{
+background-color:red;
+}
+
+.task-not-so-imp{
+color:var(--text-dark);
+}
+
+
+.date-color{
+color: var(--text-dark);
+font: bold;
+}

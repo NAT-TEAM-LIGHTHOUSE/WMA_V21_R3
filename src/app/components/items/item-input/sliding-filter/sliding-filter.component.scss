@@ -1,0 +1,11 @@
+.smart-filter-section {
+    .inactive {
+        color: var(--grey-4);
+        border: 1px solid var(--grey-4);
+    }
+
+    .active {
+        background: var(--blue);
+        color: var(--white);
+    }
+}

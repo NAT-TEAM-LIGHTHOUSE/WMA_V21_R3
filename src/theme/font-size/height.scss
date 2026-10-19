@@ -1,0 +1,206 @@
+@import '../../app/mixins';
+@import '../../app/variables';
+
+.layout-default {
+    $height: var(--height) !important;
+/* Frame Canvas component CSS Start*/
+.frame-name {
+            height: $height;
+        }
+         /* Search Input component CSS Start*/
+  .non-lov-input-group{
+    .input-text .native-input {
+              height: $height !important;
+  }
+}
+  /* Menu List component  CSS Start*/
+  .menu-list {
+    height: $height;
+}
+
+/* Menu List  component  CSS End*/
+/*new Menu List component  CSS Start*/
+.new-menu-list {
+    height: $height;
+}
+
+table th , table td{
+    height: $height; 
+}
+/* New Menu List  component  CSS End*/
+    .text-primary,
+    p,
+    .globe-btn1{
+        height: $height;
+    }
+    ion-col {
+        height: $height;
+    }
+    /* Toolbar CSS */
+    ion-toolbar {
+        height: $height;
+
+        ion-title {
+            height: $height;
+            div {
+                position: absolute;
+                left: 50%;
+                top: 27%;
+                transform: translate(-50%, -50%);
+            }
+        }
+        .home-btn {
+            top: -4px;
+        }
+        .right-title {
+            bottom: 20px;
+        }
+    }
+    /* Toolbar CSS */
+    /* para-text component css start */
+    .timeline-p {
+        height: $height;
+    }
+    .name-value-text {
+        .label-name,
+        .label-value {
+            height: $height;
+        }
+        .label-name {
+            height: $height;
+        }
+    }
+    .item.sc-ion-label-md-h,
+    .item .sc-ion-label-md-h,
+    .block-text ion-label {
+        height: $height;
+    }
+    /* para-text component css start */
+
+    /* Item Seperator component  CSS Start*/
+    .item-seperator {
+        height: $height;
+    }
+    /* Item Seperator component  CSS end*/
+    /*Count List / Ion badges Css Start*/
+    .count-list {
+        height: $height; 
+    }
+
+    /*Count List / Ion badges Css End*/
+
+    /*Collapse List /rep-card Css start*/
+    .collapse-list-container {
+        margin-top: 0px !important;
+        .collapse-list {
+        --min-height: $height;}
+    }
+    /*Collapse List /rep-card Css End*/
+
+    /* Search input css Start */
+    .input-text .native-input {
+        height: $height; 
+    }
+
+    /* Search input css End*/
+
+    /* New Input Item  css Start*/
+    .new-input-item-type {
+        .text-left {
+            height: $height; 
+        }
+    }
+
+    /* New Input Item css End*/
+    /* News Scoll component CSS Start*/
+    .marquee-container {
+        marquee {
+            height: $height; 
+        }
+    }
+
+    /* News Scoll component  CSS End*/
+    /* two D KPI  */
+    .twod-kpi {
+        .kpi-header {
+            height: $height; 
+        }
+
+        .kpi-body {
+            height: $height; 
+        }
+    }
+
+    /* Two D KPI CSS End */
+    /* menu tab css start */
+    .tab-menu {
+        .name-container {
+            h6 {
+                height: $height; 
+            }
+        }
+    }
+
+    /* menu tab CSS End*/
+    /*   Global Table CSS Start */
+    table {
+        thead {
+            th {
+                height: $height; 
+            }
+        }
+
+        tbody tr:nth-child(even) {
+            height: $height; 
+        }
+
+        td,
+        ion-label {
+            height: $height; 
+        }
+    }
+
+    /*   Global Table CSS Start */
+
+    .summary-card-container{  
+        height: $height; 
+        .single-summary-card{
+        .tophead-card {
+            height: $height; 
+            .main-title {
+                margin-top: 0px;
+            }
+        }
+    }
+    }
+
+    .text-box-txt {
+        margin-top: 5px !important;
+    }
+    textarea{
+           height: $height; 
+    }
+    .checkbox-container{
+       height: $height; 
+    }
+    .column-count {
+        padding: 0px 5px !important;
+        margin-bottom: 0px !important;
+    }
+    .chat-box {
+        padding: 0px !important;
+        border-radius: 5px;
+        position: relative;
+    }
+
+    .img-ic-new {
+        height: $height; 
+        width: $height;
+    }
+    .image-menu-container{
+        .menu-image {
+            height: $height; 
+            width: $height;
+        }
+    }
+}

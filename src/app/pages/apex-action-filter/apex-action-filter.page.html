@@ -1,0 +1,357 @@
+<div class="apex-action-filter">
+  <div class="popover-page">
+    <div *ngIf="shuffle == 'Function'" class="apex-table apex_new_response">
+      <table>
+        <thead>
+          <tr>
+            <th width="40%">
+              Function
+            </th>
+            <th width="40%"> 
+              Column Name
+            </th>
+            <th class="tdClass" width="20%">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of aggregateFun;let i=index">
+            <td>
+              <ng-select name="fieldName" [(ngModel)]="r.fun" appendTo="body" (change)="onSelectFun(r.fun,r)">
+                <ng-option *ngFor="let d of functions" [value]="d.value">{{d.name}}</ng-option>
+              </ng-select>
+            </td>
+
+            <td>
+              <ng-select name="fieldName" [(ngModel)]="r.coloumns.item_name" appendTo="body" (change)="changevalue()">
+                <ng-option *ngFor="let d of r.columnData; let j = index" [value]="d.item_name" >{{d.prompt_name}}</ng-option>
+              </ng-select>
+            </td>
+
+            <td class="tdClass fuction_area">
+              <div class="all_action_btn">
+              <ion-button (click)="addFieldValue('aggreFun')" class="icon-btn"
+                style="margin-top: 0px;margin-bottom: 0px;"  size="small">
+                <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+
+              <ion-button (click)="rmFieldValue(i,'aggreFun')" *ngIf="aggregateFun.length > 1" class="icon-btn"
+                style="margin-top: 0px;margin-bottom: 0px;"  size="small">
+                <ion-icon name="remove-outline"></ion-icon>
+              </ion-button>
+              <ion-button (click)="addDuplicateField_sum(r)" size="small" class="icon-btn action-btn copy_btn"
+                style="margin-top: 0px;margin-bottom: 0px;">
+                <ion-icon name="copy-outline"></ion-icon>
+              </ion-button>
+            </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+
+    <div *ngIf="shuffle == 'Conditional Filter'" class="apex-table">
+<div class="res_table">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Column Name
+            </th>
+            <th>
+              Operator
+            </th>
+            <th>
+              Description
+            </th>
+            <th class="tdClass">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of rowsFilter;let i=index">
+            <td>
+             
+              <ng-select name="fieldName" appendTo="body" [(ngModel)]="r.coloumns" (change)="clearValue(r)">
+                <ng-option *ngFor="let d of apexThead" [value]="d">{{d.prompt_name}}</ng-option>
+              </ng-select>
+            </td>
+            <td>
+             
+              <ng-select name="fieldName" appendTo="body" [(ngModel)]="r.operators">
+                <ng-option *ngFor="let d of operators" [value]="d">{{d}}</ng-option>
+              </ng-select>
+            </td>
+            <td>
+              <ng-container *ngIf="r.coloumns && r.coloumns.datatype; else inputField">
+                <ng-container [ngSwitch]="r.coloumns.datatype">
+                  <div *ngSwitchCase="'varchar'">
+                    <ng-container *ngIf="r.operators=='in' || r.operators=='not in';else inputF">
+                      <ion-textarea [(ngModel)]="r.description" (change)="changevalue()" autoGrow="true"></ion-textarea>
+                    </ng-container>
+                    <ng-template #inputF>
+                       <ion-input type="text" [(ngModel)]="r.description" (change)="changevalue()" [disabled]="r.operators=='is null' || r.operators=='is not null'"></ion-input>
+                    </ng-template>
+                  </div>
+                  <div *ngSwitchCase="'varchar2'">
+                    <ng-container *ngIf="r.operators=='in' || r.operators=='not in';else inputF">
+                      <ion-textarea [(ngModel)]="r.description" (change)="changevalue()" autoGrow="true"></ion-textarea>
+                    </ng-container>
+                    <ng-template #inputF>
+                      <ion-input type="text" [(ngModel)]="r.description" (change)="changevalue()" [disabled]="r.operators=='is null' || r.operators=='is not null'"></ion-input>
+                    </ng-template>
+                  </div>
+                  <div *ngSwitchCase="'number'">
+                    <ng-container *ngIf="r.operators=='in' || r.operators=='not in';else inputF">
+                      <ion-textarea [(ngModel)]="r.description" (change)="changevalue()" style="text-align: right;" autoGrow="true"></ion-textarea>
+                    </ng-container>
+                    <ng-template #inputF>
+                    <ion-input style="text-align: right;" type="text" [(ngModel)]="r.description" (change)="changevalue()" [disabled]="r.operators=='is null' || r.operators=='is not null'"></ion-input>
+                    </ng-template>
+                  </div>
+                  <div *ngSwitchCase="'date'">
+                      <div class="calend_btn_input" >
+                          <ng-container *ngIf="r.operators=='in' || r.operators=='not in';else inputF">
+                            <ion-textarea id="simpleInputDate" placeholder="DD-MM-YYYY"  [(ngModel)]="r.description" autoGrow="true"></ion-textarea>
+                          </ng-container>
+                          <ng-template #inputF>
+                            <ion-input type="text" id="simpleInputDate" placeholder="DD-MM-YYYY" [(ngModel)]="r.description" [disabled]="r.operators=='is null' || r.operators=='is not null'"></ion-input>
+                          </ng-template>
+                                <ion-button class="calend_btn" (click)="presentPopover($event, r)">
+                                  <ion-icon name="calendar-outline"></ion-icon>
+                                </ion-button>
+                              </div>
+                                <ion-popover [isOpen]="r.isOpen" [event]="r.event"
+                                  (didDismiss)="onPopoverDismiss(r)">
+                                  <ng-template>
+                                    <ngb-datepicker (dateSelect)="onDateChange($event, r)"></ngb-datepicker>
+                                  </ng-template>
+                                </ion-popover>
+                  </div>
+                  <div *ngSwitchDefault>
+                     <ng-container *ngIf="r.operators=='in' || r.operators=='not in';else inputF">
+                      <ion-textarea [(ngModel)]="r.description" (change)="changevalue()" autoGrow="true"></ion-textarea>
+                    </ng-container>
+                    <ng-template #inputF>
+                    <ion-input type="text" [(ngModel)]="r.description" (change)="changevalue()" [disabled]="r.operators=='is null' || r.operators=='is not null'"></ion-input>
+                    </ng-template>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <ng-template #inputField>
+                <ng-container *ngIf="r.operators=='in' || r.operators=='not in';else inputF">
+                  <ion-textarea [(ngModel)]="r.description" (change)="changevalue()" autoGrow="true"></ion-textarea>
+                </ng-container>
+                <ng-template #inputF>
+                  <ion-input type="text" [(ngModel)]="r.description" (change)="changevalue()"
+                    [disabled]="r.operators=='is null' || r.operators=='is not null'"></ion-input>
+                </ng-template>
+              </ng-template>
+             
+
+
+            </td>
+            <td class="tdClass">
+              <div class="all_action_btn">
+
+                <ion-button (click)="rmFieldValue(i,'rowsFil')" *ngIf="rowsFilter.length > 1" size="small"
+                  class="icon-btn action-btn" style="margin-top: 0px;margin-bottom: 0px;">
+                  <ion-icon name="remove-outline"></ion-icon>
+                </ion-button>
+
+                <ion-button (click)="addDuplicateField(r)" size="small" class="icon-btn action-btn copy_btn"
+                  style="margin-top: 0px;margin-bottom: 0px;">
+                  <ion-icon name="copy-outline"></ion-icon>
+                </ion-button>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      <ion-row>
+        <ion-col size="12" style="text-align: center;" class="add-new-filter">
+          <ion-button (click)="addFieldValue('rowsFil')" size="small" class="icon-btn">
+            <ion-icon name="add-outline"></ion-icon>New Filter
+          </ion-button>
+        </ion-col>
+      </ion-row>
+     
+    </div>
+
+    <div *ngIf="shuffle == 'Group By'" class="apex-table">
+      <div class="groupby_container">
+        <div class="row m-0">
+          <div class="col-md-4 col-12 pr-0">
+  <div class="groupby_selector">
+      <div class="chip_search_container">
+        <div class="chip_container">
+          Selected:
+        </div>
+        <ng-container *ngFor="let c of controlBreakArr; let i=index">
+          <div class="chip_container">
+            {{c.coloumns.prompt_name}}  <ion-icon name="close-outline" (click)="chipRemove(c.coloumns.prompt_name,i)"></ion-icon>
+          </div>
+        </ng-container>
+        <ng-conatiner *ngIf="controlBreakArr.length>0">
+          <div class="chip_container">
+            <ion-button class="chip_container_btn" (click)="groupClearAll()"> Clear all</ion-button>
+           </div>
+        </ng-conatiner>
+      </div>
+      <div class="columnData_filter">
+        <h2>Column Name</h2>
+       <input type="text"  placeholder="Search..." [(ngModel)]="searchText" (input)="applyFilter()"/>
+        <ul>
+          <ng-container *ngFor="let d of filterApexThead">
+            <li> <div class="item_filter"><ion-checkbox class="columnData_input" [checked]="d.checked" (ionChange)="checkboxClick($event,d)"></ion-checkbox>{{d.prompt_name}}</div></li>
+          </ng-container>
+          
+        </ul>
+      </div>
+    </div>
+          </div>
+          <div class="col-md-8 col-12 pl-0">
+            <div class="groupby_selector_table">
+              <table>
+                <thead>
+                  <tr>
+                    <th width="40%">
+                      Function
+                    </th>
+                    <th width="40%"> 
+                      Column Name
+                    </th>
+                    <th class="tdClass" width="20%">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let r of aggregateFun;let i=index">
+                    <td>
+                     
+                        <ng-select name="fieldName" [(ngModel)]="r.fun" appendTo="body" (change)="onSelectFun(r.fun,r)">
+                          <ng-option *ngFor="let d of functions" [value]="d.value">{{d.name}}</ng-option>
+                        </ng-select>
+                      </td>
+        
+                    <td>
+                      
+                        <ng-select name="fieldName" [(ngModel)]="r.coloumns.item_name" appendTo="body" (change)="changevalue()">
+                          <ng-option *ngFor="let d of r.columnData" [value]="d.item_name">{{d.prompt_name}}</ng-option>
+                        </ng-select>
+                      </td>
+        
+                    <td class="tdClass">
+        
+                      <div class="all_action_btn">
+        
+                        <ion-button (click)="addFieldValue('aggreFun')"  class="icon-btn action-btn"
+                        style="margin-top: 0px;margin-bottom: 0px;" >
+                          <ion-icon name="add-outline"></ion-icon>
+                        </ion-button>
+        
+                        <ion-button (click)="rmFieldValue(i,'aggreFun')" *ngIf="aggregateFun.length > 1" 
+                          class="icon-btn action-btn" style="margin-top: 0px;margin-bottom: 0px;" >
+                          <ion-icon name="remove-outline"></ion-icon>
+                        </ion-button>
+                        <ion-button (click)="addDuplicateField_sum(r)" size="small" class="icon-btn action-btn copy_btn"
+                          style="margin-top: 0px;margin-bottom: 0px;">
+                          <ion-icon name="copy-outline"></ion-icon>
+                        </ion-button>
+                      </div>
+        
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="shuffle == 'Column'" class="apex-table personalization_container">
+      <div class="personalization_table">
+        <table>
+          <thead>
+            <tr>
+            <th> <ion-checkbox [checked]="selectAllColumnChecked" (ionChange)="selectAllColumn($event)"></ion-checkbox></th> 
+            <th>
+              Slno
+            </th> 
+            <th>
+              Column name
+            </th>
+             <th>
+              New Slno
+             </th>
+          </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let a of  columnsData;let i=index">
+              <td>
+                <ion-checkbox [checked]="a.checked" (ionChange)="personalizationColumn($event,a)"></ion-checkbox>
+              </td> 
+              <td>
+                {{a.id}}
+              </td>
+               <td>
+               {{a.colName}}
+               </td>
+                <td>
+                  {{a.newSeqNo ? a.newSeqNo :''}}
+                </td>
+              
+            </tr>
+          </tbody>
+          
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="clear-btn-area">
+
+      <div class="row m-0 p-0" *ngIf="shuffle != 'Column'">
+      
+        <div class="col-12 col-md-6 p-0" style="text-align: center; display: flex;"> 
+          <ng-container *ngIf="shuffle == 'Group By'">
+            <div class="clear-btn-area-checkarea" > 
+              <ion-checkbox [(ngModel)]="isCheck"></ion-checkbox> Click to view group by data in expanded view.
+            </div>
+          </ng-container>
+        </div>
+        
+        <div class="col-12 col-md-6 d-flex justify-content-end" style="text-align: center;padding: 0px 2px;">
+          <ion-button class="global-main-copy" (click)="clearThis(shuffle)">Clear this</ion-button>
+       
+          <ion-button class="global-main-copy" (click)="clear_All()">Clear all</ion-button>
+        
+          <ion-button class="global-main-copy active" (click)="apply(shuffle)">Apply</ion-button>
+        </div>
+      </div>
+      <div class="row m-0 p-0" *ngIf="shuffle == 'Column'">
+        <div class="col-12 col-md-6 p-0" style="text-align: center; display: flex;"> 
+        
+            <div class="clear-btn-area-checkarea" > 
+              <ion-checkbox [(ngModel)]="frame.isTextWrapped"></ion-checkbox> Table Wrap
+            </div>
+         
+        </div>
+        <div class="col-12 col-md-6 d-flex justify-content-end" style="text-align: center;padding: 0px 2px;">
+          <ion-button class="global-main-copy" (click)="resetPersonailzationColumn(shuffle)"> Reset </ion-button>
+          <ng-container *ngIf="(frame.apps_page_frame_seqid).charAt((frame.apps_page_frame_seqid).length - 1)!= 'A'">
+            <ion-button class="global-main-copy" (click)="saveForFutureDataColumn()" >Apply as Personalization</ion-button>
+          </ng-container>
+          <ion-button class="global-main-copy active" (click)="apply(shuffle)"> Okay</ion-button>
+        </div>
+      </div>
+
+  </div>
+</div>

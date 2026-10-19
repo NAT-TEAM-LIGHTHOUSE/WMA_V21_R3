@@ -1,0 +1,33 @@
+ion-item{
+    --inner-padding-end:0;
+    --padding-top:0;
+    --padding-bottom:0;
+    --min-height: 40px;
+    ion-avatar{
+        width: 20px;
+        height: 20px;
+        margin: 0 10px 0 0;
+        img{
+            vertical-align: text-top;
+        }
+    }
+    ion-label{
+        margin: 0;
+    }
+}
+ion-item.menu-open-close{
+    --background: transparent;
+    --box-shadow: none;
+    border-radius: 4px;
+    ion-icon{
+        font-size: var(--font22);
+        vertical-align: middle;
+    }
+}
+ion-item.menu-open-close:hover{
+    --background-hover: transparent !important;
+}
+
+.menu-cursor{
+    cursor: pointer;
+}

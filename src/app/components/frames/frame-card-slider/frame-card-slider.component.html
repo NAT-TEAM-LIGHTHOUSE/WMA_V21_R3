@@ -1,0 +1,38 @@
+<!-- <ion-slides class="card-slider" [options]="sliderConfig">
+  <ion-slide  *ngFor="let rows of frame.tableRows |tableSearch :tablerowsfilter;let j=index;" class="text-left">
+    <div class="super-card position-relative">
+      <div class="sr-no position-absolute">{{j+1}}</div>
+        <div class="super-card-inner position-relative">
+          <div class="card-title">
+            <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+              <ion-col class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+                [hidden]="input_item.item_visible_flag!='T'">
+                <div *ngIf="input_item.item_sub_type=='CARD_TITLE'">
+                  <app-items class="p-0 card-title" [wscp]="wscp" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"></app-items>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+          <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+            <ion-col class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+              [hidden]="input_item.item_visible_flag!='T'">
+              <div *ngIf="input_item.item_sub_type!='CARD_TITLE'">
+                <app-items class="p-0" [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event,rows,j)" (LHSOnChange)="itemValueChange($event,j)" [frame]="frame"></app-items>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+      <div class="clearfix"></div>
+    </div>
+  </ion-slide>
+</ion-slides> -->
+
+<!-- Skeleton screen -->
+<div class="center" *ngIf="listLength==0">
+  <div class="text-center cent-loader" *ngIf="noRecordMessage == ''">
+    <img src="../../../../assets/dot.gif" width="20%">
+  </div>
+  <div class="text-center" *ngIf="noRecordMessage != ''">
+    <h2>{{noRecordMessage}}</h2>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="card_button_modal">
+  <ul>
+    <ng-container *ngFor="let items of containerRows;let i=index">
+      <ng-container *ngFor="let item of items.Level5">
+        <ng-container *ngIf="item.item_visible_flag=='T' && i>0">
+          <li (click)="itemClicked(item)">{{item.prompt_name}}</li>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ul>
+</div>

@@ -1,0 +1,102 @@
+<ion-header class="login_header mobile_display">
+  <ion-toolbar>
+    <ion-title> 
+      <div class="logo-section"> 
+           <img [src]= "globalObjects.applogo ? 'data:image/png;base64,' + globalObjects.applogo : 'assets/application/lhs-logo.png'" alt="lhs-logo">    
+       
+    </div>
+     
+  </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="theme-red bg-shrink">
+  <div class="shrinkMyscreen">
+    <ion-grid class="p-0 m-0">
+      <ion-row class=" align-items-center app-key-section">
+        <ion-col size="12" size-md="12" size-lg="5">
+          <div class="left-panel">
+       
+            <header class="desktop_display">
+              <nav class="navbar">
+                <div class="container-fluid">
+                  <a class="navbar-brand" >
+                    <img src="assets/application/lhs-logo.png" alt="lhs-logo">
+                  </a>
+                </div>
+              </nav>
+            </header>
+            <div class="app-area">
+              <div class="row justify-content-center p-0 m-0">
+                <div class="col-md-12 col-lg-9 p-0">
+                  <h3 class="app-key-title">App key</h3>
+                  <p>Please enter the app key to go to the login page </p>
+                  <!-- <ion-button (click)="camera()">Camera open </ion-button> -->
+                  <form name="appkey" class="key-container" (submit)="save(appkey)">
+                    <div class="mb-3 mt-3">
+                      <div class="item-has-focus">
+                        <ion-icon name="key-outline" item-start class="text-orange"></ion-icon>
+                        <ion-input #autofocus type="text" autofocus="true" autocomplete='on' placeholder="Enter App-key"
+                          name="App-key" [(ngModel)]="appkey" (ionChange)="UpdateSearchResults(appkey)"
+                          (ionBlur)="onBlur()" (ionFocus)="onFocus()">
+                        </ion-input>
+                      </div>
+                    </div>
+                    <div class="btn-outer">
+                      <ion-button icon-only shape="round"  [disabled]="disableFlag" type="submit" class="global-btn"
+                        round>
+                        Enter</ion-button>
+                        <ion-item class="loader_btn" *ngIf="resStatus">
+                             <ion-spinner name="circular"></ion-spinner>
+                        </ion-item>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div> 
+        </div>
+        </ion-col>
+        <ion-col size="0" size-md="7" size-lg="7">
+          <div class="right-side">
+            <h1><span>Welcome to</span> Lighthouse ERP</h1>
+            <h2 class="sub-heading">Enabling IT as a strategic resource</h2>
+            <hr class="h-line">
+            <p>Whatever Be Your Business Making <span>IT </span> Work is Ours.</p>
+          </div>
+
+          <div class="notes desknew_display"><ion-icon name="star"></ion-icon>&nbsp;<ion-icon name="star"></ion-icon>&nbsp;&nbsp;Application best viewed in <a href="https://www.google.com/chrome/next-steps.html?brand=CHBD&gclid=CjwKCAiAw9vIBhBBEiwAraSATs7l0Wv2k8ut7sGdMdtm9J2lMG9YVJk9c7mcCXw_MRAk2RtrI8eNEhoCSj0QAvD_BwE&statcb=1&installdataindex=empty&defaultbrowser=0" target="_blank"><img src="assets/icon/crome.png"/></a>&nbsp;&nbsp;<ion-icon name="star"></ion-icon><ion-icon name="star">&nbsp;</ion-icon></div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+  </div>
+  <!-- <div class="center new-loader"  *ngIf="globalObjects.loaderFlag">
+      <div class="text-center-loader">
+        <ion-spinner name="circular"></ion-spinner>
+      </div>
+    </div> -->
+<div class="center new-loader"  *ngIf="globalObjects.loaderFlag" >
+    <div class="wma-loader">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+</div>
+
+<!-- <div class="center new-loader" >
+    <div class="wma-loader">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+</div> -->
+ 
+</ion-content>
+<ion-footer class="login_footer  mobile_display" >
+ <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+  </ion-footer>

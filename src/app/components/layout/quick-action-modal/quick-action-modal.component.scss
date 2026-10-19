@@ -1,0 +1,17 @@
+.quickaction_section{
+    ul{
+        margin:0px 0px;
+        padding:0px 0px;
+        li{
+    padding:10px 15px;
+    font-size: var(--font14);
+    font-weight: 400;
+    color:var(--blackNew);
+    border-bottom: 1px solid #d7d7d7;
+    list-style: none;
+    &:hover{
+        color:var(--blue-new);
+    }
+        }
+    }
+}

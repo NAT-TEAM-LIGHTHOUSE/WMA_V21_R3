@@ -1,0 +1,941 @@
+<ng-container *ngIf="textinput.item_type == 'NEW_INPUT'; else oldTag">
+
+  <div class="dim-container f" style="position:relative;">
+    <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+      <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+        <span (click)="openLov()">{{e}}</span>
+        <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+      </a>
+    </div>
+    <ng-container *ngIf="!textinput.displayChips">
+      <div class="" style="height: 100%;
+    width: 100%;">
+      <!-- <ion-label class="via_input" *ngIf="!textinput.isclickable; else clickable"  (click) ="makeClickable(clickable)">{{textinput.value}}</ion-label>
+      <ng-template #clickable> -->
+      <input appDisableWheelOnNumber
+        [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'box_top_input text-right border-on-hover' : 'box_top_input border-on-hover  aa'"
+        [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+        [ngStyle]="textinput.tableStyle" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+        [maxlength]="textinput.item_size" [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+        (click)="itemClicked(textinput)" (blur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+        (dblclick)="dblEvent()" (focus)="onFocus()" [placeholder]="placeholder" autocomplete="off">
+        <!-- </ng-template> -->
+    </div>
+    </ng-container>
+
+
+
+    <div class="input-buttons-container d"
+      *ngIf="(textinput.value || textinput.lov_code)  && textinput.item_enable_flag == 'T'">
+      <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+
+      <button class="input-btn float-right" ion-button icon-only small
+        *ngIf="passwordEye && textinput.item_enable_flag == 'T'" (click)="displayPass(textinput)">
+        <ion-icon color="secondary" name="eye"></ion-icon>
+      </button>
+      <button *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+        icon-only small (click)="dblEvent()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"
+        class="input-btn float-right" ion-button icon-only small (click)="clear()">
+        <ion-icon color="secondary" name="close"></ion-icon>
+      </button>
+    </div>
+
+    <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+      <ion-icon name="link-outline"></ion-icon>
+    </div>
+  </div>
+  <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+  <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+  <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+</ng-container>
+
+
+
+
+<ng-template #oldTag>
+
+  <ng-container *ngIf="plt != 'browser'">
+
+
+    <ng-container
+      *ngIf="frame_type != 'ENTRY_TABLE' && frame_type != 'ENTRY_TABLE_NEW' &&  frame_type != 'HORIZONTAL_TABLE' && frame_type != 'TABLE' && frame_type != 'ACCORIDION' && (textinput.datatype != 'DATE' && textinput.datatype != 'DATETIME' && textinput.datatype != 'TIME')">
+
+      <div class="input-type6-containter"
+        *ngIf="textinput.item_sub_type == 'UL_LEFT' || textinput.item_sub_type == 'BOX_LEFT' || textinput.item_sub_type == 'KEY_FILTER_COLUMN'">
+
+        <div class="newIp-type5"
+          *ngIf="textinput.item_sub_type == 'UL_LEFT' || textinput.item_sub_type == 'KEY_FILTER_COLUMN'">
+          <ion-row>
+            <ion-col *ngIf="textinput.prompt_name" [size]="col1" class="bg-prompt">
+              <p class="input-group-label" [title]="textinput.prompt_name"
+                [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}">
+                {{textinput.prompt_name}}</p>
+              <ion-icon class="code-btn" name="information-circle-outline" 
+                color="primary" *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+            </ion-col>
+
+            <ion-col [size]="textinput.prompt_name ? col2 : '12'" class="input-container">
+              <div class="dim-container b ul_left_container_mobs" style="position:relative;">
+                <div class="bg-input">
+
+                  <!-- Div for multi lov data start -->
+                  <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+                    <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                      <span (click)="openLov()">{{e}}</span>
+                      <ion-icon name="close" (click)="removeValue(i)"></ion-icon>
+                    </a>
+                  </div>
+                  <!-- Div for multi lov data end -->
+
+                  <!-- Normal Text Input start -->
+                  <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+                    <ion-input appDisableWheelOnNumber
+                      [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'form-control text-right' : 'form-control'"
+                      class="effect-1"
+                      [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                      [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}"
+                      [(ngModel)]="textinput.value" [maxlength]="textinput.item_size"
+                      [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                      (click)="itemClicked(textinput)" (ionBlur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                      [placeholder]="placeholder" (dblclick)="dblEvent()"></ion-input>
+                  </ng-container>
+
+                  <div class="input-action-container">
+                    <ion-icon color="secondary" name="eye" *ngIf="passwordEye"
+                      (click)="displayPass(textinput)"></ion-icon>
+                    <ion-icon color="secondary" name="search"
+                      *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" (click)="dblEvent()"></ion-icon>
+                    <ion-icon color="secondary" name="close" (click)="clear()"
+                      *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"></ion-icon>
+                  </div>
+                </div>
+                <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+                  <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+                </div>
+              </div>
+            </ion-col>
+            <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+            <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+            <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+          </ion-row>
+        </div>
+
+        <div class="newIp-type3" *ngIf="textinput.item_sub_type == 'BOX_LEFT'">
+          <ion-row>
+            <ion-col [size]="col1" *ngIf="textinput.prompt_name" class="bl_prompt 1">
+              <p class="input-group-label" [title]="textinput.prompt_name"
+                [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}">
+                {{textinput.prompt_name}}</p>
+              <ion-icon class="code-btn" name="information-circle-outline" style="position: absolute;right: 0;"
+                color="primary" *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+
+            </ion-col>
+
+            <ion-col [size]="textinput.prompt_name ? col2 : '12'">
+
+              <div class="dim-container c" style="position:relative;">
+                <div class="input-div">
+                  <!-- Div for multi lov data start -->
+                  <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+                    <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                      <span (click)="openLov()">{{e}}</span>
+                      <ion-icon name="close" (click)="removeValue(i)"></ion-icon>
+                    </a>
+                  </div>
+                  <!-- Div for multi lov data end -->
+
+                  <!-- Normal Text Input start -->
+                  <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+                    <ion-input appDisableWheelOnNumber
+                      [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'bg-input text-right' : 'bg-input'"
+                      class="effect-8"
+                      [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                      [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}"
+                      [(ngModel)]="textinput.value" [maxlength]="textinput.item_size"
+                      [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                      (click)="itemClicked(textinput)" (ionBlur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                      [placeholder]="placeholder" (dblclick)="dblEvent()">
+                    </ion-input>
+                  </ng-container>
+
+                  <div class="input-action-container">
+                    <ion-icon color="secondary" name="eye" *ngIf="passwordEye"
+                      (click)="displayPass(textinput)"></ion-icon>
+                    <ion-icon color="secondary" name="search"
+                      *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" (click)="dblEvent()"></ion-icon>
+                    <ion-icon color="secondary" name="close" (click)="clear()"
+                      *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"></ion-icon>
+                  </div>
+
+                </div>
+                <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+                  <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+                </div>
+              </div>
+            </ion-col>
+            <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+            <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+            <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+          </ion-row>
+        </div>
+      </div>
+
+      <ng-container *ngIf="textinput.item_sub_type == 'BOX_TOP'">
+        <ion-label
+          [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}" [ngClass]="!textinput.prompt_name ? 'label_height' : ''">{{textinput.prompt_name}}</ion-label>
+        <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+          *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+
+
+        <div class="dim-container d  box_top_container_mobs" style="position:relative;">
+          <div class="input-div" style="display:flex;align-items: center;">
+
+            <!-- Div for multi lov data start -->
+            <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+              <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                <span (click)="openLov()">{{e}}</span>
+                <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+              </a>
+            </div>
+            <!-- Div for multi lov data end -->
+            <!-- Normal Text Input start -->
+            <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+              <ion-input appDisableWheelOnNumber
+                [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'box_top_input text-right' : 'box_top_input'"
+                class="effect-8"
+                [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+                [maxlength]="textinput.item_size"
+                [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                (click)="itemClicked(textinput)" (ionBlur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                [placeholder]="placeholder" (dblclick)="dblEvent()">
+              </ion-input>
+            </ng-container>
+            <div class="input-buttons-container a"
+              *ngIf="(textinput.value || textinput.lov_code)  && textinput.item_enable_flag == 'T'">
+
+              <button class="input-btn float-right" ion-button icon-only small *ngIf="passwordEye"
+                (click)="displayPass(textinput)">
+                <ion-icon name="eye"></ion-icon></button>
+              <button *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" class="input-btn float-right"
+                ion-button icon-only small (click)="dblEvent()">
+                <ion-icon name="search"></ion-icon>
+              </button>
+              <button *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"
+                class="input-btn float-right" ion-button icon-only small (click)="clear()">
+                <ion-icon color="secondary" name="close"></ion-icon>
+              </button>
+            </div>
+
+          </div>
+          <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+            <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+          </div>
+        </div>
+        <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+        <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+        <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+
+      </ng-container>
+
+      <ng-container *ngIf="textinput.item_sub_type == 'UL_FLOATING'">
+        <ion-item class=" ion-no-padding" lines="none">
+          <div class="ul_flot_ios custom-input">
+            <ion-label position="floating"
+              [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}" [ngClass]="!textinput.prompt_name ? 'label_height' : ''">{{textinput.prompt_name}} </ion-label>
+            <!-- <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+              *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon> -->
+            <!-- Div for multi lov data start -->
+            <div class="ul_float_input">
+
+
+              <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+                <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                  <span (click)="openLov()">{{e}}</span>
+                  <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+                </a>
+              </div>
+              <!-- Div for multi lov data end -->
+
+              <!-- Normal Text Input start -->
+              <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+                <ion-input appDisableWheelOnNumber
+                  [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'un_input text-right' : 'un_input un_input_new'"
+                  class="effect-1"
+                  [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                  [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+                  [maxlength]="textinput.item_size"
+                  [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                  (click)="itemClicked(textinput)" (ionBlur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                  (dblclick)="dblEvent()">
+                </ion-input>
+              </ng-container>
+              <div class="input-buttons-container"
+                *ngIf="(textinput.value || textinput.lov_code)  && textinput.item_enable_flag == 'T'">
+                <button class="input-btn float-right" ion-button icon-only small *ngIf="passwordEye"
+                  (click)="displayPass(textinput)">
+                  <ion-icon name="eye"></ion-icon></button>
+                <button *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" class="input-btn float-right"
+                  ion-button icon-only small (click)="dblEvent()">
+                  <ion-icon name="search"></ion-icon>
+                </button>
+                <button *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"
+                  class="input-btn float-right" ion-button icon-only small (click)="clear()">
+                  <ion-icon color="secondary" name="close"></ion-icon>
+                </button>
+              </div>
+              <div class="input-buttons-container" *ngIf="globalObjects.toggleDevloperMode()">
+                <button class="input-btn float-right" ion-button icon-only small  (click)="showDeveloperData()">
+                 <ion-icon  name="information-circle-outline" color="primary"></ion-icon>
+               </button>
+              </div>
+               <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+            <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+             
+          </div>
+            </div>
+          </div>
+        </ion-item>
+        <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+        <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+        <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+
+      </ng-container>
+
+      <ng-container *ngIf="textinput.item_sub_type == 'UL_TOP'">
+        <ion-label
+          [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}" [ngClass]="!textinput.prompt_name ? 'label_height' : ''">{{textinput.prompt_name}}</ion-label>
+        <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+          *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+
+
+        <div class="dim-container e ul_top_container_mobs" style="position:relative;">
+          <div class="input-div">
+            <div class="ul_top__mobs">
+              <!-- Div for multi lov data start -->
+              <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+                <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                  <span (click)="openLov()">{{e}}</span>
+                  <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+                </a>
+              </div>
+              <!-- Div for multi lov data end -->
+              <!-- Normal Text Input start -->
+              <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0 ">
+                <ion-input appDisableWheelOnNumber
+                  [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'un_input text-right' : 'un_input'"
+                  class="effect-1"
+                  [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                  [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+                  [maxlength]="textinput.item_size"
+                  [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                  (click)="itemClicked(textinput)" (ionBlur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                  (dblclick)="dblEvent()" [placeholder]="placeholder">
+                </ion-input>
+              </ng-container>
+            </div>
+            <div class="input-buttons-container b" style="border-bottom: 1px solid #ccc;
+    height: 25px;" *ngIf="(textinput.value || textinput.lov_code)  && textinput.item_enable_flag == 'T'">
+              <button class="input-btn float-right" ion-button icon-only small *ngIf="passwordEye"
+                (click)="displayPass(textinput)">
+                <ion-icon name="eye"></ion-icon></button>
+              <button *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" class="input-btn float-right"
+                ion-button icon-only small (click)="dblEvent()">
+                <ion-icon name="search"></ion-icon>
+              </button>
+              <button *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"
+                class="input-btn float-right" ion-button icon-only small (click)="clear()">
+                <ion-icon color="secondary" name="close"></ion-icon>
+              </button>
+            </div>
+
+          </div>
+          <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+            <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+          </div>
+        </div>
+        <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+        <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+        <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+
+      </ng-container>
+      <ng-container *ngIf="textinput.item_sub_type == 'BOX_FLOATING'">
+        <div class="input_box_3 ">
+          <div class="form_wrap">
+            <ion-item class="input_wrap ion-no-padding" lines="none">
+              <div class="box_float_container_mobs custom-input">
+
+                <div>
+                  <ion-label position="floating"
+                    [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}">{{textinput.prompt_name}} </ion-label>
+                  <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textinput.apps_item_seqid"
+                    class="code-btn developer_btn" (click)="showDeveloperData()">
+                    <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+                  </ion-button>
+                </div>
+
+                <div class="box-top_inputm">
+                  <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+                    <ion-input type="text" appDisableWheelOnNumber
+                      [ngClass]="((textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'box_top_input text-right' : 'box_top_input number')"
+                      [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                      [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}"
+                      [(ngModel)]="textinput.value" [maxlength]="textinput.item_size"
+                      [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                      (click)="itemClicked(textinput)" (ionBlur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                      (dblclick)="dblEvent()" [placeholder]="placeholder"></ion-input>
+                  </ng-container>
+
+
+                  <!-- Div for multi lov data start -->
+                  <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+                    <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                      <span (click)="openLov()">{{e}}</span>
+                      <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Div for multi lov data end -->
+            </ion-item>
+          </div>
+        </div>
+        <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+        <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+        <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+      </ng-container>
+
+
+    </ng-container>
+
+    <ng-container
+      *ngIf="(frame_type == 'ENTRY_TABLE' || frame_type == 'ENTRY_TABLE_NEW' || frame_type == 'TABLE'|| frame_type == 'ACCORIDION') && (textinput.datatype != 'DATE' && textinput.datatype != 'DATETIME' && textinput.datatype != 'TIME')">
+
+
+      <!-- Normal Text Input start -->
+     <div class="d-flex align-items-center" style="position:relative;">
+      <ng-container *ngIf="!textinput.displayChips">
+        <ion-input appDisableWheelOnNumber
+          [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'box_top_input text-right border-on-hover' : 'box_top_input border-on-hover '"
+          [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+          [ngStyle]="textinput.tableStyle" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+          [maxlength]="textinput.item_size" [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+          (click)="itemClicked(textinput)" (ionBlur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+          (dblclick)="dblEvent()" [placeholder]="placeholder">
+        </ion-input>
+      </ng-container>
+
+      <div class="input-buttons-container c"
+        *ngIf="(textinput.value || textinput.lov_code)  && textinput.item_enable_flag == 'T'">
+        <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+          *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+
+        <button class="input-btn float-right" ion-button icon-only small (click)="openLovObject()"
+          *ngIf="passwordEye && textinput.item_enable_flag == 'T'" (click)="displayPass(textinput)">
+          <ion-icon color="secondary" name="eye"></ion-icon>
+        </button>
+        <button *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+          icon-only small (click)="dblEvent()">
+          <ion-icon name="search"></ion-icon>
+        </button>
+        <button *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"
+          class="input-btn float-right" ion-button icon-only small (click)="clear()">
+          <ion-icon color="secondary" name="close"></ion-icon>
+        </button>
+      </div>
+        </div>
+      <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+      <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+      <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+    </ng-container>
+  </ng-container>
+
+  <ng-container
+    *ngIf="textinput.datatype == 'DATE' || textinput.datatype == 'DATETIME' || textinput.datatype == 'TIME' || textinput.datatype == 'DUAL_DATE'">
+    <app-date-input-n [dateinput]="textinput" [frame_type]="frame_type" (emitPass)="itemClicked(textinput)"
+      (emitOnChange)="onBlur(textinput)">
+    </app-date-input-n>
+  </ng-container>
+
+
+  <ng-container *ngIf="plt == 'browser'">
+    <ng-container
+      *ngIf="(textinput.datatype != 'DATE' && textinput.datatype != 'DATETIME' && textinput.datatype != 'TIME' && textinput.datatype != 'DUAL_DATE')">
+      <ng-container *ngIf="(frame_type == 'ENTRY_TABLE' || frame_type == 'ENTRY_TABLE_NEW' || frame_type == 'TABLE' || frame_type == 'ACCORIDION'); else normalTag">
+        <!-- Normal Text Input start -->
+        <div class="dim-container f" style="position:relative;">
+          <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+            <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+              <span (click)="openLov()">{{e}}</span>
+              <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+            </a>
+          </div>
+          <ng-container *ngIf="!textinput.displayChips">
+            <input appDisableWheelOnNumber
+              [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'box_top_input text-right border-on-hover' : 'box_top_input border-on-hover  aa'"
+              [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+              [ngStyle]="textinput.tableStyle" id="{{textinput.item_name}}" [(ngModel)]="textinput.value" [title]="textinput.value"
+              [maxlength]="textinput.item_size"
+              [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+              (click)="itemClicked(textinput)" (blur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+              (dblclick)="dblEvent()" (focus)="onFocus()" [placeholder]="placeholder" autocomplete="off">
+
+          </ng-container>
+
+          <!-- Normal Text Input end -->
+
+          <div class="input-buttons-container d"
+            *ngIf="(textinput.value || textinput.lov_code)  && textinput.item_enable_flag == 'T'">
+            <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+              *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+
+            <button class="input-btn float-right" ion-button icon-only small
+              *ngIf="passwordEye && textinput.item_enable_flag == 'T'" (click)="displayPass(textinput)">
+              <ion-icon color="secondary" name="eye"></ion-icon>
+            </button>
+            <button *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" class="input-btn float-right"
+              ion-button icon-only small (click)="dblEvent()">
+              <ion-icon name="search"></ion-icon>
+            </button>
+            <button *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"
+              class="input-btn float-right" ion-button icon-only small (click)="clear()">
+              <ion-icon color="secondary" name="close"></ion-icon>
+            </button>
+          </div>
+
+          <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+            <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+          </div>
+        </div>
+        <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+        <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+        <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+      </ng-container>
+
+      <ng-template #normalTag>
+        <ion-row class="input-new" *ngIf="textinput.item_sub_type == 'BOX_LEFT'">
+          <ion-col [size]="col1" *ngIf="textinput.prompt_name" class="bl_prompt">
+              <p class="input-group-label " [title]="textinput.prompt_name"
+              [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}">
+              {{textinput.prompt_name}}</p> 
+              <ion-icon class="code-btn me-2 mt-1" name="information-circle-outline" 
+              color="primary" *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+          </ion-col>
+
+          <ion-col [size]="textinput.prompt_name ? col2 : '12'">
+
+            <div class="dim-container g" style="position:relative;">
+              <div class="input-div">
+                <!-- Div for multi lov data start -->
+                <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0"
+                  [ngStyle]="textinput.display_setting_str">
+                  <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                    <span (click)="openLov()">{{e}}</span>
+                    <ion-icon name="close" (click)="removeValue(i)"></ion-icon>
+                  </a>
+                </div>
+                <!-- Div for multi lov data end -->
+                <div
+                  [ngClass]="textinput.displayChips && textinput.displayChips.length > 0 ? 'input-group justify-content-end w-auto' : 'input-group justify-content-end' ">
+                  <!-- Normal Text Input start -->
+                  <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+                    <input appDisableWheelOnNumber type="text" class="form-control"
+                      [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'bg-input text-right' : 'bg-input'"
+                      [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                      [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}"
+                      [(ngModel)]="textinput.value" [maxlength]="textinput.item_size"
+                      [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'" (focus)="onFocus()"
+                      (click)="itemClicked(textinput)" (blur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                      [placeholder]="placeholder" (dblclick)="dblEvent()" autocomplete="off">
+                  </ng-container>
+
+                  <div class="input-group-append">
+                    <span>
+                      <ion-icon color="secondary" name="eye" *ngIf="passwordEye"
+                        (click)="displayPass(textinput)"></ion-icon>
+                    </span>
+                    <span>
+                      <ion-icon color="secondary" name="search"
+                        *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" (click)="dblEvent()"></ion-icon>
+                    </span>
+                    <span>
+                      <ion-icon color="secondary" name="close" (click)="clear()"
+                        *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"></ion-icon>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+                <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+              </div>
+            </div>
+              <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+          <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+          <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+          </ion-col>
+          <!-- <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+          <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div> -->
+
+
+        </ion-row>
+
+        <ng-container *ngIf="textinput.item_sub_type == 'BOX_TOP'">
+          <div class="bx_top_input_section">
+            <ion-label
+              [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}">{{textinput.prompt_name}}</ion-label>
+            <span class="d-inline-block"><ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textinput.apps_item_seqid"
+                class="code-btn developer_btn" (click)="showDeveloperData()">
+                <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+              </ion-button></span>
+            <!-- Div for multi lov data start -->
+
+            <div class="dim-container i" style="position:relative;">
+
+              <div class="input-group" style="display: flex; flex-wrap: nowrap;flex-wrap: nowrap;">
+                <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+                  <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                    <span (click)="openLov()">{{e}}</span>
+                    <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+                  </a>
+                </div>
+                <!-- Div for multi lov data end -->
+                <!-- Normal Text Input start -->
+                <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+                  <input appDisableWheelOnNumber
+                    [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'box_top_input text-right' : 'box_top_input'"
+                    class="form-control effect-8"
+                    [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                    [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+                    [maxlength]="textinput.item_size"
+                    [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                    (click)="itemClicked(textinput)" (blur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                    (focus)="onFocus()" [placeholder]="placeholder" (dblclick)="dblEvent()" autocomplete="off" />
+
+                </ng-container>
+                <div class="input-group-append cross-top-icon"
+                  *ngIf="(textinput.value || textinput.lov_code)  && textinput.item_enable_flag == 'T'">
+                  <span>
+                    <ion-icon name="eye" *ngIf="passwordEye" (click)="displayPass(textinput)"></ion-icon>
+                  </span>
+                  <span *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" (click)="dblEvent()">
+                    <ion-icon name="search"></ion-icon>
+                  </span>
+                  <span *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"
+                    (click)="clear()">
+                    <ion-icon color="secondary" name="close"></ion-icon>
+                  </span>
+                </div>
+              </div>
+              <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+                <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+              </div>
+            </div>
+            <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+            <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+            <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+
+          </div>
+
+        </ng-container>
+
+        <ng-container *ngIf="textinput.item_sub_type == 'UL_TOP'">
+          <div class="ul_top_input">
+            <ion-label
+              [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}">{{textinput.prompt_name}}</ion-label>
+            <span  class="d-inline-block"><ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textinput.apps_item_seqid"
+                class="code-btn developer_btn " (click)="showDeveloperData()">
+                <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+              </ion-button></span>
+
+            <div class="dim-container" style="position:relative;">
+              <div class="input-div" style="display:flex">
+                <!-- Div for multi lov data start -->
+                <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+                  <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                    <span (click)="openLov()">{{e}}</span>
+                    <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+                  </a>
+                </div>
+                <!-- Div for multi lov data end -->
+                <!-- Normal Text Input start -->
+                <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0 ">
+                  <input appDisableWheelOnNumber
+                    [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'un_input text-right' : 'un_input'"
+                    class="form-control effect-1"
+                    [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                    [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+                    [maxlength]="textinput.item_size"
+                    [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                    (click)="itemClicked(textinput)" (blur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                    (dblclick)="dblEvent()" (focus)="onFocus()" [placeholder]="placeholder" autocomplete="off">
+
+                </ng-container>
+
+                <div class="input-buttons-container e" style="border-bottom: 1px solid #ccc;
+    height: 25px;" *ngIf="(textinput.value || textinput.lov_code)  && textinput.item_enable_flag == 'T'">
+                  <button class="input-btn float-right" ion-button icon-only small *ngIf="passwordEye"
+                    (click)="displayPass(textinput)">
+                    <ion-icon name="eye"></ion-icon>
+                  </button>
+
+                  <button *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" class="input-btn float-right"
+                    ion-button icon-only small (click)="dblEvent()">
+                    <ion-icon name="search"></ion-icon>
+                  </button>
+                  <button
+                    *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"
+                    class="input-btn float-right" ion-button icon-only small (click)="clear()">
+                    <ion-icon color="secondary" name="close"></ion-icon>
+                  </button>
+                </div>
+
+              </div>
+              <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+                <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+              </div>
+            </div>
+          </div>
+          <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+          <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+          <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+        </ng-container>
+
+
+      </ng-template>
+
+    </ng-container>
+    <ng-container *ngIf="textinput.item_sub_type == 'UL_FLOATING'">
+      <ion-item class="ion-no-padding " lines="none">
+
+        <div class="ul_float_container_sec  custom-input">
+         <div>
+          <ion-label position="floating"  for="{{textinput.item_name}}"
+              [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}">{{textinput.prompt_name}}</ion-label>
+               <!-- <span><ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textinput.apps_item_seqid"
+                class="code-btn developer_btn" (click)="showDeveloperData()">
+                <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+              </ion-button> </span> -->
+         </div> 
+
+           <div class="ul_float_container s">
+            <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+              <ion-input appDisableWheelOnNumber
+                [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'un_input text-right' : 'un_input'"
+                class="floating-desktop-input "
+                [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+                [maxlength]="textinput.item_size"
+                [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                (click)="itemClicked(textinput)" (blur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                (dblclick)="dblEvent()"></ion-input>
+
+            </ng-container>
+           
+            <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+              <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                <span (click)="openLov()">{{e}}</span>
+                <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+              </a>
+            </div>
+
+        
+            <div class="input-buttons-container un_action_cont f"
+              *ngIf="(textinput.value || textinput.lov_code)  && textinput.item_enable_flag == 'T'">
+              <button class="input-btn float-right" ion-button icon-only small *ngIf="passwordEye"
+                (click)="displayPass(textinput)">
+                <ion-icon name="eye"></ion-icon>
+              </button>
+              <button *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" class="input-btn float-right"
+                ion-button icon-only small (click)="dblEvent()">
+                <ion-icon name="search"></ion-icon>
+              </button>
+              <button *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"
+                class="input-btn float-right" ion-button icon-only small (click)="clear()">
+                <ion-icon color="secondary" name="close"></ion-icon>
+              </button>
+                <div class="dimension-icon" style="position: relative;" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+            <ion-icon name="link-outline"></ion-icon>
+          </div>
+            </div>
+           <div class="input-buttons-container un_action_cont f" *ngIf="globalObjects.toggleDevloperMode()">
+                <ion-button  [title]="textinput.apps_item_seqid"
+                class="code-btn developer_btn" (click)="showDeveloperData()">
+                <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+              </ion-button>
+</div>
+          </div>
+
+        </div>
+ 
+      
+     
+      </ion-item>
+      <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+      <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+      <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+
+    </ng-container>
+    <ng-container *ngIf="textinput.item_sub_type == 'BOX_FLOATING'">
+      <div class="input_box_3">
+        <div class="form_wrap">
+          <ion-item class="input_wrap ion-no-padding " lines="none">
+            <div class="box_float_container_sec custom-input">
+              <div>
+                 <ion-label position="floating" for="{{textinput.item_name}}"
+                  [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}"
+                  >{{textinput.prompt_name}}</ion-label>
+                  <!-- class="form-control-placeholder" -->
+                <!-- <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textinput.apps_item_seqid"
+                  class="code-btn developer_btn" (click)="showDeveloperData()">
+                  <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+                </ion-button> -->
+              </div>
+              <div class="box_float_container">
+                <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+                  <ion-input type="text" appDisableWheelOnNumber
+                    [ngClass]="(textinput.datatype == 'NUMBER' || textinput.datatype == 'TEL') ? 'box_top_input text-right form-control' : 'box_top_input  box-floating-desktop form-control'   "
+                    [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                    [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+                    [maxlength]="textinput.item_size"
+                    [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                    (click)="itemClicked(textinput)" (blur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                    (dblclick)="dblEvent()" [placeholder]="placeholder"></ion-input>
+                </ng-container>
+
+                <!-- Div for multi lov data start -->
+                <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+                  <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                    <span (click)="openLov()">{{e}}</span>
+                    <ion-icon color="secondary" name="close" (click)="removeValue(i)"></ion-icon>
+                  </a>
+                </div>
+                 <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="textinput.apps_item_seqid"
+                  class="code-btn developer_btn" (click)="showDeveloperData()">
+                  <ion-icon class="code-btn" color="primary" name="information-circle-outline"></ion-icon>
+                </ion-button>
+                 <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+            <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+          </div>
+              </div>
+            </div>
+            <!-- Div for multi lov data end -->
+          </ion-item>
+        </div>
+      </div>
+      <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+      <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+      <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+    </ng-container>
+
+   
+     <div class="input-type6-containter" *ngIf="textinput.item_sub_type == 'UL_LEFT' || textinput.item_sub_type == 'KEY_FILTER_COLUMN'">
+
+        <div class="newIp-type5">
+     <ion-row>
+        <ion-col *ngIf="textinput.prompt_name" [size]="col1" class="bg-prompt">
+          <p class="input-group-label "
+            [ngStyle]="textinput.prompt_diplay_setting_str ? textinput.prompt_diplay_setting_str : {}"
+            [title]="textinput.prompt_name">{{textinput.prompt_name}}</p> 
+            <ion-icon class="code-btn  me-2 mt-1" name="information-circle-outline" 
+          color="primary" *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+        </ion-col>
+
+       
+
+        <ion-col [size]="textinput.prompt_name ? col2 : '12'" class="input-container">
+          <div class="dim-container a" style="position:relative;">
+            <div class="input-group bg-input-2">
+              <!-- Div for multi lov data start -->
+              <div class="selected-value" *ngIf="textinput.displayChips && textinput.displayChips.length > 0">
+                <a class="selected-chip" *ngFor="let e of textinput.displayChips; let i = index;">
+                  <span (click)="openLov()">{{e}}</span>
+                  <ion-icon name="close" (click)="removeValue(i)"></ion-icon>
+                </a>
+              </div>
+              <!-- Div for multi lov data end -->
+
+              <!-- Normal Text Input start -->
+              <ng-container *ngIf="!textinput.displayChips ||  textinput.displayChips.length == 0">
+                <input [ngClass]="textinput.datatype == 'NUMBER' ? 'form-control text-right' : 'form-control'"
+                  appDisableWheelOnNumber class="effect-1"
+                  [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+                  [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}" [(ngModel)]="textinput.value"
+                  [maxlength]="textinput.item_size"
+                  [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+                  (click)="itemClicked(textinput)" (blur)="onBlur(textinput)" title="{{textinput.tool_tip}}"
+                  [placeholder]="placeholder" (dblclick)="dblEvent()">
+              </ng-container>
+
+              <!-- Normal Text Input end -->
+
+              <div class="input-group-append cross-top-icon">
+                <ion-icon color="secondary" name="eye" *ngIf="passwordEye" (click)="displayPass(textinput)"></ion-icon>
+                <ion-icon color="secondary" name="search"
+                  *ngIf="textinput.lov_code && textinput.item_enable_flag == 'T'" (click)="dblEvent()"></ion-icon>
+                <ion-icon color="secondary" name="close" (click)="clear()"
+                  *ngIf="textinput.value  && textinput.item_enable_flag == 'T' && textinput.datatype != 'NUMBER'"></ion-icon>
+              </div>
+            </div>
+            <div class="dimension-icon" *ngIf="textinput.dimensionItem" (click)="openDimension(textinput.dimensionItem)">
+              <!-- <img src="./assets/dim_i.png"> --><ion-icon name="link-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-col>
+        <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+        <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+        <div class="error" *ngIf="textinput.forced_error_msg">{{textinput.forced_error_msg}}</div>
+      </ion-row>
+        </div>
+    
+    
+     
+    </div>
+  </ng-container>
+</ng-template>
+
+
+
+
+
+
+<!-- <ng-container *ngIf="textinput.item_sub_type == 'UL_TOP'">
+<div class="topinput_header d-flex align-items-center">
+  <div class="topinput">
+    <ion-input [clearInput]="true" placeholder="Dynamic prompt" >
+  </ion-input>  
+  <ion-button><i class="fi fi-rr-search"></i></ion-button>
+  </div>
+  <ion-button class="globe-btn">Ok</ion-button>
+</div>
+</ng-container> -->
+
+
+<!-- <ng-container *ngIf="frame_type != 'ENTRY_TABLE' && frame_type != 'HORIZONTAL_TABLE' && frame_type != 'TABLE'">
+<ng-container *ngIf="textinput.item_sub_type == 'KEY_FILTER_COLUMN'">
+  <div class="topinput_header d-flex align-items-center">
+    <div class="topinput">
+        <ng-container >
+          <ion-input type="text"
+            [type]="passwordFlag ? 'password' : (textinput.datatype == 'NUMBER' ? 'number' : (textinput.datatype == 'TEL' ? 'tel' : 'text'))"
+            [ngStyle]="textinput.display_setting_str" id="{{textinput.item_name}}"
+            [(ngModel)]="textinput.value" [maxlength]="textinput.item_size"
+            [readonly]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
+             title="{{textinput.tool_tip}}"
+            (dblclick)="dblEvent()" [placeholder]="placeholder"></ion-input>
+        </ng-container>
+
+        <ion-button (click)="itemClicked(textinput)"><i class="fi fi-rr-search"></i></ion-button>
+        <ion-icon class="code-btn" name="information-circle-outline" color="primary" slot="end"
+          *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+    </div>
+    <ion-button class="globe-btn" (blur)="onBlur(textinput)">Ok</ion-button>
+  </div>
+  <div class="error" *ngIf="!textinput.isValid && textinput.vadidateMsg">{{textinput.vadidateMsg}}</div>
+  <div class="error" *ngIf="textinput.msgError">{{textinput.msgError}}</div>
+</ng-container>
+</ng-container> -->

@@ -1,0 +1,199 @@
+@import '../../app/mixins';
+@import '../../app/variables';
+
+.padding-default {
+      $padding: var(--padding) !important;
+
+/* Frame Canvas component CSS Start*/
+ .frame-name {
+     padding-top: $padding;
+     padding-bottom: $padding;
+}
+
+/* Search Input component CSS Start*/
+  .non-lov-input-group{
+      .input-text .native-input {
+                padding: $padding !important;
+    }
+  }
+  /* Menu List component  CSS Start*/
+  .menu-list {
+       padding-top: $padding;
+     padding-bottom: $padding;      
+}
+/* Menu List  component  CSS End*/
+/*new Menu List component  CSS Start*/
+.new-menu-list {
+       padding-top: $padding;
+     padding-bottom: $padding;
+}
+/* Global Table */
+table th , table td{
+       padding-top: $padding;
+     padding-bottom: $padding; 
+}
+
+    .text-primary,
+    p,
+    .globe-btn1 {
+           padding-top: $padding;
+     padding-bottom: $padding;
+    }
+    /* para-text component css start */
+    .timeline-p {
+           padding-top: $padding;
+     padding-bottom: $padding;
+    }
+    .name-value-text {
+        .label-name,
+        .label-value {
+               padding-top: $padding;
+     padding-bottom: $padding;
+        }
+        .label-name {
+               padding-top: $padding;
+     padding-bottom: $padding;
+        }
+    }
+    .item.sc-ion-label-md-h,
+    .item .sc-ion-label-md-h,
+    .block-text ion-label {
+           padding-top: $padding;
+     padding-bottom: $padding;
+    }
+    /* para-text component css start */
+
+    /* Item Seperator component  CSS Start*/
+    .item-seperator {
+           padding-top: $padding;
+     padding-bottom: $padding;
+    }
+    /* Item Seperator component  CSS end*/
+      /*Count List / Ion badges Css Start*/
+      .count-list {
+           padding-top: $padding;
+     padding-bottom: $padding; 
+    }
+
+    /*Count List / Ion badges Css End*/
+
+    /*Collapse List /rep-card Css start*/
+    .collapse-list-container {
+           padding-top: $padding;
+     padding-bottom: $padding; 
+    }
+    /*Collapse List /rep-card Css End*/
+
+    /* Search input css Start */
+    .input-text .native-input {
+           padding-top: $padding;
+     padding-bottom: $padding; 
+    }
+
+    /* Search input css End*/
+  
+    /* News Scoll component CSS Start*/
+    .marquee-container {
+        marquee {
+               padding-top: $padding;
+     padding-bottom: $padding; 
+        }
+    }
+
+    /* News Scoll component  CSS End*/
+    /* two D KPI  */
+    .twod-kpi {
+        .kpi-header {
+               padding-top: $padding;
+     padding-bottom: $padding; 
+        }
+
+        .kpi-body {
+               padding-top: $padding;
+     padding-bottom: $padding; 
+        }
+    }
+
+    /* Two D KPI CSS End */
+    /* menu tab css start */
+    .tab-menu {
+        .name-container {
+            h6 {
+                   padding-top: $padding;
+     padding-bottom: $padding; 
+            }
+        }
+    }
+
+    /* menu tab CSS End*/
+    /*   Global Table CSS Start */
+    table {
+        thead {
+            th {
+                   padding-top: $padding;
+     padding-bottom: $padding; 
+            }
+        }
+
+        tbody tr:nth-child(even) {
+               padding-top: $padding;
+     padding-bottom: $padding; 
+        }
+
+        td,
+        ion-label {
+               padding-top: $padding;
+     padding-bottom: $padding; 
+        }
+    }
+
+    /*   Global Table CSS Start */
+
+    .summary-card-container{
+           padding-top: $padding;
+     padding-bottom: $padding; 
+        .single-summary-card{
+        .tophead-card {
+               padding-top: $padding;
+     padding-bottom: $padding; 
+        }
+    }
+    }
+
+    .text-box-txt {
+           padding-top: $padding;
+     padding-bottom: $padding; 
+    }
+    textarea{
+              padding-top: $padding;
+     padding-bottom: $padding; 
+    }
+    .checkbox-container{
+          padding-top: $padding;
+     padding-bottom: $padding; 
+    }
+    .column-count {
+           padding-top: $padding;
+     padding-bottom: $padding; 
+    }
+    .chat-box {
+           padding-top: $padding;
+     padding-bottom: $padding; 
+    }
+
+    .img-ic-new {
+           padding-top: $padding;
+     padding-bottom: $padding; 
+    }
+    .image-menu-container{
+        .menu-image {
+               padding-top: $padding;
+     padding-bottom: $padding; 
+        }
+    }
+    .text-band-ndm{
+        padding-top: $padding;
+        padding-bottom: $padding; 
+    }
+    
+} 

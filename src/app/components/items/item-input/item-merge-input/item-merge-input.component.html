@@ -1,0 +1,35 @@
+
+  <div class="new-input-item-type">
+    <ion-row>
+      <ion-col size="3" class="text-left">
+      <span >{{mergeItemInput.prompt_name}}
+      </span>
+      </ion-col>
+      <ion-col size="9">
+      <ion-icon class="code-btn" name="information-circle-outline" color="primary" slot="end"
+        *ngIf="globalObjects.toggleDevloperMode()" ></ion-icon>
+        <div style="width: 100%;position: relative;display: flex;align-items: flex-end;justify-content: center;height: 25px;">
+      <div class="input-buttons-container" style="top:5px !important;">
+
+        <button class="input-btn float-right" (click)="itemClicked('lov')" ion-button icon-only small>
+          <ion-icon name="ios-arrow-forward"></ion-icon>
+        </button>
+        <button *ngIf="mergeItemInput.value && mergeItemInput.item_enable_flag == 'T'" class="input-btn float-right" ion-button
+          icon-only small >
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </div>
+
+<button type="button" class="code-btn1" style="width: 95px;height: 20px;">
+  {{mergeItemInput.suffixValue}}
+</button>
+</div>
+</ion-col>
+</ion-row>
+  </div>
+  <ion-button color="primary" size="small" class="lov-append-button" *ngIf="lovObjFlag" (click)="itemClicked('objLov')">
+    <ion-icon slot="icon-only" name="eye"></ion-icon>
+  </ion-button>
+  <div class="error" *ngIf="mergeItemInput.msgError">{{mergeItemInput.msgError}}</div>
+  <div class="error" *ngIf="mergeItemInput.forced_error_msg">{{mergeItemInput.forced_error_msg}}</div>
+

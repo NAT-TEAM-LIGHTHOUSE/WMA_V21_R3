@@ -1,0 +1,284 @@
+@import '../../app/mixins';
+@import '../../app/variables';
+.font-weight {
+    $minimumWeight: var(--fontWeight) !important;
+    .text-primary,
+    p,
+    .globe-btn1,
+    ion-button {
+        font-weight: $minimumWeight;
+    }
+    /* para-text component css start */
+    .timeline-p {
+        font-weight: $minimumWeight;
+    }
+    /* Frame Canvas component CSS Start*/
+    .frame-name {
+        font-weight: $minimumWeight;
+    }
+    /* Frame Canvas component CSS Start*/
+    /* Item Seperator component  CSS Start*/
+    .item-seperator {
+        font-weight: $minimumWeight;
+    }
+    /* Item Seperator component  CSS end*/
+    .name-value-text {
+        .label-name,
+        .label-value {
+            font-weight: $minimumWeight;
+        }
+        .label-name {
+            font-weight: $minimumWeight;
+        }
+    }
+    .item.sc-ion-label-md-h,
+    .item .sc-ion-label-md-h,
+    .block-text ion-label {
+        font-weight: $minimumWeight;
+    }
+    /* para-text component css start */
+    /* Menu List component  CSS Start*/
+    .menu-list {
+        h2 {
+           font-weight: $minimumWeight;
+        }
+    }
+    /* Menu List  component  CSS End*/
+    /*new Menu List component  CSS Start*/
+    .new-menu-list {
+        h2 {
+            font-weight: $minimumWeight;
+        }
+    }
+    /* New Menu List  component  CSS End*/
+    /*Collapse List /rep-card Css start*/
+    .collapse-list-container {
+        .collapse-list {
+            font-weight: $minimumWeight;
+            ion-label,
+            ion-icon,
+            .message-text {
+                font-weight: $minimumWeight;
+            }
+            ion-icon {
+                font-weight: $minimumWeight;
+            }
+            h2.prompt-name {
+                font-weight: $minimumWeight;
+            }
+        }
+        .collapse-list-body {
+            font-weight: $minimumWeight;
+        }
+    }
+    /*Collapse List /rep-card Css End*/
+    /*Count List / Ion badges Css Start*/
+    .count-list {
+        .approval-body {
+            ion-item {
+                .count {
+                    p {
+                        font-weight: $minimumWeight;
+                    }
+                }
+            }
+            ion-label {
+                font-weight: $minimumWeight;
+            }
+        }
+    }
+    /*Count List / Ion badges Css End*/
+    /* Search input css Start */
+    .input-text .native-input {
+        font-weight: $minimumWeight;
+    }
+    /* Search input css End*/
+    /* New Input Item  css Start*/
+    .new-input-item-type {
+        .text-left {
+            span {
+                font-weight: $minimumWeight;
+            }
+        }
+    }
+    /* New Input Item css End*/
+    /* News Scoll component CSS Start*/
+    .marquee-container {
+        marquee {
+            font-weight: $minimumWeight;
+        }
+    }
+    /* News Scoll component  CSS End*/
+    /* two D KPI  */
+    .twod-kpi {
+        .kpi-header {
+            font-weight: $minimumWeight;
+        }
+        .kpi-body {
+            font-weight: $minimumWeight;
+        }
+    }
+    /* Two D KPI CSS End */
+    /* menu tab css start */
+    .tab-menu {
+        .name-container {
+            h6 {
+                font-weight: $minimumWeight;
+            }
+        }
+    }
+    /* menu tab CSS End*/
+    /*   Global Table CSS Start */
+    table {
+        thead {
+            th {
+                font-weight: $minimumWeight;
+            }
+        }
+        tbody tr:nth-child(even) {
+            font-weight: $minimumWeight;
+        }
+        td,
+        ion-label {
+            font-weight: $minimumWeight;
+        }
+    }
+    /*   Global Table CSS Start */
+    /*  chat box right css  */
+    .chat-right {
+        font-weight: $minimumWeight;
+    }
+    /*  chat box left css  */
+    .chat-left {
+        font-weight: $minimumWeight;
+    }
+
+    /*Smart Filters Start*/
+    .smart-filter-section {
+        h5 {
+            font-weight: $minimumWeight;
+        }
+        h6 {
+            font-weight: $minimumWeight;
+        }
+        .view-all-btn {
+            font-weight: $minimumWeight;
+        }
+    }
+    /*Smart Filters End*/
+    .column-count {
+        font-weight: $minimumWeight;
+    }
+    ion-label {
+        font-weight: $minimumWeight;
+    }
+    /* single count CSS */
+    .single-count {
+        .count-name {
+            span {
+                font-weight: $minimumWeight;
+            }
+        }
+    }
+    .smart-filter-section1 {
+        h5 {
+        font-weight: $minimumWeight;
+        }
+    }
+    .image-slider {
+        ion-slide {
+            h1 {
+                font-weight: $minimumWeight;
+            }
+        }
+    }
+    .percentage-circle-wraper {
+        h5 {
+            font-weight: $minimumWeight;
+        }
+    }
+    .sub-select-dropdown {
+        ion-select {
+            font-weight: $minimumWeight;
+        }
+        .select-text {
+            font-weight: $minimumWeight;
+        }
+    }
+    .threeD-textband-container {
+        .threeD-textband-header {
+            font-weight: $minimumWeight;
+        }
+        .threeD-textband-footer {
+            font-weight: $minimumWeight;
+        }
+        .threeD-textband-body {
+            h5 {
+                font-weight: $minimumWeight;
+            }
+        }
+    }
+    .pagination-container {
+        .paginator {
+            li {
+                font-weight: $minimumWeight;
+            }
+        }
+    }
+    .graph-filters {
+        ion-item {
+            ion-select {
+                font-weight: $minimumWeight;
+            }
+        }
+    }
+    .summary-card-container {
+        .single-summary-card {
+            .tophead-card {
+                height: 160px;
+                padding: 8px;
+                .main-title {
+                    font-weight: $minimumWeight;
+              }
+             p {
+                    font-weight: $minimumWeight;
+                }
+                .code-btn {
+                    font-weight: $minimumWeight;
+                }
+            }
+            .summary-box {
+                margin-top: -104px !important;
+                width: 85%;
+                margin: auto;
+                padding: 10px;
+                border-radius: 12px;
+                h6 {
+                    font-weight: $minimumWeight;
+                }
+                table td {
+                    font-weight: $minimumWeight;
+                }
+                table {
+                    tr.heading1 td {
+                        font-weight: $minimumWeight;
+                    }
+                    .heading2 {
+                        .rate {
+                            font-weight: $minimumWeight;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+    .tab-menu-large {
+        .name-container {
+            h6 {
+                font-weight: $minimumWeight;
+
+            }
+        }
+    }
+}

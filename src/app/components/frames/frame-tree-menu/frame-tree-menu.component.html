@@ -1,0 +1,33 @@
+
+<div class="frame-head">
+  <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;"
+  *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]<ion-icon
+    class="code-btn" color="primary" name="information-circle-outline" *ngIf="developerModeData"
+    (click)="showDeveloperData()">
+  </ion-icon></span></h1>
+
+  <div class="tree-menubtn">
+    <button pButton type="button" (click)="expandAll()" title="expand one Level">
+      <ion-icon name="chevron-down-circle-outline"></ion-icon>
+    </button>
+    <button pButton type="button" (click)="collapseAll()" title="collapse one Level">
+      <ion-icon name="chevron-up-circle-outline"></ion-icon>
+    </button>
+  </div>
+  </div>
+
+<div class="tree-menu-section">
+ 
+<!-- <div class="tree-menubtn">
+  <button pButton type="button" (click)="expandAll()" title="expand one Level">
+    <ion-icon name="chevron-down-circle-outline"></ion-icon>
+  </button>
+  <button pButton type="button" (click)="collapseAll()" title="collapse one Level">
+    <ion-icon name="chevron-up-circle-outline"></ion-icon>
+  </button>
+</div> -->
+  
+  <!-- <p-tree  #treeComponent class="w-full md:w-30rem" [filter]="true" [value]="files" id="treemenu-list"  [(selection)]="selectedFile"  selectionMode="single"
+  (onNodeSelect)="onNodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"  (contextmenu)="onRightClick($event)">
+  </p-tree> -->
+</div>

@@ -1,0 +1,19 @@
+ <div *ngIf="cFilter">
+   <app-frame-filter [frameData]="frame" [wscp]="wscp_send_input" (emittoframeCanvasFilter)="datafromframeFilter($event)"></app-frame-filter>
+   </div>
+  
+   <div *ngIf="jFilter">
+    <app-frame-dependent-filter [frame]='frame' (passdataToframeDepen)="datafromframeFilter($event)">
+    </app-frame-dependent-filter>
+  </div>
+  <div *ngIf="aFilter">
+    <app-frame-advance-filter [frame]='frame' (passdataToframeDepen)="datafromframeFilter($event)">
+    </app-frame-advance-filter>
+  </div>
+  <div *ngIf="dnDFilter">
+    <app-frame-drag-drop [frame]='frame'></app-frame-drag-drop>
+  </div>
+  <div *ngIf="apexFilter">
+    <app-frame-apexfilter  [theadData]="frame.apextheads" (fromapexFilter)="getdataFromcanvasApex($event)"
+    [frame]='frame'></app-frame-apexfilter>
+  </div>

@@ -1,0 +1,102 @@
+<ion-header>
+  <ng-container *ngIf="upArrowon">
+  <ion-toolbar color="primary" class="ion-toolbar" [ngClass]="{ 'iosheight': platformFlag === 'ios' }" >
+    <!-- iosheight -->
+    <span class="left-bg"></span>
+    <span class="left-bg2"></span>
+   
+    <ion-title class="ion-title">
+      <div class="new-leftbar-position" (click)="right_bar()"> 
+      <ion-icon name="menu-outline"></ion-icon>
+      </div>
+      <div *ngIf="globalObjects.moduleFlag" class="new-module-position data-tooltip-shortcut right  alt" (click)="Moduleclick()">
+        <ion-icon name="apps-outline" ></ion-icon>
+        <span>Module</span>
+      </div>
+     
+      <ng-container *ngIf="lhs_lib.object_mast && lhs_lib.object_mast.Level2 && lhs_lib.object_mast.Level2[page_no]">
+        <ion-icon style="cursor: pointer; font-size: 18px;" name="create" (click)="openObjectEditorPage(object_mast)"
+          *ngIf="globalObjects.toggleDevloperMode() && globalObjects.toggleDevloperModePro && globalObjects.devItemEditFlag">
+        </ion-icon>
+        <ion-icon style="cursor: pointer; font-size: 18px;" name="add" (click)="openObjectEditorPage(lhs_lib.object_mast)"
+          *ngIf="globalObjects.toggleDevloperMode() && globalObjects.toggleDevloperModePro && globalObjects.devItemEditFlag">
+        </ion-icon>
+      </ng-container>
+      <div class="select-global-search">
+        <img src="./assets/imgs/LighthouseERPlogo.svg" *ngIf="!logoName || logoName.toUpperCase() == 'ERP'">  
+         <img src="./assets/imgs/HRM.svg" *ngIf="logoName && logoName.toUpperCase() == 'HRM'">  
+          <img src="./assets/imgs/CRM.svg" *ngIf="logoName && logoName.toUpperCase() == 'CRM'">  
+      </div>
+      
+      <div class="home-btn">
+        <div class="user-profile-role" >
+          <!-- (click)="UserRole($event)" --> <a titletip="Assign Role"><ion-icon name="person-outline" title="" *ngIf="userDetails.G_ROLE_NAME != ''"></ion-icon></a> &nbsp;
+           <span title="{{globalObjects.roleUser| titlecase }}"> {{userDetails.G_ROLE_NAME | titlecase }}</span>  <!--<ion-icon name="chevron-down-outline"></ion-icon> -->
+        </div>
+        
+        <div class="global_quicksearch data-tooltip-shortcut left  alt" [attr.data-shortcut]="this.globalObjects.toggle_shortcutkey_tooltip() ? 'Q':''" (click)="searchGlobal(search_item)" *ngIf="search_item" >
+          <ion-icon name="search-outline"></ion-icon> <span>Quick Search</span> 
+        </div>
+        
+        <div class="user-profile-p desktop_display" (click)="AdminNew($event)">
+        
+          <!-- <img *ngIf="userDetails.g_entity_img" [src]="'data:image/png;base64,' + userDetails.g_entity_img"
+            (error)="onImgError($event)" style="width:auto;height:100%;border-radius: 3px;margin-right:7px;"> -->
+            <!-- {{userDetails.g_entity_img}} -->
+          <div class="p_year">
+              <div style="border-bottom:1px solid rgba(255, 255, 255, 0.486);font-weight: 500;">
+                <b style="letter-spacing: 2px;white-space: nowrap;max-width: 60px;position: relative;display: inline-block;overflow: hidden;text-overflow: ellipsis;margin-bottom: -5px;padding: 0px;">
+                  {{userDetails.G_ENTITY_CODE}}
+                </b>&nbsp;|&nbsp;&nbsp;
+                <b style="letter-spacing: 2px;">FY</b> : &nbsp;<b>{{userDetails.G_ACC_YEAR}}</b></div>
+              <!-- <div style="border-bottom:1px solid rgba(255, 255, 255, 0.486);font-weight: 500;"><b style="letter-spacing: 2px;">{{userDetails.G_ENTITY_CODE}}</b>&nbsp;|&nbsp;FY : {{userDetails.G_ACC_YEAR}}</div> -->
+              <div class="d-flex align-items-center justify-content-center"><ion-icon name="person-circle-outline" style="font-size: 15px;margin-right: 3px;"></ion-icon>
+                <b style="letter-spacing: 1px;display: flex;align-items: center;margin-top: 1px;font-weight: 500;">{{userDetails.wma_user_code}}</b>
+              </div>
+          </div>
+          <!-- {{globalObjects.userDetails.g_entity_img}} -->
+        </div>
+        <div class="user-profile-p mobile_display" (click)="AdminNewmobile()">
+        
+          <!-- <img *ngIf="userDetails.g_entity_img" [src]="'data:image/png;base64,' + userDetails.g_entity_img"
+            (error)="onImgError($event)" style="width:auto;height:100%;border-radius: 3px;margin-right:7px !important;">
+
+             <img *ngIf="!userDetails.g_entity_img" src="assets/imgs/default-profile.jpg"
+            (error)="onImgError($event)" style="width:auto;height:100%;border-radius: 3px;margin-right:7px !important;"> -->
+            <!-- <div class="p_year"><b>{{userDetails.G_ENTITY_CODE}}</b><br>FY : {{userDetails.G_ACC_YEAR}}</div> -->
+             <!--<div class="p_year">
+              <div style="font-weight: 500;"><b style="letter-spacing: 2px;">{{userDetails.G_ENTITY_CODE}}</b>&nbsp;</div>
+              <div class="d-flex align-items-center justify-content-center"><ion-icon name="person-circle-outline" style="font-size: 15px;margin-right: 3px;"></ion-icon>
+                <b style="letter-spacing: 1px;display: flex;align-items: center;margin-top: 1px;font-weight: 500;">{{userDetails.wma_user_code}}</b>
+              </div> 
+          </div> -->
+          <div class="p_year">
+              <div style="border-bottom:1px solid rgba(255, 255, 255, 0.486);font-weight: 500;">
+                <b style="letter-spacing: 2px;white-space: nowrap;max-width: 60px;position: relative;display: inline-block;overflow: hidden;text-overflow: ellipsis;margin-bottom: -5px;padding: 0px;">
+                  {{userDetails.G_ENTITY_CODE}}
+                </b>&nbsp;|&nbsp;&nbsp;
+                <b style="letter-spacing: 2px;">FY</b> : &nbsp;<b>{{userDetails.G_ACC_YEAR}}</b>
+              </div>
+              <!-- <div style="border-bottom:1px solid rgba(255, 255, 255, 0.486);font-weight: 500;"><b style="letter-spacing: 2px;">{{userDetails.G_ENTITY_CODE}}</b>&nbsp;|&nbsp;FY : {{userDetails.G_ACC_YEAR}}</div> -->
+              <div class="d-flex align-items-center justify-content-center"><ion-icon name="person-circle-outline" style="font-size: 15px;margin-right: 3px;"></ion-icon>
+                <b style="letter-spacing: 1px;display: flex;align-items: center;margin-top: 1px;font-weight: 500;">{{userDetails.wma_user_code}}</b>
+              </div>
+          </div>
+        </div>
+      </div>
+    </ion-title> 
+
+    
+    <ion-buttons slot="end" fill="clear" icon-only (click)="openNotification()" *ngIf="toggleNotification">
+      <ion-icon name="notifications"></ion-icon>
+      <ion-badge *ngIf="notificationCount > 0" class="position-absolute header-count" color="danger">
+        {{notificationCount}}</ion-badge>
+     
+    </ion-buttons>
+    <div>
+  </div>
+  </ion-toolbar>
+</ng-container>
+</ion-header>
+
+

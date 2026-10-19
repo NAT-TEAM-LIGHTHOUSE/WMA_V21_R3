@@ -1,0 +1,8 @@
+<div [hidden]="!active" class="pane">
+  <ng-content></ng-content>
+  <ng-container *ngIf="template"
+    [ngTemplateOutlet]="template"
+    [ngTemplateOutletContext]="{ isTab: dataContext.isTab, wscp: dataContext.wscp, wsdpcl: dataContext.wsdpcl, page_no: dataContext.page_no, object_mast: dataContext.object_mast,click_events_str: dataContext.click_events_str,  superId:superId,tabs: dataContext.tabs, dynamicTabs: dataContext.dynamicTabs }"
+  >
+  </ng-container>
+</div>

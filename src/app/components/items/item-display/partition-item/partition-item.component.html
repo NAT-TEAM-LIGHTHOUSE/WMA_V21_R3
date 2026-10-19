@@ -1,0 +1,58 @@
+
+
+<ion-row class="align-center" *ngIf="separator.item_type =='FRAME_SEPARATOR' && separator.prompt_name && separator.item_sub_type=='FRAME'">
+  <ion-col col-12 style="padding-left:0">
+    <ng-container >
+      <h1 class="item-seperator position-relative" [ngStyle]="separator.display_setting_str" >
+        {{separator.prompt_name}}
+      </h1>
+    </ng-container>
+   
+
+  </ion-col>
+</ion-row>
+
+
+<ion-row class="align-center " *ngIf="separator.item_type =='FRAME_SEPARATOR' && separator.prompt_name && separator.item_sub_type=='FRAME_BORDER'">
+  <ion-col col-12 style="padding-left:0">
+    <ng-container >
+      <h1 class="item-seperator position-relative frame_border_heading" [ngStyle]="separator.display_setting_str">
+        {{separator.prompt_name}} 
+      </h1>
+   
+    </ng-container>
+  </ion-col>
+</ion-row>
+
+<ion-row class="align-center " *ngIf="separator.item_type =='FRAME_SEPARATOR' && separator.prompt_name && separator.item_sub_type=='FRAME_INPUT'">
+  <ion-col col-12 style="padding-left:0">
+    <ng-container >
+      <h1 class="item-seperator position-relative frame_border_heading" [ngStyle]="separator.display_setting_str">
+        {{separator.prompt_name}} 
+      </h1>
+   
+    </ng-container>
+  </ion-col>
+</ion-row>
+
+
+<ion-row class="align-center" *ngIf="separator.item_type =='SEPARATOR' && separator.prompt_name">
+  <ion-col col-12 style="padding-left:0">
+    <ng-container *ngIf=" separator.item_sub_type == 'LEFT'">
+      <h1 class="item-seperator item-seperator-left position-relative" style="text-align: left;" [ngStyle]="separator.display_setting_str">
+       <span>{{separator.prompt_name}}</span> 
+      </h1>
+    </ng-container>
+    <ng-container *ngIf=" separator.item_sub_type == 'CENTER'">
+      <h1 class="item-seperator item-seperator-center position-relative" style="text-align: center;" [ngStyle]="separator.display_setting_str">
+        <span>{{separator.prompt_name}}</span> 
+      </h1>
+    </ng-container>
+    <ng-container *ngIf=" separator.item_sub_type == 'RIGHT'">
+      <h1 class="item-seperator item-seperator-right position-relative" style="text-align: right;" [ngStyle]="separator.display_setting_str">
+        <span>{{separator.prompt_name}}</span> 
+      </h1>
+    </ng-container>
+
+  </ion-col>
+</ion-row>

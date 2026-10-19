@@ -1,0 +1,15 @@
+<div class="primary_container">
+  <ng-container *ngIf = "frame.apps_frame_sub_type=='PRIMARY'">
+    <div *ngFor="let framedata of frame.canvasRows;let rowindex =index">
+      <!-- <ion-row *ngFor="let itemGroup of framedata">  -->
+      <ion-row *ngFor="let itemGroup of framedata;" [ngStyle]="(itemGroup.Level5 && itemGroup.Level5.length > 0 && itemGroup.Level5[0].display_setting_str) ? itemGroup.Level5[0].display_setting_str : ''">
+        <ion-col [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : '12' " class="pr-2"  *ngFor="let item of itemGroup.Level5;let i=index" [hidden]="item.item_visible_flag!='T'">
+          <div>
+            <p>{{item.prompt_name}}</p>
+            <h5>{{item.value}}</h5>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div> 
+  </ng-container>
+</div>

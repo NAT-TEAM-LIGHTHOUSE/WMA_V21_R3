@@ -1,0 +1,212 @@
+<div class="add-to-cart">
+  <div class="input-group primary-search-section cart-search">
+    <ion-input class="input-text" placeholder="Search Here..." [(ngModel)]="tablerowsfilter"></ion-input>
+    <div class="input-group-append">
+      <button class="lov-btn" ion-button icon-only small>
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="bag-section  float-right d-inline-block position-relative" (click)="showSumCart()">
+    <ion-icon name="cart"></ion-icon>
+    <div class="bag-section-count position-absolute">{{frame.summcartArr ? frame.summcartArr.length : 0}}</div>
+  </div>
+  <div class="clearfix"></div>
+  <ng-container *ngIf="!frame.loading">
+    <ng-container *ngFor="let tableData of frame.tableRows | searchfilter :tablerowsfilter; let rowindex=index">
+      <ion-card class="position-relative">
+        <ion-list lines="none">
+
+          <ion-item>
+          <ion-row class="w-100 mx-4">
+            <ion-col size="3" class="p-0 d-flex align-items-center justify-content-center">
+              <ng-container *ngFor="let rows of tableData">
+              <ng-container *ngFor="let input_item of rows.Level5">
+                <ion-thumbnail *ngIf="input_item.item_name == 'PHOTO'  && input_item.item_visible_flag == 'T'">
+                  <app-items [item]="input_item" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                    (emitPass)="itemClicked($event,rowindex)" (LHSOnChange)="itemValueChange($event,tableData,rowindex)">
+                  </app-items>
+                </ion-thumbnail>
+              </ng-container>
+            </ng-container> 
+            </ion-col>
+             <ion-col size="9" class="p-0">
+               <div class="ml-2 w-100">
+              <ng-container *ngFor="let rows of tableData">
+                <ng-container *ngFor="let input_item of rows.Level5">
+                  <ion-label *ngIf="input_item.item_name == 'ITEM_NAME'">
+                    <h2 [ngStyle]="input_item.display_setting_str">
+                      <ng-container *ngIf="input_item.prompt_name">{{input_item.prompt_name}}: </ng-container>
+                      {{input_item.value}}
+                    </h2>
+                  </ion-label>
+
+                  <ion-label *ngIf="input_item.item_name == 'SHORTNAME'">
+                    <h2 [ngStyle]="input_item.display_setting_str">
+                      <ng-container *ngIf="input_item.prompt_name">{{input_item.prompt_name}}: </ng-container>
+                      {{input_item.value}}
+                    </h2>
+                  </ion-label>
+                </ng-container>
+              </ng-container>
+
+              <h5 class="m-0">
+                <ng-container *ngFor="let rows of tableData">
+                  <ng-container *ngFor="let input_item of rows.Level5">
+                    <ng-container *ngIf="input_item.item_name == 'FC_RATE' && input_item.value">
+                      <img class="rupees-icon d-inline-block" src="assets/imgs/rupee-icon.png"><span>
+                        {{input_item.value}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+
+                <ng-container *ngFor="let rows of tableData">
+                  <ng-container *ngFor="let input_item of rows.Level5">
+                    <ng-container *ngIf="input_item.item_name == 'RATE_UM' && input_item.item_visible_flag == 'T'">
+                      {{input_item.value}}
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </h5>
+              <div>
+                <label class="min-qty-label">
+                  <ion-row>
+                    <ion-col class="p-0" size="auto">
+                      <ion-row>
+                        <ion-col class="p-0" size="auto">
+                          <ng-container *ngFor="let rows of tableData">
+                            <ng-container *ngFor="let input_item of rows.Level5">
+                              <ng-container
+                                *ngIf="input_item.item_name == 'SALE_RATE' && input_item.item_visible_flag == 'T'">
+                                <app-items [item]="input_item" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                                  (emitPass)="itemClicked($event,rowindex)"
+                                  (LHSOnChange)="itemValueChange($event,tableData,rowindex)">
+                                </app-items>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </ion-col>
+
+                        <ion-col class="p-0" size="auto">
+
+                        </ion-col>
+                      </ion-row>
+                    </ion-col>
+                    <ion-col class="p-0" size="auto">
+                      <span>
+                        <!--  MT -->
+                        <ng-container *ngFor="let rows of tableData">
+                          <ng-container *ngFor="let input_item of rows.Level5">
+                            <ng-container *ngIf="input_item.item_name == 'UM' && input_item.item_visible_flag == 'T'">
+
+                              <ng-container *ngIf="input_item.prompt_name">{{input_item.prompt_name}}: </ng-container>
+                              {{input_item.value}}
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                        <ng-container *ngFor="let rows of tableData">
+                          <ng-container *ngFor="let input_item of rows.Level5">
+                            <ng-container *ngIf="input_item.item_name == 'AUM' && input_item.item_visible_flag == 'T'">
+                              <ng-container *ngIf="input_item.prompt_name">{{input_item.prompt_name}}: </ng-container>
+                              {{input_item.value}}
+                            </ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </span>
+                    </ion-col>
+                  </ion-row>
+                </label>
+
+                <ng-container *ngFor="let rows of tableData">
+                  <ng-container *ngFor="let input_item of rows.Level5">
+                    <ng-container *ngIf="input_item.item_visible_flag == 'T' ">
+                      <div
+                        [hidden]=" input_item.item_name == 'ITEM_NAME' || input_item.item_name == 'PHOTO' ||
+                            input_item.item_name == 'SALE_RATE' || input_item.item_name == 'UM' || input_item.item_name == 'FC_RATE' 
+                            || input_item.item_name == 'AQTYORDER' || input_item.item_name == 'SHORTNAME' || input_item.item_name == 'AUM' || input_item.item_name == 'RATE_UM'">
+
+                        <label class="min-qty-label">
+                          <ion-row>
+                            <ion-col class="p-0">
+
+                              <app-items [item]="input_item" [frame_type]="frame.apps_frame_type" [frame]="frame"
+                                (emitPass)="itemClicked($event,rowindex)"
+                                (LHSOnChange)="itemValueChange($event,tableData,rowindex)">
+                              </app-items>
+                            </ion-col>
+                          </ion-row>
+                        </label>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </div>
+
+              <ng-container *ngFor="let rows of tableData">
+                <ng-container *ngFor="let numberinput of rows.Level5">
+                  <ng-container *ngIf="numberinput.item_name == 'AQTYORDER' && numberinput.item_visible_flag == 'T'">
+                    <div class="add-btn-section float-right">
+
+                      <ion-button id="showAddButton{{rowindex}}" *ngIf="numberinput.addBtn && !numberinput.value" [disabled]="numberinput.item_enable_flag == 'F'"
+                        (click)="ShowQty(numberinput,tableData,rowindex)" size="small" fill="outline">Add</ion-button>
+                      <div class="input-group" id="showQunatityInput{{rowindex}}"
+                        *ngIf="!numberinput.addBtn || numberinput.value">
+                        <div class="input-group-append">
+                          <button  class="border-bottom-lov-btn" ion-button icon-only small>
+                            <ion-icon name="remove" (click)="decreaseNum(numberinput,tableData,rowindex)"></ion-icon>
+                          </button>
+                        </div>
+
+                        <ion-input type="number" [min]="numberinput.from_value" [max]="numberinput.to_value"
+                          maxlength="{{numberinput.item_size}}" id="{{numberinput.item_name}}"
+                          pattern="{{numberinput.input_pattern}}" [(ngModel)]="numberinput.value"
+                          [readonly]="numberinput.item_enable_flag && (!(numberinput.item_enable_flag.indexOf(current_page_parameter.MODE)>-1)||(numberinput.item_enable_flag=='F'))"
+                          [required]="(current_page_parameter.MODE && (numberinput.data_required_flag && 
+                       (numberinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+                       ||numberinput.data_required_flag=='T' 
+                       ||numberinput.prompt_name[numberinput.prompt_name.length -1] =='*'" #numberInputname="ngModel"
+                          name="{{numberinput.item_name}}"
+                          (ionChange)="numberinput.isValid=numberInputname.valid; numberinput.touched=true;"
+                          (ionBlur)="numberinput.touched=true;itemValueChange(numberinput,tableData,rowindex)"
+                          (ngInit)="numberinput.isValid=numberInputname.valid">
+                        </ion-input>
+                        <div class="input-group-append">
+                          <button class="border-bottom-lov-btn" ion-button icon-only small>
+                            <ion-icon name="add" (click)="increaseNum(numberinput,tableData,rowindex)"></ion-icon>
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="error" *ngIf="!numberinput.isValid && numberinput.touched">Invalid Number or Invalid
+                      Decimal Place</div>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+
+            </div>
+            </ion-col>
+          </ion-row>
+             
+
+           
+
+          </ion-item>
+        </ion-list>
+      </ion-card>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="frame.loading">
+    <div class="center">
+      <div class="text-center cent-loader">
+        <img src="../../../../assets/dot.gif" width="20%">
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+
+

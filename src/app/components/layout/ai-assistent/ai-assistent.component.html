@@ -1,0 +1,290 @@
+<div class="ai-assistent-container">
+  
+  <div class="ai-assistent-header" >
+    <!-- <img src="assets/imgs/ai_assit.png" alt="AI Assistant Icon" class="ai-assistent-icon"/> -->
+    <div *ngIf="activeTab === ''">
+     <h2>{{ getHeaderTitle() }}</h2>
+     <p>{{ getHeaderSubtitle() }}</p>
+    </div> 
+  
+    <button class="back_ai" (click)="goBack()" *ngIf="activeTab !== ''">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button> 
+    <!-- <img src="assets/imgs/ai_assit.png" alt="AI Assistant Icon" class="ai-assistent-icon"/> -->
+    <div *ngIf="activeTab !== ''">
+     <h2>{{ getHeaderTitle() }}</h2>
+     <p>{{ getHeaderSubtitle() }}</p>
+    </div> 
+
+    <!-- <div class="action-btn">
+      <ion-button class="action_btn-n" title="Help and support" (click)="tabclick('helpsupport')" >
+       <ion-icon name="help-circle-outline"></ion-icon> Help & Support
+      </ion-button>
+    </div> -->
+  </div>
+
+<div class="ai-assistent-body" *ngIf="activeTab === ''" [title]="activeTab" >
+   <div class="ai-assistent-chat">
+     <!-- <img src="assets/imgs/ai_assit.png" alt="AI Assistant " style="height: 100px;"/> -->
+      
+      <div class="ai-assistent-message mt-2" style="background: linear-gradient(45deg, #fff4f4, #dddcff38);padding: 3% 0px;margin: 0px 5%;border-radius: 26px;border: 1px solid #f2c8c8;">
+         <h2><b>Welcome</b> to Lighthouse help center</h2>
+        <p>Quick answers and guides to power your ERP experience .Support,guide, and solutions all in one place</p>
+        <!-- <h2><b>Welcome</b> To Chat with <b class="ai">AI</b> Assistant</h2>
+        <p><b>Hello!</b> I'm your AI Assistant. How can I assist you today?</p> -->
+     </div>
+   </div> 
+
+
+   <div class="ai-assistent-card-container mt-3 ">
+    
+        <ion-row class="text-center justify-content-center">
+          <ion-col size="3">
+            <div class="ai-assistent-card text-center" (click)="tabclick('document')">
+                <!-- <ion-icon name="document-text"></ion-icon> -->
+                  <img src="assets/imgs/docal.png" style="height: 70px;" />
+              <h3>Documents</h3>
+              <p>Browser PDF guides & manuals</p>
+             
+            </div>
+          </ion-col>
+          <ion-col size="3">
+            <div class="ai-assistent-card text-center" (click)="tabclick('video')">
+              <!-- <ion-icon name="videocam"></ion-icon> -->
+ <img src="assets/imgs/videoal.png" style="height: 70px;" />
+              <h3>Videos</h3>
+              <p>Watch tutorial videos</p>
+             
+            </div>
+          </ion-col>
+          <!-- <ion-col size="3">
+            <div class="ai-assistent-card text-center" (click)="tabclick('faq')">
+                 <ion-icon name="code-outline"></ion-icon>
+              <h3>FAQ</h3>
+              <p>Find quick answers</p>
+             
+            </div>
+          </ion-col> -->
+          <ion-col size="3">
+            <div class="ai-assistent-card text-center" (click)="tabclick('aichat')">
+             <!-- <ion-icon name="chatbox"></ion-icon> -->
+              <img src="assets/imgs/chatal.png" style="height: 70px;" />
+              <h3>Ask AI</h3>
+              <p>Ask Lighthouse AI for help</p>
+             
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <!-- <ion-row class="text-center justify-content-start ">
+          <ion-col size="12">
+             <div class="ai-assistent-title">
+              Popular Topics
+             </div>
+             <div class="ai-assistent-chips">
+          <ion-chip>Getting Started</ion-chip>
+          <ion-chip>Account Management</ion-chip>
+          <ion-chip>Billing & Payments</ion-chip>
+          <ion-chip>Troubleshooting</ion-chip>
+          <ion-chip>Feature Requests</ion-chip>
+          <ion-chip>Technical Support</ion-chip>
+             </div>
+          </ion-col>
+          </ion-row> -->
+   </div>
+
+
+
+ </div> 
+  
+   <div class="ai-assistent-body document" *ngIf="activeTab === 'document'" style="height: 81vh;overflow: hidden;">
+                    <iframe src="http://192.168.100.21:8888/LHS_ERP_HELP/layout.html#" style=" width: 100%;height: 81dvh;overflow: hidden;"  ></iframe>
+                </div> 
+
+
+                 <ng-container *ngIf="activeTab === 'video'" style="position: relative;"  >
+                  <app-help-video [frame]="activeFrame || helpVideo || helpFrame"></app-help-video>
+                </ng-container>
+
+
+                <div class="ai-assistent-body faq" *ngIf="activeTab === 'faq'">
+                  <!-- <app-help-faq [frame]="activeFrame || helpFaq"></app-help-faq> -->
+                   
+                   <iframe src="assets/icon/faq.html" style=" width: 100%;height: 81vh;"></iframe>
+                </div>
+
+
+ 
+                 <div class="ai-assistent-body aichat position-relative" *ngIf="activeTab === 'aichat'">
+                  <!-- <app-help-chat [frame]="activeFrame || helpChat"></app-help-chat> -->
+                 
+                   <iframe  [src]="iframeUrl" *ngIf="iframeUrl"  style=" width: 100%;height: 81dvh;" ></iframe> 
+
+  
+
+                </div> 
+                 <div class="ai-assistent-body aichat" *ngIf="activeTab === 'helpsupport'">
+                  <iframe src="http://192.168.100.25:8787/layout.html#" style=" width: 100%;height: 81vh;overflow: hidden;"></iframe>
+                </div> 
+
+
+               
+ <!-- <div class="ai-assistent-body document" *ngIf="activeTab === 'document' && !selectedDocument" >
+  <div class="doc_search">
+    <ion-icon name="search-outline"></ion-icon>
+    <ion-input type="text" placeholder="Search documents, videos, FAQs..." ></ion-input>
+  </div>
+
+  <div class="ai-assistent-browse">
+   
+    <ion-row>
+      <ion-col size="12">
+        <div class="ai-assistent-browse-item" (click)="openDocument({title: 'Release Notes', subtitle: 'Version V7C Updates', type: 'release-notes'})">
+          <ion-icon class="document-icon" name="document-text-outline"></ion-icon>
+          <div>
+            <h3>Release Notes</h3>
+            <p>Version V7C Updates</p>
+          </div>
+        </div>
+      </ion-col>
+     <ion-col size="12">
+        <div class="ai-assistent-browse-item" (click)="openDocument({title: 'User Guide', subtitle: 'Complete user documentation', type: 'user-guide'})">
+          <ion-icon class="document-icon" name="document-text-outline"></ion-icon>
+          <div>
+            <h3>User Guide</h3>
+            <p>Complete user documentation</p>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+
+
+
+
+ <div class="ai-assistent-body video" *ngIf="activeTab === 'video'" style="position: relative;"  >
+  <div class="doc_search">
+    <ion-icon name="search-outline"></ion-icon>
+    <ion-input type="text" placeholder="Search documents, videos, FAQs..." ></ion-input>
+  </div>
+
+
+ <div class="ai-assistent-body faq" *ngIf="activeTab === 'faq'">
+  <div class="doc_search">
+    <ion-icon name="search-outline"></ion-icon>
+    <ion-input type="text" placeholder="Search documents, videos, FAQs..." ></ion-input>
+  </div>
+
+  <div class="ai-assistent-browse">
+   
+    <ion-row>
+      <ion-col size="12">
+        <div class="ai-assistent-browse-item d-block">
+          <div class="d-flex " style="position: relative;">
+            <ion-icon class="faq_icon" name="book-outline"></ion-icon>
+            <div>
+              <h3>Documents</h3>
+              <p>Browse PDF guides & manuals</p>
+            </div>
+            <button class="collapse_btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+              aria-expanded="false" aria-controls="collapseExample">
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </button>
+          </div>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user
+              activates the relevant trigger.
+            </div>
+          </div>
+      
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="ai-assistent-browse-item d-block">
+          <div class="d-flex " style="position: relative;">
+            <ion-icon class="faq_icon" name="book-outline"></ion-icon>
+            <div>
+              <h3>Documents</h3>
+              <p>Browse PDF guides & manuals</p>
+            </div>
+            <button class="collapse_btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+              aria-expanded="false" aria-controls="collapseExample">
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </button>
+          </div>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user
+              activates the relevant trigger.
+            </div>
+          </div>
+      
+        </div>
+      </ion-col>
+     
+    </ion-row>
+  </div>
+</div>
+
+
+ 
+ <div class="ai-assistent-body aichat" *ngIf="activeTab === 'aichat'">
+<div class="chat_container">
+<div class="chat_container_items aiuser mb-2">
+    <div class="chat_avatar me-3">
+     <ion-icon name="star-outline"></ion-icon>
+    </div>
+    <div class="chat_message">
+      <pre>Hello! 👋 I'm your AI assistant powered by advanced language models. I can help you with:
+
+• **Getting started** with the platform
+• **Troubleshooting** any issues
+• **Finding features** and documentation
+• **Best practices** and tips
+
+How can I assist you today?</pre>
+    </div>
+
+</div>
+<div class="chat_container_items user mb-2">
+    
+    <div class="chat_message">
+      <pre>Hello! 👋 I'm your AI assistant powered by advanced language models. I can help you with:
+
+• **Getting started** with the platform
+• **Troubleshooting** any issues
+• **Finding features** and documentation
+• **Best practices** and tips
+
+How can I assist you today?</pre>
+    </div>
+    <div class="chat_avatar ms-3 me-0">
+     <ion-icon name="person-outline"></ion-icon>
+    </div>
+
+</div>
+</div>
+<div class="chat_footer">
+  <div class="chat_input" style="border:0px !important;">
+  <ion-input type="text" placeholder="Type your message..." ></ion-input>
+  
+  <button class="send_btn">
+    <ion-icon name="send-outline"></ion-icon>
+  </button>
+</div>
+<p class="text-center">AI may produce inaccurate information. Verify important details.</p>
+</div>
+
+
+</div> -->
+
+
+ <ng-container *ngIf="loaderFlag">
+    <div class="loader-container" style="position: absolute;top:0;bottom: 0;right:0;left:0;place-content: center;text-align: center;">
+    <img src="../../../../assets/page-loader-img.gif" alt="Loading..." class="loader-img" style="margin: auto;">
+     
+  </div>
+    
+  </ng-container>

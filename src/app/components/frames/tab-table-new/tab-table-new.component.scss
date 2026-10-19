@@ -1,0 +1,373 @@
+.frame-tab-table {
+    background-color: #ffffff;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+        .action-frame-head {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            // border-bottom: 1px solid rgb(202, 202, 202) !important;
+            padding: 5px 5px 5px 5px;
+            margin: 0px 0px 0px 0px;
+            // background-color: var(--blue-light-6);
+    
+        .ion-tab-btn {
+            cursor: pointer;
+            --background: none !important;
+            position: relative;
+            --box-shadow: none !important;
+            color: var(--secondary-text);
+            // min-width: 100px;
+            font-size: var(--font12) !important;
+            margin: 0px 10px 0px 0px;
+            padding-right: 20px;
+            --padding-start: 5px;
+            --padding-end: 5px;
+            --padding-top: 0px;
+            --padding-bottom: 0px;
+            height: 25px !important;
+           // min-width: 100px;
+            white-space: nowrap;
+            // overflow: hidden;
+            // list-style: none;
+            // text-overflow: ellipsis;
+
+            &:hover {
+                // --background-hover: none !important;
+                // --background: #ffffff !important;
+                --box-shadow: none !important;
+                color:var(--blue-new);
+                background-color: var(--blue-light-6);
+                //border:0px !important;
+                border-radius: 5px;
+            }
+            .button-inner{
+                justify-content: left !important;
+            } 
+            // button{
+
+            // }
+            // .code-btn{
+            //     position: absolute;
+            //     right: -2px;
+            // }
+        }
+
+        .ion-tab-btn.active {
+            // border-bottom: 2px solid var(--blue-new);
+            color: #ffffff;
+            background: var(--blue-new);
+            border-radius: 5px;
+            // max-width: 25% !important;
+            // text-overflow: ellipsis;
+            // overflow: hidden;
+            // white-space: nowrap;
+            // border-top-left-radius: 5px;
+            // border-top-right-radius: 5px;
+        }
+    
+
+    }
+
+
+
+    .frame-head {
+        
+        .frame-name {
+           // padding:5px 15px 0px 5px !important;
+            font-size: var(--font14) !important;
+            font-weight: 600;
+        }
+
+        .action-btn-bar {
+            display: flex;
+            float: right;
+            padding: 5px 15px;
+            align-items: center;
+            position: relative;
+
+            .action-btn {
+                margin-top: 4px !important;
+            }
+
+            .icon-btn {
+                color: var(--blackNew);
+                cursor: pointer;
+                background: transparent;
+                --background: transparent;
+                --box-shadow: none;
+                --padding-start: 0px;
+                --padding-end: 5px;
+
+                .action-icon {
+                    font-size: var(--font20) !important;
+                    padding: 5px 5px;
+                    color: var(--blackNew);
+
+                    &:hover {
+                        background: rgb(221, 221, 221);
+                    }
+                }
+            }
+        }
+    }
+
+    .border-none{
+        border: none !important;
+        ion-icon{
+            color: var(--blackNew);
+            transform: none !important;
+        }
+        &:hover{
+            ion-icon{
+                color: var(--blue-new);
+            }
+        }
+    }
+   
+
+
+
+    .table-tab-block {
+        margin: 5px 0px 0px 0px;
+        border: 1px solid #e7e7e7;
+        width: auto;
+        border-radius: 0px;
+        min-height: 190px;
+        max-height: 190px;
+        overflow: auto;
+        width: auto;
+
+        .thead_name {
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            white-space: nowrap !important;
+            .table-home-btn {
+                display: flex;
+                float: right;
+                padding: 0px 0px;
+                align-items: center;
+                position: relative;
+                position: relative;
+                margin-left: 10px;
+
+                &-icon {
+                    color: var(--blackNew);
+                    cursor: pointer;
+                    background: transparent;
+                    --background: transparent;
+                    --box-shadow: 0;
+                    width: 20px;
+                    height: 20px;
+                    font-size: var(--font10);
+                    --padding-start: 0px !important;
+                    --padding-end: 0px !important;
+                    --border-radius: 50%;
+
+                    &-action {
+                        font-size: var(--font14) !important;
+                        padding: 5px 5px;
+                        color: var(--blackNew);
+
+                        &:hover {
+                            background: rgb(221, 221, 221);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    table {
+        width: 100%;
+        margin: 0px 0px !important;
+
+        th {
+            padding: 5px 10px;
+            white-space: nowrap !important;
+        }
+
+        tr:first-child {
+            border-radius: 0rem 0 0 0rem;
+        }
+
+        th:first-child {
+            border-radius: 0rem 0 0 0rem;
+        }
+
+        th:last-child {
+            border-radius: 0 0rem 0rem 0;
+            border-right: none !important;
+        }
+
+        td {
+            min-height: 1.5rem !important;
+            height: 1.5rem !important;
+            padding: 5px 10px !important;
+            border-width: 1px 1px 0px 0;
+            border-color: var(--table-border);
+            color: var(--blackNew);
+            font-size: var(--font13);
+            font-weight: 500;
+            white-space: nowrap !important;
+            ion-checkbox {
+                margin-bottom: -5px !important;
+            }
+        }
+
+        thead {
+
+            th {
+                height: 2rem;
+                background: var(--table-bg-header) !important;
+                border-right: 1px solid var(--table-border) !important;
+                font-weight: 500;
+                opacity: 1;
+                padding: 5px 10px !important;
+                text-align: left !important;
+                white-space: wrap;
+                margin: 0px 0px !important;
+                padding: 5px 10px;
+                height: 1.5rem;
+                font-size: var(--font14);
+
+                ion-checkbox {
+                    margin-bottom: -5px !important;
+                }
+            }
+        }
+    }
+
+
+    .pagination-tab {
+        border: 1px solid #dddddd;
+        font-size: var(--font12);
+        height: 35px;
+        &-offrecord {
+            float: right;
+            position: relative;
+            z-index: 9999999;
+            display: flex;
+            align-items: center;
+            padding: 8.5px 5px 0px 5px;
+            color: var(--blackNew);
+            font-weight: 500;
+            font-size: var(--font11);
+        }
+    
+        &-right {
+            //float: right;
+            margin-right: 1px;
+            display: flex;
+            align-items: center;
+            font-size: var(--font11);
+            &-pagecount {
+                display: flex;
+                align-items: center;
+                width: 110px;
+                padding: 4px 1px;
+                color:#838383;
+                white-space: nowrap;
+                font-size: var(--font11);
+    
+                .ng-select { 
+                    // border: 2px ridge;
+                    height: 25px;
+                    border-radius: 5px;
+                    margin-left: 15px;
+                    font-size: var(--font14);
+                    --padding-top: 0;
+                    --padding-bottom: 0;
+                    // overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    // min-width: 200px;
+                    width: 98%;
+                    height: 25px;
+                    margin: 0px 0px;
+                    line-height: 18px;
+    
+                }
+    
+                .ng-options {
+                    height: 30px;
+                }
+    
+                .ng-select .ng-select-single .ng-select-container {
+                    height: 30px;
+                }
+    
+                .ng-select .ng-select-container {
+                    color: var(--text-light-1);
+                    cursor: default;
+                    display: flex;
+                    outline: 0;
+                    overflow: hidden;
+                    position: relative;
+                    width: 100%;
+                    border: 1px solid #ffffff;
+                    font-size: var(--font11);
+                }
+    
+                .ng-select .ng-clear-wrapper {
+                    display: none;
+                }
+            }
+            &-btn{
+                display: flex;
+                ion-button.right-btn{
+                    --background:none !important;
+                    background: none !important;
+                    --box-shadow:none !important;
+                    color:#838383;
+                    --padding-start:1px;
+                    --padding-end:1px;
+                    font-size: var(--font9) !important;
+                    height: 25px !important;
+                }
+            }
+        }
+    }
+
+}
+
+.ng-select.ng-select-single .ng-select-container {
+    min-height: 25px !important;
+    border: 1px solid #ffffff !important;
+}
+
+/* responsive start*/
+.frame-tab-table{
+    .action-frame-head{
+        .ion-tab-btn{
+            font-size: var(--font13) !important;
+            margin: 0px 5px 0px 0px;
+            list-style: none;
+            align-items: center;
+            padding: 3px 5px;
+            position: relative;
+            // border-right: 1px solid #cacaca;
+            // max-width: 25% !important;
+            // text-overflow: ellipsis;
+            // overflow: hidden;
+            // white-space: nowrap;
+            // font-weight: 500;
+             background-color: var(--blue-light-6);
+             border-radius: 5px;
+             font-weight: 500
+        }
+    } 
+}
+/* responsive end*/
+
+.frame-tab-container{
+    display: flex ;
+        align-items: center;
+        justify-content: space-between;
+    .frame-tab-btn{
+display: flex;
+align-items: center;
+    }
+}

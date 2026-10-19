@@ -1,0 +1,26 @@
+
+<ng-container *ngIf="frame.apps_frame_sub_type == 'BASIC' || frame.apps_frame_sub_type == 'COLLAPSE'" >
+  <ion-footer>
+    <ion-grid >
+      <ion-row>
+        <ng-container *ngFor="let item of footerArr; let i = index">
+  
+        <ion-col size="12" *ngIf="i < footerArr.length - 3" (click)="closePopover(item)" >
+          <ng-container *ngIf="item.item_visible_flag == 'T'">
+          <ion-item lines="none" class="ion-no-padding">              
+                <ion-label>{{item.prompt_name}}</ion-label>      
+              <div class="thumbnail-container">
+                <ion-thumbnail>                  
+                  <img [src]="item.baseImg" (error)="onImgError($event)">
+                </ion-thumbnail>
+              </div>
+          </ion-item>
+        </ng-container>
+        </ion-col>
+      </ng-container>
+   
+      </ion-row>
+    </ion-grid>
+  
+  </ion-footer>
+  </ng-container>

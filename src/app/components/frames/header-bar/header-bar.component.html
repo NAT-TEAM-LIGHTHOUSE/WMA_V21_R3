@@ -1,0 +1,41 @@
+<ion-toolbar color="primary" style="text-align: center;">
+  <ng-container *ngFor="let itemGroup of frame.Level4; let i = index">
+    <ng-container  *ngFor="let item of itemGroup.Level5; let j = index">
+      <ng-container *ngIf="i+j == 0" >
+        <ion-buttons slot="start"  >
+          <ng-container *ngIf="item.item_visible_flag == 'T'">
+            <ion-button >{{item.prompt_name}}</ion-button>
+          </ng-container>
+          
+        </ion-buttons>
+      </ng-container>
+
+
+    </ng-container>
+
+    <ng-container  *ngFor="let item of itemGroup.Level5; let j = index">
+      <ng-container  *ngIf="i+j != 0 && i+j != frame.Level4.length - 1" >
+        <ng-container *ngIf="item.item_visible_flag == 'T'">
+        <ion-buttons>  
+          <ion-button >{{item.prompt_name}} </ion-button>
+        </ion-buttons>
+      </ng-container>
+      </ng-container>
+
+
+    </ng-container>
+
+    <ng-container  *ngFor="let item of itemGroup.Level5; let j = index">
+      <ng-container *ngIf="i+j == frame.Level4.length - 1 && i+j != 0"  >
+        <ion-buttons slot="end"  >
+          <ng-container *ngIf="item.item_visible_flag == 'T'">
+          <ion-button >{{item.prompt_name}} </ion-button>
+          </ng-container>
+        </ion-buttons>
+      </ng-container>
+
+
+    </ng-container>
+    </ng-container>
+
+    </ion-toolbar>

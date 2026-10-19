@@ -1,0 +1,45 @@
+.smart-filter-section {
+    .inactive {
+
+        border: 1px solid var(--dark-grey-1);
+
+        .class1 {
+            color: var(--dark-grey-1);
+        }
+    }
+
+    .active {
+        //background-color: rgb(224 232 243 / 29%);
+        border: 1px dashed var(--blue-new);
+        padding: 0 4px;
+        font-size: var(--font12);
+
+        .class1 {
+            color: var(--white);
+        }
+    }
+} 
+
+.smart-filter-section1 {
+
+    .class1 {
+
+        background: var(--blue);
+
+        ion-label {
+            color: var(--white);
+        }
+    }
+
+    .class2 {
+        color: var(--dark-grey-1);
+        background: var(--white);
+    }
+}
+
+ion-chip {
+    ion-label {
+        font-size: var(--font11) !important;
+        margin: 0 !important;
+    }
+}

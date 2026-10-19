@@ -1,0 +1,13 @@
+<div   class="container-fluid m-0 p-0 ">
+
+          <div class="form-group ">
+              <!-- <label for="videoUrl">Video URL:</label> -->
+              <ion-textarea [hidden]="true" [(ngModel)]="streamEvent.value" (ionChange)="loadVideo(streamEvent.value)"></ion-textarea>
+              <!-- <input type="text" class="form-control" id="videoUrl" (change)="loadVideo(streamEvent.value)" [(ngModel)]="streamEvent.value" placeholder="Enter YouTube video URL"> -->
+          </div>
+          <!-- <button class="btn btn-primary " style="margin: 10px;" (click)="loadVideo()">Load</button> -->
+          <div *ngIf="videoUrlWithParams">
+              <iframe class="embed-responsive-item" [src]="videoUrlWithParams" allowfullscreen style="width: 100%;"></iframe>
+          </div>
+     
+</div>

@@ -1,0 +1,65 @@
+.userrole-section{
+    margin-top: 15px;
+    ul{
+        margin:0px 0px;
+        padding:0px 0px;
+      
+        li{
+            margin:0px 0px;
+            padding:10px 15px;
+            font-weight: 400;
+            font-size: var(--font14);
+            text-transform: capitalize;
+             color:var(--text-dark);
+             list-style: none;
+             cursor: pointer;
+             white-space: nowrap;
+             text-overflow: ellipsis;
+             overflow: hidden;
+             width: 100%;
+             background: #f9f9f9;
+             border-bottom: 1px solid #f3f3f3;
+
+             &:hover{
+                background-color: var(--blue-light-4);
+                color: var(--blue-new) !important;
+            }
+        }
+
+        li.active {
+            background-color: var(--blue-light-4);
+            color: var(--blue-new) !important;
+            text-transform: capitalize;
+        }
+
+
+        li:first-child{ 
+            background: #e7e7e7 !important;
+            padding-left: 5px;
+            padding: 25px 0px 7px 14px !important;
+            position: sticky;
+    font-weight: 500 !important;
+    top: 0;
+            &::after {
+              content: "Primary Role";
+              content: "Primary Role";
+              white-space: pre;
+              font-size: var(--font12);
+              position: absolute;
+              left: 14px;
+               top: 6px;
+              bottom: 0px;
+              font-weight: 400;
+              opacity: 0.8;
+              color: #5c5c5c;
+              }
+            //   &::before{
+            //     content:'☑';
+            //     position: absolute;
+            //     right: 0px;
+            //     top:0px;
+            //   }
+        }
+        
+    }
+}

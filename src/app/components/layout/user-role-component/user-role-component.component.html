@@ -1,0 +1,16 @@
+<h1 class="canavs_title">Roles</h1> 
+<div class="userrole-section">
+  <ng-container *ngIf="frame.tableData && frame.tableData.length > 0;else noRole">
+    <ul>
+      <ng-container *ngFor="let data of frame.tableData">
+      <li   (click)="itemClicked(data)">{{data.role}}</li>
+    </ng-container>
+    </ul>
+  </ng-container>
+  <ng-template #noRole>
+    <ul>
+      <li>No role available</li>
+    </ul>
+  </ng-template>
+</div>
+<!-- [ngClass]="data.role == globalObjects.roleUser ? 'active' : ''" -->

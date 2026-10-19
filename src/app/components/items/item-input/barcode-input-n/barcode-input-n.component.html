@@ -1,0 +1,80 @@
+<div *ngIf="plt == 'android'">
+  <ng-container *ngIf="barcodeinput.item_sub_type =='LARGE_QRCODE'">
+    <div class="barcode_scanner_icon">
+      <ion-icon name="barcode-outline" (click)="barcodescanner()"></ion-icon>
+   </div>
+  </ng-container>
+   <ng-container *ngIf="barcodeinput.item_sub_type =='QRCODE'">
+  <ion-item class="{{(barcodeinput.css_class == null) ? 'ion-input-item ion-input-item-border' : barcodeinput.css_class}}">
+  <ion-label  position="{{(barcodeinput.position == null) ? 'stacked': barcodeinput.position}}"  >{{barcodeinput.prompt_name}}</ion-label>
+  <div class="input-div-mobile">
+  <ion-input type="text" id="{{barcodeinput.item_name ? barcodeinput.item_name : 'abc'}}" [(ngModel)]="barcodeinput.value"
+    [maxlength]="barcodeinput.item_size" [required]="(current_page_parameter.MODE && (barcodeinput.data_required_flag && 
+    (barcodeinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+    ||barcodeinput.data_required_flag=='T'   
+    ||(barcodeinput.prompt_name && barcodeinput.prompt_name[barcodeinput.prompt_name.length -1] =='*')"  [readonly]="barcodeinput.item_enable_flag && barcodeinput.item_enable_flag=='F'"
+    #barcodeInputname="ngModel" (ngInit)="barcodeinput.isValid=barcodeInputname.valid"   (click)="itemClicked(barcodeinput)"
+    (ionBlur)="onChange(barcodeinput)">
+  </ion-input>
+
+  <div class="input-buttons-container">
+    <button class="input-btn float-right" ion-button icon-only small>
+      <ion-icon (click)="barcodescanner()" name="qr-code-outline"></ion-icon>
+    </button>
+    <button *ngIf="barcodeinput.value" class="input-btn float-right" ion-button icon-only small (click)="cleardata()">
+      <ion-icon name="close"></ion-icon>
+    </button>
+
+  </div>
+</div>
+</ion-item>
+<div class="error" *ngIf="barcodeInputname.hasError('required') && barcodeinput.touched"> Please Enter
+  {{barcodeinput.prompt_name}}
+</div>
+<div class="error" *ngIf="barcodeinput.msgError">{{barcodeinput.msgError}}</div>
+<div class="error" *ngIf="barcodeinput.forced_error_msg">{{barcodeinput.forced_error_msg}}</div>
+</ng-container>
+</div>
+
+<div *ngIf="plt == 'browser'"  class="input-type6-containter bar-code-container" class="{{(barcodeinput.css_class == null) ? 'ion-input-item ion-input-item-border' : barcodeinput.css_class}}">
+  <div class="newIp-type3">
+    <ion-row >
+      <ion-col  [size]="col1" class="bg-prompt">
+        <p class="input-group-label "  >
+        {{barcodeinput.prompt_name}}</p>
+       
+      </ion-col>
+  
+      <ion-col class="input-container" [size]="col2">
+        <div class="input-div">
+          <input type="text" id="{{barcodeinput.item_name ? barcodeinput.item_name : 'abc'}}" [(ngModel)]="barcodeinput.value"
+            [maxlength]="barcodeinput.item_size" [required]="(current_page_parameter.MODE && (barcodeinput.data_required_flag && 
+                    (barcodeinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+                    ||barcodeinput.data_required_flag=='T'   
+                    ||(barcodeinput.prompt_name && barcodeinput.prompt_name[barcodeinput.prompt_name.length -1] =='*')"
+            [readonly]="barcodeinput.item_enable_flag && barcodeinput.item_enable_flag=='F'" #barcodeInputname="ngModel"
+            (ngInit)="barcodeinput.isValid=barcodeInputname.valid" (click)="itemClicked(barcodeinput)"  (change)="onChange(barcodeinput)"
+            (blur)="onChange(barcodeinput)"
+            >
+   
+  
+      <div class="input-buttons-container barcode-action-container">
+        <button  (click)="barcodescanner()" class="input-btn float-right" ion-button icon-only small>
+          <ion-icon   name="qr-code-outline"></ion-icon>
+        </button>
+        <button *ngIf="barcodeinput.value" class="input-btn float-right" ion-button icon-only small (click)="cleardata()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    
+        </div> 
+        </div>
+      </ion-col>
+      <div class="error" *ngIf="barcodeInputname.hasError('required') && barcodeinput.touched"> Please Enter
+        {{barcodeinput.prompt_name}}
+      </div>
+      <div class="error" *ngIf="barcodeinput.msgError">{{barcodeinput.msgError}}</div>
+      <div class="error" *ngIf="barcodeinput.forced_error_msg">{{barcodeinput.forced_error_msg}}</div>
+  
+    </ion-row>
+  </div>
+  </div>

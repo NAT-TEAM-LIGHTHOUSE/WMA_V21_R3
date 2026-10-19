@@ -1,0 +1,251 @@
+<div class="report_engine-model-tab">
+  <div class="report_engine-model-tab-container">
+
+      <div class="report_engine-model-tab-menu">
+        <ul>
+          <li [ngClass]="activeDatatype== 'ALL' ? 'active' : '' " (click)="clearSearch('ALL')"><a >All COLUMN</a></li>
+          <li [ngClass]="activeDatatype == 'VARCHAR' ? 'active' : ''  "(click)="clearSearch('VARCHAR')"> <a >BASIC</a></li>
+          <li [ngClass]="activeDatatype== 'NUMBER' ? 'active' : '' " (click)="clearSearch('NUMBER')"><a >NUMBER</a></li>
+          <li [ngClass]="activeDatatype== 'DATE' ? 'active' : '' " (click)="clearSearch('DATE')"><a >DATE</a></li>
+          <!-- <li [ngClass]="activeDatatype== 'ALL' ? 'active' : '' " (click)="toggleItm('ALL')"><a >All COLUMN</a></li> -->
+          
+          <ng-container *ngFor="let grp of grpByArr">
+            <li [ngClass]="activeDatatype== grp.groupname ? 'active' : '' " (click)="clearSearch(grp,'isgerp')"><a >{{grp.groupname}}</a></li>
+          </ng-container>
+          
+
+
+        </ul>
+      </div>
+
+ 
+      <div class="report_engine-model-tab-avlcolumn">
+        <h3>Available Column</h3>
+        <div class="search_report_engine_model">
+          <!-- <ion-input placeholder="Search Here.."  #inputSearch (ionInput)="searchItem($event)"></ion-input> -->
+           <ion-input placeholder="Search Here.."  [ngModel]="searchText()" (ngModelChange)="onSearchChange($event)"></ion-input>
+          <div class="search_report_engine_model_action">
+            <ion-button> <ion-icon name="search-outline"></ion-icon></ion-button>
+          </div>
+        </div>
+        <div class="select_allavlcolumn">
+            <ion-checkbox [(ngModel)]="selectAllCheckbox.checked" [checked]="selectAllCheckbox.checked" (click)="selectAllData();">
+            </ion-checkbox>
+            <ion-label>
+               Select All 
+            </ion-label>
+        </div>
+        <div class="report_engine_avlcolumn">
+          <ul>
+
+            <ng-container *ngIf="searchableData.length>0; else frameCanvas">
+           
+               <cdk-virtual-scroll-viewport itemSize="50" class="ion-content-scroll-host">
+              <ng-container *cdkVirtualFor="let itm of searchableData; let i = index">
+                <li *ngIf="itm.item_name &&  !itm.prompt_name.includes('WMA_') ">
+                  <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+                    *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData($event)"></ion-icon>
+                  <ion-item>
+                    <ion-checkbox [(ngModel)]="itm.checked" (ionChange)="onItemSelect(itm,$event)" [checked]="itm.checked"
+                      label-placement="end" justify="start">{{itm.prompt_name}} </ion-checkbox>
+                  </ion-item>
+                </li>
+              </ng-container>
+              </cdk-virtual-scroll-viewport>
+            </ng-container>
+            <ng-template #frameCanvas>
+                <ng-container *ngIf="!grpByFlag">
+              
+                  <!-- <cdk-virtual-scroll-viewport itemSize="30" class="ion-content-scroll-host">
+                <ng-container *cdkVirtualFor="let framedata of allColLevel4">
+                <ng-container *ngFor="let item of framedata.Level5; let i = index">
+
+                  <ng-container *ngIf="((item.datatype && item.datatype.includes(datatype))|| datatype=='ALL') && item.prompt_name &&  !item.prompt_name.includes('WMA') &&  item.item_visible_flag != 'M' ">
+                    <li >
+                      <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+                        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+                      <ion-item>
+                        <ion-checkbox [(ngModel)]="item.checked" (ionChange)="onItemSelect(item,$event)"
+                          [checked]="item.checked" label-placement="end" justify="start">{{item.prompt_name}}
+                        </ion-checkbox>
+
+                        
+
+                      </ion-item>
+                    </li>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              </cdk-virtual-scroll-viewport> -->
+              <cdk-virtual-scroll-viewport itemSize="50" class="ion-content-scroll-host">
+                
+
+                <li *cdkVirtualFor="let item of (allColLevel4 | flattenItems: datatype : 'allColLevel4'); let i = index">
+                  
+                  <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+                    *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)">
+                  </ion-icon>
+
+                  <ion-item>
+                    <ion-checkbox [(ngModel)]="item.checked" (ionChange)="onItemSelect(item,$event)"
+                      [checked]="item.checked" label-placement="end" justify="start">
+                      {{item.prompt_name}}
+                    </ion-checkbox>
+                  </ion-item>
+
+                </li>
+              </cdk-virtual-scroll-viewport>
+            </ng-container>
+            <ng-container *ngIf="grpByFlag">
+             
+                  <!-- <cdk-virtual-scroll-viewport itemSize="30" class="ion-content-scroll-host">
+                <ng-container *cdkVirtualFor="let grpData of grpByArr">
+                
+                <ng-container *ngIf="grpData.groupname==grpDataName">
+                  <ng-container *ngFor="let item of grpData.groupnameARR">
+                    <li >
+                      <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+                        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+                      <ion-item>
+                        <ng-container *ngIf="!item.prompt_name.includes('WMA')">
+                        <ion-checkbox [(ngModel)]="item.checked"  (ionChange)="onItemSelect(item,$event);" 
+                          [checked]="item.checked" label-placement="end" justify="start">{{item.prompt_name}}
+                        </ion-checkbox>
+                       
+                      </ng-container>
+                      </ion-item>
+                    </li>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              </cdk-virtual-scroll-viewport> -->
+              <cdk-virtual-scroll-viewport itemSize="50" class="ion-content-scroll-host">
+                
+
+                <li *cdkVirtualFor="let item of (grpByArr | flattenItems: grpDataName : 'grpByArr'); let i = index">
+                  
+                  <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+                        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+
+                  <ion-item>
+                     <ion-checkbox [(ngModel)]="item.checked"  (ionChange)="onItemSelect(item,$event);" 
+                          [checked]="item.checked" label-placement="end" justify="start">{{item.prompt_name}}
+                        </ion-checkbox>
+                  </ion-item>
+
+                </li>
+              </cdk-virtual-scroll-viewport>
+            </ng-container>
+              <!-- </ng-container> -->
+
+            </ng-template>
+          </ul>
+        </div>
+      </div>
+   
+
+   
+      <div class="report_engine-model-tab-selcolumn">
+        <h3>Selected Column</h3>
+        <div class="report_engine-model-tab-selcolumn_bandmenu">
+            <div class="report_engine_summary_bandmenu">
+             <cdk-virtual-scroll-viewport itemSize="50" class="ion-content-scroll-host" cdkDropList (cdkDropListDropped)="drop($event)"  [cdkDropListData]="dispColFrame.tableRows">
+              <ng-container *cdkVirtualFor="let framedata of dispColFrame.tableRows;let i =index">
+            
+                <div class="bandmenu_section"  cdkDrag [cdkDragData]="i">
+                  <div class="bandmenu_section_tab">
+                    <ion-button class="drag_btn_new" cdkDragHandle>
+                      <img src="./assets/imgs/drag_img.png"></ion-button>
+                    <ng-container *ngFor="let itemGroup of framedata">
+                      <ng-container *ngFor="let section of itemGroup.Level5" >
+                        <ng-container *ngIf="section.item_name=='PROMPT_NAME'">
+                          <a>{{ section.value }}</a>
+                        </ng-container>
+                        <ng-container *ngIf="section.item_name=='FILTER_CLAUSE'">
+                          <span style="margin:0px 10px 0px 0px">{{section.displayChips ? section.displayChips.length : ''}}</span>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container *ngFor="let itemGroup of framedata">
+                      <ng-container *ngFor="let section of itemGroup.Level5" >
+                        <ng-container *ngIf="section.item_name=='FORMULA_STR'">
+                          <div class="report_engine_dropdown">
+                            <ng-select    [(ngModel)]="section.value" (change)="setDropDownItem(framedata, section.value)">
+                              <ng-container *ngFor="let d of functions" >
+                                <ng-option  [value]="d.value" *ngIf="d.dataType.includes(section.newdatatype)">{{ d.name }}</ng-option>
+                              </ng-container>
+                            </ng-select>
+                          </div>
+                          </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                  <div class="bandmenu_section_action">
+                    <ion-button class="select_colbtn" (click)="moveDown(i)"
+                      [disabled]="i === dispColFrame.tableRows.length - 1" title="Record Down">
+                     <ion-icon name="arrow-down-outline" ></ion-icon>
+                    </ion-button>
+                    <ion-button class="select_colbtn" (click)="moveUp(i)" [disabled]="i === 0" title=" Record Up ">  <ion-icon name="arrow-up-outline" ></ion-icon></ion-button>
+                    <ion-button class="select_colbtn" (click)="removeItem(i,framedata)" title="Remove Record"> <ion-icon name="close-outline" ></ion-icon></ion-button>
+                   
+          
+                    <ng-container *ngFor="let itemGroup of framedata;let j=index">
+                      <ng-container *ngFor="let lovitem of itemGroup.Level5">
+                        <ng-container *ngIf="lovitem.item_name=='ITEM_NAME'">
+                          <ng-container>
+                         
+                              <ion-button class="select_colbtn" (click)="openLov(lovitem.value,'EQ',dispColFrame,i)" title="Lov from Master">
+                                <ion-icon name="filter-outline"></ion-icon>
+                              </ion-button>
+                          
+                          
+                            
+                          </ng-container>
+                          
+                       
+                          <ion-button class="select_colbtn" (click)="openLov(lovitem.value,null,dispColFrame,i)" title="Lov from Data">
+                        <ion-icon name="filter-outline" ></ion-icon>
+                        </ion-button>
+                    
+
+                      </ng-container>
+                    </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngFor="let itemGroup of framedata">
+                      <ng-container *ngFor="let section of itemGroup.Level5" >
+                                                 <ng-container *ngIf="section.item_name=='DATATYPE'">
+                                                   
+
+                        <ng-container *ngIf="section.value=='DATE'">
+                          <ion-icon (click)="addDuplicateField(framedata,i)" name="copy-outline"></ion-icon>
+                         </ng-container>
+                                                </ng-container>
+                        </ng-container>
+                        </ng-container> 
+                  </div>
+                </div>
+                
+              </ng-container>
+               </cdk-virtual-scroll-viewport>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="report_engine_footer_button">
+      <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData($event)"></ion-icon>
+        <ion-button (click)="close()">Cancel </ion-button>
+     
+      <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData($event)"></ion-icon>
+        <ion-button (click)="clearAll()">Clear All </ion-button>
+      <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData($event)"></ion-icon>
+      <ion-button (click)="apply()">Apply this </ion-button>
+    </div>
+  </div>

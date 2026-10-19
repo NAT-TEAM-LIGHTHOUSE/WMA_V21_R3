@@ -1,0 +1,76 @@
+// .tab-close {
+//     color: gray;
+//     text-align: right;
+//     cursor: pointer;
+//   }
+
+//   .tabLi{
+//     color: #000;
+//     cursor: default;
+//     background-color: #fff;
+//     border: 1px solid #ddd;
+//     border-bottom-color: transparent;
+//     padding: 10px 15px;
+//     margin-bottom: 5px;
+//   }
+
+  
+
+// .tabLi>li.active{
+//   border: 1px solid #ddd;
+// }
+
+
+.nav-tabs {
+    background: #bfc1c5;
+    margin-bottom: -1px;
+    overflow-y: auto;
+    width: 100%;
+    display: block;
+    white-space: nowrap;
+    .tabLi {
+      color: rgb(32, 33, 36);
+      cursor: default;
+      padding: 0px 13px;
+      margin: 0px 0px;
+      font-size: var(--font14);
+      font-weight: 400;
+      border-right: 1px solid #b2b2b2;
+      cursor: pointer;
+      display: inline;
+       .tab-close {
+          color: rgb(32 33 36);
+          text-align: right;
+          cursor: pointer;
+      }
+     
+      &:hover{
+        border: 1px solid #595959;
+        background: #ddd;
+        color: #323232;
+        font-weight: 400;
+      }
+   } 
+   .tabLi.active{
+        border: 1px solid #595959;
+        background: #ddd;
+        color: #323232;
+        font-weight: 400;
+        border:none;
+      }
+  }
+  .tabLi>li.active{
+    border: 1px solid #595959;
+    background: #ddd;
+  }
+
+  .page-tab-section .compamny_logo{
+
+    display: none;
+    padding: 10px 18px;
+    background: var(--blue-new);
+   img{
+    width: 25px;
+    margin-top: -7px;
+   }
+  }

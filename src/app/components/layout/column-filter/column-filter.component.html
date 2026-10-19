@@ -1,0 +1,74 @@
+<div class="table_filter">
+  <div class="t_filter color_area">
+    <ion-label>Color</ion-label>
+   <div class="color">
+    <ion-radio-group  (click)="getSearchResult('colorColumn',500,$event)" [value]="selectColor">
+      <ion-radio value="#F78B8B" ></ion-radio>
+      <ion-radio value="#D5C7FD"></ion-radio>
+      <ion-radio value="#B2C7FC"></ion-radio>
+      <ion-radio value="#B5FDF4"></ion-radio>
+      <ion-radio value="#AFEEAE"></ion-radio>
+      <ion-radio value="#F6E1B7"></ion-radio>
+      <ion-radio value="#ffd3ca"></ion-radio>
+    </ion-radio-group>
+    <ion-icon name="refresh-circle-outline" (click)="getSearchResult('refresh',500,$event)"></ion-icon>
+   </div>
+  </div>
+    <div class="t_filter switch_button">
+
+      <ion-item>
+        <ion-label>Horizontal Scroll Lock </ion-label>
+        <ion-toggle [checked]='freezeval && freezeval' (click)="getSearchResult('freezColumn',500,$event)"></ion-toggle>
+      </ion-item>
+    </div>
+
+      <div class="t_filter sort_area">
+    <div class="reset-btn">
+      <ion-button (click)="getSearchResult('reset',500,$event)">Reset</ion-button>
+    </div>
+    
+  </div>
+
+  
+   <div class="multi_filter">
+    <div class="searh_filter">
+      <ion-icon name="search-outline"></ion-icon>
+      <ion-textarea name="searchItem"
+        [(ngModel)]="searchValue"
+        (ionInput)="onSearchChange()"
+        placeholder="Search here..." autoGrow="true"></ion-textarea>
+    </div>
+    
+    <ng-container *ngIf="columnValueData?.length">
+      <div class="filter-list">
+        <ul>
+          <li class="d-flex align-items-center" style="background-color: #328da940;">
+            <ion-checkbox
+              [checked]="allselectCheck"
+              (click)="selectAll($event)">
+            </ion-checkbox>
+            <span class="filter-value">Select All</span></li>
+          <li *ngFor="let val of columnValueData" class="d-flex align-items-center">
+            <ion-checkbox
+              [checked]="val.checked"
+              (ionChange)="colValueSelect(val,$event)">
+            </ion-checkbox>
+            <span class="filter-value">{{ val.value }}</span>
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+
+
+    <div *ngIf="columnValueData?.length === 0 && searchValue" class="no-results">
+      <p style="font-size: 14px;">No matching items found</p>
+    </div>
+  </div>
+
+
+  <div class="t_filter sort_area">
+    <div class="reset-btn d-flex align-items-center">
+      <ion-button class="apply" [disabled]="!isApplyFilter" (click)="applyFilters()">Apply</ion-button>
+    </div>
+  </div>
+</div> 

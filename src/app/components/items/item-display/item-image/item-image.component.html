@@ -1,0 +1,39 @@
+   <ion-avatar class="zoom" slot="start" *ngIf="displayPhoto.item_sub_type=='ICON'" [ngStyle]="displayPhoto.display_setting_str" (click)="itemClick($event)">
+    <img [src]="imgData"  *ngIf="imgData">
+  </ion-avatar>
+
+  <ng-container *ngIf="displayPhoto.item_sub_type=='VARIABLE'">
+    <div class="d-flex align-center justify-content-end" *ngIf="globalObjects.parentAppkey =='AMRESS'">
+      <ion-icon name="download-outline" class="btn btn-primary p-1" slot="end" (click)="downloadFile()"></ion-icon>
+    </div>
+    
+    <div class="profile-card-new">
+    <img [src]="imgData" class="defaultImg new-card-image" *ngIf="imgData" [ngStyle]="displayPhoto.display_setting_str" (click)="photoview()">
+  </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="displayPhoto.item_sub_type=='ALIAS'">
+    <div class="card_logo" (click)="itemClick($event)">
+      <span [ngStyle]="displayPhoto.display_setting_str">{{displayPhoto.value}}</span>
+    </div>
+  </ng-container>  
+
+
+  <ng-container *ngIf="displayPhoto.item_sub_type=='NAME_ALIAS'">
+      <h2 [ngStyle]="displayPhoto.display_setting_str">{{displayPhoto.userInitials}}</h2>
+    <h3>{{displayPhoto.value}}</h3>
+  </ng-container> 
+
+  <ng-container *ngIf="displayPhoto.item_sub_type=='ICON_MENU'">
+  <div class="icon-menu-container">
+    <ion-row>
+      <ion-col (click)="itemClicked(displayPhoto)" class="ion-align-self-center">
+        <div class="each-icon {{displayPhoto.css_class | lowercase}} ">
+          <img [src]="imgData"  *ngIf="imgData">
+        </div>
+      <p class="prompt-name">{{displayPhoto.prompt_name}}</p>  
+      </ion-col>     
+    </ion-row>
+    </div>
+  </ng-container>

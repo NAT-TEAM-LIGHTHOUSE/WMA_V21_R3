@@ -1,0 +1,47 @@
+.scroll-bar-table{
+  height:700px;
+ // width:500px;
+ overflow-y: auto !important;
+  padding: 0px 3px 0px 3px;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
+  }
+  .scroll-bar-table table td {
+    border: 1px solid #ccc;
+    padding: 0px 0px 0px 10px;
+  }
+  .scroll-bar-table table thead tr th{
+    font-size: var(--font14);
+  }
+
+//   ion-toolbar{
+//     background-color: black;
+//   }
+//   ion-button{
+//     color: white;
+//   }
+//   .toolbar-container{
+//     background-color: cornflowerblue
+//   }
+//   .toolbar-background ion-buttons{
+//     background-color: white;
+
+//   }scroll-bar-table
+
+.scroll-bar-table tfoot{
+  //position:fixed ;
+  //bottom: 0;
+  position: sticky;
+    bottom: 0px;
+    background: white;
+    display: table-caption;
+    border:1px solid #cccccc;
+
+}
+.paginator ion-icon{
+ // font-size: var(--font19) !important;
+  padding-top:6px;
+
+}

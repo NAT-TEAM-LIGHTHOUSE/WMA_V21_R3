@@ -1,0 +1,15 @@
+<!-- <div class="texteditor_model">  -->
+  <!-- <textarea rows="4" cols="50" class="full-textarea" placeholder="Describe yourself here..."></textarea> -->
+  <!-- <ion-textarea class="full-textarea" label="Regular textarea" placeholder="Type something here"></ion-textarea>
+</div> -->
+ 
+<ion-header  style="position: absolute;top:-25px;left:10px;width: auto;">{{textarea.prompt_name}}</ion-header>
+<ion-textarea  [readonly]="textarea.item_enable_flag=='F'" style="height:97%;" #textInputname [(ngModel)]="textarea.value" >
+</ion-textarea>
+<!-- 
+{{values}}  -->
+<!-- [(ngModel)]=" textarea.value" -->
+
+
+
+

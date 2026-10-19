@@ -1,0 +1,12 @@
+ <div class="count-list theme-blue" (click)="itemClicked()">
+    <div class="approval-container">
+      <div class="approval-body">
+        <ion-item *ngIf='labelInput.value' floating>
+          <ion-label >{{labelInput.value[0]}}</ion-label>
+          <div class="count" *ngIf='labelInput.value[1]'>
+            <p>{{labelInput.value[1]}}</p>
+          </div>
+        </ion-item>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,22 @@
+<div class="main_global_section_one">
+  <div class="main-container">
+    <div class="left-bar">
+      <div class="tab">
+        <ul>
+        <ng-container *ngFor="let framedata of frame.canvasRows">     
+              <ng-container *ngFor="let itemGroup of framedata">
+                <ng-container *ngFor="let item of itemGroup.Level5,let i =index"  >
+                <ng-container  *ngIf="item.item_visible_flag=='T'">
+                 
+                  <li  (click)="itemClicked(item,i)" [ngClass]="item.active && item.active == 'T' ? 'active' : ''">
+                    <p> <span><ion-icon name="ellipse"></ion-icon></span>{{item.value ? item.value : item.prompt_name}}</p></li>
+                   <!-- {{item.prompt_name}} -->
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

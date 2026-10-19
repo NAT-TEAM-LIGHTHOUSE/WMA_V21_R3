@@ -1,0 +1,283 @@
+<!-- <div class="report_engine_summary_title">
+   {{frame.apps_page_frame_name}}
+  </div> -->
+<div class="report_engine_summary_tab">
+  <ul>
+    <li>
+      <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+      <a (click)="report_filter_column('ALL_COL')">+ Add Column</a>
+    </li>
+     <li>
+      <ion-button (click)="keyFIlterFlagDataToggle()" title="key FIlter Flag" class="summary_tab_icon" [disabled]="frame.frame_alias=='DISP_COL' && frame.iskeyFIlterFlagDataToggle">
+       <ion-icon name="expand-outline"></ion-icon>
+      </ion-button>
+    </li>
+    <li>
+      <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+      <ion-button title="Advance Filter" (click)="report_Advanced_filter('ADV_FILTER')" class="summary_tab_icon">
+        <ion-icon name="funnel-outline"></ion-icon>
+      </ion-button>
+     
+    </li>
+    <li>
+      <ion-button (click)="report_filter_addcolumn($event)" title="Formula Column" class="summary_tab_icon">
+        <ion-icon  name="add-outline"></ion-icon>
+      </ion-button>
+    </li>
+    
+    <li>
+      <a><ion-icon class="summary_tab_icon" name="ellipsis-vertical-outline"></ion-icon></a>
+    </li>
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="accordion  report_engine_accordion" id="report_engine_accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button">
+        Selected Columns
+      </button>
+    </h2>
+    <div id="report_engine_one" class="accordion-collapse show">
+      <div class="accordion-body">
+
+
+        <ng-container *ngIf="frame.frame_alias=='DISP_COL'">
+          <div  class="report_engine_summary_bandmenu">
+             <cdk-virtual-scroll-viewport itemSize="66" class="ion-content-scroll-host" cdkDropList (cdkDropListDropped)="drop($event,frame)"  [cdkDropListData]="frame.tableRows">
+            <ng-container *cdkVirtualFor="let framedata of frame.tableRows;let i =index">
+              <div class="bandmenu_section" cdkDrag [cdkDragData]="i">
+                <div class="bandmenu_section_tab">
+                  <ion-button class="drag_btn_new" cdkDragHandle><img src="./assets/imgs/drag_img.png"></ion-button>
+                  <ng-container *ngFor="let itemGroup of framedata">
+                    <ng-container *ngFor="let section of itemGroup.Level5">
+                      <ng-container *ngIf="section.item_name=='CB_SELECT'">
+                        <ion-checkbox  [checked]="section.value=='Y'"
+                          (ionChange)="setChecked(section,$event)">
+                        </ion-checkbox>
+                      </ng-container>
+                      <ng-container *ngIf="section.item_name=='PROMPT_NAME'">
+
+                        <a (click)="report_filter_column('ALL_COL')">{{ section.value }}</a>
+                      </ng-container>
+
+                      <ng-container *ngIf="section.item_name=='FILTER_CLAUSE'">
+                        <span>{{section.displayChips ? section.displayChips.length : ''}}</span>
+                        <ng-container *ngIf="section.displayChips?.length > 0 && section.displayReportEngineFlag">
+                          {{applyAdvnceFilter(framedata,section)}}
+                        </ng-container>
+                        <ng-container *ngIf="section.displayChips?.length < 1 && section.displayReportEngineFlag">
+                          {{remove_adv_filter_blank(framedata,section)}}
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+
+
+
+
+                </div>
+                <div class="bandmenu_section_action">
+                  <ion-icon name="arrow-down-outline" (click)="moveDown(i,frame)"
+                    [class.disabled-icon]="i === frame.tableRows.length - 1"></ion-icon>
+                  <ion-icon name="arrow-up-outline" (click)="moveUp(i,frame)" [class.disabled-icon]="i === 0"></ion-icon>
+                  <ion-icon name="close-outline" (click)="removeItem(i,frame)"></ion-icon>
+
+                  <ng-container *ngFor="let itemGroup of framedata">
+                    <ng-container *ngFor="let section of itemGroup.Level5">
+                      <ng-container *ngIf="section.item_name=='ITEM_NAME'">
+
+                        <ion-button class="summary_tab_icon m-0 h-auto" (click)="openLov(section.value,'EQ',frame,i)" title="Master Filter"><ion-icon name="filter-outline"></ion-icon></ion-button>
+
+                        <ion-button class="summary_tab_icon m-0 h-auto" (click)="openLov(section.value,null,frame,i)" title="Transaction Filter"><ion-icon name="filter-outline" ></ion-icon></ion-button>
+
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+           
+            </ng-container>
+            </cdk-virtual-scroll-viewport>
+          </div>
+
+        </ng-container>
+
+
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button">
+        Applied Advance Filter
+      </button>
+    </h2>
+    <div id="report_engine_two" class="accordion-collapse  show">
+      <div class="accordion-body">
+        <div class="report_engine_advanced_filter">
+
+          <ng-container *ngFor="let framedata of advFilterFrame.tableRows;let i =index">
+            <ul>
+              <li>
+
+                <ng-container *ngFor="let itemGroup of framedata">
+
+                  <ng-container *ngFor="let section of itemGroup.Level5">
+
+
+                    <ng-container *ngIf="section.item_name=='PROMPT_NAME'">
+                      <div class="disply_Applied_Filter">
+                        <span [title]="section.value">{{section.value}}</span>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="section.item_name=='FILTER_OPERATOR'">
+                      <div class="disply_Applied_Filter">
+                        <span [title]="section.value">{{section.value}}</span>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="section.item_name=='FILTER_CLAUSE'">
+                      <div class="disply_Applied_Filter">
+                        <span [title]="section.value">{{section.value}}</span>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+                <!-- <div class="right_close" ><ion-icon (click)="rmFieldValue(i)" name="close-outline" ></ion-icon></div> -->
+              </li>
+
+            </ul>
+
+          </ng-container>
+
+
+
+
+          <!-- <ul>
+          <li>
+            <p>CGST Amt = IGST Amt</p><div class="right_close"><ion-icon name="close-outline"></ion-icon></div>
+          </li>
+          <li>
+            <p>CGST Amt = IGST Amt</p><div class="right_close"><ion-icon name="close-outline"></ion-icon></div>
+          </li>
+          <li>
+            <p>CGST Amt = IGST Amt</p><div class="right_close"><ion-icon name="close-outline"></ion-icon></div>
+          </li>
+          <li>
+            <p>CGST Amt = IGST Amt</p><div class="right_close"><ion-icon name="close-outline"></ion-icon></div>
+          </li>
+        </ul> -->
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div cdkDropList class="report_engine_summary_bandmenu" (cdkDropListDropped)="drop($event)">
+
+    <ng-container *ngFor="let frameGrp of object_mast.Level2">
+      <ng-container *ngFor="let frame of frameGrp.Level3">
+    
+        <ng-container *ngIf="frame.frame_alias=='DISP_COL'">
+    
+          <div *ngFor="let framedata of frame.tableRows;let rowindex =index">
+            <ng-container *ngFor="let itemGroup of framedata">
+              <ng-container *ngFor="let section of itemGroup.Level5">
+                <ng-container *ngIf="section.item_name=='CB_SELECT'">
+                  
+                  <ion-checkbox [value]="section.value"  [checked]="section.value=='T'">
+                  </ion-checkbox>
+                </ng-container>
+                <ng-container *ngIf="section.item_name=='PROMPT_NAME'">
+  
+                  <a>{{ section.value }}</a>
+                </ng-container>
+  
+                <ng-container *ngIf="section.item_name=='FILTER_CLAUSE'">
+                  <span>{{section.displayChips ? section.displayChips.length : ''}}</span>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+  
+  
+  
+  
+          </div>
+          <div class="bandmenu_section_action">
+            <ion-icon name="arrow-down-outline" (click)="moveDown(i)"
+              [disabled]="i === frame.tableRows.length - 1"></ion-icon>
+            <ion-icon name="arrow-up-outline" (click)="moveUp(i)" [disabled]="i === 0"></ion-icon>
+            <ion-icon name="close-outline" (click)="removeItem(i)"></ion-icon>
+  
+            <ng-container *ngFor="let itemGroup of framedata">
+              <ng-container *ngFor="let section of itemGroup.Level5;let j=index">
+                <ng-container *ngIf="section.item_name=='ITEM_NAME';">
+  
+                <ion-icon name="filter-outline" (click)="openLov(section.value,'EQ',i)"></ion-icon>
+            
+                <ion-icon name="filter-outline" (click)="openLov(section.value,null,i)"></ion-icon>
+            
+              </ng-container>
+            </ng-container>
+            </ng-container>
+          </div>
+        </div>
+     
+      </ng-container>
+    </div>
+  
+  </ng-container>-->

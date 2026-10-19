@@ -1,0 +1,90 @@
+
+.helpdesk {
+    margin-top: 15px;
+    border-top: 1px solid rgb(192, 192, 192);
+    height: 100%;
+    .iframe-container {
+        height: 100%;
+        width: 100%;
+    }
+    iframe {
+        height: 100%;
+        width: 100%;
+        border: none;
+    }
+
+    .help-desk-tab {
+        background: #F1F1F1;
+        padding: 10px 0px;
+        min-height: 781px;
+
+        ul {
+            margin: 0px 0px;
+            padding: 0px 0px;
+
+            li {
+                margin: 0px 0px;
+                padding: 8px 12px;
+                font-size: var(--font16);
+                color: var(--blackNew);
+                font-weight: 400;
+
+                &:hover,
+                &.active {
+                    background: #E6E6E6;
+                }
+            }
+        }
+    }
+
+    .section1 {
+        h1 {
+            color: var(--blue-new);
+            position: relative;
+            padding-bottom: 5px;
+
+            &:after {
+                content: "";
+                width: 100px;
+                height: 3px;
+                position: absolute;
+                background-color: var(--blue-new);
+                bottom: -2px;
+                left: 0;
+            }
+        }
+
+        p {
+            font-size: var(--font16);
+            color: var(--blackNew);
+        }
+    }
+}
+
+@media only screen and (min-width:1024px) and (max-width:1199px) {
+    
+    .helpdesk {
+        .help-desk-tab {
+    
+            ul {
+    
+                li {
+                    font-size: var(--font14);
+    
+                    
+                }
+            }
+        }
+    
+        .section1 {
+            h1 {
+                font-size: var(--font18);
+            }
+    
+            p {
+                font-size: var(--font14);
+            }
+        }
+    }
+
+}

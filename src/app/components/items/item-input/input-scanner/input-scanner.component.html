@@ -1,0 +1,81 @@
+<!-- <div class="new-crm-scan" >
+  <ion-item  lines="none" class="ion-no-padding" [ngClass]="{'hide' : uiHideFloatingActionButton}" (touchstart)="fabDown()" (touchend)="fabUp()">
+      <img  src="assets/icon/code-scanning.png">{{ inputScanner.value }}{{ inputScanner.prompt_name }}
+  </ion-item>
+</div> -->
+
+<div *ngIf="plt == 'android'">
+  <div class="{{(inputScanner.css_class == null) ? 'ion-input-item ion-input-item-border' : inputScanner.css_class}}">
+  <ion-label  position="{{(inputScanner.position == null) ? 'stacked': inputScanner.position}}"  >{{inputScanner.prompt_name}}</ion-label>
+  <div class="barcode_n_sacaner">
+   <ion-input type="text" id="{{inputScanner.item_name}}" [(ngModel)]="inputScanner.value"
+    [maxlength]="inputScanner.item_size" [required]="(current_page_parameter.MODE && (inputScanner.data_required_flag && 
+    (inputScanner.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+    ||inputScanner.data_required_flag=='T'   
+    ||(inputScanner.prompt_name && inputScanner.prompt_name[inputScanner.prompt_name.length -1] =='*')"  [readonly]="inputScanner.item_enable_flag && inputScanner.item_enable_flag=='F'"
+    (click)="itemClicked(inputScanner)"
+     (ionBlur)="onChange(inputScanner.value)"
+    >
+    <!-- <ion-input> -->
+  </ion-input>
+
+  <div class="input-buttons-container">
+    <button class="input-btn float-right" ion-button icon-only small>
+      <ion-icon (click)="barcodescanner()" name="qr-code-outline"></ion-icon>
+    </button>
+    <button *ngIf="inputScanner.value" class="input-btn float-right" ion-button icon-only small (click)="cleardata()">
+      <ion-icon name="close"></ion-icon>
+    </button>
+
+  </div>
+</div>
+</div>
+<!-- <div class="error" *ngIf="inputScannername.hasError('required') && inputScanner.touched"> Please Enter
+  {{inputScanner.prompt_name}}
+</div> -->
+<div class="error" *ngIf="inputScanner.msgError">{{inputScanner.msgError}}</div>
+<div class="error" *ngIf="inputScanner.forced_error_msg">{{inputScanner.forced_error_msg}}</div>
+</div>
+
+<div *ngIf="plt == 'browser'"  class="input-type6-containter bar-code-container" class="{{(inputScanner.css_class == null) ? 'ion-input-item ion-input-item-border' : inputScanner.css_class}}">
+  <div class="newIp-type3">
+    <ion-row >
+      <ion-col  [size]="col1" class="bg-prompt">
+        <p class="input-group-label "  >
+        {{inputScanner.prompt_name}}</p>
+       
+      </ion-col>
+  
+      <ion-col class="input-container" [size]="col2">
+        <div class="input-div barcode_input">
+          <input type="text" id="{{inputScanner.item_name}}" [(ngModel)]="inputScanner.value"
+            [maxlength]="inputScanner.item_size" [required]="(current_page_parameter.MODE && (inputScanner.data_required_flag && 
+                    (inputScanner.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+                    ||inputScanner.data_required_flag=='T'   
+                    ||(inputScanner.prompt_name && inputScanner.prompt_name[inputScanner.prompt_name.length -1] =='*')"
+            [readonly]="inputScanner.item_enable_flag && inputScanner.item_enable_flag=='F'" #inputScannername="ngModel"
+            (ngInit)="inputScanner.isValid=inputScannername.valid" (click)="itemClicked(inputScanner)"
+            
+            >
+   
+  
+      <div class="input-buttons-container barcode-action-container a">
+        <button  (click)="barcodescanner()" class="input-btn float-right" ion-button icon-only small>
+          <ion-icon   name="qr-code-outline"></ion-icon>
+        </button>
+        <button *ngIf="inputScanner.value" class="input-btn float-right" ion-button icon-only small (click)="cleardata()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    
+        </div> 
+        </div>
+      </ion-col>
+      <div class="error" *ngIf="inputScannername.hasError('required') && inputScanner.touched"> Please Enter
+        {{inputScanner.prompt_name}}
+      </div>
+      <div class="error" *ngIf="inputScanner.msgError">{{inputScanner.msgError}}</div>
+      <div class="error" *ngIf="inputScanner.forced_error_msg">{{inputScanner.forced_error_msg}}</div>
+  
+    </ion-row>
+  </div>
+  </div>

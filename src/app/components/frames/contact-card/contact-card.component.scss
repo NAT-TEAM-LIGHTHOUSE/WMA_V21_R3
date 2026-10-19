@@ -1,0 +1,93 @@
+.call-area{
+    ion-col[size="1"] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    ion-label{
+        h3{
+          font-weight: 500;
+        }
+        p{
+          font-weight: 400;
+        }
+    }
+    ion-avatar{
+        width: 25px;
+        height: 25px;
+        margin-top: 0;
+        margin-bottom: 0;
+        border: 1px solid var(--grey);
+        margin-right: 10px;
+    }
+    ion-button{
+        --background: transparent;
+        --box-shadow: transparent;
+        margin: 0;
+        --padding-end: 0;
+        --padding-start: 0;
+        font-size: var(--font20);
+        width: 20px;
+        height: 20px;
+        --background-hover:transparent !important;
+        --background-activated:transparent;
+        --background-focused:transparent;
+        color:var(--blue-new);
+        float: right;
+        ion-icon{
+            margin: 0;
+        }
+    }
+    .icon-center{
+      text-align: center;
+    }
+  }
+  @media only screen and (max-width:480px){
+    ion-col[size="1"] {
+      flex: 0 0 calc(calc(1.5 / var(--ion-grid-columns, 12)) * 100%) !important;
+      width: calc(calc(1.5 / var(--ion-grid-columns, 12)) * 100%) !important;
+      max-width: calc(calc(1.5 / var(--ion-grid-columns, 12)) * 100%) !important;
+    }
+    ion-col[size="10"] {
+      flex: 0 0 calc(calc(9 / var(--ion-grid-columns, 12)) * 100%) !important;
+      width: calc(calc(9 / var(--ion-grid-columns, 12)) * 100%) !important;
+      max-width: calc(calc(9 / var(--ion-grid-columns, 12)) * 100%) !important;
+    }
+  }
+.contact-frame-head {
+// background: var(--blue-light-2) !important;
+    box-shadow: none;
+    border: 1px solid var(--grey-5);
+    position: relative;
+    margin: -6px -6px 0 -6px;
+    // margin-top: 5px;
+    &::before {
+      background: var(--blue-new);
+      content: "";
+      position: absolute;
+      width: 5px;
+      height: 100%;
+      left: 0px;
+      top: 0px;
+    }
+    .frame-name {
+      color: var(--text-dark);
+    background: var(--blue-light-2) !important;
+    margin: 0px;
+    font-size: var(--font14);
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+   // padding: 5px 12px;
+    box-shadow: 2px 3px 4px 0px var(--text-dark);
+    border-radius: 0px;
+    border: 1px solid var(--grey-5);
+    background: var(--blue-light-2);
+    //font-family: "Open Sans", sans-serif;
+      padding: 6px 12px;
+      background: transparent !important;
+      box-shadow: none;
+      border: none;
+    }
+}
+// .call-area {border-radius: 0 !important;}

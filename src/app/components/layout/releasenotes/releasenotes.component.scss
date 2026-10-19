@@ -1,0 +1,51 @@
+.releasenotes{
+    
+    h3{
+        font-size: var(--font14);
+    font-weight: 700;
+    color: var(--blackNew);
+    }
+    .feature{
+        h4{
+            font-size: var(--font14);
+            font-weight: 600;
+            color: var(--blackNew);
+            margin: 26px 0
+        }
+        ul {
+            list-style-type: auto !important;
+            padding-left: 0px;
+            margin: 20px 0;
+            li{
+                list-style-position: inside;
+                font-weight: 700;
+                font-size: var(--font14);
+                color: var(--blackNew);
+                margin-bottom: 30px;
+            
+            }
+        }
+    }
+}
+
+.calender-area{
+    text-align: center;
+    height: calc(100vh - 30vh);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1{
+        font-size: 90px;
+        font-weight: 600;
+        color: #d9d9d9;
+    }
+}
+
+@media only screen and (min-width:1024px) and (max-width:1199px) {
+    .calender-area{
+        h1{
+            font-size: 50px;
+        }
+    }
+}

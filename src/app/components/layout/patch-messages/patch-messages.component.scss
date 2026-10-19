@@ -1,0 +1,51 @@
+.patch_messages{
+    h3{
+         font-size: 16px;
+        color: #fff;
+        border-bottom: 1px solid rgb(74 74 74);
+            margin: 2px 0px 10px 0px;
+    padding: 8px 0px;
+     }
+    ul{
+        margin: 0px;
+        padding: 0px;
+            max-height: 60vh;
+    overflow: auto;
+
+        li{
+            border-bottom: 1px solid rgb(74 74 74);
+            padding: 8px 8px;
+        }
+    }
+    .message_box{
+     h3{
+         font-size: 16px;
+        color: #fff;
+     }
+     p.text_line{
+        font-size: 14px;
+        color: #fff;
+       
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0px 0px;
+
+     }
+     ion-button{
+        --background: none;
+        --border-radius: 0px;
+        --padding-top: 0px;
+        --padding-bottom:0px;
+        --padding-start: 0px;
+        --padding-end: 0px;
+        --box-shadow: none;border:0px;
+        color:rgb(214 70 70);
+     }
+     p.date{
+        font-size: 16px;
+        color: #fff;
+     }
+    }
+}

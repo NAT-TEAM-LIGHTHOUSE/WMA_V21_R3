@@ -1,0 +1,85 @@
+.advance-filter-main
+{
+    ion-segment
+    {
+        flex-direction:column;
+       
+    }
+    ion-segment-button
+    {
+        min-height: 28px;
+        width: 100%;
+    }
+    .col-left
+    {
+        border:1px solid var(--grey-5);
+    }
+    .col-right
+    {
+        border:1px solid var(--grey-5);   
+       
+    }
+
+    ion-list
+    {
+        width:100%;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    ion-checkbox{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-inline-end: 10px;
+    }
+    ion-item
+    {
+        --min-height: 30px;
+        --padding-start: 5px;
+    }
+    ion-input
+    {
+        
+        background: url(../../../../assets/imgs/advance-search.png) var(--grey-5) right 10px top 1px;
+        background-repeat: no-repeat;
+        padding-right: 35px !important;
+        --padding-bottom: 2px;
+        --padding-top: 3px;
+        --padding-top: 2px;
+    }
+}
+
+ion-col{
+    padding: 0;
+}
+//frame-advance-filter
+.advance-filter-main {
+    ion-segment {
+      flex-direction: column;
+    }
+    ion-segment-button {
+      min-height: 1.75rem;
+      width: 100%;
+    }
+    ion-list {
+      width: 100%;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    ion-checkbox {
+      margin-top: 0.313rem;
+      margin-bottom: 0.313rem;
+      margin-inline-end: 10px;
+    }
+    ion-item {
+      --min-height: 1.875rem;
+      --padding-start: 0.313rem;
+    }
+    ion-input {
+      // background: url(../../../../assets/imgs/advance-search.png) #ececec right 10px top 1px;
+      background-repeat: no-repeat;
+      padding-right: 2.188rem !important;
+      --padding-bottom: 0.125rem;
+      --padding-top: 0.188rem;
+      --padding-top: 0.125rem;
+    }
+  }

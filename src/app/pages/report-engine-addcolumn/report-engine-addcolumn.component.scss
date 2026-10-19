@@ -1,0 +1,194 @@
+.addcolumn_filter{
+    display: flex;
+
+.column_one{
+    width: 222px;
+    border-right: 1px solid #e5e5e5;
+    height: 61vh;
+    padding: 30px 0px 5px 27px;
+    h4{
+        font-size: var(--font14);
+        font-weight: 500;
+        color:var(--blackNew);
+        cursor: pointer;
+    }
+    ul{
+        padding: 0px 0px;
+        margin: 0px 0px 0px 0px;
+       
+        li{
+            list-style: none;
+            font-size: var(--font13);
+            border-bottom: 1px solid #e5e5e5;
+            color:var(--blackNew);
+            cursor: pointer;
+            padding: 5px 5px;
+            &:hover{
+                background: var(--blue-light-5);
+                color: var(--blue-new);
+            }
+            &.active{
+                background: var(--blue-light-5);
+                color: var(--blue-new);
+                font-weight: 500;
+            }
+        }
+    }
+    }
+// .column_one{
+//     width: 222px;
+//     border-right: 1px solid #e5e5e5;
+//     height: 61vh;
+//     padding: 1px 0px 5px 27px;
+//     h4{
+//         font-size: var(--font14);
+//         font-weight: 500;
+//         color:var(--blackNew);
+//     }
+//     ul{
+//         padding: 0px 0px;
+//         li{
+//             list-style: none;
+//             font-size: var(--font13);
+//             border-bottom: 1px solid #e5e5e5;
+//             color:var(--blackNew);
+//             cursor: pointer;
+//             &:hover{
+//                 background: rgb(219, 219, 219);
+//             }
+//         }
+//     }
+// }
+.column_two{
+   width:100%;
+//    width:890px;
+   height: 61vh;
+   padding: 1px 30px 5px 20px;
+   h4{
+    font-size: var(--font16) !important;
+    font-weight: 500;
+    color:var(--blackNew);
+}
+}
+
+.filter_table{
+    max-height: 55vh;
+    overflow: auto;
+
+th{
+    padding:8px 10px; 
+    font-size: var(--font13);
+    font-weight: 500;
+   }
+   td{
+    padding:8px 10px;
+    // ion-checkbox{
+    //     margin-bottom: -7px;
+    // }
+  
+
+    .form-input{
+        display: flex;
+        align-items: center;
+ ion-input{
+    height: 30px;
+    padding: 8px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin: 0px 8px 0px 0px;
+    }
+    ion-icon{
+        font-size: var(--font13);
+        color: var(--blackNew);
+        border: 1px solid #cbcbcb;
+        padding: 2px;
+        border-radius: 3px;
+    }
+    }
+   
+    &:hover{
+        background: none;
+    }
+   
+   }
+}
+
+}
+.addcolumn_filter_footer{
+    padding: 15px 25px 15px 25px;
+    border-top: 1px solid #e5e5e5;
+    .global-main-copy{
+        width:auto !important;
+        display: flex;
+        margin-left: 5px;
+    }
+}
+
+
+
+#report_engine_accordion.report_engine_accordion{
+    border:0px !important;
+    height: 80vh;
+    overflow: auto;
+    .accordion-header{
+        padding: 0px 0px !important;
+        margin:0px 0px !important;
+        border:0px !important;
+        button{
+            padding: 10px 10px;
+            margin: 0px 0px;
+            border-radius: 0px;
+            font-size: var(--font14);
+            font-weight: 500;
+            box-shadow: none !important;
+            background: none;
+            border-bottom: 1px solid #dddddd;
+           position: relative;
+           background: #efefef;
+            &::after{
+                position: absolute;
+    width: 15px;
+    height: 14px;
+    color: var(--blackNew);
+    padding: 0px 0px;
+    right: 14px;
+    background-size: 0px;
+    font-weight: 500;
+            }
+        }
+    }
+    .accordion-item{
+        border-radius: 0px;
+        border:0px !important;
+    }
+    .accordion-body{
+        padding:0px 0px;
+        border:0px !important;
+        max-height: 36vh;
+        overflow: auto;
+    }
+}
+
+
+@media only screen and (max-width: 576px){
+    .addcolumn_filter{
+        flex-direction: column;
+        .column_one{
+            width: 100%;
+            border-right: 0px !important;
+            border-bottom: 1px solid #e5e5e5;
+            height: auto !important;
+            padding: 10px 0px 5px 27px;
+        }
+        .column_two{
+            width: 100%;
+            height: auto !important;
+            padding: 10px 30px 5px 20px;
+        }
+    }
+
+    .filter_table th{
+        width: 150px !important;
+        min-width: 150px !important;
+    }
+}

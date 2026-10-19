@@ -1,0 +1,84 @@
+<div class="report_engtemplate_save">
+  <h3>Saved Template</h3>
+
+  <div class="report_engtemplate_save_btn">
+    <div class="primary-search-section-filer" [ngStyle]="!isSearch ? {'display': 'none'}: {}">
+      <ion-input class="input-text" placeholder="Search Here..." 
+        [(ngModel)]="frame.search"></ion-input>
+      <div class="primary-search-section-filer-action">
+        <ion-icon name="search-outline"></ion-icon>
+        <ion-icon name="close-outline"></ion-icon>
+      </div>
+    </div>
+    <ion-button  (click)="searchData()" *ngIf="!isSearch"><ion-icon class="action-icon"
+      name="search-outline"></ion-icon></ion-button>
+    <ion-button>
+      <ion-icon name="refresh-outline"></ion-icon>
+    </ion-button>
+   
+    <ion-button>
+      Close
+    </ion-button>
+     <ion-button>
+      Show
+    </ion-button>
+  </div>
+
+  <div class="report_engtemplate_save_container">
+    
+    <ion-radio-group class="bg-input" 
+    style="flex-wrap: wrap; align-items: center;">
+    <ion-radio class="radio-bttn mr-1"
+      ></ion-radio> Data Source
+  </ion-radio-group>
+  <ion-radio-group class="bg-input" 
+  style="flex-wrap: wrap; align-items: center;">
+  <ion-radio class="radio-bttn mr-1"
+    ></ion-radio> Data Source
+</ion-radio-group>
+<ion-radio-group class="bg-input" 
+style="flex-wrap: wrap; align-items: center;">
+<ion-radio class="radio-bttn mr-1"
+  ></ion-radio> Data Source
+</ion-radio-group>
+    <div class="report_engtemplate_save_table">
+          <table>
+            <thead>
+              <tr>
+                <th>Template Code    <ion-icon name="arrow-down-outline"></ion-icon>
+                  <ion-icon name="arrow-up-outline"></ion-icon>
+              </th>
+                <th>Template Name
+                  <ion-icon name="arrow-down-outline"></ion-icon>
+                    <ion-icon name="arrow-up-outline"></ion-icon>
+              </th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+             <td>L1247</td>
+             <td>DR/CR NOTE REPORT</td>
+            </tr>
+            <tr>
+              <td>L1249</td>
+              <td>Debtors Opnening Balance Agent wise</td>
+             </tr>
+             <tr>
+              <td>L1250</td>
+              <td>Raw Material Paymet report</td>
+             </tr>
+             <tr>
+              <td>L1255</td>
+              <td>Vendor Ledger - Detailed</td>
+             </tr>
+             <tr>
+              <td>L1262</td>
+              <td>Letter of Credit REPORT</td>
+             </tr>
+             
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>

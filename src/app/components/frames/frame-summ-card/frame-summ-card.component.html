@@ -1,0 +1,61 @@
+<ng-container *ngIf="frame.apps_frame_sub_type == 'BASIC' || frame.apps_frame_sub_type == 'COLLAPSE'" >
+  <div class="collapse-list-container" *ngIf="frame.showCollapse || !frame.collapse">
+    <ion-item class="collapse-list" (click)="toggleFrame()">
+      {{frame.apps_page_frame_name}} <span style="margin-left: 10px;"  *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"  color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()"></ion-icon></span>
+      <ion-icon  name="chevron-forward-outline"  slot="end" *ngIf="!frame.collapse"></ion-icon>
+      <ion-icon  name="ios-arrow-down" slot="end" *ngIf="frame.collapse"></ion-icon>
+      
+    </ion-item>
+  </div>
+  <ng-container *ngIf="frame.collapse">
+  
+  
+  <div *ngIf="canvasfilter">
+    <app-frame-canvas-filter [frametable]="frame" (passdataToframetable)="getdataFromcanvasFilter($event)"
+      [frame]='frame'></app-frame-canvas-filter>
+  </div>
+  <div>
+    <div class="input-group primary-search-section" *ngIf="searchFlag  && !canvasfilter && !jsFilter && !advanceFilter">
+      <ion-input class="input-text" placeholder="Search Here..." [(ngModel)]="tablerowsfilter"></ion-input>
+      <div class="input-group-append">
+        <button class="lov-btn" ion-button icon-only small (click)="openMike()">
+          <img src="/assets/imgs/google-speaker.png">
+        </button>
+      </div>
+  
+      <div class="input-group-append">
+        <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+          <ion-icon name="ios-funnel"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="show_filter=='show'">
+    <div *ngIf="cFilter">
+      <app-frame-filter [frameData]="filterFormData" (emitFilter)="getFilterParameter($event)"></app-frame-filter>
+    </div>
+  </div>
+  
+  <ion-row>
+    <ion-col col-12>
+      <h1 class="frame-name position-relative" *ngIf ="frame.apps_page_frame_name">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;" *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"  color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()"></ion-icon></span></h1>
+    </ion-col>
+  </ion-row>
+  <div *ngIf="!canvasfilter  && !jsFilter && !advanceFilter">
+    <div *ngFor="let rows of frame.tableRows |tableSearch :tablerowsfilter;let j=index;">
+      <div class="summary-card">
+        <ion-row *ngFor="let itemGroup of rows; let i=index">
+          <ion-col class="px-1 py-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+            [hidden]="input_item.item_visible_flag!='T'" [size]="itemGroup.groupCol && itemGroup.groupCol.length > 0 ? itemGroup.groupCol[i] : '12'">
+            <div *ngIf="input_item.item_sub_type!='CARD_TITLE'">
+              <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,i)" [frame]="frame"
+              [wscp]="wscp"  (LHSOnChange)="itemValueChange($event,i)"></app-items>
+            </div>
+          </ion-col>
+        </ion-row>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  </ng-container>
+  </ng-container>

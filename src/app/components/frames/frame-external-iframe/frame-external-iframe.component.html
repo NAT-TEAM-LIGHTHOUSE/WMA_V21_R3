@@ -1,0 +1,28 @@
+
+<div [ngClass]="frame.design_control_type">
+  <div id="{{frame.apps_page_frame_seqid}}"> <div class="frame-head d-flex align-items-center">
+      <h2 class="frame-name w-100">{{frame.apps_page_frame_name}}
+        <span style="margin-left: 10px;"
+          *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]
+          <ion-icon class="code-btn" color="primary" name="information-circle-outline" >
+          </ion-icon>
+        </span>
+      </h2>
+
+      <div class="frame-tab-btn d-flex align-items-center">
+        
+        
+        <ion-button class="external-tablelink border-none" (click)="fullScreen(frame.apps_page_frame_seqid,'1')"
+          id="{{frame.apps_page_frame_seqid}}fullscreen_btn1" style="display: inherit;"><ion-icon
+            name="expand-outline"></ion-icon></ion-button>
+        <ion-button class="external-tablelink two border-none active"
+          (click)="fullScreen(frame.apps_page_frame_seqid,'0')" id="{{frame.apps_page_frame_seqid}}fullscreen_btn2"
+          style="display: none;"><ion-icon name="contract-outline"></ion-icon></ion-button>
+      </div>
+
+    </div>
+
+    <iframe #childFrame [src]="frameUrl" width="100%" height="90vh"></iframe>
+   
+  </div>
+</div>

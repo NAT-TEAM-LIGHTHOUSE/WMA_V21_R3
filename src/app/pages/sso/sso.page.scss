@@ -1,0 +1,46 @@
+.new-loader{
+    margin-top: 0px !important;
+        background: rgb(237 237 237 / 60%) !important;
+    margin-top: 45px;
+    backdrop-filter: blur(3px);
+    .text-center{
+                display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+
+/* Loader Container */
+.wma-loader{
+  display:flex;
+    justify-content:center;
+  gap:8px;
+}
+
+/* Bars */
+.wma-loader span{
+  width:6px;
+  height:50px;
+  background:#ff0029;
+  border-radius:4px;
+  animation:wmaWave 1s infinite ease-in-out;
+}
+
+/* Delay for wave effect */
+.wma-loader span:nth-child(2){ animation-delay:0.1s; }
+.wma-loader span:nth-child(3){ animation-delay:0.2s; }
+.wma-loader span:nth-child(4){ animation-delay:0.3s; }
+.wma-loader span:nth-child(5){ animation-delay:0.4s; }
+
+/* Animation */
+@keyframes wmaWave{
+  0%,100%{
+    transform:scaleY(0.4);
+    opacity:.5;
+  }
+  50%{
+    transform:scaleY(1);
+    opacity:1;
+  }
+}

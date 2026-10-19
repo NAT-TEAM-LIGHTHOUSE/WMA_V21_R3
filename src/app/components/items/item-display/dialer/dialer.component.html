@@ -1,0 +1,25 @@
+<p>
+  dialer works!
+</p>
+
+
+<ng-container  *ngIf="(frame_type !='TABLE' && frame_type != 'ENTRY_TABLE' && frame_type != 'FRAME_COLLAPSE' && frame_type != 'PLASTO_SUMMARY' && frame_type != 'APPROVAL-TAB' && frame_type != 'STRING' && dialer.item_sub_type != 'ALIGN-TEXT' ) && dialer.item_sub_type != 'DAILER_ICON'">
+  <ion-label  class="input-label">{{dialer.prompt_name}}:<a class="communication phone-communication" href="tel:{{dialer.value}}" (click)="itemClick($event)"><span class="communication-value">{{dialer.value}}</span></a>
+  
+  </ion-label>
+</ng-container>
+
+
+
+<ng-container  *ngIf="(frame_type =='TABLE' || frame_type == 'ENTRY_TABLE' || frame_type == 'HORIZONTAL_TABLE' || frame_type == 'FRAME_COLLAPSE' || frame_type == 'PLASTO_SUMMARY' || frame_type == 'APPROVAL-TAB' || frame_type == 'STRING' || dialer.item_sub_type == 'ALIGN-TEXT' ) && dialer.item_sub_type != 'DAILER_ICON' ">
+  <ion-label  class="input-label"><a class="communication phone-communication" href="tel:{{dialer.value}}" (click)="itemClick($event)"><span class="communication-value">{{dialer.value}}</span></a>
+  
+  </ion-label>
+</ng-container>
+
+
+
+<ng-container  *ngIf="dialer.item_sub_type == 'DAILER_ICON'">
+  <a class="card_call_icon" href="tel:{{dialer.value}}" (click)="itemClick($event)"><ion-icon name="call"></ion-icon></a>
+  
+</ng-container>

@@ -1,0 +1,292 @@
+<!-- <ion-toolbar class="ion-toolbar iosheight popover-toolbar" *ngIf="platform.is('ios')">
+
+    <div *ngIf="globalObjects.toggleDevloperMode()" style="font-size: 11px;color:rgba(249, 249, 249, 0.7803921568627451)">
+        <span>{{userDetails.appkey}}</span> / <span>{{userDetails.user_code}}</span>
+    </div>
+
+
+    <ion-buttons slot="start" (click)="closeLov()" fill="clear" icon-only start>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-buttons>
+    <ion-title>
+        {{prompt_name}}
+    </ion-title>
+
+    <ion-buttons fill="outline" class="toolbar-text-btn" slot="end"
+        *ngIf="lovinput.item_sub_type=='M' || lovinput.item_sub_type=='M_BROWSER' || lovinput.item_sub_type=='M_BROWSER1' || lovinput.item_sub_type=='M_BROWSER2' || lovinput.item_sub_type == 'LIST_COMBO_BOX'"
+        (click)="setmultiLOVvalue(objectList)">
+        Ok
+    </ion-buttons>
+</ion-toolbar> -->
+
+<ion-toolbar class="ion-toolbar popover-toolbar mobile_top_toolbar" >
+    <div class="d-flex align-items-center justify-content-between flex-wrap">
+        <div class="d-flex align-items-center " >
+        <ion-buttons slot="start" (click)="closeLov()">
+            <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-buttons>
+
+        <ion-title>
+            {{prompt_name}}
+        </ion-title>
+         </div>
+         <div class="d-flex align-items-center justify-content-end" >
+        <div class="primary-search-section-filer">
+            <div class="primary-search-section-filer-action">
+                <ion-icon name="search-outline"></ion-icon>
+            </div>
+            <ion-input id="search" class="input-text" autofocus="true" placeholder="Search Here..."
+                [(ngModel)]="searchText" (ionInput)="debouncedSearch(searchText)" autofocus="true" #autofocus
+               ></ion-input>
+            <div class="primary-search-section-filer-action">
+                <ion-icon name="close-outline" (click)="searchText='';filterColumn()"></ion-icon>
+            </div>
+        </div>
+        <ion-button slot="start" (click)="refreshBtn()">
+            Find
+            <!-- <ion-icon class="mr-1" slot="icon-only" name="refresh" style="font-size:20px;cursor:pointer"></ion-icon> -->
+        </ion-button>
+        <ion-button slot="start"  (click)="closeLov()">
+            Close
+        </ion-button>
+        <ion-buttons fill="outline" class="toolbar-text-btn globe-btn me-0" slot="end"
+        *ngIf="lovinput.item_sub_type=='M' || lovinput.item_sub_type=='M_BROWSER' || lovinput.item_sub_type=='M_BROWSER1' || lovinput.item_sub_type=='M_BROWSER2' || lovinput.item_sub_type == 'LIST_COMBO_BOX'"
+        (click)="setmultiLOVvalue(objectList)">
+        Ok
+    </ion-buttons>
+    </div>
+    </div>
+
+
+    
+</ion-toolbar>
+
+<ion-content class="page-single-select-lov" padding>
+
+   
+
+    <div class="lov-main-cont">
+        <div class="left2-title" *ngIf="globalObjects.toggleDevloperMode()">
+            <span *ngFor="let x of globalObjects.breadCrumpsArray">{{x.prompt_name}}</span>
+        </div>
+
+        <div class="table-responsive"
+            *ngIf="lovinput.item_sub_type=='M' || lovinput.item_sub_type=='M_BROWSER'  || lovinput.item_sub_type=='M_BROWSER1' || lovinput.item_sub_type=='M_BROWSER2' || lovinput.item_sub_type == 'LIST_COMBO_BOX'; else elsetag"
+            #parentDiv>
+
+            <table tabindex="0" (keydown.space)="spaceDown($event)">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <ng-container *ngFor="let key of keyList ; let k = index;">
+                            <th *ngIf="key.item_visible_flag != 'F'" class="input-head">
+                                <div class="table_inputdiv">
+                                    <ion-input [(ngModel)]="key.searchCol" class="inputThead"
+                                        (ionInput)="filterColumn(key.key,key.searchCol,key)"
+                                        placeholder="Search Here..." #keySearch> </ion-input>
+                                    <ion-icon name="close-outline"
+                                        (click)="key.searchCol='%%';filterColumn(key.key,'',key,keySearch)"></ion-icon>
+                                </div>
+                            </th>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <th>
+                            <ion-checkbox color="secondary" [(ngModel)]="SelAll" (click)="SelectAll()"></ion-checkbox>
+                        </th>
+                        <th *ngFor="let head of lovHead" class="check-outer paddingOuter">
+                            {{head.th}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody #singleTbody class="multi_selectlov">
+                    <tr *ngFor="let object of limitedRecords;let i = index;"
+                        [class]="lovItemSeq == i ? 'trow-active' : '' " (click)="lovRowClick(object,i)">
+                        <td>
+                            <ion-checkbox color="secondary" [(ngModel)]="object.checked"
+                                (ionChange)="multiCheck(object)"></ion-checkbox>
+                        </td>
+                        <td *ngFor="let key of keyList " [ngStyle]="key.display_setting_str" title="{{object[key.key]}}"
+                            [hidden]="key.item_visible_flag=='F'" class="check-outer paddingOuter">
+                            {{object[key.key]}}
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <ng-template #elsetag>
+
+            <div class="table-responsive" #parentDiv>
+                <table tabindex="0">
+                    <thead>
+                        <tr>
+                            <ng-container *ngFor="let key of keyList ; let k = index;">
+                                <th *ngIf="key.item_visible_flag != 'F'" class="input-head">
+                                    <div class="table_inputdiv">
+                                        <ion-input [(ngModel)]="key.searchCol" class="inputThead"
+                                            (ionInput)="filterColumn(key.key,key.searchCol,key)"
+                                            placeholder="Search Here... " #keySearch> </ion-input>
+                                        <ion-icon name="close-outline"
+                                            (click)="key.searchCol='%%';filterColumn(key.key,'',key,keySearch)"></ion-icon>
+                                    </div>
+                                </th>
+                            </ng-container>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let head of lovHead ; let i = index;" (click)="thClick(head.code,i)">
+                                {{head.th}}
+                                <ion-icon name="arrow-up-outline"
+                                    *ngIf="head.code==orderByParam.th && orderByParam.direction > 0"></ion-icon>
+                                <ion-icon name="arrow-down-outline"
+                                    *ngIf="head.code==orderByParam.th && orderByParam.direction < 0"></ion-icon>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody #singleTbody class="single_selectlov">
+                        <tr *ngFor="let object of limitedRecords;let i = index;" (click)='setLOVValues(object)'
+                            [class]="lovItemSeq == i ? 'trow-active' : ''">
+                            <ng-container *ngFor="let key of keyList ">
+                                <td [ngStyle]="key.display_setting_str" title="{{object[key.key]}}"
+                                    [hidden]="key.item_visible_flag=='F'" class="label-outer">
+                                    {{object[key.key]}}
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </ng-template>
+
+
+
+        <ng-container *ngIf="lovinput.without_data;else elseLoading">
+            <div class="center" *ngIf="loading">
+                <div class="text-center cent-loader">
+                    <img src="../../../assets/dot.gif" width="20%">
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-template #elseLoading>
+             <div class="center" *ngIf="!objectList">
+                <div class="text-center cent-loader">
+                    <img src="../../../assets/dot.gif" width="20%">
+                </div>
+            </div>
+        </ng-template>
+
+        <div class="table_pagination_frame" *ngIf="objectList && objectList.length > 0">
+            <div class="left_column columns">
+                <div class="item_column">
+                    <label>Show</label>
+                    <select (change)="rowsPerPage()" [(ngModel)]="noOfRecords">
+                        <option *ngFor="let rowPage of rowsPage" [value]="rowPage">{{rowPage}}</option>
+                    </select>
+                </div>
+
+                <div class="item_column">
+                    <label>Page</label>
+                    <ion-button class="pagination_btn" [attr.disabled]="l_current_page !=1 ? null :''"
+                        (click)=" paginate(1)"><ion-icon name="chevron-back-outline"></ion-icon><ion-icon
+                            name="chevron-back-outline"></ion-icon></ion-button>
+                    <ion-button class="pagination_btn" (click)='paginate(l_current_page-1);'
+                        [attr.disabled]="l_current_page !=1 ? null :''"><ion-icon
+                            name="chevron-back-outline"></ion-icon></ion-button>
+                    <select (change)="paginate(page)" (blur)="selectShow = true" [(ngModel)]="page">
+                        <option *ngFor="let page of pageNumber" [value]="page">{{page}}</option>
+                    </select>
+                    <ion-button class="pagination_btn" [attr.disabled]="l_current_page!=l_total_remain_pages ? null :''"
+                        (click)='paginate(l_current_page+1)'><ion-icon
+                            name="chevron-forward-outline"></ion-icon></ion-button>
+                    <ion-button class="pagination_btn"
+                        [attr.disabled]="l_current_page != pageNumber.length? null :''"
+                        (click)="paginate(pageNumber.length)"><ion-icon
+                            name="chevron-forward-outline"></ion-icon><ion-icon
+                            name="chevron-forward-outline"></ion-icon></ion-button>
+                </div>
+            </div>
+            <div class="right_column columns">
+                <div class="item_column">
+                    <a
+                        [title]="isFilterCount ? 'On Record / Filtered Records  / Total Records' : 'On Record / Total Record'">
+
+                        <label>Records : </label> {{+rowIndex+1}} <ng-container *ngIf="isFilterCount">
+                            / {{filterCount}}
+                        </ng-container>
+                        / {{objectList.length}}
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!--selected multi lov data display here ...!-->
+
+    <div class="lov-main-cont selected-table"
+        *ngIf="lovinput.item_sub_type=='M' || lovinput.item_sub_type=='M_BROWSER'  || lovinput.item_sub_type=='M_BROWSER1' || lovinput.item_sub_type=='M_BROWSER2' || lovinput.item_sub_type == 'LIST_COMBO_BOX';">
+
+        <div class="table-responsive" style="max-height: 40vh;" #parentDiv>
+            <table tabindex="0" (keydown.space)="spaceDown($event)">
+                <thead>
+
+                    <tr>
+                        <th>
+                        </th>
+                        <th *ngFor="let head of lovHead" class="check-outer paddingOuter">
+                            {{head.th}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody #singleTbody>
+                    <tr *ngFor="let object of selectedChips;let i = index;"
+                        [class]="lovItemSeq == i ? 'trow-active' : '' " (click)="lovItemSeq = i">
+                        <td>
+                            <ion-checkbox color="secondary" [(ngModel)]="object.checked"></ion-checkbox>
+                        </td>
+                        <td *ngFor="let key of keyList " [ngStyle]="key.display_setting_str"
+                            [hidden]="key.item_visible_flag=='F'" class="check-outer paddingOuter"
+                            title="{{object[key.key]}}">
+                            {{object[key.key]}}
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+     <div class="lov_notfound text-center" *ngIf="withoutDataImg">
+        <img src="assets/lov_nofound.png" style="width:50%;"/>
+    </div> 
+</ion-content>
+
+<!-- <ion-toolbar class="ion-toolbar popover-toolbar singlelov_mobile_v mobile_display" *ngIf="!platform.is('ios')">
+    <div class="d-flex align-items-center">
+        <ion-buttons slot="start" (click)="closeLov()">
+            <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-buttons>
+
+        <ion-button slot="start" (click)="refreshBtn()">
+            Find
+        
+        </ion-button>
+        <ion-button slot="start" (click)="closeLov()">
+            Close
+        </ion-button>
+
+    </div>
+
+
+    <ion-buttons fill="outline" class="toolbar-text-btn globe-btn" slot="end"
+        *ngIf="lovinput.item_sub_type=='M' || lovinput.item_sub_type=='M_BROWSER' || lovinput.item_sub_type=='M_BROWSER1' || lovinput.item_sub_type=='M_BROWSER2' || lovinput.item_sub_type == 'LIST_COMBO_BOX'"
+        (click)="setmultiLOVvalue(objectList)">
+        Ok
+    </ion-buttons>
+</ion-toolbar> -->

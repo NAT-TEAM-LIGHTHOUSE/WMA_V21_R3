@@ -1,0 +1,43 @@
+<!-- <div *ngIf="plt == 'browser'" class="input-type6-containter bar-code-container"
+  class="{{(rfidcodeinput.css_class == null) ? 'ion-input-item ion-input-item-border' : rfidcodeinput.css_class}}">
+  <div class="newIp-type3">
+    <ion-row>
+      <ion-col [size]="col1" class="bg-prompt">
+        <p class="input-group-label ">
+          {{rfidcodeinput.prompt_name}}</p>
+
+      </ion-col>
+
+      <ion-col class="input-container" [size]="col2">
+        <div class="input-div">
+
+          <input type="text" id="{{rfidcodeinput.item_name ? rfidcodeinput.item_name : 'abc'}}"
+            [(ngModel)]="rfidcodeinput.value" [maxlength]="rfidcodeinput.item_size"
+            [required]="(current_page_parameter.MODE && (rfidcodeinput.data_required_flag && 
+                      (rfidcodeinput.data_required_flag.indexOf(current_page_parameter.MODE)>-1)) )
+                      ||rfidcodeinput.data_required_flag=='T'   
+                      ||(rfidcodeinput.prompt_name && rfidcodeinput.prompt_name[rfidcodeinput.prompt_name.length -1] =='*')"
+            [readonly]="rfidcodeinput.item_enable_flag && rfidcodeinput.item_enable_flag=='F'"
+            #rfidcodeinputname="ngModel" (ngInit)="rfidcodeinput.isValid=rfidcodeinputname.valid"
+            (blur)="onChange(rfidcodeinput)">
+
+          <div class="input-buttons-container barcode-action-container">
+            <button class="input-btn float-right" ion-button icon-only small>
+              <ion-icon name="qr-code-outline"></ion-icon>
+            </button>
+            <button *ngIf="rfidcodeinput.value" class="input-btn float-right" ion-button icon-only small
+              (click)="cleardata()">
+              <ion-icon name="close"></ion-icon>
+            </button>
+
+          </div>
+        </div>
+      </ion-col>
+      <div class="error" *ngIf="rfidcodeinputname.hasError('required') && rfidcodeinput.touched"> Please Enter
+        {{rfidcodeinput.prompt_name}}
+      </div>
+      <div class="error" *ngIf="rfidcodeinput.msgError">{{rfidcodeinput.msgError}}</div>
+
+    </ion-row>
+  </div>
+</div> -->

@@ -1,0 +1,27 @@
+.chatboat_frame{
+    height:100%;
+    position: relative;
+
+    iframe{
+        height: 99%;
+        width:100%;
+    }
+}
+.chatbot-messages {
+        height: calc(100vh - 170px) !important;
+}
+.chat_flash{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+   display: flex;
+
+    ion-icon{
+        font-size: 100px;
+        color: #ffffff;
+        cursor: pointer;
+        margin: auto;
+    }
+}

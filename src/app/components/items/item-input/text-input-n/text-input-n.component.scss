@@ -1,0 +1,716 @@
+ion-input{
+    font-size: var(--font14) !important;
+    label{
+        margin: 0px 0px !important;
+        padding: 0px 0px !important;
+    }
+}
+
+.selected-value {
+    //max-width:500px;
+    width: 100%;
+    //  width: calc(100% - 40px);
+    overflow-x: auto;
+    /*    height: 35px; */
+    // position: absolute;
+    margin-top: -1px;
+    overflow-y: hidden;
+    display: flex;
+   // margin-right: 20px;
+  //  height: 30px;
+    height: var(--inputh);
+    a.selected-chip {
+        background: var(--sidebar-primary-icon-hover-bg);
+        border: 1px solid var(--sidebar-primary-icon-hover-bg);
+        margin-right: 5px;
+        padding: 1px 5px;
+        font-size: var(--font10);
+        border-radius: 18px;
+        white-space: nowrap;
+        margin: 2px 0px 4px 5px;
+        display: flex;
+        height: 18px;
+        align-items: center;
+
+        ion-icon {
+            color: var(--red);
+            --ion-color-base: red !important;
+            margin-top: 0px;
+            vertical-align: middle;
+            margin-left: 3px;
+            margin-bottom: 2px;
+            cursor: pointer;
+        }
+    }
+}
+
+ion-item {
+    --padding-end: 0px;
+    --inner-padding-end: 0px;
+    // here other custom CSS from documentation
+}
+
+.box_top_input {
+
+    // width:100% !important;
+    // border: 0px solid var(--grey-5); 
+    // height: 25px;
+    // width:100%;
+    // background: transparent;
+    // background-color: transparent !important
+    border-radius: 3px;
+    height: var(--inputh);
+    border-color: var(--common-border) !important;
+    color: var(--text-dark);
+    font-size: var(--font14);
+    ///padding: 14px 10px;
+    background: #fff;
+   // margin-top: 3px;
+
+}
+
+.cross-top-icon {
+    height: var(--inputha);
+    border-left: 0;
+    border-color: var(--blue-light-2) !important;
+    position: relative;
+    right: 1px;
+    z-index: 9;
+    top: 7px;
+    background: #fff;
+
+    span{
+        place-content: center;
+        display: flex;
+    }
+}
+
+
+
+
+.form-control.un_input {
+    border-bottom: 1px solid var(--common-border);
+    height: var(--inputh);
+    --padding-end: 20px !important;
+    width: 100% !important;
+    color: var(--blackNew);
+    font-size: 14px;
+}
+
+.form-control.box_top_input{
+    width: 100% !important;
+}
+
+
+app-items {
+    position: relative;
+    display: block;
+    margin-bottom: 5px;
+
+    .input-buttons-container {
+        display: flex;
+        position: absolute;
+        right: 2px;
+        bottom: 2px;
+
+        button {
+            background: transparent;
+            padding-left: 0;
+        }
+    }
+}
+
+.text-right {
+    text-align: right;
+}
+
+// ion-input.box_top_input{
+//     --padding-end:20px;
+// }
+
+ion-input.box_top_input.has-value[ng-reflect-readonly="false"] {
+    // --padding-end: 20px;
+}
+
+
+.code-btn[name="information-circle-outline"]{
+    padding: 0px 0px;
+    margin: 0px 0px;
+}
+
+
+.code-btn {
+    // font-size: 25px;
+    font-size: var(--font18);
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+ion-label.label-floating {
+    z-index: 999;
+    font-size: var(--font14);
+    height: 21px !important;
+}
+
+.input-border-none {
+    border: 0 !important;
+}
+
+ion-label.label-floating {
+    z-index: 999;
+    font-size: var(--font14);
+}
+
+ion-item ion-input.un_input[ng-reflect-readonly="true"] {
+    background: transparent !important;
+    color: var(--text-dark);
+    opacity: 0.4;
+
+}
+
+
+
+//box-floating
+.input_box_3 {
+    // margin-top: 10px;
+    .form_wrap {
+        background: var(--white);
+        position: relative;
+    }
+
+    .input_wrap {
+        overflow: visible;
+        --min-height: 25px
+    }
+
+    /* Input form Style */
+    ion-input {
+        border: 0px solid var(--blue-light-4);
+        border-radius: 0px;
+        min-height: 25px;
+        width: 100%;
+        color: var(--text-dark);
+        font-size: var(--font14);
+        --padding-start: 15px;
+        box-shadow: none;
+        outline: none;
+        // background-color: var(--blue-light-4);
+        transition: 0.5s ease all;
+        -moz-transition: 0.5s ease all;
+        -webkit-transition: 0.5s ease all;
+        --padding-bottom: 0;
+        --padding-top: 0;
+        // margin-bottom: 8px;
+    }
+
+    ion-input[type="number"] {
+        text-align: right;
+        padding-left: 0px;
+        padding-right: 15px;
+    }
+
+    /* Label style after Input feild is in focus. Can also use input:focus ~ label to select sibling. */
+    ion-input.has-focus+ion-label,
+    ion-input.has-value+ion-label {
+        font-size: var(--font12);
+        color: var(--text-dark);
+        top: -11px;
+        left: 3px;
+        /* background: #ffffff; */
+        padding: 0px 5px 0px 5px;
+        font-weight: 500;
+    }
+
+    .input_wrap {
+        width: auto;
+        height: auto;
+        position: relative;
+    }
+
+    .input_wrap ion-label {
+   //     font-family: var(--fontFamilyOpensens);
+        // font-size: var(--font12);
+        // color: var(--text-dark);
+        // position: absolute;
+        // top: 57%;
+        // left: 15px;
+        // transition: 0.5s ease all;
+        // -moz-transition: 0.4s ease all;
+        // -webkit-transition: 0.3s ease all;
+        // pointer-events: none;
+        // font-weight: normal;
+        // z-index: 9;
+        // margin: 0;
+        // transform: translate(0px, -50%);
+    }
+
+    ion-input[type="text"].has-focus {
+        outline: none;
+        transition: all 0.5s ease-out;
+    }
+}
+
+.border-on-hover.has-focus {
+    border: 3px solid var(--blue-light-1)
+}
+
+
+
+
+// .form-control {
+//     border-radius: 0;
+//     height: var(--inputh);
+//     color: var(--label-text);
+//     font-size: var(--font14);
+//     width: 96% !important;
+
+//     &:focus {
+//         box-shadow: none;
+//     }
+// }
+
+// .input-group-append {
+//     height: var(--inputha);
+// }
+
+.form-control.effect-1 {}
+
+
+
+.input-new {
+    p {
+        font-size: var(--font13);
+        //color: var(--text-dark);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+        padding-right: 2px;
+        text-align: right;
+        padding-top: .25rem !important;
+
+    //     align-items: center;
+    // display: flex;
+    // justify-content: end;
+    }
+
+    .input-group {
+       // background-color: var(--blue-light-6);
+
+        .form-control {
+            border-radius: 0;
+           // height: 30px;
+            border-right: 0;
+            background: var(--white);
+            border-color: #c9e2ff;
+            color: #000;
+            font-size: var(--font14);
+            margin-right: 2px;
+        }
+
+        .input-group-append {
+            //height: 25px;
+            border-left: 0;
+            background: var(--white);
+            // border-color: #c9e2ff !important;
+            position: relative;
+            // right: 0;
+            // bottom: 0px;
+            // top:0px;
+            z-index: 9;
+            height: var(--inputha);
+            margin: auto 0px;
+
+            span{
+                display: flex;
+                align-items: center;
+            }
+        }
+
+    }
+}
+
+.floating-desktop-input {
+    // margin-top: 13px;
+    width: 100%;
+}
+
+.form-control-placeholder {
+    position: absolute;
+    top: 0;
+    transition: all 200ms;
+    opacity: 1;
+    color: var(--text-dark);
+    margin: 3px 0px;
+    transform: translateX(10px);
+    transform: translate(0px, 2px);
+    font-size: var(--font14);
+}
+
+.floating-desktop-input{}
+
+// .un_action_cont{
+//     margin-top: 15px;
+// }
+.input_box_3 .form-control-placeholder {
+    padding-left: 10px ;
+}
+
+.floating-desktop-input:focus+.form-control-placeholder {
+    transform: translate3d(0, 0px, 0);
+    opacity: 1;
+}
+
+.floating-code-btn {
+    position: absolute;
+    top: 14px;
+}
+
+
+.box-floating-desktop {
+    width: 100%;
+}
+
+.box-floating-desktop:focus+.form-control-placeholder {
+    transform: translate3d(0, -25px, 0);
+    opacity: 1;
+}
+
+
+
+.form-control-placeholder {
+    font-weight: 400;
+    padding-left: 4px;
+}
+
+.ul-left-desk {
+    p.input-group-label {
+        // background-color: var(--blue-light-4) !important;
+        text-align: right;
+        padding-right: 2px;
+    }
+
+    .input-group-append {
+        border-right: 0 !important;
+        border-top: 0 !important;
+        border: 0 !important;
+    }
+
+    .bg-input-2 {
+        background-color: var(--white);
+        border-radius: 3px;
+        // border-left: 1px solid var(--blue-new) !important;
+        .cross-top-icon {
+            top: 0px;
+        }
+        .form-control{
+            height:var(--inputh) !important;
+            color: var(--blackNew);
+            font-size: 14px;
+        }
+    }
+
+    input {
+        border-bottom: 0;
+    }
+
+}
+.ul_float_input:has(ion-input[readonly],ion-input[disabled],input[readonly],input[disabled]){
+    background-color: var(--grey-5) !important;
+    border-color: var(--grey-5) !important;
+}
+
+.bl_prompt,
+.bg-prompt{
+    display: flex;
+    // align-items: center;
+}
+
+
+.topinput_header{
+    float: right;
+    .topinput{
+      display: flex;
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      height: var(--globtn);
+      align-items: center;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      margin-right: -2px;
+      ion-input{
+        font-size: var(--font13);
+      }
+     
+      ion-button{
+       --background:#ffffff;
+       background:#ffffff;
+       color:var(--blackNew);
+       --padding-start: 5px;
+       --padding-end: 5px;
+       height: var(--globtn - 2);
+        --box-shadow:none;
+      }
+    }
+    .globe-btn{
+      margin: 0px 0px 0px 0px;
+    }
+  }
+
+  .ul_flot_ios {
+      border-bottom: 1px solid #cdcdcd;
+      border-radius: 0px;
+      position: relative;
+      width: 100%;
+
+      ion-label {
+          margin-bottom: 3px;
+              margin-top: 0px !important;
+      }
+
+      // ion-label{
+      //     transform: translate(0, 20px)
+      // }
+      // ion-label.ng-touched{
+      //     transform: translate(0, 0px) !important;
+
+      // }
+      // .item-label-floating:has(.selected-value) ion-label {
+      //     transform: translate(0, 0px) !important;
+      // }
+      .ul_float_input {
+          display: flex;
+          height: var(--inputh);
+          border-bottom: 1px solid #d0d0d0;
+          
+
+
+          &:has(.dimension-icon){
+            padding-right: 20px;
+          }
+
+          ion-input {
+              border-bottom: 0px !important;
+          }
+
+          .input-buttons-container {
+              position: relative !important;
+              display: flex;
+              margin-top: 0px !important;
+
+          }
+
+          .selected-value {
+              margin-right: 0px !important;
+          }
+           
+          .dimension-icon{
+            top:unset !important;
+          }
+      }
+  }
+
+
+  .box-top_inputm{
+    display: grid;
+    width: 100%;
+    border: 1px solid #d0d0d0;
+    &:has(.selected-value){
+        ion-label{
+            top: -30% !important;
+            left: 5px !important;
+
+        }
+    }
+    .selected-value{
+        border: 1px solid #d3d3d3;
+        border-radius: 3px;
+    }
+  }
+
+  .ul_flot_ios{
+    .item-label-floating:has(.selected-value) ion-label {
+        margin-top: -20px !important;
+        margin-bottom: 22px !important;
+    }
+  }
+ .box_float_container_sec:has(.dimension-icon){
+    .box_float_container{
+        padding-right: 20px;
+    }
+  }
+  .box_float_container_sec,
+.ul_float_container_sec{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    .box_float_container,
+    .ul_float_container{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d3d3d3;
+    width:100%;
+    input{
+        border:0px !important;
+        font-size: var(--font14);
+    }
+    input,
+    .selected-value{
+        margin-top: 0px !important;
+    }
+
+    // &:has(.selected-value){
+    //    padding-top: 22px;
+    // }
+  } 
+
+
+
+}
+
+.ul_float_container_sec{
+    .ul_float_container{
+        &:has(.selected-value){
+            padding-top: 22px;
+         }
+    }
+}
+
+.box_float_container_sec{
+    .box_float_container{
+        &:has(.selected-value){
+            margin-top: 22px;
+        }
+    }
+}
+
+.box_float_container{
+    border: 1px solid #d3d3d3 !important;
+    border-radius: 3px; 
+    // display: grid !important;
+    
+}
+ 
+.ul_left_container_mobs,
+.ul_top_container_mobs{
+    border: 0px !important;
+    .input-div{
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #d3d3d3 !important;
+    }
+    .ul_top__mobs{
+        width: 99%;
+    }
+    .bg-input{
+        display: flex;
+        align-items: center;
+    }
+}
+// .box_top_container_mobs{
+//     border: 0px !important;
+// }
+.box_float_container_mobs{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  
+}
+.box_float_container_mobs:has(.selected-value){
+    ion-label{
+        top:0% !important;
+        left:0px !important;
+    } 
+}
+
+.box_float_container_mobs:has(ion-input:focus){
+    ion-label{
+        top:0% !important;
+    } 
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* For other browsers */
+}
+
+ion-lanel.via_input{
+    margin: 2px 0px;
+    padding: 0px 0px !important;
+    font-size: 14px !important;
+}
+
+.input-buttons-container{
+    display: flex;
+}
+
+
+
+
+
+.custom-input {
+    --padding-start: 14px;
+    --inner-padding-end: 14px;
+    border-bottom: 0px solid #cdcdcd;
+    transition: all 0.3s ease;
+
+    .dimension-icon{
+        top:unset !important;
+        z-index: 99;
+    }
+}
+
+/* Focus effect */
+.custom-input.item-has-focus {
+//   border: 1px solid #3880ff;
+//   box-shadow: 0 6px 18px rgba(56, 128, 255, 0.15);
+}
+
+/* Label styling */
+.custom-input ion-label {
+  color: #666;
+  font-size: 14px;
+  transition: 0.3s ease;
+  color: var(--text-dark);
+   margin-top: -13px;
+   margin-right: auto;
+   position: relative;
+    z-index: 991;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+.custom-input:has(.has-value ,.has-focus){
+    ion-label{
+          font-size: 16px !important;        
+          color: var(--text-dark);
+              display: inline-block;
+    background: #fff;
+    
+    }
+}
+
+
+/* When focused or has value */
+.custom-input.item-has-focus ion-label,
+.custom-input.item-has-value ion-label {
+ // color: #3880ff;
+  font-weight: 500;
+}
+
+/* Input text */
+.custom-input ion-input {
+ --padding-top: 0px;
+    --padding-bottom: 0px;
+  font-size: 15px;
+  color: #222;
+  z-index: 99;
+}

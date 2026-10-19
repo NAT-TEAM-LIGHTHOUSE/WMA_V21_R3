@@ -1,0 +1,82 @@
+<div *ngIf="filter">
+  <app-frame-canvas-filter [frametable]="frame" (passdataToframetable)="getdataFromcanvasFilter($event)"
+    [frame]='frame'></app-frame-canvas-filter>
+</div>    
+
+<div class="summary-card-container" *ngIf = "!filter">
+<div class="single-summary-card">
+<div class="tophead-card">
+  <div class="title">
+      <h6 class="main-title">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;" *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"  color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()"></ion-icon></span></h6>
+      <p>Updated 2 hours , 33 minutes ago  </p>
+  </div>
+
+</div>
+<div class="summary-box">
+  <h6>Across India </h6>
+
+  <div>
+      <div class="input-group primary-search-section" *ngIf="searchFlag  && !filter">
+        <ion-input class="input-text" placeholder="Search Here..." [(ngModel)]="tablerowsfilter"></ion-input>
+        <div class="input-group-append">
+          <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+            <ion-icon name="ios-funnel"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="show_filter=='show' ">
+      <div *ngIf="toggleFilter">
+        <app-frame-canvas-filter [frame]="frame" [frametable]='frame' (passdataToframetable)="getdataFromcanvasFilter($event)" (emitFilter)="getFilterParameter($event)"></app-frame-canvas-filter>
+      </div>
+         
+    </div> 
+
+<div class="table-reponsive" > 
+<table>
+  <tbody>
+    <tr class="heading1">
+        <td *ngFor="let th of thead;let i=index" >{{th}}</td>
+    </tr>
+    <tr class="heading2" *ngFor="let tableData of frame.tableRows | tableSearch :tablerowsfilter;let rowindex=index">
+        <ng-container *ngFor="let itemGroup of tableData;">
+            <td *ngFor="let input_item of itemGroup;"
+              [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag=='F'">
+              <p class="rate {{input_item.css_class}}" (click)="itemClicked(input_item,tableData,rowindex)">{{input_item.value}}</p>
+            </td>
+          </ng-container>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="pagination-container" *ngIf="l_total_remain_pages > 1">
+  <ul class="paginator my-1">
+    <li class="pt-1">Total  Records:{{frame.tableRows.length}} /
+      {{frame.tableData.length}}</li>
+    <li>
+      <ion-icon class="paginator-btn" *ngIf="frame.page_no !=1" name="play-skip-back-sharp" (click)="goFirst(1);">
+      </ion-icon>
+    </li>
+  
+    <li>
+      <ion-icon class="paginator-btn next-btn"  *ngIf="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages"
+      name="arrow-forward-sharp" (click)='paginate(frame.page_no+1);'>
+      </ion-icon>
+
+    </li>
+
+    <li>
+      <ion-icon class="paginator-btn next-btn" *ngIf="frame.total_Pages && frame.page_no && frame.page_no != frame.total_Pages" name="play-skip-forward-sharp"
+      (click)='goToLast(frame.total_Pages);'>
+      </ion-icon>
+    </li>
+
+  </ul>
+</div>
+<div *ngIf="flagforgraph==true">
+<!-- <app-frame-graph  [resfromTable]="resforgraph"></app-frame-graph> -->
+</div>
+</div>
+</div>
+</div>

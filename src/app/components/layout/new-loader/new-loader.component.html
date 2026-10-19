@@ -1,0 +1,43 @@
+<div class="process-new-loader">
+
+   <div class="stepper">
+
+    <div class="line"></div>
+
+    <div class="progress" [style.width.%]="progressWidth"></div>
+
+    <div
+      class="step"
+      *ngFor="let step of steps; let i = index"
+      [ngClass]="step.status"
+    >
+
+      <div class="circle">
+        <ng-container *ngIf="step.status === 'completed'; else iconTpl">
+          ✓
+        </ng-container>
+
+        <ng-template #iconTpl>
+          {{ step.icon }}
+        </ng-template>
+      </div>
+
+      <h4>{{ step.title }}</h4>
+      <p>{{ step.desc }}</p>
+
+    </div>
+
+  </div>
+
+  <div class="status mb-3">
+    <div *ngIf="current <= steps.length" class="loader" ></div>
+    {{ statusText }}
+  </div>
+   <div class="d-flex align-items-center justify-content-center px-5">
+    
+     <ion-button class="process-loader-btn w-50 mt-4">Start Process</ion-button>
+   </div>
+ 
+  
+
+</div>

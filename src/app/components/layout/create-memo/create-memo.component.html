@@ -1,0 +1,231 @@
+<section class="create_memo_section">
+<div class="create_memo_section_container">
+  <h3>Title</h3>
+  <ion-textarea class="memo_textarea" placeholder="Write a description">
+  </ion-textarea>
+  <div class="memo_cheaps_area">
+    <ion-chip color="primary">Linked to PO Number 261542</ion-chip> <ion-chip color="primary">User Name</ion-chip> <ion-chip color="primary">Work Done Confirmation</ion-chip>
+  </div>
+</div>
+<div class="create_memo_section_button">
+ <div class="left d-flex align-items-center">
+  <ng-select class="ng-select-new ng-select-dropdown" placeholder="Memo Type" >
+     <ng-option selected > Memo Type </ng-option>
+     <ng-option><input type="checkbox" /> Unlinked</ng-option>
+      <ng-option><input type="checkbox" /> linked</ng-option>
+  </ng-select>
+   <ng-select class="ng-select-new ng-select-dropdown" placeholder="Assign To" >
+    <ng-option><input type="checkbox" /> MySelf</ng-option>
+      <ng-option><input type="checkbox" /> User</ng-option>
+       <ng-option><input type="checkbox" /> Event User</ng-option>
+  </ng-select>
+   <ng-select class="ng-select-new ng-select-dropdown" placeholder="Action Required" >
+    <ng-option><input type="checkbox" /> none</ng-option>
+      <ng-option><input type="checkbox" /> Work Done Confirmation</ng-option>
+        <ng-option><input type="checkbox" /> Daily Progress Status</ng-option>
+          <ng-option><input type="checkbox" /> Read Only Action</ng-option>
+            <ng-option><input type="checkbox" /> Coversation</ng-option>
+  </ng-select>
+   <ng-select class="ng-select-new ng-select-dropdown" placeholder="Notification" >
+    <ng-option><input type="checkbox" /> Browser</ng-option>
+      <ng-option><input type="checkbox" /> Mobile App</ng-option>
+      <ng-option><input type="checkbox" /> SMS</ng-option>
+      <ng-option><input type="checkbox" /> Email</ng-option>
+      <ng-option><input type="checkbox" /> What's App</ng-option>
+  </ng-select>
+ </div>
+ <div class="right d-flex align-items-center" placeholder="Memo Type" > 
+  <ion-button class="create_memo_button outline">Cancel</ion-button>
+  <ion-button class="create_memo_button fill" >Save</ion-button>
+ 
+ </div>
+
+</div>
+<div class="create_memo_section_container">
+
+  <!--Memo Type-->
+<ion-row>
+   <ion-col size="3" >
+    <div class="input_div me-2">
+     <ion-label>Title</ion-label>
+     <div class="input_div_container">
+      <ng-select class="ng-select-dropdown">
+        <ng-option selected> Select a title </ng-option>
+        <ng-option [value]="5">Master</ng-option>
+        <ng-option [value]="6">None</ng-option>
+      </ng-select>
+     </div>
+    </div>
+  </ion-col>
+  <ion-col size="3" >
+    <div class="input_div me-2">
+     <ion-label>Lov to Search and Linked Data</ion-label>
+     <div class="input_div_container">
+      <ion-input type="text">   </ion-input>
+      <div class="action_div">
+      <ion-icon name="search-outline"></ion-icon>
+      </div>
+     </div>
+    </div>
+  </ion-col>
+  <ion-col size="3" >
+    <div class="btn-div_section d-flex align-items-center">
+       <ion-button class="create_memo_button outline">Cancel</ion-button>
+        <ion-button class="create_memo_button outline">Okay</ion-button>
+    </div>
+       
+  </ion-col>
+</ion-row>
+
+
+
+<!--Assign To -->
+<ion-row>
+  <ion-col size="3" >
+    <div class="input_div me-2">
+     <ion-label>Search User</ion-label>
+     <div class="input_div_container">
+      <ion-input type="text" placeholder="User Name"></ion-input>
+      <div class="action_div">
+      <ion-icon name="search-outline"></ion-icon>
+      </div>
+     </div>
+    </div>
+  </ion-col>
+  <ion-col size="3" >
+    <div class="btn-div_section d-flex align-items-center">
+       <ion-button class="create_memo_button outline">Cancel</ion-button>
+        <ion-button class="create_memo_button outline">Okay</ion-button>
+    </div>
+       
+  </ion-col>
+</ion-row>
+
+
+
+<!--Action Required -->
+<ion-row>
+  <ion-col size="3" >
+    <div class="input_div me-2">
+     <ion-label>Due On</ion-label>
+     <div class="input_div_container">
+      <ion-button class="create_memo_button active">Immagiate</ion-button>
+       <ion-button class="create_memo_button ">On Date </ion-button>
+        <ion-button class="create_memo_button ">On Event</ion-button>
+     </div>
+    </div>
+  </ion-col>
+   <ion-col size="3" >
+    <div class="input_div me-2">
+     <ion-label>Due Date</ion-label>
+     <div class="input_div_container">
+      <ion-input type="date"  displayFormat="MMM DD, YYYY" placeholder="Select Date"></ion-input>
+     </div>
+    </div>
+   </ion-col>
+   <ion-col size="3" >
+    <div class="input_div me-2">
+     <ion-label>Reminder</ion-label>
+     <div class="input_div_container">
+      <ion-button class="create_memo_button ">Off</ion-button>
+       <ion-button class="create_memo_button ">Once</ion-button>
+        <ion-button class="create_memo_button ">Custom</ion-button>
+     </div>
+    </div>
+  </ion-col>  
+  <ion-col size="3" ></ion-col>
+ <ion-col size="12" class="py-2">
+  <h3>Start On :</h3>
+ </ion-col>
+  <ion-col size="3" >
+    <div class="input_div me-2">
+     <ion-label>Due Date</ion-label>
+     <div class="input_div_container">
+      <ion-input type="date"  displayFormat="MMM DD, YYYY" placeholder="Select Date"></ion-input>
+     </div>
+    </div>
+   </ion-col>
+   <ion-col size="3" >
+    <div class="input_div me-2">
+     <ion-label>Time</ion-label>
+     <div class="input_div_container">
+      <ion-input type="date"  displayFormat="MMM DD, YYYY" placeholder="Select Date"></ion-input>
+     </div>
+    </div>
+   </ion-col>
+   <ion-col size="6" >
+    <div class="input_div me-2">
+     <ion-label>Before</ion-label>
+     <div class="input_div_container">
+       <ion-button class="create_memo_button ">3 Days</ion-button>&nbsp; & &nbsp;
+        <ion-button class="create_memo_button ">2 Hrs</ion-button>&nbsp; & &nbsp;
+         <ion-button class="create_memo_button ">5 Min</ion-button>
+     </div>
+    </div>
+   </ion-col>
+   <ion-col size="12"  class="py-2">
+  <h3>Repeat :</h3>
+ </ion-col>
+  <ion-col size="3" >
+    <div class="input_div me-2">
+    
+     <div class="input_div_container">
+      <ng-select class="ng-select-dropdown">
+        <ng-option selected>Weakly </ng-option>
+        <ng-option [value]="5">Master</ng-option>
+        <ng-option [value]="6">None</ng-option>
+      </ng-select>
+     </div>
+    </div>
+  </ion-col>
+   <ion-col size="3" >
+   
+    <div class="input_div me-2">
+    
+     <div class="input_div_container">
+      <ng-select class="ng-select-dropdown">
+        <ng-option selected> Sun,mon,tue </ng-option>
+        <ng-option [value]="5">Master</ng-option>
+        <ng-option [value]="6">None</ng-option>
+      </ng-select>
+     </div>
+    </div>
+  </ion-col>
+   <ion-col size="3" >
+  
+    <div class="input_div me-2">
+     <div class="input_div_container">
+       <ion-button class="create_memo_button ">16:45</ion-button>
+     </div>
+    </div>
+  </ion-col>
+    <ion-col size="3" ></ion-col>
+     <ion-col size="12" class="py-2" >
+  <h3>End On :</h3>
+ </ion-col>
+ <ion-col size="6" >
+    <div class="input_div me-2">
+     <div class="input_div_container">
+       <ion-button class="create_memo_button ">Never</ion-button>&nbsp;&nbsp;
+        <ion-button class="create_memo_button ">After Due Date </ion-button>&nbsp;&nbsp;
+         <ion-button class="create_memo_button ">On Date</ion-button>&nbsp;&nbsp;
+                <ion-button class="create_memo_button ">Occurence </ion-button>&nbsp;&nbsp;
+                <ion-button class="create_memo_button ">4 Time </ion-button>&nbsp;&nbsp;
+                
+     </div>
+    </div>
+   </ion-col>
+    <ion-col size="6" >
+    <div class="input_div me-2">
+     <div class="input_div_container">
+       <ion-button class="create_memo_button outline">Cancel</ion-button>
+        <ion-button class="create_memo_button outline">Okay</ion-button>
+    </div>
+    </div>
+       
+  </ion-col>
+</ion-row>
+
+</div>
+
+</section>

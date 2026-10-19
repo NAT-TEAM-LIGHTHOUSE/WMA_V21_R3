@@ -1,0 +1,53 @@
+
+
+// :host {
+//     .app-button {
+//       &__contributors {
+//         border: 1px solid red;
+//       }
+//     }}
+.icon-btn
+{
+   --padding-start: 0em;
+    --padding-end: 0em;
+    height:1.7em;
+    margin-right: 13px;
+    --ion-color-dark:var(--blue-new);
+}
+.iconText-btn{
+    border-radius: 11px;
+    font-size: var(--font16);
+    --padding-end: 7px;
+    --padding-start: 7px;
+    --padding-top: 0px;
+    height: 2em;
+
+}
+.small-btn{
+    font-size: var(--font11);
+
+}
+.form-button{
+    margin: 0px 2px;
+    height: 25px;
+    vertical-align: baseline;
+}
+.code-btn{
+    font-size: 25px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.globe-btn{
+    margin-bottom:0px !important;
+   
+}
+.globe-btn1{
+    margin-bottom: 0px !important;
+    padding: 8px 26px;
+    border-radius: 64px;
+    color: var(--white);
+  }
+
+
+  

@@ -1,0 +1,194 @@
+<ion-item class="sidebar-menu menu-cursor" (click)="popupClose('refreshObj')">
+  <ion-avatar slot="start">
+    <img src="assets/imgs/local-time.png">
+  </ion-avatar>
+  <ion-label>
+    Refresh Object
+  </ion-label>
+</ion-item>
+<ion-item class="sidebar-menu" (click)="openObj()">
+  <ion-avatar slot="start">
+    <img src="assets/imgs/editobject.png">
+  </ion-avatar>
+  <ion-label>
+    Edit Object
+  </ion-label>
+</ion-item>
+<ion-item class="sidebar-menu">
+  <ion-avatar slot="start">
+    <img src="assets/imgs/app-key.png">
+  </ion-avatar>
+  <ion-label>
+    App Key : {{userDetails.appkey}}
+  </ion-label>
+</ion-item>
+
+<ion-item class="sidebar-menu">
+  <ion-avatar slot="start">
+    <img src="assets/imgs/user.png">
+  </ion-avatar>
+  <ion-label>
+    User : {{userDetails.user_code}}
+  </ion-label>
+</ion-item>
+
+<ion-item class="sidebar-menu menu-cursor" (click)="openChangePassword()">
+  <ion-avatar slot="start">
+    <img src="assets/imgs/look-feel.png">
+  </ion-avatar>
+  <ion-label>
+    Change Password
+  </ion-label>
+</ion-item>
+
+<ion-item class="sidebar-menu menu-cursor" (click)="settings()">
+  <ion-avatar slot="start">
+    <img src="assets/imgs/gear.png">
+  </ion-avatar>
+  <ion-label>
+    Settings
+  </ion-label>
+</ion-item>
+
+<ion-item class="sidebar-menu">
+  <ion-avatar slot="start">
+    <img src="assets/imgs/object-code.png">
+  </ion-avatar>
+  <ion-label>
+    Object Code : {{lhs_lib.object_mast.Level2[0].object_code}}
+  </ion-label>
+</ion-item>
+
+<ion-item (click)="showFlag = !showFlag" fill="full" class="menu-open-close ion-text-center" *ngIf="!showFlag">
+  <ion-label>More Details<ion-icon name="chevron-down-circle-outline"></ion-icon>
+  </ion-label>
+</ion-item>
+
+<ng-container *ngIf="showFlag">
+  <ng-container *ngIf="lhs_lib.object_mast && lhs_lib.object_mast.Level2">
+    <ion-item class="sidebar-menu menu-cursor" (click)="popupClose('upload')">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/upload.png">
+      </ion-avatar>
+      <ion-label>
+        Upload
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sidebar-menu menu-cursor" (click)="popupClose('download')">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/download.png">
+      </ion-avatar>
+      <ion-label>
+        Download
+      </ion-label>
+    </ion-item>
+
+
+    <ion-item (click)="signalRefresh()" class="sidebar-menu menu-cursor">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/refresh-signal.png" item-start>
+      </ion-avatar>
+      <ion-label>
+        Refresh Signal
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sidebar-menu menu-cursor" (click)="switchToCollection()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/sidebarIcons/switch.png">
+      </ion-avatar>
+      <ion-label>
+        Switch App
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sidebar-menu menu-cursor" (click)="lookfeel()">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/look-feel.png">
+      </ion-avatar>
+      <ion-label>
+        Look & Feel
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sidebar-menu">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/iud.png">
+      </ion-avatar>
+      <ion-label>
+        iud : {{lhs_lib.object_mast.iud_seqid}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sidebar-menu">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/ws-seqid.png">
+      </ion-avatar>
+      <ion-label>
+        ws_seqid : {{lhs_lib.object_mast.same_ws_seqid}}
+      </ion-label>
+    </ion-item>
+
+
+    <ion-item class="sidebar-menu">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/local-time.png">
+      </ion-avatar>
+      <ion-label>
+        Local DB Time : {{lhs_lib.object_mast.object_saved_to_localdb_time}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sidebar-menu menu-cursor" *ngIf="globalObjects.toggleDevloperMode()" (click)="popupClose('devMode')">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/local-time.png">
+      </ion-avatar>
+      <ion-label>
+        Developer Page
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sidebar-menu menu-cursor" (click)="popupClose('deleteIcons')">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/gear.png">
+      </ion-avatar>
+      <ion-label>
+        Delete Local Icons
+      </ion-label>
+    </ion-item>
+    
+
+    <ion-item class="sidebar-menu menu-cursor">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/network.png">
+      </ion-avatar>
+      <ion-label>
+       Network Type : {{globalObjects.networkType}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sidebar-menu menu-cursor">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/internetspeed.png">
+      </ion-avatar>
+      <ion-label>
+       Network Speed : {{connectionSpeed}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="sidebar-menu menu-cursor">
+      <ion-avatar slot="start">
+        <img src="assets/imgs/ws-seqid.png">
+      </ion-avatar>
+      <ion-label>
+        Build Version : {{globalObjects.android_version_numeric}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item (click)="showFlag = !showFlag" fill="full" class="menu-open-close ion-text-center">
+      <ion-label>Less Details<ion-icon name="chevron-up-circle-outline"></ion-icon>
+      </ion-label>
+    </ion-item>
+  </ng-container>
+</ng-container>

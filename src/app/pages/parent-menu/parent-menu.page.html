@@ -1,0 +1,33 @@
+<div class="parent-name-container">
+  <ng-container >
+  <div  class="dropdown-content" *ngIf="!openNewTab">
+    <div class="inner-div"> 
+      <ng-container *ngFor="let c of childItems">
+    <a *ngIf="c.item_visible_flag != 'F'" (click)="closePop(c)">{{c.prompt_name}}</a>
+    </ng-container>
+  </div>
+  </div>
+  <div  class="dropdown-content" *ngIf="openNewTab">
+    <div class="inner-div"> 
+    <a (click)="closePop('')"> Open In New Tab</a>
+    <a> Back <b>Alt + b</b></a>
+    <a> Home <b>Alt + h</b></a>
+    <a> Logout <b>Alt + l</b></a>
+    <a> Reload </a>
+    <a> Back </a>
+    <a> Reload </a>
+  </div>
+
+  <div class="inner-div collapse"  id="right-click-footer"> 
+    <a> Back </a>
+    <a> Back </a>
+    <a> Reload </a>
+    <a> Back </a>
+  </div>
+ <div class="right-click-footer">
+     <a (click)="rightClickpopen()" id="openrightp"><ion-icon name="caret-down-outline"></ion-icon></a>
+     <a (click)="rightClickpoclose()"  id="closerightp" style="display: none;"><ion-icon name="caret-up-outline" ></ion-icon></a>
+</div>
+  </div>
+</ng-container>
+</div>

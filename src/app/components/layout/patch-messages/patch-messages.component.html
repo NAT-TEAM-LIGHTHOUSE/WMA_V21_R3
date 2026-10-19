@@ -1,0 +1,15 @@
+<div class="patch_messages">
+  <h3>Alerts</h3>
+  <ul>
+    <li *ngFor="let a of arr;let i = index">
+      <div class="message_box">
+       
+          <p class="text_line"> {{a.para_value}} </p>
+          
+           <div class="d-flex align-items-center justify-content-start">
+                    <p class="date" style="color: #c1c1c1;font-size: 13px;">10 min ago </p> 
+           </div>
+      </div>
+    </li>
+  </ul>
+</div>

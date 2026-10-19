@@ -1,0 +1,32 @@
+.pane{
+    // height: 100%;
+    height: auto;
+   }
+ 
+ .nav-tabs {
+    background: #bfc1c5;
+     margin-bottom: -1px;
+     overflow-y: auto;
+     width: 100%;
+     display: block;
+     white-space: nowrap;
+    .tabLi {
+       color: rgb(32, 33, 36);
+     cursor: default;
+     padding: 0px 13px;
+     margin: 0px 0px;
+     font-size: var(--font14);
+     font-weight: 400;
+     border-right: 1px solid #b2b2b2;
+     cursor: pointer;
+     display: inline;
+  
+       .tab-close {
+          color: #d7d7d7;
+          text-align: right;
+          cursor: pointer;
+      }
+   }
+ }
+
+ 

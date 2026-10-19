@@ -1,0 +1,230 @@
+<div class="collapse-list-container" *ngIf="frame.showCollapse || !frame.collapse">
+  <ion-item class="collapse-list" (click)="toggleFrame()">
+    {{frame.apps_page_frame_name}} <span style="margin-left: 10px;"
+      *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"
+        color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()">
+      </ion-icon></span>
+    <ion-icon name="chevron-forward-outline" slot="end" *ngIf="!frame.collapse"></ion-icon>
+    <ion-icon name="ios-arrow-down" slot="end" *ngIf="frame.collapse"></ion-icon>
+  </ion-item>
+</div>
+
+<div [class]="frame.showCollapse ? 'collapse-list-body' : ''" *ngIf="frame.collapse">
+ 
+    <ion-row *ngIf="frame.apps_page_frame_name && !frame.showCollapse" class="align-center">
+      <ion-col col-12>
+        <div class="frame-head">
+          <div>
+        <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;"
+            *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]<ion-icon
+              class="code-btn" color="primary" name="information-circle-outline" *ngIf="developerModeData"
+              (click)="showDeveloperData()">
+            </ion-icon></span></h1>
+            <ion-button (click)="onEmitChange()" class="db_edit" *ngIf="globalObjects.toggleDevloperMode()">
+              <ion-icon color="primary" name="create-outline"></ion-icon>
+            </ion-button>
+          </div>
+        <div class="ptree-btn">
+          <button pButton type="button"  (click)="expandAll()" title="expand one Level">
+       Expand all
+          </button>
+          <button pButton type="button" (click)="collapseAll()" title="collapse one Level">
+          Collapse all
+          </button>
+          <button pButton type="button" (click)="clickShare=true" title="Export File" *ngIf="!isNotExport">
+            <!-- <ion-icon name="download-outline"></ion-icon> -->Export File   </button>
+
+            <div *ngIf="clickShare" class="parent_sub_export_filter">
+                <div class="sub-tab-filter">
+                  <h5>Export File</h5>
+
+                  <ion-radio-group [(ngModel)]="selectedExportDataType">
+                    <ion-radio value="allData"  aria-label="All Data" ></ion-radio> <span style="color:var(--blackNew) !important;">&nbsp;All Data
+                    </span> &nbsp; &nbsp;
+                    <ion-radio value="selectData"  aria-label="Select Data"></ion-radio>
+                    <span style="color:var(--blackNew) !important;">&nbsp;Select Data </span>
+                  </ion-radio-group>
+                  
+                  <p style="margin-top: 8px;">Select the file type to export data</p>
+                  <ng-container>
+                    <ul sclass="sub-tab-filter-template" style="display: flex;">
+                      <!-- <li *ngIf="plt =='browser'" class="inner-dropShare" [ngClass]="fileTyle=='print'? 'active':''">
+                       <p (click)="selectFile('print')">CSV</p>  
+                      </li> -->
+                      <!-- <li class="inner-dropShare" *ngIf="plt =='browser'">
+                      
+                        <p (click)="getDataForGraph('print','')">PRINT</p>  
+                      </li> -->
+                      <li class="inner-dropShare" [ngClass]="fileTyle=='pdf'? 'active':''" *ngIf="!isNotExportPdf">
+                        <!-- <img (click)="getDataForGraph('excel','')" src="./assets/imgs/excelicon.png"> -->
+                        <!-- <p  (click)="getDataForGraph('pdf','')">PDF</p>   -->
+                          <p (click)="selectFile('pdf')">PDF</p> 
+                      </li>
+                      <li class="inner-dropShare" [ngClass]="fileTyle=='excel'? 'active':''" *ngIf="!isNotExportExcel">
+                        <!-- <img (click)="getDataForGraph('pdf','')" src="./assets/imgs/pdficon.png"> -->
+                        <!-- <p (click)="getDataForGraph('excel','')">EXCEL</p>   -->
+                        <p (click)="selectFile('excel')">EXCEL</p>   
+                      </li>
+                      <li class="inner-dropShare" [ngClass]="fileTyle=='csv'? 'active':''" *ngIf="!isNotExportCsv">
+                        <p (click)="selectFile('csv')">CSV</p>
+                      </li>
+                      <li *ngIf="plt =='ios' ||  plt=='android'" class="inner-dropShare" [ngClass]="fileTyle=='email'? 'active':''">
+                        <!-- <img (click)="getShare('email')" src="./assets/imgs/emailicon.png"> -->
+                        <p  (click)="getShare('email')">EMAIL</p>  
+                      </li>
+                    </ul>
+                  </ng-container>
+
+                  <div class="footer-area">
+                    <ion-button size="small" shape="round" class="global-main-copy" (click)="cancelExport()">
+                      Cancel
+                    </ion-button>
+                    <ion-button size="small" shape="round" class="global-main-copy active" (click)="confirmExport()">
+                      Confirm
+                    </ion-button>
+
+                  </div>
+                </div>
+              </div>
+        
+
+          
+
+
+
+
+
+
+
+
+         </div>
+        </div>
+        <div class="card p-tree-newtable" *ngIf="flag">
+        <p-treeTable #tt [value]="files" class="texstClass" [columns]="selectedColumns" [expanded]="true" id="theTable"
+          selectionMode="single" [(selection)]="selectedNode1" [ngStyle]="styleObject" dataKey="{{frame.apps_page_frame_seqid}}"
+          [resizableColumns]="true" (onColResize)="onResized($event)" [reorderableColumns]="true"
+          styleClass="p-treetable-sm" [scrollable]="true" scrollHeight="600px" (onNodeExpand)="keepTreeScroll()"
+          (onNodeCollapse)="keepTreeScroll()">
+            <ng-template pTemplate="caption">
+              <div class="row m-0 p-0">
+                <div class="col-md-3 col-sm-3 col-12 p-0" *ngIf="searchFlag">
+                  <div style="text-align: left">
+                    <span class="p-input-icon-right" id="bottom-header-search">
+                      <i class="pi pi-search"></i>
+                      <input type="text" pInputText  placeholder="Search here..."
+                      [(ngModel)]="frame.search" (input)="tt.filterGlobal(frame.search, 'contains')"
+                        style="width:100%;" />
+                    </span>
+                  </div>
+
+                </div>
+                <div class="col-md-9 col-sm-9 col-12 p-0" ></div>
+                <div class="col-md-4 col-sm-12 p-1">
+                  <div style="text-align:left">
+                    <p-multiSelect [options]="cols" optionLabel="header"
+                      selectedItemsLabel="{0} columns selected" style="display:grid;width:100%;line-height:0px;">
+                    </p-multiSelect>
+                  </div>
+                </div>
+               
+              </div>
+            </ng-template>
+
+            <i class="pi pi-check"></i>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns; let i = index" id="fixWidth{{i}}"
+                  (click)="clickEvents(i,col.isTrue)" [ngStyle]="(col.isTrue && col.headFreezCol)"  [ttSortableColumn]="col.field"
+                  style="border-right: 1px solid #4e7db7;border-left: 1px solid #4e7db7;" ttResizableColumn >
+      
+                  {{col.header}}  <img style="float:right;padding-right:5px;padding-top: 4px;" [ngClass]="col.isTrue?'fixedimg':''" *ngIf="col.isTrue" src="./assets/imgs/pin-outline.svg" />
+                   <img style="float:right;padding-right:5px;padding-top: 4px;"  *ngIf="!col.isTrue"  src="./assets/imgs/pin-outline.svg" /> 
+                  <!-- <ng-container *ngIf="!col.isTrue" aria-hidden="false"><ion-icon name="swap-vertical-outline"></ion-icon></ng-container> -->
+                <img *ngIf="col.isTrue" src="./assets/imgs/upperst.svg" [alt]="col.field" aria-hidden="true" />
+               <img *ngIf="!col.isTrue" src="./assets/imgs/lowerst.svg" [alt]="col.field" aria-hidden="false" />
+
+                </th>
+              </tr>
+
+              <tr *ngIf="item_search_flag">
+                <th *ngFor="let col of columns; let i = index" [ngStyle]="col.isTrue && col.headFreezCol">
+                  <ng-container *ngIf="col.datatype != 'NUMBER'" >
+                    <input pInputText type="text" class="w-full" [(ngModel)] = "col.search"
+                      (input)="tt.filter(col.search, col.field, col.filterMatchMode)" />
+                  </ng-container>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns" >
+              <tr [ttRow]="rowNode" [ttRow]="rowNode" [ttSelectableRow]="rowNode" *ngIf="files"
+               (keyup)="keyUp(rowData)" (keydown)="keyDown($event,rowNode)">
+                <td *ngFor="let col of columns; let i = index" (click)="rowEvent(rowData)" (dblclick)="doubleClick(col,rowData,col.field)" 
+                  [ngStyle]="(col.isTrue && col.freezCol) || (col.datatype == 'NUMBER' ? {'text-align': 'right','padding':'0px 5px 0px 0px'} : '') "
+                  [style]="getBackground(rowNode.level,rowData)" >
+                  <p-treeTableToggler id="toggler" [rowNode]="rowNode" (keyup)="keyUp(rowData)" (keydown)="keyDown($event,rowNode)" *ngIf="i <= 1"></p-treeTableToggler>
+                  <ng-container *ngIf="col.item_type == 'BUTTON' || col.item_type == 'BUTTON_ICON'; else elseTag">
+
+                    <app-items [item]="col" [frame_type]="'ENTRY_TABLE'" [frame]="frame"
+                      (emitPass)="rowEvent(rowData)">
+                    </app-items>
+                  </ng-container>
+                  <a>
+                  <ng-template #elseTag>
+                    {{rowData[col.field] | formatMask : col.format_mask}}
+                  </ng-template>
+                </a>
+
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer" let-columns>
+              <tr *ngIf="!frame.loading">
+                <td *ngFor="let col of columns; let i = index"
+                  [ngStyle]="(col.isTrue && col.freezCol) || (col.datatype == 'NUMBER' ? {'text-align': 'right','padding':'0px 5px 0px 0px'} : '') "
+                  style="width:200px;margin: auto;">
+                  {{col.summaryValue | formatMask : col.format_mask}}
+                </td>
+              </tr>
+            </ng-template>
+          </p-treeTable>
+        </div>
+      </ion-col>
+    </ion-row>
+  
+
+  <div class="pagination_tree">
+   
+      <!-- <li (click)="clickShare=!clickShare">
+        <ion-icon style="padding-top: 6px" name="share-social"></ion-icon>
+        <div *ngIf="clickShare" class="dropdownShare">
+          <ng-container>
+            <ul style="border: 0px;margin: 0px;padding: 0px;">
+              <li *ngIf="plt =='browser'" class="inner-dropShare">
+                <img (click)="getDataForGraph('print','')" src="./assets/imgs/printicon.png">
+              </li>
+              <li class="inner-dropShare">
+                <img (click)="getDataForGraph('pdf','')" src="./assets/imgs/pdficon.png">
+              </li>
+              <li class="inner-dropShare">
+                <img (click)="getDataForGraph('excel','')" src="./assets/imgs/excelicon.png">
+              </li>
+              <li *ngIf="plt =='ios' ||  plt=='android'" class="inner-dropShare">
+                <img (click)="getShare('email')" src="./assets/imgs/emailicon.png">
+              </li>
+            </ul>
+          </ng-container>
+        </div>
+      </li> -->
+      <p *ngIf="frame.tableData ">
+        Total No of Records : {{frame.frameTableData.length}}
+        <!-- Total No of Records : {{frame.tableData.length}} -->
+      </p>
+    
+  </div>
+
+  <div class="center" *ngIf="!files && frame.loading ">
+    <div class="text-center cent-loader">
+      <img src="../../../../assets/dot.gif" width="20%">
+    </div>
+  </div>
+</div>

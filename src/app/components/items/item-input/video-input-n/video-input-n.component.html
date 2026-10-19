@@ -1,0 +1,41 @@
+<p>
+  video-input-n works!
+</p>
+<div class="capture-img-container">
+  <ion-label class="form-label">{{videoInput.prompt_name}}</ion-label>
+  <div style="position: relative;" class="video-container">
+    <video [id]="videoId" *ngIf="!platform.is('android') && !platform.is('ios')" [ngStyle]="videoInput.display_setting_str"
+       controls autoplay>
+    </video>
+    <video [id]="videoId" *ngIf="platform.is('android')"  style="width: 100%; height: 100%;"
+      controls autoplay>
+    </video>
+    <video [id]="videoId" *ngIf="platform.is('ios')"  style="width: 100%; height: 100%;"
+      autoplay="true" controls="true" loop muted playsinline>
+    </video>
+  </div>
+</div>
+
+<div class="mb-2" style="display: flex;align-items: center;">
+  <div class="img-capture-sec-container">
+    <div style="display: flex;">
+      <div class="img-capture-sec" *ngIf="videoInput.item_sub_type == 'ONLY_CAMERA' || videoInput.item_sub_type == 'CAMERA_FILE'">
+        <span (click)="captureVideo()">
+          <ion-icon name="camera" style="color: rgb(255, 255, 255);padding-top:3px; font-size: 18px;"></ion-icon>
+        </span>
+      </div>
+
+
+
+
+      <div class="img-capture-sec" *ngIf="videoInput.item_sub_type == 'ONLY_FILE' || videoInput.item_sub_type == 'CAMERA_FILE'">
+        <div class="choose-file">
+          <span style="color: #F2C230;z-index:0;"></span>
+          <ion-icon name="images" class="img-ic"></ion-icon>
+          <ion-input type="file" class="choose-file-ip" accept="video/*"
+            (change)="selectFile($event)"></ion-input>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

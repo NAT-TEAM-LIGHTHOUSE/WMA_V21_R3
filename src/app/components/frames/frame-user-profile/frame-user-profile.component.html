@@ -1,0 +1,138 @@
+<div *ngIf="filter">
+  <app-frame-canvas-filter [frametable]="frame" (passdataToframetable)="getdataFromcanvasFilter($event)"
+    [frame]='frame'></app-frame-canvas-filter>
+</div>
+
+<div *ngIf="show_filter=='show'">
+  <div *ngIf="toggleFilter">
+    <app-frame-canvas-filter [frame]="frame" [frametable]='frame'
+      (passdataToframetable)="getdataFromcanvasFilter($event)" (emitFilter)="getFilterParameter($event)">
+    </app-frame-canvas-filter>
+  </div>
+</div>
+
+<div class="user-frame-head" >
+  <ion-row *ngIf="frame.apps_page_frame_name">
+    <ion-col class="pl-0" [size]="searchFlag ? 6 : 12" style="padding-bottom: 0;">
+      <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;"
+          *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]</span></h1>
+    </ion-col>
+    <ion-col size="6" class="pl-1">
+      <div *ngIf="searchFlag  && !filter ">
+        <div class="input-group primary-search-section">
+          <ion-input class="input-text" [hidden]="horizontal_table=='Hide'" placeholder="Search Here..."
+            [(ngModel)]="searchText"></ion-input>
+          <ion-input class="input-text" [hidden]="horizontal_table=='Show'" placeholder="Search Here..."
+            [(ngModel)]="searchText"></ion-input>
+          <div class="input-group-append">
+            <button class="lov-btn" ion-button icon-only small (click)="openMike()">
+              <img src="./assets/imgs/google-speaker.png">
+            </button>
+          </div>
+          <div class="input-group-append">
+            <button class="lov-btn" ion-button icon-only small>
+              <ion-icon name="qr-code-outline" (click)="openbarcodescanner()"></ion-icon>
+            </button>
+          </div>
+          <div class="input-group-append" *ngIf="enablefunnel">
+            <button class="lov-btn" ion-button icon-only small (click)="filterToggle()">
+              <ion-icon name="ios-funnel"></ion-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+    <ion-col class="pr-0 data-view-type text-right" size="5">
+    </ion-col>
+  </ion-row>
+</div>
+<ng-container *ngIf="frame.apps_frame_sub_type=='IMAGE_TOP';else elseTag ">
+  <ng-container *ngIf="frame.tableRows">
+
+    <div  *ngFor="let itemGroup of frame.tableRows[0];let rowindex = index">
+      <div  *ngFor="let item of itemGroup.Level5">
+        <div class="profile_deskcard">
+          <ng-container *ngIf="item.item_type=='IMAGE' &&  item.item_visible_flag =='T'">
+            <div class="profile_deskcard_head">
+              <app-items class="p-0" [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event,frame.tableRows[0], rowindex)" [frame]="frame"
+              (LHSOnChange)="itemValueChange($event,rowindex)">
+            </app-items> 
+          </div>
+        </ng-container>
+        <ng-container *ngIf="item.item_type != 'IMAGE' &&  item.item_visible_flag =='T'"   >
+          <div   class="profile_deskcard_footer">
+            <app-items class="p-0" [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event,frame.tableRows[0], rowindex)" [frame]="frame"
+            (LHSOnChange)="itemValueChange($event,rowindex)">
+          </app-items> 
+        </div>
+      </ng-container>
+    </div> 
+  </div>
+</div>
+</ng-container>
+  </ng-container>
+<ng-template  #elseTag>
+<div *ngIf="horizontal_table=='Show' && !filter " class="virtual-cdk-panel">
+  <cdk-virtual-scroll-viewport [itemSize]="itemSize" minBufferPx="2000" maxBufferPx="4000" [ngStyle]="cardHeight">
+  <div *cdkVirtualFor="let rows of frame.tableRows |tableSearch :searchText;let j=index;">
+     <ion-item class="user-profile-card" lines="none" [id]="frame.apps_page_frame_seqid">
+
+      <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+        <ion-col size="10" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+          [hidden]="input_item.item_visible_flag!='T'">
+          <div *ngIf="input_item.item_type =='IMAGE'">
+            <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+              (LHSOnChange)="itemValueChange($event,j)"></app-items>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-label class="middle-card">
+        <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
+          <ion-col size="12" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
+            [hidden]="input_item.item_visible_flag!='T'">
+            <div *ngIf="input_item.item_type!='IMAGE' && input_item.position!='CARD_RIGHT'">
+              <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+                (LHSOnChange)="itemValueChange($event,j)"></app-items>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-label>
+      <div class="left-border" *ngIf="right_flag && cardRightArray.length > 0" class="left-border">
+        <div class="icon-center">
+          <ion-row class="px-1 py-0" *ngFor="let itmGrp of cardRightArray[j];let rowindex=index">
+            <ng-container *ngFor="let input_item of itmGrp.Level5;let i=index">
+              <ion-col class="px=1 py-0"
+                [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
+                [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
+                <app-items class="p-0" [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
+                  (LHSOnChange)="itemValueChange($event,j)">
+                </app-items>
+              </ion-col>
+            </ng-container>
+          </ion-row>
+        </div>
+      </div>
+    
+    </ion-item>
+
+  </div>
+  </cdk-virtual-scroll-viewport>
+</div>
+</ng-template>
+<div *ngIf="frame.tableRows && (frame.tableRows.length < l_total_rows) && (!frame.calenderflag)">
+  <ion-infinite-scroll threshold="100px">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+      loadingText="Populating page {{l_current_page}} of {{total_Pages}}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</div>
+
+<div class="center" *ngIf="listLength==0">
+  <div class="text-center cent-loader" *ngIf="noRecordMessage == ''">
+    <img src="../../../../assets/dot.gif" width="20%">
+  </div>
+  <div class="text-center" *ngIf="noRecordMessage != ''">
+    <h2>{{noRecordMessage}}</h2>
+  </div>
+</div>

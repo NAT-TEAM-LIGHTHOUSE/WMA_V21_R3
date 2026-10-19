@@ -1,0 +1,12 @@
+<div>
+    <ion-toolbar color="primary">
+      <ion-title >
+       
+        <ion-datetime [value]="viewTitle" [(ngModel)]="viewTitle" display-timezone="utc"  (ionChange)="onchange(viewTitle)">  </ion-datetime>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="today()">Today</ion-button>
+      </ion-buttons>
+      
+    </ion-toolbar>
+  </div>

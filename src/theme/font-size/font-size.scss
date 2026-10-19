@@ -1,0 +1,404 @@
+@import '../../app/mixins';
+@import '../../app/variables';
+
+.font-minimize {
+
+
+    $minimumSize: var(--minFontSize) !important;
+
+    .text-primary,
+    p,
+    .globe-btn1,
+    ion-button {
+        font-size: $minimumSize;
+
+    }
+
+    /* para-text component css start */
+    .timeline-p {
+        font-size: $minimumSize;
+
+    }
+
+    /* Frame Canvas component CSS Start*/
+    .frame-name {
+        font-size: $minimumSize;
+
+    }
+
+    /* Frame Canvas component CSS Start*/
+    /* Item Seperator component  CSS Start*/
+    .item-seperator {
+        font-size: $minimumSize;
+
+    }
+
+    /* Item Seperator component  CSS end*/
+
+    .name-value-text {
+
+        .label-name,
+        .label-value {
+            font-size: $minimumSize;
+
+        }
+
+        .label-name {
+            font-size: $minimumSize;
+
+        }
+    }
+
+    .item.sc-ion-label-md-h,
+    .item .sc-ion-label-md-h,
+    .block-text ion-label {
+        font-size: $minimumSize;
+
+    }
+
+    /* para-text component css start */
+
+    /* Menu List component  CSS Start*/
+    .menu-list {
+        h2 {
+
+            font-size: $minimumSize;
+        }
+
+        ion-icon {
+            font-size: $minimumSize;
+        }
+    }
+
+    /* Menu List  component  CSS End*/
+    /*new Menu List component  CSS Start*/
+    .new-menu-list {
+        h2 {
+
+            font-size: $minimumSize;
+        }
+
+        ion-icon {
+            font-size: $minimumSize;
+        }
+    }
+
+    /* New Menu List  component  CSS End*/
+    /*Collapse List /rep-card Css start*/
+    .collapse-list-container {
+        .collapse-list {
+
+            font-size: $minimumSize;
+
+            ion-label,
+            ion-icon,
+            .message-text {
+
+                font-size: $minimumSize;
+            }
+
+            ion-icon {
+
+                font-size: $minimumSize;
+            }
+
+            h2.prompt-name {
+
+                font-size: $minimumSize;
+            }
+        }
+
+        .collapse-list-body {
+
+            font-size: $minimumSize;
+        }
+    }
+
+    /*Collapse List /rep-card Css End*/
+    /*Count List / Ion badges Css Start*/
+    .count-list {
+        .approval-body {
+            ion-item {
+                .count {
+                    p {
+
+                        font-size: $minimumSize;
+                    }
+                }
+            }
+
+            ion-label {
+
+                font-size: $minimumSize;
+            }
+        }
+    }
+
+    /*Count List / Ion badges Css End*/
+    /* Search input css Start */
+    .input-text .native-input {
+
+        font-size: $minimumSize;
+    }
+
+    /* Search input css End*/
+    /* New Input Item  css Start*/
+    .new-input-item-type {
+        .text-left {
+            span {
+
+                font-size: $minimumSize;
+            }
+        }
+    }
+
+    /* New Input Item css End*/
+    /* News Scoll component CSS Start*/
+    .marquee-container {
+        marquee {
+
+            font-size: $minimumSize;
+        }
+    }
+
+    /* News Scoll component  CSS End*/
+    /* two D KPI  */
+    .twod-kpi {
+        .kpi-header {
+
+            font-size: $minimumSize;
+        }
+
+        .kpi-body {
+
+            font-size: $minimumSize;
+        }
+    }
+
+    /* Two D KPI CSS End */
+    /* menu tab css start */
+    .tab-menu {
+        .name-container {
+            h6 {
+
+                font-size: $minimumSize;
+            }
+        }
+    }
+
+    /* menu tab CSS End*/
+    /*   Global Table CSS Start */
+    table {
+        thead {
+            th {
+
+                font-size: $minimumSize;
+            }
+        }
+
+        tbody tr:nth-child(even) {
+
+            font-size: $minimumSize;
+        }
+
+        td,
+        ion-label {
+
+            font-size: $minimumSize;
+
+        }
+    }
+
+    /*   Global Table CSS Start */
+    /*  chat box right css  */
+    .chat-right {
+
+        font-size: $minimumSize;
+    }
+
+    /*  chat box left css  */
+    .chat-left {
+
+        font-size: $minimumSize;
+    }
+
+    /*Smart Filters Start*/
+    .smart-filter-section {
+        h5 {
+
+            font-size: $minimumSize;
+        }
+
+        h6 {
+
+            font-size: $minimumSize;
+        }
+
+        .view-all-btn {
+
+            font-size: $minimumSize;
+        }
+    }
+
+    /*Smart Filters End*/
+    .column-count {
+
+        font-size: $minimumSize;
+    }
+
+
+    ion-label {
+
+        font-size: $minimumSize;
+    }
+
+    /* single count CSS */
+    .single-count {
+        .count-name {
+            span {
+
+                font-size: $minimumSize;
+            }
+        }
+    }
+
+    .smart-filter-section1 {
+        h5 {
+
+            font-size: $minimumSize;
+        }
+    }
+
+    .image-slider {
+        ion-slide {
+            h1 {
+
+                font-size: $minimumSize;
+            }
+        }
+    }
+
+    .percentage-circle-wraper {
+        h5 {
+
+            font-size: $minimumSize;
+        }
+    }
+
+
+    .sub-select-dropdown {
+        ion-select {
+
+            font-size: $minimumSize;
+        }
+
+        .select-text {
+
+            font-size: $minimumSize;
+        }
+    }
+
+    .threeD-textband-container {
+        .threeD-textband-header {
+
+            font-size: $minimumSize;
+        }
+
+        .threeD-textband-footer {
+
+            font-size: $minimumSize;
+        }
+
+        .threeD-textband-body {
+            h5 {
+
+                font-size: $minimumSize;
+            }
+        }
+    }
+
+    .pagination-container {
+        .paginator {
+            li {
+
+                font-size: $minimumSize;
+            }
+        }
+    }
+
+
+    .graph-filters {
+        ion-item {
+            ion-select {
+
+                font-size: $minimumSize;
+            }
+        }
+    }
+
+    .summary-card-container {
+        .single-summary-card {
+            .tophead-card {
+                height: 160px;
+                padding: 8px;
+
+                .main-title {
+
+                    font-size: $minimumSize;
+                }
+
+                p {
+
+                    font-size: $minimumSize;
+                }
+
+                .code-btn {
+
+                    font-size: $minimumSize;
+                }
+            }
+
+            .summary-box {
+                margin-top: -104px !important;
+                width: 85%;
+                margin: auto;
+                padding: 10px;
+                border-radius: 12px;
+
+                h6 {
+
+                    font-size: $minimumSize;
+                }
+
+                table td {
+
+                    font-size: $minimumSize;
+                }
+
+                table {
+                    tr.heading1 td {
+
+                        font-size: $minimumSize;
+                    }
+
+                    .heading2 {
+                        .rate {
+
+                            font-size: $minimumSize;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    .tab-menu-large {
+        .name-container {
+            h6 {
+
+                font-size: $minimumSize;
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+<div *ngIf="filter">
+  <app-frame-canvas-filter [frametable]="frame" (passdataToframetable)="getdataFromcanvasFilter($event)"
+    [frame]='frame'></app-frame-canvas-filter>
+</div>
+
+
+<ion-row *ngIf="frame.apps_page_frame_name">
+  <ion-col class="pl-0" size="7">
+    <h1 class="frame-name position-relative">{{frame.apps_page_frame_name}}<span style="margin-left: 10px;"
+        *ngIf="globalObjects.toggleDevloperMode()">[{{frame.apps_page_frame_seqid}}]<ion-icon class="code-btn"
+          color="primary" name="information-circle-outline" *ngIf="developerModeData" (click)="showDeveloperData()">
+        </ion-icon></span></h1>
+  </ion-col>
+  <ion-col class="pr-0 data-view-type text-right" size="5">
+  </ion-col>
+</ion-row>
+
+<div *ngIf="searchFlag  && !filter ">
+  <div class="input-group primary-search-section">
+    <ion-input class="input-text" placeholder="Search Here..." [(ngModel)]="searchText"></ion-input>
+  </div>
+</div>
+
+<div *ngIf="show_filter=='show' ">
+  <div *ngIf="toggleFilter">
+    <!-- <app-frame-canvas-filter [frame]="frame" [frametable]='frame'
+      (passdataToframetable)="getdataFromcanvasFilter($event)" (emitFilter)="getFilterParameter($event)">
+    </app-frame-canvas-filter> -->
+  </div>
+</div>
+
+
+<div *ngIf="!filter ">
+  <div class="table-responsive">
+    <table class='table table-kpi {{frame.css_class_frame}}'>
+      <thead>
+        <tr>
+
+          <th *ngFor="let th of thead;let i=index" >{{th}}</th>
+
+        </tr>
+      </thead>
+
+      <tr *ngFor="let tableData of frame.tableRows |tableSearch :searchText;let rowindex=index">
+        <ng-container *ngFor="let itemGroup of tableData;">
+          <td *ngFor="let input_item of itemGroup;"
+            [hidden]="(current_page_parameter.MODE && !(input_item.item_visible_flag && (input_item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||input_item.item_visible_flag=='F'">
+            <app-items [item]="input_item" (emitPass)="itemClicked($event,tableData,rowindex)" [frame]="frame"
+              [frame_type]="frame.apps_frame_type">
+            </app-items>
+          </td>
+        </ng-container>
+      </tr>
+
+    </table>
+  </div>
+</div>

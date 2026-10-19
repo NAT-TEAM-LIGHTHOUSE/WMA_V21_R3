@@ -1,0 +1,37 @@
+ .shortcut-list {
+    margin: 0px 0px;
+    list-style: none;
+    padding: 0px 0px;
+     li{
+           padding: 10px 10px 0px 0px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--primary-text-color);
+    list-style: none;
+
+       b {
+    margin-right: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 5px;
+    border: 0px solid rgb(226, 226, 226);
+    background: #f4f4f4;
+        min-width: 80px;
+         width: 80px;
+    text-align: center;
+    } 
+    } 
+}
+
+h3 {
+    font-size: var(--font13);
+    font-weight: 500;
+    color: var(--blackNew);
+    margin: 15px 0px 5px 0px;
+    padding: 0px 10px;
+    border-left: 2px solid var(--blue-new);
+  }

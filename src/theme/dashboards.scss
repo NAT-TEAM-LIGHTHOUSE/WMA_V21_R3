@@ -1,0 +1,183 @@
+@import "../app/mixins";
+
+.menu-list{
+  border: none !important;
+  --min-height: 30px !important;
+  min-height: 30px !important;
+}
+.tab_short_link{
+ height: 35vh;
+   overflow: auto;
+   overflow: scroll;
+   -ms-overflow-style: none;
+     scrollbar-width: none; 
+     ion-grid{
+      padding: 0 !important;
+     }
+
+     .menu-list{
+      &:hover{
+        h2{
+          color: var(--blackNew) !important;
+        }
+      }
+     }
+}
+  .tab_short_link::-webkit-scrollbar {
+   display: none;
+  }
+.tab_dashcard_menu{
+ height: 250px;
+   overflow: auto;
+  
+   
+} 
+app-frame-canvas:has(.tab_short_link){
+ height: 100% !important;
+   overflow: scroll;
+   -ms-overflow-style: none;
+     scrollbar-width: none; 
+}
+
+
+
+
+@media only screen and (min-width:1365px) and (max-width:1600px){
+ .dashboard_kpi{
+              height: 56px;     
+              .dashboard_kpi_name p{
+               padding:0px 0px !important;
+               font-size: var(--font12);
+              }
+           }
+           .dashboard_kpi::after {
+               right: -14px;
+           }
+
+           .profile_deskcard_head{
+                 padding: 5px 0px;
+                 h3{
+                     font-size: var(--font12);
+                 }
+               }
+               .profile_deskcard_footer {
+                 padding: 0px 10px;
+               }
+               .display_top{
+                 p,h3{
+                     font-size: var(--font11) !important;
+                 }
+               }
+
+                          .summary-card{
+                                max-height: 180px;
+                               overflow: auto;
+                              // padding:0px 0px !important;
+                               margin-top:0px !important;
+                           }
+                 
+                           .chart-border .amCharts {
+                             width: 100%;
+                             height: 190px !important;
+                             font-size: var(--font11);
+                             margin: auto;
+                             background: #fff;
+                            }
+                           
+                           
+                        
+                      
+}
+
+
+@media only screen and (min-width:1280px) and (max-width:1366px){
+ .dashboard_kpi{
+            height: 45px;     
+            .dashboard_kpi_name p{
+             padding:0px 0px !important;
+             font-size: var(--font12);
+            }
+         }
+         .dashboard_kpi::after {
+             right: -14px;
+         }
+         .dashboard_kpi_value h3 {
+           font-size: var(--font14);
+         }
+
+         .profile_deskcard_head{
+ padding: 5px 0px;
+ h3{
+     font-size: var(--font11) !important;
+ }
+}
+.profile_deskcard_footer {
+ padding: 0px 10px  !important;
+}
+.display_top{
+ p,h3{
+     font-size: var(--font11) !important;
+ }
+}
+.profile_deskcard_head h2 {
+ font-size: var(--font14) !important;
+ width: 35px;
+ height: 35px;
+ margin: 7px 39%;
+
+}
+
+.chart-border .amCharts {
+           width: 100%;
+           height: 209px !important;
+           font-size: var(--font11);
+           margin: auto;
+           background: #fff;
+          }
+         
+}
+
+@media only screen and (min-width:960px) and (max-width:1280px){
+ .dashboard_kpi{
+              height: 45px;   
+              width:185px;  
+              .dashboard_kpi_name p{
+               padding:0px 0px !important;
+               font-size: var(--font12);
+              }
+           }
+           .dashboard_kpi::after {
+               right: -14px;
+           }
+           .dashboard_kpi_value h3 {
+             font-size: var(--font14);
+           }
+           .profile_deskcard_head{
+                 padding: 5px 0px;
+                 h3{
+                     font-size: var(--font11) !important;
+                 }
+               }
+               .profile_deskcard_footer {
+                 padding: 0px 10px;
+               }
+               .display_top{
+                 p,h3{
+                     font-size: var(--font10) !important;
+                 }
+               }
+               .profile_deskcard_head h2 {
+                   font-size: var(--font16) !important;
+                   width: 40px;
+                   height: 40px;
+                   margin: 10px 39%;
+               }
+               .chart-border .amCharts {
+                             width: 100%;
+                             height: 140px !important;
+                             font-size: var(--font11);
+                             margin: auto;
+                             background: #fff;
+                         }
+}
+

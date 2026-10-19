@@ -1,0 +1,510 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-button slot="start" (click)="closePage()" fill="clear" icon-only start>
+      <ion-icon name="arrow-back" color="light"></ion-icon>
+    </ion-button>
+    <ion-title class="title">Logs</ion-title>
+    <ion-button slot="end" (click)="clearData()" fill="clear" end>
+      <ion-icon name="trash"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container-fluid">
+    <ion-item class="pl-3">
+      <div>Plsql Data</div>
+      <ion-toggle (click)="sql()">sql</ion-toggle>
+      <div>App Data</div>
+    </ion-item>
+
+    <div *ngIf="plsql">
+      <div style="font-size: 11px;color:#3e80cc" class="pl-3">
+        <span>{{userDetails.appkey}}</span> / <span>{{userDetails.user_code}}</span>
+      </div>
+
+      <ion-item class="pl-3 new-cell">
+        <div>Frame/Item Call</div>
+        <ion-toggle (click)="reCall($event)">sql</ion-toggle>
+        <div>All Call</div>
+      </ion-item>
+
+
+      <div class="offline-entry-card-container pl-0" *ngFor="let object of logData;  let i= index;">
+        <div class="offline-entry-card">
+          <div>
+            <h3 *ngIf="!data.objectcode">{{logData.length - i}}){{object.APPS_PAGE_FRAME_NAME}}[{{object.LASTUPDATE}}]
+            </h3>
+            <h3 *ngIf="data.objectcode">{{logData.length - i}}) SQL SCRIPT FOR {{data.objectcode}}</h3>
+          </div>
+          <div *ngFor="let data of object | keyvalue;let j=index" class="offline-card-body">
+            <p> <span class="bold">{{data.key}} </span> :
+              <ion-button size="small"
+                *ngIf="data.key=='FRAME_PLSQL_AND_SQL' || data.key=='ITEM_PLSQL_AND_SQL' || data.key=='SQLORPLSQL_CLOB' ;else alll"
+                (click)="beautify(data,j,i)"><ion-icon name="color-wand-outline"></ion-icon>&nbsp;Beautifier</ion-button>
+                <ion-button size="small" (click)="copySql(data,i)" *ngIf="data.key=='FRAME_PLSQL_AND_SQL' || data.key=='ITEM_PLSQL_AND_SQL' || data.key=='SQLORPLSQL_CLOB' || data.key=='WS_SEQID'">
+                     <ion-icon name="copy-outline"  ></ion-icon>&nbsp;Copy
+                </ion-button>
+                             
+              <ion-label *ngIf="num == i && data.key=='FRAME_PLSQL_AND_SQL' && data.value != ''" class="text-success">
+                <ion-icon name="checkmark-done-outline"></ion-icon> Copied
+              </ion-label>
+              <ion-label *ngIf="num == i && data.key=='ITEM_PLSQL_AND_SQL' && data.value != ''" class="text-success">
+                <ion-icon name="checkmark-done-outline"></ion-icon> Copied
+              </ion-label>
+              <ion-label *ngIf="num == i && data.key=='SQLORPLSQL_CLOB' && data.value != ''" class="text-success">
+                <ion-icon name="checkmark-done-outline"></ion-icon> Copied
+              </ion-label>
+
+              <ion-label *ngIf="num == i && data.key=='WS_SEQID' && data.value != ''" class="text-success">
+                <ion-icon name="checkmark-done-outline"></ion-icon> Copied
+              </ion-label>
+              <ion-textarea
+                *ngIf="data.key=='FRAME_PLSQL_AND_SQL' || data.key=='ITEM_PLSQL_AND_SQL' || data.key=='SQLORPLSQL_CLOB' || data.key=='WS_SEQID' "
+                highlight={{data.value}} [languages]="['sql']">
+              </ion-textarea>
+
+              <ng-template #alll>
+                <span>{{data.value}}</span>
+              </ng-template>
+
+            </p>
+          </div>
+          <div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="!plsql" class="log-data-div">
+
+
+
+      <ion-row>
+        <ion-col size="12" size-lg="8">
+          <div class="log-button-row">
+
+            <ion-button (click)="tabActive('objectdata')" [ngClass]="isObjectData && 'active'">Object Data</ion-button>
+            <ion-button (click)="tabActive('eventque')" [ngClass]="isEventQue && 'active'">Event Que</ion-button>
+            <ion-button (click)="tabActive('requestdata')" [ngClass]="isRequestData && 'active'">Request
+              Data</ion-button>
+            <ng-container *ngIf="globalObjects.logFlag">
+              <ion-button (click)="tabActive('applog')" [ngClass]="isApplog && 'active'">App Log</ion-button>
+            </ng-container>
+
+            <ng-container *ngIf="globalObjects.logFlag">
+              <ion-button (click)="tabActive('eventlog')" [ngClass]="isEventLog && 'active'">Events Log</ion-button>
+            </ng-container>
+
+          </div>
+        </ion-col>
+        <ion-col size="12" size-lg="4" class="d-flex align-items-center justify-content-end">
+          <ng-container *ngIf="globalObjects.logFlag">
+            <div class="log-button-row " >
+             <ion-button class="active" (click)="downloadJson()"><ion-icon name="cloud-download-outline"></ion-icon></ion-button>
+            </div>
+           <div class="log-button-row me-1">
+            <ion-button class="active"(click)="eventLogSend()">Save Event Log</ion-button>
+          </div>
+          </ng-container>
+          
+          <ng-container *ngIf="data">
+            <p class="frame_para"><b>Frame Seq Id :</b> <span (dblclick)="findAndOpenFrame()">{{data.frame_seq_id}}
+              </span> </p>
+            <ng-container *ngIf="data.item_seq_id">&nbsp;|&nbsp;<p class="frame_para"> <b>Item Seq Id :</b>
+                <span (dblclick)="findAndOpenItem()">
+                  {{ data.item_seq_id }}
+                </span>
+              </p></ng-container>
+          </ng-container>
+         
+         
+        </ion-col>
+
+
+        <!-- Table for  -->
+        <ion-col size="12">
+          <div>
+            <ng-container *ngIf="isObjectData">
+              <div class="log_frame-item">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Frame Seq ID</th>
+                      <th>Frame Name</th>
+                      <th>Frame Type</th>
+                      <th>Working Mode</th>
+                      <th>Frame Alias</th>
+                      <th>Event Type</th>
+                      <th>Frame Filter Flag</th>
+
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let frame of framesArrayNew; let i = index">
+                      <tr (dblclick)="dbClickpopover(true,frame,i)">
+                        <td>
+                          <button *ngIf="frame.items && frame.items.length > 0" (click)="toggleItems(frame)">
+                            {{ frame.isExpanded ? '-' : '+' }}
+                          </button>
+                        </td>
+                        <td>{{ frame.apps_page_frame_seqid }}</td>
+                        <td>{{frame.apps_page_frame_name}}</td>
+                        <td>{{frame.apps_frame_type}}</td>
+                        <td>{{ frame.apps_working_mode }}</td>
+                        <td>{{ frame.frame_alias }}</td>
+                        <td>{{frame.on_frame_load_str}}</td>
+                        <td>{{frame.frame_filter_flag}}</td>
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+
+                      <ng-container *ngIf="frame.isExpanded">
+                        <tr *ngIf="frame.items && frame.items.length > 0">
+                          <th></th>
+                          <th>Item Seq ID</th>
+                          <th>Item Name</th>
+                          <th>Prompt Name</th>
+                          <th>Item DB Name</th>
+                          <th>DB Table Name</th>
+                          <th>Item Visible Flag</th>
+                          <th>Click Events Str</th>
+                          <th>On Load Event Str</th>
+                          <th>App Working Mode</th>
+                          <th>Post Event Str</th>
+                          <th>Item DataType</th>
+                        </tr>
+
+                        <tr *ngFor="let item of frame.items" (dblclick)="dbClickpopover(true,item,i)">
+                          <td></td>
+                          <td>{{ item.apps_item_seqid }}</td>
+                          <td>{{ item.item_name }}</td>
+                          <td>{{ item.prompt_name }}</td>
+                          <td> {{ item.item_db_name }}</td>
+                          <td>{{ item.db_table_name }}</td>
+                          <td>{{ item.item_visible_flag }}</td>
+                          <td>{{ item.click_events_str }}</td>
+                          <td>{{ item.on_load_events_str }}</td>
+                          <td>{{ item.apps_working_mode }}</td>
+                          <td>{{item.post_events_str}}</td>
+                          <td>{{item.datatype}}</td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+            </ng-container>
+
+            <!-- ClickEvent start -->
+            <ng-container *ngIf="isEventQue">
+              <ng-container *ngIf="ClickEvnetsQue">
+                <div class="log_frame-item">
+                  <table>
+                    <thead>
+                      <tr>
+                        <!-- <th>#</th> -->
+                        <th>Event Name</th>
+                        <th>Status</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- <ng-container *ngIf="requestData.click_events_arr"> -->
+
+                      <tr *ngFor="let event of ClickEvnetsQue.click_events_arr;let i=index">
+                        <td>{{event}}</td>
+                        <td [style.color]="statusCheck(i).style">{{statusCheck(i).status}}</td>
+                      </tr>
+
+
+                      <!-- </ng-container> -->
+
+                    </tbody>
+                  </table>
+                </div>
+              </ng-container>
+            </ng-container>
+
+
+            <!-- ClickEvent End -->
+
+            <ng-container *ngIf="isRequestData">
+              <ng-container *ngFor="let kk of reqData | keyvalue" style="overflow-x: scroll;">
+
+                <ng-container *ngIf="kk.key=='wsdp'">
+                  <h3>WSDP</h3>
+                  <ng-container *ngFor="let kv of kk.value | keyvalue">
+                    <div class="min">
+                      <p>
+                        {{getframename(kv.value)}}
+                      </p>
+                    </div>
+                    <div class="scroll-bar-table">
+                      <table style="border: 1px solid black;">
+                        <thead>
+                          <tr>
+                            <ng-container *ngIf="kv.key[0].includes('P_');else elsetag">
+                              <th *ngFor="let k of kv.value | keyvalue">
+                                {{k.key}}
+                              </th>
+                            </ng-container>
+
+                            <ng-template #elsetag>
+                              <th *ngFor="let k of kv.value | keyvalue">
+                                {{lhs_lib.get_item(k.key,0)?.item_name}}
+                              </th>
+                            </ng-template>
+                          </tr>
+                        </thead>
+
+
+                        <tbody>
+                          <tr>
+                            <td *ngFor="let k of kv.value | keyvalue">
+                              {{k.value}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </ng-container>
+                </ng-container>
+
+                <ng-container>
+                  <ng-container *ngIf="kk.key=='wsdpcl'">
+                    <h3>WSDPCL</h3>
+                    <ion-row>
+                      <ion-col size="4">
+                        <ng-container *ngFor="let kv of kk.value | keyvalue">
+                          <div class="min">
+                            <p>
+                              {{getframename(kv.value)}}
+                            </p>
+                          </div>
+                          <div class="scroll-bar-table">
+                            <table>
+                              <tbody>
+                                <tr *ngFor="let k of kv.value | keyvalue">
+                                  <ng-container *ngIf="kv.key[0].includes('P_');else elsetag">
+                                    <td class="hardcore">
+                                      {{k.key}}
+                                    </td>
+                                  </ng-container>
+
+                                  <ng-template #elsetag>
+                                    <td class="hardcore">
+                                      {{lhs_lib.get_item(k.key,0)?.item_name}}
+                                    </td>
+                                  </ng-template>
+                                  <td>
+                                    {{k.value}}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </ng-container>
+
+                      </ion-col>
+                    </ion-row>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <ion-row>
+
+                <ng-container *ngFor="let kk of reqData | keyvalue" style="overflow-x: scroll;">
+
+
+                  <ion-col size="6" *ngIf=" kk.key=='wscp' || kk.key=='wslp' || kk.key=='wsud' "
+                    style="padding: 0px 5px;">
+                    <ng-container *ngIf="kk.key=='wscp'">
+                      <h3>WSCP</h3>
+                      <div class="scroll-bar-table">
+                        <table style="border: 1px solid black;">
+                          <tbody>
+                            <tr *ngFor="let k of kk.value | keyvalue">
+                              <td class="hardcore">
+                                {{k.key}}
+                              </td>
+                              <td>
+                                {{k.value}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="kk.key=='wslp'">
+                      <h3>WSLP</h3>
+                      <div class="scroll-bar-table">
+                        <table style="border: 1px solid black;">
+                          <tbody>
+                            <tr *ngFor="let k of kk.value | keyvalue">
+                              <td class="hardcore">
+                                {{k.key}}
+                              </td>
+                              <td>
+                                {{k.value}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="kk.key=='wsud'">
+                      <h3>WSUD</h3>
+                      <div class="scroll-bar-table">
+                        <table style="border: 1px solid black;">
+                          <tbody>
+                            <tr *ngFor="let k of kk.value | keyvalue">
+                              <td class="hardcore">
+                                {{k.key}}
+                              </td>
+                              <td>
+                                {{k.value}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </ng-container>
+                  </ion-col>
+                </ng-container>
+
+              </ion-row>
+            </ng-container>
+
+            <ng-container *ngIf="isApplog">
+              <ion-row *ngIf="lhs_lib.object_mast.logdata">
+                <ion-col style="padding: 0px 5px;">
+                  <div class="log_title_head">
+                    <h3>Log Data</h3>
+                    <div class="action_cont">
+                      <div class="toggle_btnn">
+                        <div>Hide Code</div>
+                        <ion-toggle (click)="codeFlag = !codeFlag">sql</ion-toggle>
+                      </div>
+                      <div class="toggle_btnn">
+                        <div>Collapse</div>
+                        <ion-toggle (click)="codeFlag = !codeFlag">sql</ion-toggle>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="scroll-bar-table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th style="min-width:50px;text-align: center;"></th>
+                          <th>Item Seq Id</th>
+                          <th>Item Name</th>
+                          <th>Event Time</th>
+                          <th>Frame Seq Id</th>
+                          <th>Event Name</th>
+                          <th>Event Type</th>
+
+                          <th *ngIf="codeFlag">Code</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let row of appLogData">
+                          <ng-container
+                            *ngTemplateOutlet="recursiveRow; context: { $implicit: row, isChild:false }"></ng-container>
+                        </ng-container>
+                      </tbody>
+                    </table>
+
+
+                    <ng-template #recursiveRow let-log let-isChild="isChild">
+
+                      <tr [ngClass]="isChild ? 'tree_log' : ''">
+                        <td style="min-width:50px;text-align: center;"> <span (click)="log.isOpen = !log.isOpen"
+                            *ngIf="log.execute_items && log.execute_items.length > 0">
+                            {{ !log.isOpen ? '+' : '-' }}
+                          </span></td>
+                        <td>{{log.item_seq_id}}</td>
+                        <td>{{log.item_name}}</td>
+                        <td>{{log.time | date:'dd-MM-yyyy HH:mm:ss.SSS'}}</td>
+                        <td>{{log.frame_seq_id}}</td>
+                        <td>{{log.event_name}}</td>
+                        <td>{{log.type}}</td>
+
+                        <td *ngIf="codeFlag">{{log.code}}</td>
+                      </tr>
+
+                      <!-- Check for children and render recursively -->
+                      <ng-container *ngIf="log.execute_items && log.execute_items.length">
+                        <ng-container *ngFor="let child of log.execute_items">
+                          <ng-container *ngIf="log.isOpen">
+                            <ng-container
+                              *ngTemplateOutlet="recursiveRow; context: { $implicit: child, isChild:true }"></ng-container>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </ng-template>
+
+
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ng-container>
+
+            <!-- Event log start -->
+            <ng-container *ngIf="isEventLog">
+              <ng-container *ngIf="ClickEvnetsQue">
+                <div class="log_frame-item mt-2">
+                  <table>
+                    <thead>
+                      <tr>
+                        <!-- <th>#</th> -->
+                        <th>Event Name</th>
+                        <th>Object Name</th>
+                        <th>Frame Name</th>
+                        <th>Item Name</th>
+                        <th>Time</th>
+                        <th>Log Event Slno</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- <ng-container *ngIf="requestData.click_events_arr"> -->
+
+                      <tr *ngFor="let event of globalObjects.events_log;let i=index">
+                        <td>{{event.event_name}}</td>
+                        <td>{{event.object_code}}</td>
+                        <td>{{event.frame_name}}</td>
+                        <td>{{event.item_name}}</td>
+                        <td>{{event.time | date:'dd-MM-yyyy HH:mm:ss.SSS'}}</td>
+                        <td>{{event.LOG_EVENT_SLNO}}</td>
+                        <td [style.color]="event.status == 'start' ? 'green' : 'red'">{{event.status}}</td>
+                      </tr>
+
+
+                      <!-- </ng-container> -->
+
+                    </tbody>
+                  </table>
+                </div>
+              </ng-container>
+            </ng-container>
+
+            <!-- Event log end -->
+
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>

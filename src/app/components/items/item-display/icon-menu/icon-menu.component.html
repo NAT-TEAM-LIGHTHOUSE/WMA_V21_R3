@@ -1,0 +1,10 @@
+<div class="icon-menu-container">
+  <ion-row>
+    <ion-col (click)="itemClicked(iconMenu)" class="ion-align-self-center">
+      <div class="each-icon {{iconMenu.css_class | lowercase}} ">
+        <ion-icon name="{{iconMenu.apps_icon_name}}" class="inner-icon"></ion-icon>
+      </div>
+    <p class="prompt-name">{{iconMenu.prompt_name}}</p>  
+    </ion-col>
+  </ion-row>
+</div>
