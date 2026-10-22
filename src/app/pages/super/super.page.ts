@@ -78,8 +78,9 @@ import { CdEngineService } from 'src/app/services/cd-engine-service.service';
 import { CameraComponent } from 'src/app/components/layout/camera/camera.component';
 import { ShortkeyComponent } from 'src/app/components/layout/shortkey/shortkey.component';
 import { AgenticChatbotComponent } from 'src/app/components/layout/agentic-chatbot/agentic-chatbot.component';
-import { Browser } from '@capacitor/browser'; 
+import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
+import { DynamicFunctionService } from 'src/app/services/dynamic-function-service';
 
 
 
@@ -87,8 +88,8 @@ type AOA = any[][];
 
 // var CryptoJS = require("crypto-js");
 
-declare var supercomp: any;
-declare var utilvar: any;
+// declare var supercomp: any;
+// declare var utilvar: any;
 
 @Component({
   standalone: true,
@@ -272,6 +273,10 @@ export class SuperPage implements OnInit, OnDestroy {
   logdata: any = [];
   shortcutkey_count: any = {}
 
+  rowSize: any = 0;
+
+  side_menu: any;
+
 
   @ViewChildren(NgSelectComponent) ngSelects!: QueryList<NgSelectComponent>;
 
@@ -340,7 +345,7 @@ export class SuperPage implements OnInit, OnDestroy {
     private ngZone: NgZone, private sqlutilserv: SqlUtilsService,
     private sqlLiteServ: SqlLiteService, public lhs_lib: LhsLibService, private convert_plsq_js: PlsqlToJsService,
     public sanitizer: DomSanitizer, private processData: ProcessDataService, private el: ElementRef, private ren: Renderer2, private canvasModal: CanvasModalService, private modalGlobal: CanvasModalService,
-    public chatAiService: ChatAiService, private appRef: ApplicationRef, private coord: DbCoordinatorService, @Inject(PLATFORM_ID) private platformId: Object, private injector: Injector, private cdEngine: CdEngineService
+    public chatAiService: ChatAiService, private appRef: ApplicationRef, private coord: DbCoordinatorService, @Inject(PLATFORM_ID) private platformId: Object, private injector: Injector, private cdEngine: CdEngineService,private dynamic_func:DynamicFunctionService
   ) {
 
     this.eventEngine = new DynamicEventEngine(this);
@@ -476,8 +481,8 @@ export class SuperPage implements OnInit, OnDestroy {
 
 
     // document.getElementById('sreenWidth').classList.add("shrinkMyscreen-main");
-    supercomp = this;
-    utilvar = this;
+    // supercomp = this;
+    // utilvar = this;
     this.events.unsubscribe('menuClick');
     this.events.subscribe('menuClick', (res) => {
       if (res.evFlag == 'T') {
@@ -751,8 +756,10 @@ export class SuperPage implements OnInit, OnDestroy {
     } else if (res.type == "pagedismisscallback") {
       let data = res.item;
       this.afterModalOnDismiss(data.detail, data.componentProps)
-    }else if(res.type =='agentic_Chatbot'){
+    } else if (res.type == 'agentic_Chatbot') {
       this.agentic_Chatbot(res.item)
+    }else if(res.type=='quick_action_clicked'){
+      this.quick_action_clicked(res.item);
     }
   }
   unSubscribeSuperParent() {
@@ -1405,6 +1412,7 @@ export class SuperPage implements OnInit, OnDestroy {
       for (let object of objMast.Level2) {
         for (let frame of object.Level3) {
           let i = -1;
+          frame.mergeVersion ??= signal(0); // for level5 merge pipe by arti
           this.lhs_lib.seqSort(frame.Level4);
           this.lhs_lib.itemSeparation(frame);
 
@@ -1415,13 +1423,19 @@ export class SuperPage implements OnInit, OnDestroy {
             case 'TOP_BAR': headerBar.push(frame); break;
             case 'FAB_BALL': fabBall.push(frame); break;
             case 'SIDE_BAR': sideBar = frame; break;
+
             case 'TAB_FRAMES': tabs.push(frame); break;
+            case 'CANVAS': 
+            switch (frame.apps_frame_sub_type) {
+              case 'SIDE_MENU': this.side_menu = frame; break;
+            }; break;
             case 'SYSTEM':
               switch (frame.apps_frame_sub_type) {
                 case 'OBJECT_INFO': objMast.frame_object_info = frame; break;
                 case 'FORM_TABS': objMast.frame_form_tabs = frame; break;
                 case 'RELATED_LINKS': objMast.frame_related_links = frame; break;
                 case 'ENGINE': filterArr.push(frame); break;
+
                 case 'GLOBAL_SEARCH_HEAD':
                 case 'GLOBAL_SEARCH_BODY': globalSearchArr.push(frame); break;
                 case 'QUICK_ACTION_BUTTON': frame.isRunning = this.running(frame.Level4); break;
@@ -1748,6 +1762,10 @@ export class SuperPage implements OnInit, OnDestroy {
 
 
       this.processObjectMast(this.object_mast);
+      // if(!this.plt){
+      //   this.mobileViewQuickAction();
+      // }
+      
 
       // this.globalobjects.hideLoadingSide();
 
@@ -1918,8 +1936,8 @@ export class SuperPage implements OnInit, OnDestroy {
     }
 
     // this.focusNextItem(event);
-    supercomp = this;
-    utilvar = this;
+    // supercomp = this;
+    // utilvar = this;
 
     if (!this.refreshFlag) {
 
@@ -2146,7 +2164,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
   async app_itemClicked(name, type, index) {
     let item = this.lhs_lib.get_item(name, index, true);
-    if (item && item.item_enable_flag=='T') {
+    if (item && item.item_enable_flag == 'T') {
       let eventStr = ""
       if (type.toLowerCase() == "click_events_str") {
 
@@ -2249,10 +2267,10 @@ export class SuperPage implements OnInit, OnDestroy {
         }
 
       }
-      if(event.isQuickSearch && this.plt!='browser'){
+      if (event.isQuickSearch && this.plt != 'browser') {
         nextPageInfo.wscp.flag = 'M'
-      }else if (this.isModal == 'P') {
-         nextPageInfo.wscp.flag = 'P'
+      } else if (this.isModal == 'P') {
+        nextPageInfo.wscp.flag = 'P'
       }
 
       let itemName = event.apps_page_frame_seqid + '.' + event.item_name;
@@ -2393,7 +2411,7 @@ export class SuperPage implements OnInit, OnDestroy {
                 if (this.isSameObject) {
                   this.isSameObject = false
                 }
-                if(event.isQuickSearch && this.plt!='browser'){
+                if (event.isQuickSearch && this.plt != 'browser') {
                   this.modalClick();
                   delete event['isQuickSearch'];
                 }
@@ -2527,10 +2545,10 @@ export class SuperPage implements OnInit, OnDestroy {
               if (this.isSameObject) {
                 this.isSameObject = false
               }
-              if(event.isQuickSearch && this.plt!='browser'){
-                  this.modalClick();
-                  delete event['isQuickSearch'];
-                }
+              if (event.isQuickSearch && this.plt != 'browser') {
+                this.modalClick();
+                delete event['isQuickSearch'];
+              }
               this.globalobjects.hideLoadingSide();
               nextPageInfo.object_mast = data;
               nextPageInfo.click_events_str = "LOAD_NEW_OBJECT";
@@ -2680,7 +2698,7 @@ export class SuperPage implements OnInit, OnDestroy {
           frame.active_row = index;
         }
 
-        let item = this.lhs_lib.get_item(name, index, flag,true);
+        let item = this.lhs_lib.get_item(name, index, flag, true);
         if (item) {
           let copyItem = JSON.parse(JSON.stringify(item));
           item.executed_item = true;
@@ -2766,6 +2784,9 @@ export class SuperPage implements OnInit, OnDestroy {
 
                   if (item.value || str.toLowerCase() != "post_events_str" || e.includes("_force")) {
                     let strs = item[e.toLowerCase().replace("_force", "")];
+                    if(strs.includes('ajs_')){
+                      strs = strs.replaceAll("ajs_", "utilvar.dynamic_func.ajs_");;
+                    }
                     await this.execute_js(strs, item, e);
                   }
 
@@ -2790,6 +2811,7 @@ export class SuperPage implements OnInit, OnDestroy {
                     }
                   }
                   if (strs) {
+                    const supercomp=this
                     strs = strs.replaceAll("await ", " ");
                     strs = strs.replaceAll("event,", "item,");
                     strs = strs.replaceAll("this.", "supercomp.");
@@ -3039,7 +3061,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
       } else {
         let frameData = fromFrame.tableData;
-        if(fromFrame.tempRows && fromFrame.tempRows.length>0){
+        if (fromFrame.tempRows && fromFrame.tempRows.length > 0) {
           frameData = this.lhs_lib.get_temp_data(fromFrame.tempRows);
         }
         data = this.lhs_lib.execute_json(frameData, toFrame, where, having);
@@ -3113,6 +3135,9 @@ export class SuperPage implements OnInit, OnDestroy {
         this.globalobjects.presentAlert("Please Enter A Valid Otp");
       } else if (details.data.verifiedFlag == "T") {
         this.openPage(componentProps);
+      }
+        if(!this.plt){
+        this.mobileViewQuickAction();
       }
     });
     return await popUp.present();
@@ -5320,8 +5345,8 @@ export class SuperPage implements OnInit, OnDestroy {
   afterModalOnDismiss(detail, componentProps) {
     // modal.onDidDismiss().then((detail: OverlayEventDetail) => {
 
-    supercomp = this;
-    utilvar = this;
+    // supercomp = this;
+    // utilvar = this;
 
     this.globalobjects.pageId--;
     this.globalobjects.pageEventId--;
@@ -5411,15 +5436,18 @@ export class SuperPage implements OnInit, OnDestroy {
       // this.openPage(detail.data);
     } else {
       console.log("resubscription call after dismiss============>  ", detail);
-      if(this.plt!='browser'){
-        if(componentProps.object_mast.object_code !== "WMABLD48"){
+      if (this.plt != 'browser') {
+        if (componentProps.object_mast.object_code !== "WMABLD48") {
+          this.subscribeSuperParent();
+        }
+      } else {
         this.subscribeSuperParent();
       }
-      }else{
-          this.subscribeSuperParent();
-      }
-      
+
     }
+      if(!this.plt){
+        this.mobileViewQuickAction();
+      }
     this.lhs_lib.setObjectMastTab()
     // if (this.lhs_lib.dynamicTabs.length > 0) {
     //   let tabs: any = document.getElementsByTagName('app-my-tabs')
@@ -5594,6 +5622,9 @@ export class SuperPage implements OnInit, OnDestroy {
           // this.ngOnInit();
           //  this.back_refresh();
         }
+      }
+        if(!this.plt){
+        this.mobileViewQuickAction();
       }
     });
     return await modal.present();
@@ -6945,10 +6976,11 @@ export class SuperPage implements OnInit, OnDestroy {
     setTimeout(async () => {
 
       let event = this.globalobjects.mouseEvent;
+      let copyValue= event.target.innerText;
       let popUp = await this.popOverCtrl.create({
         animated: false,
         component: ParentMenuPage,
-        componentProps: { childItems: comProps },
+        componentProps: { childItems: comProps, copyValue: copyValue },
 
         event: event,
         backdropDismiss: true
@@ -7400,7 +7432,8 @@ export class SuperPage implements OnInit, OnDestroy {
             }
           }
         }
-        let evStr = conArr[1].trim().charAt(0) == ")" ? "(event" : "(event,";
+        const supercomp=this;
+        let evStr = conArr[1].trim().charAt(0) == ")" ? "(event,supercomp" : "(event,supercomp,";
         let newStr = conArr[0] + evStr + lstr;
         // alert(newStr);
         // console.log(newStr)
@@ -7409,13 +7442,34 @@ export class SuperPage implements OnInit, OnDestroy {
         convertedVal = newStr;
         // functions.push(convertedVal);
         try {
+          const supercomp=this;
           let c = convertedVal;
           // let ev = { ...event };
           event = { ...event };
           // c = c.replaceAll("event.", "ev.");
           c = c.replaceAll("this.", "supercomp.");
-          console.log(c);
-          eval.call(this, c);
+         let fun= this.dynamic_func.registerFunction(c)
+         console.log(fun);
+          //  c = c.replaceAll("oajs", "ajs");
+          //   c = c.replaceAll("gajs", "ajs");
+          // console.log(c);
+          // const match = c.match(
+          //   /^\s*(async\s+)?function\s+([a-zA-Z_$][\w$]*)\s*\(/
+          // );
+
+          // if (!match) {
+          //   throw new Error('Unsupported function declaration');
+          // }
+
+          // const functionName = match[2];
+
+          // const fn = new Function(
+          //   `return (${c})`
+          // )();
+
+          // (this as any)[functionName] = fn;
+          // console.log(functionName)
+          // eval.call(this, c);
 
         } catch (err) {
           alert(err);
@@ -7453,13 +7507,16 @@ export class SuperPage implements OnInit, OnDestroy {
 
         // functions.push(convertedVal);
         try {
+          const supercomp=this;
           let c = convertedVal.toLowerCase();
           // let ev = { ...event };
           event = { ...event };
           // c = c.replaceAll("event.", "ev.");
           c = c.replaceAll("this.", "supercomp.");
           console.log(c);
-          eval.call(this, c);
+            let fun= this.dynamic_func.registerFunction(c)
+         console.log(fun);
+          // eval.call(this, c);
         } catch (err) {
           alert(err);
         }
@@ -9309,8 +9366,10 @@ export class SuperPage implements OnInit, OnDestroy {
     let event = JSON.parse(JSON.stringify(item));
     event.click_events_arr = [];
     delete event['click_events_count'];
-    supercomp = this;
-    utilvar = this;
+    const supercomp=this;
+    const utilvar = this;
+    // supercomp = this;
+    // utilvar = this;
     // this.globalobjects.setFocus(false);
     let convertedVal = this.lhs_lib_util(value, event);
     // this.globalobjects.rase = false;
@@ -9320,23 +9379,22 @@ export class SuperPage implements OnInit, OnDestroy {
       let i = 0;
       for (let a of arr) {
         if (i > 0) {
-          let evStr = a.split("(")[1].trim().charAt(0) == ")" ? "(event" : "(event,";
+          let evStr = a.split("(")[1].trim().charAt(0) == ")" ? "(event,supercomp" : "(event,supercomp,";
           let str = a.split("(")[0];
-
-          let newStr = "window.oajs_" + str;
+          let newStr = "utilvar.dynamic_func.oajs_" + str;
           // let noeval = new Function("return" + newStr)
           if (eval(newStr)) {
             //  console.log("oajs");
-            str = "await oajs_" + str;
+            str = "await utilvar.dynamic_func.oajs_" + str;
           } else {
-            newStr = "window.gajs_" + str;
+            newStr = "utilvar.dynamic_func.gajs_" + str;
             if (eval(newStr)) {
-              str = "await gajs_" + str;
+              str = "await utilvar.dynamic_func.gajs_" + str;
             }
           }
           str = str + evStr;
           // let name = "await ajs_" + a.split("(")[0] + "(";
-          let name = "ajs_" + a.split("(")[0] + "(";
+          let name = "utilvar.dynamic_func.ajs_" + a.split("(")[0] + "(";
           convertedVal = convertedVal.replaceAll(str, name);
           convertedVal = convertedVal.replaceAll(name, str);
         }
@@ -9498,7 +9556,7 @@ export class SuperPage implements OnInit, OnDestroy {
   lhs_lib_util(value, event) {
 
     if (!value) return '';
-
+    const supercomp=this;
     value = value.replaceAll("this.", "");
     value = value.replaceAll("supercomp.", "");
     value = value.replaceAll("event,", "");
@@ -10492,6 +10550,11 @@ export class SuperPage implements OnInit, OnDestroy {
       // value = value.replaceAll("max(", "this.lhs_lib.max(").replaceAll("MAX(", "this.lhs_lib.max(");
     }
 
+    // BY ARTI - 22-10-2026
+    // if (value.toLowerCase().includes("ajs_") > -1) {
+    //   value = value.replaceAll("ajs_", "utilvar.dynamic_func.ajs_");
+    // }
+    //END BY ARTI
     if (value.toLowerCase().indexOf("table_rows") > -1) {
       var regex4 = new RegExp("table_rows", "ig");
       var replace = "this.lhs_lib.table_rows";
@@ -11441,8 +11504,8 @@ export class SuperPage implements OnInit, OnDestroy {
 
                 item.temp_enable_flag = item.item_enable_flag;
                 item.item_enable_flag = 'T';
-                if (item.item_type != "BT" && item.item_type != "TOGGLE" && item.item_type != "BUTTON_ICON" && item.item_type != "BUTTON" && item.item_type != "FILE_UPLOAD" 
-                  && item.item_type != "FRAME_BUTTON_ICON"  && item.item_type != "RIGHT_CLICK" && item.item_type != "CHECK_BOX" && item.item_type != "RADIO_BUTTON") {
+                if (item.item_type != "BT" && item.item_type != "TOGGLE" && item.item_type != "BUTTON_ICON" && item.item_type != "BUTTON" && item.item_type != "FILE_UPLOAD"
+                  && item.item_type != "FRAME_BUTTON_ICON" && item.item_type != "RIGHT_CLICK" && item.item_type != "CHECK_BOX" && item.item_type != "RADIO_BUTTON") {
                   item.item_type = "TEXT";
                   item.temp_sub_type = item.item_sub_type;
                   item.item_sub_type = 'TEXT_DISPLAY';
@@ -11574,8 +11637,8 @@ export class SuperPage implements OnInit, OnDestroy {
               item.temp_enable_flag = item.item_enable_flag;
               item.item_enable_flag = 'T';
 
-              if (item.item_type != "BT" && item.item_type != "TOGGLE" && item.item_type != "BUTTON_ICON" && item.item_type != "BUTTON" && item.item_type != "FILE_UPLOAD" 
-                && item.item_type != "FRAME_BUTTON_ICON"  && item.item_type != "RIGHT_CLICK" && item.item_type != "CHECK_BOX" && item.item_type != "RADIO_BUTTON") {
+              if (item.item_type != "BT" && item.item_type != "TOGGLE" && item.item_type != "BUTTON_ICON" && item.item_type != "BUTTON" && item.item_type != "FILE_UPLOAD"
+                && item.item_type != "FRAME_BUTTON_ICON" && item.item_type != "RIGHT_CLICK" && item.item_type != "CHECK_BOX" && item.item_type != "RADIO_BUTTON") {
                 item.item_type = "TEXT";
                 item.temp_sub_type = item.item_sub_type;
                 item.item_sub_type = 'TEXT_DISPLAY';
@@ -13580,7 +13643,7 @@ export class SuperPage implements OnInit, OnDestroy {
   // }
 
 
- timer(event, name, duration) {
+  timer(event, name, duration) {
 
     let timerN = this.globalobjects.timerEvents.find(x => x.object_code == this.object_mast.object_code && x.timerName == name);
 
@@ -13820,6 +13883,9 @@ export class SuperPage implements OnInit, OnDestroy {
           styleStr['max-height'] = valArr + "%";
           styleStr['min-height'] = valArr + "%";
           styleStr.overflow = 'auto';
+        } else if (s.toUpperCase().indexOf("MW(") > -1) {
+          size = valArr;
+          this.rowSize = size;
         } else if (s.toUpperCase().indexOf("W(") > -1) {
           size = valArr;
         }
@@ -14104,7 +14170,23 @@ export class SuperPage implements OnInit, OnDestroy {
 
 
   async processObjectMast(objMast) {
+   
+    if (this.globalobjects.layoutObject && this.globalobjects.layoutObject.length > 0 && !this.plt) {
+      for (let object of this.globalobjects.layoutObject) {
+        for (let obj of object.Level2) {
+          for (let lFrame of obj.Level3) {
+            if (lFrame.apps_frame_type == 'SYSTEM' && lFrame.apps_frame_sub_type == 'LAYOUT_OPTION') {
+              if (lFrame.quick_buttons) {
+                delete lFrame['quick_buttons'];
+                 this.globalobjects.layoutObject = [...this.globalobjects.layoutObject];
+              }
 
+            }
+          }
+        }
+      }
+    }
+  
     if (objMast && objMast.Level2 && objMast.Level2[this.page_no]) {
       for (let frame of objMast.Level2[this.page_no].Level3) {
         this.parseFrame(frame);
@@ -14113,7 +14195,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
   }
 
-  parseFrame(frame) {
+    parseFrame(frame) {
 
     if (frame.Level4 && frame.Level4.length > 0 && frame.apps_frame_type != 'TABLE' && frame.apps_frame_type != 'ENTRY_TABLE' && frame.frame_alias != 'DISP_COL' &&
       frame.apps_frame_type != 'TREE_TABLE' && frame.apps_frame_type != 'TAB_FRAMES' && frame.apps_frame_sub_type != 'GLOBAL_SEARCH_BODY' && frame.frame_alias != 'ADV_FILTER') {
@@ -14137,6 +14219,26 @@ export class SuperPage implements OnInit, OnDestroy {
       // } else if (frame.apps_frame_type == 'TAB_FRAMES') {
       //   this.parseTabFrame(frame);
     } else {
+      if(this.globalobjects.layoutObject && this.globalobjects.layoutObject.length>0 && !this.plt){
+      if (frame.apps_frame_sub_type == 'QUICK_ACTION_BUTTON') {
+        for (let object of this.globalobjects.layoutObject) {
+          for (let obj of object.Level2) {
+            for (let lFrame of obj.Level3) {
+              // if(lFrame.quick_buttons){
+              //   delete lFrame['quick_buttons'];
+              // }
+              if (lFrame.apps_frame_type == 'SYSTEM' && lFrame.apps_frame_sub_type == 'LAYOUT_OPTION') {
+                // let arr = [...frame.tabelRows,...lFrame.tableRows];
+                lFrame.quick_buttons = frame.tableRows;
+                 this.globalobjects.layoutObject = [...this.globalobjects.layoutObject];
+              }
+            }
+          }
+        }
+
+      }
+    }
+
       if (frame.frame_alias != 'ADV_FILTER') {
 
         delete frame['searchableData'];
@@ -14147,6 +14249,40 @@ export class SuperPage implements OnInit, OnDestroy {
       }
     }
   }
+  // parseFrame(frame) {
+
+  //   if (frame.Level4 && frame.Level4.length > 0 && frame.apps_frame_type != 'TABLE' && frame.apps_frame_type != 'ENTRY_TABLE' && frame.frame_alias != 'DISP_COL' &&
+  //     frame.apps_frame_type != 'TREE_TABLE' && frame.apps_frame_type != 'TAB_FRAMES' && frame.apps_frame_sub_type != 'GLOBAL_SEARCH_BODY' && frame.frame_alias != 'ADV_FILTER') {
+  //     if (!frame.tableRows || frame.tableRows.length < 1) {
+  //       frame.tableRows = [];
+  //       frame.tableRows[0] = JSON.parse(JSON.stringify(frame.Level4));
+  //       this.processData.afterTableRows(frame);
+  //     } else {
+  //       this.processData.afterTableRows(frame);
+  //     }
+  //   }
+
+  //   if (frame.apps_frame_type == 'ENTRY_TABLE' || frame.apps_frame_type == 'TABLE') {
+  //     delete frame['searchableData'];
+  //     delete frame['searchableRawData'];
+  //     delete frame['search'];
+  //     this.checkForDD(frame);
+  //   } else if (frame.apps_frame_type == 'MAP' || frame.apps_frame_type == 'NEWCALENDER') {
+  //   } else if (frame.apps_frame_type == 'DESKCALENDER') {
+
+  //     // } else if (frame.apps_frame_type == 'TAB_FRAMES') {
+  //     //   this.parseTabFrame(frame);
+  //   } else {
+  //     if (frame.frame_alias != 'ADV_FILTER') {
+
+  //       delete frame['searchableData'];
+  //       delete frame['searchableRawData'];
+  //       setTimeout(() => {
+  //         this.parseBuiltins(frame);
+  //       }, 1);
+  //     }
+  //   }
+  // }
 
   // parseTabFrame(tabFrame) {
   //   if (tabFrame.tabsArr) {
@@ -14222,7 +14358,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
       this.call_async_clicked(parseFrame, builtinsArr, frame, true);
       frame.relational_string = "";
-    }else{
+    } else {
       this.lhs_lib.refresh_frames();
     }
 
@@ -14433,13 +14569,13 @@ export class SuperPage implements OnInit, OnDestroy {
                     // For Getting *CALLING_OBJECT_CODE* from Frame //
                     frame.executedQuery = true;
 
-                    if (frame.apps_frame_type == 'TREE_TABLE' || frame.apps_frame_type == 'TREE_MENU' || frame.apps_frame_type == 'PIVOT' || frame.apps_frame_type == 'FULLCALENDAR' || frame.apps_frame_type == 'CUSTOM_CALENDAR' || frame.apps_frame_type=='TERMS' || frame.apps_frame_type=='ACCORIDION') {
+                    if (frame.apps_frame_type == 'TREE_TABLE' || frame.apps_frame_type == 'TREE_MENU' || frame.apps_frame_type == 'PIVOT' || frame.apps_frame_type == 'FULLCALENDAR' || frame.apps_frame_type == 'CUSTOM_CALENDAR' || frame.apps_frame_type == 'TERMS' || frame.apps_frame_type == 'ACCORIDION') {
                       this.events.publish(frame.apps_page_frame_seqid);
-                      
-                    }else if(frame.apps_frame_type=='ADDON'){
-                      if(service_type=='populate_from_procedure'){
-                        this.events.publish(frame.apps_page_frame_seqid,'refreshaddon');
-                      }else{
+
+                    } else if (frame.apps_frame_type == 'ADDON') {
+                      if (service_type == 'populate_from_procedure') {
+                        this.events.publish(frame.apps_page_frame_seqid, 'refreshaddon');
+                      } else {
                         this.events.publish(frame.apps_page_frame_seqid);
                       }
                     }
@@ -14454,15 +14590,15 @@ export class SuperPage implements OnInit, OnDestroy {
                       if (frame.apps_frame_sub_type && (frame.apps_frame_sub_type.toUpperCase() == 'SINGLE_ROW' || frame.apps_frame_sub_type.toUpperCase() == 'SINGLE_ROW_BLANK' || frame.no_of_records == '1')) {
                         await this.processData.single_row(frame, tableData, frame.auto_populate_default_where);
                       } else {
-                        if(frame.apps_frame_type!='TERMS' && frame.apps_frame_type!='ACCORIDION'){
-                        
-                        if (frame.search) {
-                          let data = this.processData.searchAllData(frame, true);
-                          await this.processData.populateRows(frame.apps_page_frame_seqid, data);
-                        } else {
-                          await this.processData.populateRows(frame.apps_page_frame_seqid, tableData);
-                        }
-                          
+                        if (frame.apps_frame_type != 'TERMS' && frame.apps_frame_type != 'ACCORIDION') {
+
+                          if (frame.search) {
+                            let data = this.processData.searchAllData(frame, true);
+                            await this.processData.populateRows(frame.apps_page_frame_seqid, data);
+                          } else {
+                            await this.processData.populateRows(frame.apps_page_frame_seqid, tableData);
+                          }
+
                         }
                       }
 
@@ -15596,14 +15732,14 @@ export class SuperPage implements OnInit, OnDestroy {
     }
     this.events.unsubscribe(`noDissmiss#${objCode}${this.superId ? '#' + this.superId : ''}`);
     this.events.unsubscribe(`developerEvent${objCode}${this.superId ? '#' + this.superId : ''}`)
-    supercomp = null;
-    utilvar = null;
-   
+    // supercomp = null;
+    // utilvar = null;
+
     // if(this.page_no == 0){
     //   this.object_mast=null;
     //  this.object_arr=null;
     // }
-  
+
     if (!this.globalobjects.toggleDevloperMode()) {
       console.clear();
     }
@@ -15760,6 +15896,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
   async_a(item, event_str) {
 
+    const supercomp=this
     let eventArr = event_str ? (event_str.includes(";") ? event_str.trim().split(";") : [event_str]) : [];
     const pattern = /^"(.*)"$/;
     for (let e of eventArr) {
@@ -15794,6 +15931,7 @@ export class SuperPage implements OnInit, OnDestroy {
     // }
 
     const promises = eventArr.map(call => {
+      const supercomp=this
       let match = this.lhs_lib_util(call, item);
       if (match) {
         match = match.replaceAll("await", "").replaceAll("this.", 'supercomp.').trim(); // Extract frameId and action
@@ -15976,10 +16114,10 @@ export class SuperPage implements OnInit, OnDestroy {
       this.globalobjects.hide_event_loading();
     }
     this.globalobjects.isNotOpenTab.set(false)
-    if(this.globalobjects.loading_on_demand()){
-        this.globalobjects.stop_loading_side();
+    if (this.globalobjects.loading_on_demand()) {
+      this.globalobjects.stop_loading_side();
     }
-  
+
   }
 
   // ws_open_url(event, param) {
@@ -15991,25 +16129,25 @@ export class SuperPage implements OnInit, OnDestroy {
   // }
 
 
-   async ws_open_url(event: any, param: any) {
+  async ws_open_url(event: any, param: any) {
 
 
- const url = this.lhs_lib.get_item_value(param, 0);
+    const url = this.lhs_lib.get_item_value(param, 0);
 
 
- if (!url || isPlatformServer(this.platformId)) {
-   return;
- }
+    if (!url || isPlatformServer(this.platformId)) {
+      return;
+    }
 
 
- if (Capacitor.isNativePlatform()) {
-   await Browser.open({
-     url: url
-   });
- } else {
-   window.open(url, '_blank');
- }
-}
+    if (Capacitor.isNativePlatform()) {
+      await Browser.open({
+        url: url
+      });
+    } else {
+      window.open(url, '_blank');
+    }
+  }
 
 
 
@@ -16595,9 +16733,9 @@ export class SuperPage implements OnInit, OnDestroy {
         }
       }
     }
-    if(!this.plt){
-      if(i==0){
-        return {small:'none !important'}
+    if (!this.plt) {
+      if (i == 0) {
+        return { small: 'none !important' }
       }
     }
     // if (i > 2) {
@@ -16856,7 +16994,10 @@ export class SuperPage implements OnInit, OnDestroy {
       "wsud": this.wsud
     }
     this.canvasModal.openoffCanvas(SuperPage, componentProps, id, cssClass, title).then((detail) => {
-      this.lhs_lib.object_mast = this.object_mast
+      this.lhs_lib.object_mast = this.object_mast;
+        if(!this.plt){
+        this.mobileViewQuickAction();
+      }
     });
   }
 
@@ -16904,6 +17045,9 @@ export class SuperPage implements OnInit, OnDestroy {
       this.lhs_lib.object_mast = this.object_mast
       this.lhs_lib.setObjectMastTab()
       this.openCanvas = false
+        if(!this.plt){
+        this.mobileViewQuickAction();
+      }
     });
     // let myTag ; REMINDER
     // myTag = this.el.nativeElement.querySelector("div[role='tooltip']");
@@ -16937,6 +17081,9 @@ export class SuperPage implements OnInit, OnDestroy {
       this.lhs_lib.object_mast = this.object_mast
       this.lhs_lib.setObjectMastTab()
       this.openCanvas = false
+        if(!this.plt){
+        this.mobileViewQuickAction();
+      }
     });
     // let myTag ; REMINDER
     // myTag = this.el.nativeElement.querySelector("div[role='tooltip']");
@@ -16969,7 +17116,10 @@ export class SuperPage implements OnInit, OnDestroy {
       this.lhs_lib.object_mast = this.object_mast
       this.lhs_lib.setObjectMastTab()
       this.openCanvas = false
-    });;
+        if(!this.plt){
+        this.mobileViewQuickAction();
+      }
+    });
     // let myTag ; 
     // myTag = this.el.nativeElement.querySelector("div[role='tooltip']");
     // this.ren.removeClass(myTag, 'show');
@@ -17142,8 +17292,8 @@ export class SuperPage implements OnInit, OnDestroy {
     // item.active_flag = true;
     item.object_code = item.calling_object_code
     // alert(JSON.stringify(reqData.wscp.object_code));
-    this.get_object_config(item, item.calling_object_code, 'TAB');
-    // this.itemClicked(item)
+    // this.get_object_config(item, item.calling_object_code, 'TAB');
+    this.itemClicked(item)
     // }
   })
 
@@ -18049,13 +18199,13 @@ export class SuperPage implements OnInit, OnDestroy {
     )
   }
 
-  agentic_Chatbot(data){
-     let id = 'offcanvasassistant';
+  agentic_Chatbot(data) {
+    let id = 'offcanvasassistant';
     let cssClass = 'offcanvasRight';
     let title = ""
     this.object_mast.footerBar
     let componentProps = {
-      item:data
+      item: data
     }
     this.canvasModal.openoffCanvas(AgenticChatbotComponent, componentProps, id, cssClass, title).then((detail) => {
       if (detail.apps_item_seqid) {
@@ -18361,8 +18511,8 @@ export class SuperPage implements OnInit, OnDestroy {
     nextPageInfo.wscp.pageno = event.calling_pageno;
     nextPageInfo.wscp.click_events_str = clickEventStr ? clickEventStr : event.click_events_str;
 
- 
-   
+
+
 
     // if (this.sessionObj) {
     //   for (var key in this.sessionObj) {
@@ -18531,7 +18681,7 @@ export class SuperPage implements OnInit, OnDestroy {
   async itemClicked_new(event, click_event_arr = null, frame?, itsFrame?, async_event?) {
 
     let clickEventStr = "";
-
+  const supercomp=this;
     let event_arr = click_event_arr ?? this.event_que_arr;
 
     for await (let ev of event_arr) {
@@ -18791,6 +18941,9 @@ export class SuperPage implements OnInit, OnDestroy {
           if (!key) {
             key = "";
           }
+           if(key.includes('ajs_')){
+            key = key.replaceAll("ajs_", "utilvar.dynamic_func.ajs_");;
+           }
           await this.execute_js(key, event, ev);
         } else {
           continue;
@@ -19009,7 +19162,7 @@ export class SuperPage implements OnInit, OnDestroy {
             try {
 
               let data: any = await this.globalobjects.converToBase64(file);
-              
+
               if (data) {
                 // .then((data: any) => {
                 if (file.name) {
@@ -19351,7 +19504,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
   lhs_lib_util_new(value: string, event?: any): string {
     if (!value) return '';
-
+    const supercomp=this
     let output = value;
 
     output = output.replaceAll('this.', '');
@@ -19789,11 +19942,11 @@ export class SuperPage implements OnInit, OnDestroy {
   getActiveobjectCode() {
     for (let dt of this.lhs_lib.adata) {
       if (dt.active && dt.object.object_code === this.object_mast.object_code) {
-        if(dt.breadcrumbBar && dt.breadcrumbBar.length > 0){
-         if(dt.breadcrumbBar[dt.breadcrumbBar.length - 1].apps_page_no == (this.page_no + 1).toString()){
-           return true;
-         }
-        }else{
+        if (dt.breadcrumbBar && dt.breadcrumbBar.length > 0) {
+          if (dt.breadcrumbBar[dt.breadcrumbBar.length - 1].apps_page_no == (this.page_no + 1).toString()) {
+            return true;
+          }
+        } else {
           return true;
         }
       }
@@ -19815,7 +19968,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
     if (item) {
       delete item['forced_error_msg'];
-       this.cdEngine.detect(item.apps_item_seqid + '_' + (item.indexcount ?? 0) + '#' + item.apps_page_frame_seqid);
+      this.cdEngine.detect(item.apps_item_seqid + '_' + (item.indexcount ?? 0) + '#' + item.apps_page_frame_seqid);
     }
   }
 
@@ -19865,7 +20018,54 @@ export class SuperPage implements OnInit, OnDestroy {
     }
   }
 
-  async app_delo(object_code){
+  async app_delo(object_code) {
     await this.sqlLiteServ.deleteObject(object_code);
   }
+
+
+  sidebar:boolean = true;
+
+  toggleSideMenubar(){
+    this.sidebar = !this.sidebar;
+  }
+
+  mobileViewQuickAction() {
+    if (this.globalobjects.layoutObject && this.globalobjects.layoutObject.length > 0) {
+      if (this.object_mast && this.object_mast.Level2 && this.object_mast.Level2[this.page_no]) {
+        for (let frame of this.object_mast.Level2[this.page_no].Level3) {
+          if (frame.apps_frame_sub_type == 'QUICK_ACTION_BUTTON') {
+            for (let object of this.globalobjects.layoutObject) {
+              for (let obj of object.Level2) {
+                for (let lFrame of obj.Level3) {
+                  if (lFrame.apps_frame_type == 'SYSTEM' && lFrame.apps_frame_sub_type == 'LAYOUT_OPTION') {
+                    // let arr = [...frame.tabelRows,...lFrame.tableRows];
+                    lFrame.quick_buttons = frame.tableRows;
+                    this.globalobjects.layoutObject = [...this.globalobjects.layoutObject];
+                    return;
+                  }
+                }
+              }
+            }
+
+          }
+        }
+
+      }
+      for (let object of this.globalobjects.layoutObject) {
+        for (let obj of object.Level2) {
+          for (let lFrame of obj.Level3) {
+            if (lFrame.apps_frame_type == 'SYSTEM' && lFrame.apps_frame_sub_type == 'LAYOUT_OPTION') {
+              if (lFrame.quick_buttons) {
+                delete lFrame['quick_buttons'];
+                this.globalobjects.layoutObject = [...this.globalobjects.layoutObject];
+                return;
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+
 }

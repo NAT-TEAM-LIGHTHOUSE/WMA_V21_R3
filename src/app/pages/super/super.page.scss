@@ -1275,6 +1275,28 @@ blockquote {
   
 }
 
+
+
+.side_menu_bar_btn {
+      --padding-bottom: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    --padding-top: 0px;
+    height: 32px;
+    width: 25px;
+    position: absolute;
+    right: 4px;
+    top: 2px;
+    z-index: 9;
+    border-radius: 5px;
+    background: #ffffff;
+    --background: #ffffff;
+    border: 1px solid #cdcdcd;
+    box-shadow: none;
+    --box-shadow: none;
+    color: #1e1e1e;
+}
+
 .global_right_section{
   --padding-bottom: 0px;
     --padding-end: 0px;
@@ -1325,4 +1347,10 @@ ion-button:focus,
 ion-button.focused {
   // /* Use Ionic custom properties to pierce the shadow DOM */
   --box-shadow:var(--blue-new) 0px 1px 2px, var(--blue-new) 0px 0px 0px 2px;
+}
+
+.side_menu_bar{
+   width:0px !important;
+   transition: width 2s;
+   transition-timing-function: ease-in-out;
 }

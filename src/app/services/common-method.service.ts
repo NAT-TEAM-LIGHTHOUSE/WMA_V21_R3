@@ -139,13 +139,20 @@ export class CommonMethodService {
     let imageURlArr = [];
     for (let trows of grapgRows) {
       count++;
-
+      let flag=false;
       let im = [];
       for (let trows2 of trows) {
+      
         if (trows2.Level5) {
           if (trows2.Level5[0].item_visible_flag == "T") {
             if (trows2.Level5[0].item_type == 'BT' || trows2.Level5[0].item_type == 'DOWNLOAD_DOC' || trows2[0].item_type == 'BUTTON_ICON' || trows2[0].item_type == 'FRAME_BUTTON_ICON' || trows2[0].item_name == "WMA_RECORD_INDEX" || trows2[0].item_name == "WMA_FRAME_STATUS" || trows2[0].item_name == "WMA_RECORD_STATUS" || trows2[0].item_type =='RIGHT_CLICK' || trows2[0].item_type == 'FRAME_SEPARATOR') {
             } else {
+                
+            if (trows2.Level5[0] && trows2.Level5[0].extra_record) {
+              
+              flag = true;
+              break;
+            } else{
               if (trows2.Level5[0].item_type == "DISPLAY_PHOTO") {
                 if (trows2.Level5[0].value) {
                   im.push(trows2.Level5[0].value);
@@ -161,10 +168,15 @@ export class CommonMethodService {
                 }
               }
             }
+            }
           }
         } else {
 
-
+           if (trows2[0] && trows2[0].extra_record) {
+              
+              flag = true;
+              break;
+            } else{
           if (trows2[0].item_visible_flag == "T") {
             if (trows2[0].item_type == 'BT' || trows2[0].item_type == 'DOWNLOAD_DOC' || trows2[0].item_type == 'BUTTON_ICON' || trows2[0].item_type == 'FRAME_BUTTON_ICON' || trows2[0].item_type == 'FRAME_BUTTON_ICON' || trows2[0].item_name == "WMA_RECORD_INDEX" || trows2[0].item_name == "WMA_FRAME_STATUS" || trows2[0].item_name == "WMA_RECORD_STATUS" || trows2[0].item_type =='RIGHT_CLICK' || trows2[0].item_type == 'FRAME_SEPARATOR') {
             } else {
@@ -184,11 +196,15 @@ export class CommonMethodService {
               }
             }
           }
+        }
 
 
         }
       }
 
+      if(flag){
+        break;
+      }
       if (im.length > 0) {
         imageURlArr.push(im);
       }
@@ -251,10 +267,17 @@ export class CommonMethodService {
     let tableData = [];
     for (let trows of grapgRows) {
       let data = [];
+       let flag = false;
       for (let trows2 of trows) {
         if (trows2.Level5) {
           for (let item of trows2.Level5) {
-            if (item.item_visible_flag == "T") {
+            
+            if (item && item.extra_record) {
+              
+              flag = true;
+              break;
+            } else{
+              if (item.item_visible_flag == "T") {
               if (item.item_type == 'BT' || item.item_type == 'DISPLAY_PHOTO' || item.item_type == 'BUTTON_ICON' || item.item_type == 'DOWNLOAD_DOC' || item.item_type == 'FRAME_SEPARATOR' || item.item_type == 'FRAME_BUTTON_ICON' || item.item_type =='RIGHT_CLICK')  {
               } else {
                 // data.push(item.value + "~" + item.datatype);
@@ -275,9 +298,17 @@ export class CommonMethodService {
                 }
               }
             }
+            }
+            
+          }
+          if (flag) {
+            break;
           }
         }
       }
+       if (flag) {
+            break;
+          }
       tableData.push(data);
     }
     const workbook = new Excel.Workbook();
@@ -2038,8 +2069,8 @@ paginate(a_current_page,frame,displayDataLen) {
 
 
   dateFormateAddExcel(cell) {
-    if (cell.value.split("~")[0] != "null" && cell.value.split("~")[0] != "undefined" && cell.value.split("~")[0] != "") {
-      const rawDate = cell.value.toString().split("~")[0].trim(); // '06 Aug 2025'
+    if (cell.value.split("@~@")[0] != "null" && cell.value.split("@~@")[0] != "undefined" && cell.value.split("@~@")[0] != "") {
+      const rawDate = cell.value.toString().split("@~@")[0].trim(); // '06 Aug 2025'
 
       // Split date & time
       const [datePart, timePart] = rawDate.split(" ");

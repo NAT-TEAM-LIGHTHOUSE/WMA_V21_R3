@@ -191,7 +191,8 @@
 
                   <ng-template #sepFrame>
 
-                    <div class="sep-frame-area frame_border c" [ngClass]="item.item_sub_type == 'MOBILE_SCROLL_COLLAPSE'? 'mobile_scroll_seperator' :''">
+                    <div class="sep-frame-area frame_border c"
+                      [ngClass]="item.item_sub_type == 'MOBILE_SCROLL_COLLAPSE'? 'mobile_scroll_seperator' :''">
                       <div class="collapse-list-container" *ngIf="item.item_sub_type == 'COLLAPSE'; else sepp">
                         <ion-item class="collapse-list" (click)="toggleSep(item)">
                           <h4>{{item.value ? item.value : item.prompt_name}}</h4>
@@ -204,7 +205,7 @@
 
 
                       <ng-template #sepp>
-                         <div>
+                        <div>
                           <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                             [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                         </div>
@@ -462,7 +463,8 @@
 
                   <ng-template #sepFrame>
 
-                    <div class="sep-frame-area frame_border a" [ngClass]="item.item_sub_type == 'MOBILE_SCROLL_COLLAPSE'? 'mobile_scroll_seperator' :''">
+                    <div class="sep-frame-area frame_border a"
+                      [ngClass]="item.item_sub_type == 'MOBILE_SCROLL_COLLAPSE'? 'mobile_scroll_seperator' :''">
                       <div class="collapse-list-container" *ngIf="item.item_sub_type == 'COLLAPSE'; else sepp">
                         <ion-item class="collapse-list" (click)="toggleSep(item)">
                           <h4> {{item.value ? item.value : item.prompt_name}}</h4>
@@ -932,12 +934,12 @@
 
 
 <!-- ------------------New Development For crm------------------------------------------------------------------- -->
-  <ng-container
-  *ngIf="frame.apps_frame_sub_type == 'PLAIN'">
-   <div class="frame-head">
+<ng-container *ngIf="frame.apps_frame_sub_type == 'PLAIN'">
+  <div class="frame-head">
     <ion-row *ngIf="frame.apps_page_frame_name && !frame.collapse" class="align-center">
       <ion-col [size]="searchFlag ? 6 : 12" style="padding-bottom: 0;">
-        <h1 class="frame-name  m-title pdt-0 pdb-0 pdr-5 pdl-10" style="background: none !important;">{{frame.apps_page_frame_name}}
+        <h1 class="frame-name  m-title pdt-0 pdb-0 pdr-5 pdl-10" style="background: none !important;">
+          {{frame.apps_page_frame_name}}
           <ng-container *ngIf="globalObjects.toggleDevloperMode()">
             <span style="margin-left: 10px;">[{{frame.apps_page_frame_seqid}}][{{frame.frame_alias}}]<ion-icon
                 *ngIf="developerModeData" class="code-btn" color="primary" name="information-circle-outline"
@@ -1182,4 +1184,4 @@
 
   </div>
 
-</ng-container> 
+</ng-container>

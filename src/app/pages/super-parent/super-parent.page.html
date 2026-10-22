@@ -75,7 +75,7 @@
   
   <ion-footer class="mobile_display main-footer" >
     <ion-toolbar>
-      <app-left-bar (offPass)="tabSection('openoffLeftCanvasObject',$event)" (emitPass)="tabSection('openApplication',$event)" (notesLinksemit)="tabSection('openApplication',$event)" (reminderLinksemit)="tabSection('openoffCanvasObject',$event)"
+      <app-left-bar (offPass)="tabSection('openoffLeftCanvasObject',$event)" (emitPass)="tabSection('openApplication',$event)" (notesLinksemit)="tabSection('openApplication',$event)" (reminderLinksemit)="tabSection('openoffCanvasObject',$event)" (quick_action_clicked)="tabSection('quick_action_clicked',$event)"
     *ngIf="isModal !='P'" ></app-left-bar>
     </ion-toolbar>
   </ion-footer>

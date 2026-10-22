@@ -5,6 +5,10 @@ ion-input{
         padding: 0px 0px !important;
     }
 }
+.input-action-container{
+    display: flex;
+    align-items: center;
+}
 
 .selected-value {
     //max-width:500px;

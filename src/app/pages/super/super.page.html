@@ -36,20 +36,20 @@
       <div class="left2-title-ios  pdb-1" *ngIf="globalobjects.toggleDevloperMode() && platform.is('ios')">
 
         <h2 class="page-title" *ngIf="object_mast">{{ object_mast.Level2[page_no].apps_page_name }}
-           <img src="assets/icon/star.svg">
-           <!-- <i class="fi fi-rr-star"></i> -->
-          </h2>
+          <img src="assets/icon/star.svg">
+          <!-- <i class="fi fi-rr-star"></i> -->
+        </h2>
         <!-- <span *ngFor="let x of globalobjects.breadCrumpsArray; let i=index"
           (click)="navigateBreadcrums(x,i)">{{x.prompt_name}}</span> -->
         <!-- <ng-container *ngFor="let tabTag of lhs_lib.myTab;let i=index">
           <ng-container *ngIf="!tabTag.childNodes[0].hasAttribute('hidden')"> -->
-            <ng-container *ngFor="let dt of lhs_lib.adata">
-              <ng-container *ngIf="dt.active">
-                <span *ngFor="let x of dt.breadcrumbBar; let j=index"
-                  (click)="navigateBreadcrums(x, j)">{{x.prompt_name}}</span>
-              </ng-container>
-            </ng-container>
-          <!-- </ng-container>
+        <ng-container *ngFor="let dt of lhs_lib.adata">
+          <ng-container *ngIf="dt.active">
+            <span *ngFor="let x of dt.breadcrumbBar; let j=index"
+              (click)="navigateBreadcrums(x, j)">{{x.prompt_name}}</span>
+          </ng-container>
+        </ng-container>
+        <!-- </ng-container>
         </ng-container> -->
 
         <!-- <div class="action-btn-section">
@@ -70,8 +70,8 @@
         <div class="topinput_header d-flex align-items-center">
           <div class="topinput">
             <ion-input [clearInput]="true" placeholder="Dynamic prompt" class="form-control">
-              <ion-button>
-                 <img src="assets/icon/search.svg">
+              <ion-button style="min-height: 25px;">
+                <img src="assets/icon/search.svg">
                 <!-- <i class="fi fi-rr-search"></i> -->
               </ion-button>
             </ion-input>
@@ -87,44 +87,43 @@
             <div>
               <!-- <ng-container *ngFor="let tabTag of lhs_lib.myTab;let i=index">
                 <ng-container *ngIf="!tabTag.childNodes[0].hasAttribute('hidden')"> -->
-                  <ng-container *ngFor="let dt of lhs_lib.adata">
-                    <ng-container *ngIf="dt.active">
-                      
-                      <ng-container *ngIf="isModal != 'O'">
-                        <div>
-                          <div class="back_icon_new"
-                            *ngIf="globalobjects.userDetails.homeObjectCode != object_mast.object_code && dt.breadcrumbBar.length>0">
-                            <ng-container *ngIf="!no_back">
-                              <ion-button (click)="closePage()" class="global-main-copy icons"
-                                title="Back Page"><ion-icon name="arrow-back-outline" fill="clear" icon-only
-                                  start></ion-icon></ion-button>
+              <ng-container *ngFor="let dt of lhs_lib.adata">
+                <ng-container *ngIf="dt.active">
 
-                              <ion-button slot="start" (click)="popDismiss()" fill="clear" icon-only start
-                                *ngIf="isModal == 'P'">
-                                <ion-icon name="close" color="light"></ion-icon>
-                              </ion-button>
+                  <ng-container *ngIf="isModal != 'O'">
+                    <div>
+                      <div class="back_icon_new"
+                        *ngIf="globalobjects.userDetails.homeObjectCode != object_mast.object_code && dt.breadcrumbBar.length>0">
+                        <ng-container *ngIf="!no_back">
+                          <ion-button (click)="closePage()" class="global-main-copy icons" title="Back Page"><ion-icon
+                              name="arrow-back-outline" fill="clear" icon-only start></ion-icon></ion-button>
 
-                            </ng-container>
-                          </div>
-
-                          <h2 class="page-title" *ngIf="object_mast">{{ object_mast.Level2[page_no].apps_page_name }}
-                            <!-- <ion-icon name="information-circle-outline" #popoverBtn type="button"  class="btn  pl-2 p-0 "  data-bs-toggle="popover"  [attr.data-bs-content]="'Object Code : ' + object_mast.Level2[0].object_code"></ion-icon> -->
-                          </h2>
-                              <!-- <img src="assets/icon/star.svg">  -->
-                          <!-- <i class="fi fi-rr-star" (click)="set_bookmark()"></i> -->
-                        </div>
-                      </ng-container>
-                      <div class="span-breadcrumbs"
-                        *ngIf="globalobjects.userDetails.homeObjectCode != object_mast.object_code">
-                        <ng-container *ngIf="!platform.is('ios')">
-                          <span *ngFor="let x of dt.breadcrumbBar; let j=index"
-                            (click)="navigateBreadcrums(x, j)">{{x.prompt_name}}</span>
+                          <ion-button slot="start" (click)="popDismiss()" fill="clear" icon-only start
+                            *ngIf="isModal == 'P'">
+                            <ion-icon name="close" color="light"></ion-icon>
+                          </ion-button>
 
                         </ng-container>
                       </div>
-                    </ng-container>
+
+                      <h2 class="page-title" *ngIf="object_mast">{{ object_mast.Level2[page_no].apps_page_name }}
+                        <!-- <ion-icon name="information-circle-outline" #popoverBtn type="button"  class="btn  pl-2 p-0 "  data-bs-toggle="popover"  [attr.data-bs-content]="'Object Code : ' + object_mast.Level2[0].object_code"></ion-icon> -->
+                      </h2>
+                      <!-- <img src="assets/icon/star.svg">  -->
+                      <!-- <i class="fi fi-rr-star" (click)="set_bookmark()"></i> -->
+                    </div>
                   </ng-container>
-                <!-- </ng-container>
+                  <div class="span-breadcrumbs"
+                    *ngIf="globalobjects.userDetails.homeObjectCode != object_mast.object_code">
+                    <ng-container *ngIf="!platform.is('ios')">
+                      <span *ngFor="let x of dt.breadcrumbBar; let j=index"
+                        (click)="navigateBreadcrums(x, j)">{{x.prompt_name}}</span>
+
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- </ng-container>
               </ng-container> -->
             </div>
             <div class="action-btn-section">
@@ -177,7 +176,7 @@
                     <ng-container
                       *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='QUICK_ACTION_BUTTON'">
                       <ng-container *ngIf="frame.tableRows && frame.tableRows.length > 0">
-                       
+
 
                         <ul class="first_quick sub dikhana hai" [id]="frame.apps_page_frame_seqid">
                           <ng-container *ngFor="let item of frame.tableRows[0][0].Level5; let i = index">
@@ -193,9 +192,12 @@
                                   <ion-icon class="code-btn" name="information-circle-outline"></ion-icon>
                                 </ion-button>
 
-                                <ion-button [disabled]="item.item_enable_flag=='F'" class="global-main-copy data-tooltip-shortcut left alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && item.aliases ? item.aliases:''"
+                                <ion-button [disabled]="item.item_enable_flag=='F'"
+                                  class="global-main-copy data-tooltip-shortcut left alt"
+                                  [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && item.aliases ? item.aliases:''"
                                   (click)="quick_action_clicked(item)" title="{{item.prompt_name}}"
-                                  [attr.name]="'canvasClick#'+item.apps_page_frame_seqid+'#'+item.item_name+'#'+item.indexcount" [id]='item.apps_item_seqid + item.indexcount'>
+                                  [attr.name]="'canvasClick#'+item.apps_page_frame_seqid+'#'+item.item_name+'#'+item.indexcount"
+                                  [id]='item.apps_item_seqid + item.indexcount'>
                                   <a>{{item.prompt_name}}</a></ion-button>
                               </li>
                             </ng-container>
@@ -204,7 +206,8 @@
                           </ng-container>
                         </ul>
 
-                        <ul class="second_quick agar upar ek bhi hai to 2 nahi to 3 dikhana hai" [id]="frame.apps_page_frame_seqid">
+                        <ul class="second_quick agar upar ek bhi hai to 2 nahi to 3 dikhana hai"
+                          [id]="frame.apps_page_frame_seqid">
                           <ng-container *ngFor="let itemGrp of frame.tableRows[0]; let i = index">
                             <ng-container *ngIf="i != 0">
                               <ng-container *ngFor="let item of itemGrp.Level5; let j = index">
@@ -213,16 +216,20 @@
                                   <li style="border:0px;padding:0px 0px;" class="desknew_display  ">
 
 
-                                    <ion-button *ngIf="globalobjects.toggleDevloperMode()" [title]="item.apps_item_seqid"
-                                      class="code-btn developer_btn" (click)="showDeveloperData(item)">
+                                    <ion-button *ngIf="globalobjects.toggleDevloperMode()"
+                                      [title]="item.apps_item_seqid" class="code-btn developer_btn"
+                                      (click)="showDeveloperData(item)">
                                       <ion-icon class="code-btn" name="information-circle-outline"></ion-icon>
                                     </ion-button>
 
 
 
-                                    <ion-button [disabled]="item.item_enable_flag=='F'" class="global-main-copy data-tooltip-shortcut left alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && item.aliases ? item.aliases:''"
+                                    <ion-button [disabled]="item.item_enable_flag=='F'"
+                                      class="global-main-copy data-tooltip-shortcut left alt"
+                                      [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && item.aliases ? item.aliases:''"
                                       (click)="quick_action_clicked(item)" title="{{item.prompt_name}}"
-                                      [attr.name]="'canvasClick#'+item.apps_page_frame_seqid+'#'+item.item_name+'#'+item.indexcount" [id]='item.apps_item_seqid + item.indexcount'>
+                                      [attr.name]="'canvasClick#'+item.apps_page_frame_seqid+'#'+item.item_name+'#'+item.indexcount"
+                                      [id]='item.apps_item_seqid + item.indexcount'>
                                       <a>{{item.prompt_name}}</a></ion-button>
                                   </li>
                                 </ng-container>
@@ -230,7 +237,7 @@
                             </ng-container>
                           </ng-container>
                         </ul>
-                      
+
 
                       </ng-container>
 
@@ -240,12 +247,12 @@
                           <ion-icon name="chevron-down-outline" class="quik-action-btn"></ion-icon>
                         </ion-button>
                       </li>
-                      <li [style.display]=frame.isRunning?.small id="Quick_btn" class="mobile">
+                      <!-- <li [style.display]=frame.isRunning?.small id="Quick_btn" class="mobile">
                         <ion-button class="global-main-copy icons" title="More"
                           (click)="QuickActionModal($event,frame)">
                           <ion-icon name="chevron-down-outline" class="quik-action-btn"></ion-icon>
                         </ion-button>
-                      </li>
+                      </li> -->
                     </ng-container>
 
                     <ng-container *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='FILTER'">
@@ -267,8 +274,8 @@
                                     [disabled]="textinput.item_enable_flag && textinput.item_enable_flag=='F'"
                                     [attr.name]="'canvasClick#'+textinput.apps_page_frame_seqid+'#'+textinput.item_name+'#'+textinput.indexcount">
                                     <!-- <i class="fi fi-rr-search"></i> -->
-                                      <img src="assets/icon/search.svg">
-                                    </ion-button>
+                                    <img src="assets/icon/search.svg">
+                                  </ion-button>
                                 </div>
                                 <ion-button class="globe-btn" (blur)="onBlur(textinput)"
                                   [attr.name]="'canvasClick#'+textinput.apps_page_frame_seqid+'#'+textinput.item_name+'#'+textinput.indexcount">Ok</ion-button>
@@ -289,8 +296,9 @@
 
 
                       <li (click)="filterModal($event,frame)" id="gfilter_btn">
-                        <ion-button class="global-main-copy icons data-tooltip-shortcut left alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && frame.aliases ? frame.aliases:''" title="Global filter"><ion-icon
-                            name="funnel-outline"></ion-icon></ion-button>
+                        <ion-button class="global-main-copy icons data-tooltip-shortcut left alt"
+                          [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && frame.aliases ? frame.aliases:''"
+                          title="Global filter"><ion-icon name="funnel-outline"></ion-icon></ion-button>
                       </li>
 
 
@@ -309,7 +317,7 @@
                     <!-- </ng-container> -->
                   </ng-container>
                 </ng-container>
-                 <!-- <li>
+                <!-- <li>
                   <ion-button (click)="createmeno()" class="global-main-copy icons more-fav" title="More">
                    Create Memo
                   </ion-button>
@@ -352,7 +360,7 @@
                           </a>
                         </li>
 
-                            <li (click)="templateObjectNew()">
+                        <li (click)="templateObjectNew()">
                           <a>
                             <ion-icon name="save-outline"></ion-icon>
                             <span>Configuration Applied</span>
@@ -374,7 +382,7 @@
 
                           </a>
                         </li>
-                              <li (click)="templateObject2()">
+                        <li (click)="templateObject2()">
                           <a>
                             <ion-icon name="layers-outline"></ion-icon>
                             <span>New Template Populate Data</span>
@@ -579,33 +587,68 @@
               style="position: unset !important;"> -->
             <ion-row>
 
-              <ng-container *ngIf="object_mast && object_mast.Level2 && object_mast.Level2[page_no]">
-                <ng-container *ngFor="let frame of object_mast.Level2[page_no].Level3">
-                  <ion-col id="resizable"
-                    *ngIf="frame.apps_frame_type != 'F' && (frame.apps_frame_sub_type!='OBJECT_INFO' && frame.apps_frame_sub_type!='FORM_TABS' && frame.apps_frame_sub_type!='ENGINE' && frame.apps_frame_sub_type!='RELATED_LINKS')"
-                    [size]="frame.size ? frame.size : 12" [ngStyle]="frame.style" cdkDrag>
+              <ion-col  id="side_menu_bar" [ngClass]="sidebar ? 'sidebar-open' : 'sidebar-close'"  *ngIf="side_menu" [size]="side_menu.size ? side_menu.size : 12" [ngStyle]="side_menu.style"
+                cdkDrag>
+                <ion-button class="side_menu_bar_btn" (click)="toggleSideMenubar()" >
+                  <ion-icon name="chevron-back-outline" *ngIf="sidebar"></ion-icon>
+                  <ion-icon name="chevron-forward-outline" *ngIf="!sidebar"></ion-icon>
+                </ion-button>
 
 
-                    <ion-icon style="cursor: pointer" color="primary" class="icon-white" name="create"
-                      *ngIf="globalobjects.toggleDevloperMode() && globalobjects.toggleDevloperModePro && globalobjects.devItemEditFlag"
-                      (click)="openFrameEditorPage(frame)"></ion-icon>
-                    <ion-icon style="cursor: pointer" color="primary" class="icon-white" name="add"
-                      *ngIf="globalobjects.toggleDevloperMode() && globalobjects.toggleDevloperModePro && globalobjects.devItemEditFlag"
-                      (click)="openItemAddPage(frame)"></ion-icon>
+                <ion-icon style="cursor: pointer" color="primary" class="icon-white" name="create"
+                  *ngIf="globalobjects.toggleDevloperMode() && globalobjects.toggleDevloperModePro && globalobjects.devItemEditFlag"
+                  (click)="openFrameEditorPage(side_menu)"></ion-icon>
+                <ion-icon style="cursor: pointer" color="primary" class="icon-white" name="add"
+                  *ngIf="globalobjects.toggleDevloperMode() && globalobjects.toggleDevloperModePro && globalobjects.devItemEditFlag"
+                  (click)="openItemAddPage(side_menu)"></ion-icon>
 
-                    <div [hidden]="!globalobjects.toggleDrag" cdkDragHandle>
-                      <ion-icon style="cursor:pointer;" name="move"></ion-icon>
-                    </div>
+                <div [hidden]="!globalobjects.toggleDrag" cdkDragHandle>
+                  <ion-icon style="cursor:pointer;" name="move"></ion-icon>
+                </div>
 
 
 
-                    <app-frame-selector [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp]="wscp"
-                      [object_mast]="object_mast" [page_no]="page_no" [sessionObj]="sessionObj" [wsdpcl]="wsdpcl"
-                      (emitPass)="itemClicked($event)" (personalize)="openHardcodeObjectNew($event)" (quickLinksemit)="quickLinks()">
-                    </app-frame-selector>
-                  </ion-col>
-                </ng-container>
-              </ng-container>
+                <app-frame-selector [frame]="side_menu" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp]="wscp" *ngIf="sidebar"
+                  [object_mast]="object_mast" [page_no]="page_no" [sessionObj]="sessionObj" [wsdpcl]="wsdpcl"
+                  (emitPass)="itemClicked($event)" (personalize)="openHardcodeObjectNew($event)"
+                  (quickLinksemit)="quickLinks()">
+                </app-frame-selector>
+              </ion-col> 
+
+              <ion-col [size]="side_menu ? 12 - side_menu.size : 12">
+
+
+                <ion-row [ngStyle]="{'padding-left': `calc(calc(${rowSize} / var(--ion-grid-columns, 12)) * 100%)`}">
+                  <ng-container *ngIf="object_mast && object_mast.Level2 && object_mast.Level2[page_no]">
+                    <ng-container *ngFor="let frame of object_mast.Level2[page_no].Level3">
+                      <ion-col id="resizable"
+                        *ngIf="frame.apps_frame_type != 'F' && (frame.apps_frame_sub_type!='OBJECT_INFO' && frame.apps_frame_sub_type!='FORM_TABS' && frame.apps_frame_sub_type!='SIDE_MENU' && frame.apps_frame_sub_type!='ENGINE' && frame.apps_frame_sub_type!='RELATED_LINKS')"
+                        [size]="frame.size ? frame.size : 12" [ngStyle]="frame.style" cdkDrag>
+
+
+                        <ion-icon style="cursor: pointer" color="primary" class="icon-white" name="create"
+                          *ngIf="globalobjects.toggleDevloperMode() && globalobjects.toggleDevloperModePro && globalobjects.devItemEditFlag"
+                          (click)="openFrameEditorPage(frame)"></ion-icon>
+                        <ion-icon style="cursor: pointer" color="primary" class="icon-white" name="add"
+                          *ngIf="globalobjects.toggleDevloperMode() && globalobjects.toggleDevloperModePro && globalobjects.devItemEditFlag"
+                          (click)="openItemAddPage(frame)"></ion-icon>
+
+                        <div [hidden]="!globalobjects.toggleDrag" cdkDragHandle>
+                          <ion-icon style="cursor:pointer;" name="move"></ion-icon>
+                        </div>
+
+
+
+                        <app-frame-selector [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp]="wscp"
+                          [object_mast]="object_mast" [page_no]="page_no" [sessionObj]="sessionObj" [wsdpcl]="wsdpcl"
+                          (emitPass)="itemClicked($event)" (personalize)="openHardcodeObjectNew($event)"
+                          (quickLinksemit)="quickLinks()">
+                        </app-frame-selector>
+                      </ion-col>
+                    </ng-container>
+                  </ng-container>
+                </ion-row>
+              </ion-col>
             </ion-row>
           </ion-col>
         </ion-row>
@@ -645,43 +688,43 @@
           </ng-container>
         </div>
         <ng-container *ngIf="isModal == 'P' || isModal == 'O'">
-        <ng-conatiner *ngIf="globalobjects.toggleDevloperMode()">
-          <div class="collapse-list-container static_collapse parameter_frame"
-            *ngIf="frame.showCollapse || !frame.collapse" data-bs-toggle="collapse" data-bs-target="#collapseparameter"
-            aria-expanded="false" aria-controls="collapseparameter">
-            <ion-item class="collapse-list ion-no-padding" lines="none">
-              Parameter Frame
-              <!-- data-bs-toggle="collapse"
+          <ng-conatiner *ngIf="globalobjects.toggleDevloperMode()">
+            <div class="collapse-list-container static_collapse parameter_frame"
+              *ngIf="frame.showCollapse || !frame.collapse" data-bs-toggle="collapse"
+              data-bs-target="#collapseparameter" aria-expanded="false" aria-controls="collapseparameter">
+              <ion-item class="collapse-list ion-no-padding" lines="none">
+                Parameter Frame
+                <!-- data-bs-toggle="collapse"
                 data-bs-target="#collapseparameter" aria-expanded="false" aria-controls="collapseparameter"
                  data-bs-toggle="collapse"
                 data-bs-target="#collapseparameter" aria-expanded="false" aria-controls="collapseparameter"-->
-              <ion-icon name="add-circle-outline" slot="end" *ngIf="!frame.collapse"
-                (click)="paratoggle(true)"></ion-icon>
-              <ion-icon name="remove-circle-outline" slot="end" *ngIf="frame.collapse"
-                (click)="paratoggle(false)"></ion-icon>
+                <ion-icon name="add-circle-outline" slot="end" *ngIf="!frame.collapse"
+                  (click)="paratoggle(true)"></ion-icon>
+                <ion-icon name="remove-circle-outline" slot="end" *ngIf="frame.collapse"
+                  (click)="paratoggle(false)"></ion-icon>
 
-            </ion-item>
+              </ion-item>
 
-          </div>
-        </ng-conatiner>
-        <ion-row class="onstatic_collapse onstatic_collapse" *ngIf="toggle == true" id="collapseparameter">
-          <ng-container *ngIf="object_mast && object_mast.Level2 && object_mast.Level2[page_no]">
-            <ng-container *ngFor="let frame of object_mast.Level2[page_no].Level3">
-              <ion-col size="12"
-                *ngIf="(frame.apps_page_frame_seqid == (object_mast.Level2[page_no].object_code + '-PARA') && globalobjects.toggleDevloperMode()) ">
+            </div>
+          </ng-conatiner>
+          <ion-row class="onstatic_collapse onstatic_collapse" *ngIf="toggle == true" id="collapseparameter">
+            <ng-container *ngIf="object_mast && object_mast.Level2 && object_mast.Level2[page_no]">
+              <ng-container *ngFor="let frame of object_mast.Level2[page_no].Level3">
+                <ion-col size="12"
+                  *ngIf="(frame.apps_page_frame_seqid == (object_mast.Level2[page_no].object_code + '-PARA') && globalobjects.toggleDevloperMode()) ">
 
-                <app-frame-canvas [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
-                  [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
-                </app-frame-canvas>
-              </ion-col>
+                  <app-frame-canvas [frame]="frame" [wsdp]="wsdp" [sessionObj]="sessionObj" [wscp_send_input]="wscp"
+                    [sessionObj]="sessionObj" [wsdpcl]="wsdpcl" (emitPass)="itemClicked($event)">
+                  </app-frame-canvas>
+                </ion-col>
+              </ng-container>
             </ng-container>
-          </ng-container>
-        </ion-row>
-      </ng-container>
+          </ion-row>
+        </ng-container>
       </div>
 
       <!-- -->
-      
+
 
       <ng-container>
         <!-- <ion-button  (click)="networkSpeed()" expand="block">NetorkSpeed</ion-button>  -->
@@ -769,7 +812,7 @@
       </ion-content>
     </ng-template>
   </ion-modal> -->
-<!-- <ion-fab class="fixed-chatbtn" slot="fixed" (click)="chatboat()">
+  <!-- <ion-fab class="fixed-chatbtn" slot="fixed" (click)="chatboat()">
   <ion-fab-button>
    <ion-icon name="chatbubbles-outline"></ion-icon>
   </ion-fab-button>
@@ -786,17 +829,18 @@
   </ion-item>
 
 </div> -->
-<div class="text-center new-bottom-loader-dotted" *ngIf="globalobjects.newLoader() && !globalobjects.loading_on_demand()">
+<div class="text-center new-bottom-loader-dotted"
+  *ngIf="globalobjects.newLoader() && !globalobjects.loading_on_demand()">
 
   <ion-item class="new-bottom-loader-dotted-item">
 
     <ion-spinner name="dots"></ion-spinner>
     <!-- <ion-spinner name="circular"></ion-spinner> <span> </span> <span class="cancel-btn"><a
       (click)="terminate()">Cancel</a></span> -->
-      <span class="cancel-btn" *ngIf="!globalobjects.wscp_para || globalobjects.wscp_para['commit_mode'] != 'Y'"><a
-      (click)="terminate()"><ion-icon name="close-outline"></ion-icon></a></span>
+    <span class="cancel-btn" *ngIf="!globalobjects.wscp_para || globalobjects.wscp_para['commit_mode'] != 'Y'"><a
+        (click)="terminate()"><ion-icon name="close-outline"></ion-icon></a></span>
   </ion-item>
-  
+
 </div>
 
 <div class="text-center new-bottom-loader-dotted" *ngIf="globalobjects.loading_on_demand()">
@@ -805,9 +849,8 @@
 
     <ion-spinner name="dots"></ion-spinner>
     <!-- <ion-spinner name="circular"></ion-spinner> <span> </span> <span class="cancel-btn"><a
-      (click)="terminate()">Cancel</a></span> --> 
-      <span class="cancel-btn"><a
-      (click)="terminate()"><ion-icon name="close-outline"></ion-icon></a></span>
+      (click)="terminate()">Cancel</a></span> -->
+    <span class="cancel-btn"><a (click)="terminate()"><ion-icon name="close-outline"></ion-icon></a></span>
   </ion-item>
- 
+
 </div>

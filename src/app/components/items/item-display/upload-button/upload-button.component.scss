@@ -80,7 +80,13 @@
     display: inline-block;
     border-radius: 8px;
 }
-
+.select-container ion-label{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+}
 
 .upload-button-box{
 .upload-button-msg{

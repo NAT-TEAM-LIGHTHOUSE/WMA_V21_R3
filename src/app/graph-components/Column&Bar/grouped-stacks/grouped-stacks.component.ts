@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, NgZone, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { GlobalObjectsService } from 'src/app/services/global-objects.service';
 import { PopoverController } from '@ionic/angular/standalone';
 import { Subject } from 'rxjs';
@@ -15,7 +15,7 @@ imports : [],
   templateUrl: './grouped-stacks.component.html',
   styleUrls: ['./grouped-stacks.component.scss'],
 })
-export class GroupedStacksComponent  implements OnInit {
+export class GroupedStacksComponent  implements OnInit, OnDestroy {
 
 
   @Input() data: any;
@@ -23,6 +23,7 @@ export class GroupedStacksComponent  implements OnInit {
   id="";
   @Input() subData: Subject<any>
   @Output() emitPass: EventEmitter<any> = new EventEmitter<any>();
+  private root: am5.Root | null = null;
   constructor(private gloabalObject : GlobalObjectsService,private PopoverController: PopoverController, private ngZone:NgZone) {
    }
 
@@ -34,21 +35,67 @@ export class GroupedStacksComponent  implements OnInit {
     this.gloabalObject.chartId++;
     setTimeout(() => {
       this.ngZone.runOutsideAngular(() => {
-        this.data =  this.frame.chartData; 
-      this.displayChart();
+        if (!Array.isArray(this.data) || this.data.length === 0) {
+          this.data = this.frame?.chartData || [];
+        }
+        this.displayChart();
       })
     }, 100);
 
-    
-    this.subData.subscribe(data => {
-      this.data = data;
-      this.displayChart();
+    this.subData?.subscribe(data => {
+      if (Array.isArray(data) && data.length > 0) {
+        this.data = data;
+        this.displayChart();
+      }
     })
   }
 
+  ngOnDestroy(): void {
+    this.root?.dispose();
+    this.root = null;
+  }
 
 displayChart(){
-  let root = am5.Root.new(this.id);
+  const sourceData = Array.isArray(this.data) ? this.data : [];
+  const seriesFields = Array.from(new Set(sourceData.flatMap(item =>
+    Object.keys(item).filter(key => /^Y\d+$/.test(key))
+  ))).sort((first, second) => Number(first.slice(1)) - Number(second.slice(1)));
+
+  this.root?.dispose();
+  this.root = null;
+  if (!sourceData.length || !seriesFields.length) {
+    return;
+  }
+
+  const seriesGroups: string[][] = [];
+  for (let index = 0; index < seriesFields.length; index += 2) {
+    seriesGroups.push(seriesFields.slice(index, index + 2));
+  }
+
+  const chartData: any[] = [];
+  seriesGroups.forEach((groupFields, groupIndex) => {
+    sourceData.forEach((item, rowIndex) => {
+      const chartItem: any = {
+        category: `group-${groupIndex}-category-${rowIndex}`,
+        displayCategory: item.X1 ?? ''
+      };
+      for (const field of seriesFields) {
+        const value = groupFields.includes(field) ? Number(item[field]) : 0;
+        chartItem[field] = Number.isFinite(value) ? value : 0;
+      }
+      chartData.push(chartItem);
+    });
+
+    if (groupIndex < seriesGroups.length - 1) {
+      chartData.push({
+        category: `group-${groupIndex}-spacer`,
+        displayCategory: ''
+      });
+    }
+  });
+
+  const root = am5.Root.new(this.id);
+  this.root = root;
 
 
 // Set themes
@@ -78,65 +125,6 @@ let legend = chart.children.push(
   })
 );
 
-let data = [
-//   {
-//   category: ""
-// }, 
-{
-  category: "g1-2021",
-  s10: 20,
-  s11: 12
-}, {
-  category: "g1-2022",
-  s10: 15,
-  s11: 8
-}, {
-  category: "g1-2023",
-  s10: 12,
-  s11: 16
-}, {
-  category: "g1-2024",
-  s10: 9,
-  s11: 12
-}, {
-  category: ""
-}, {
-  category: "g2-2021",
-  s20: 15,
-  s21: 16
-}, {
-  category: "g2-2022",
-  s20: 20,
-  s21: 6
-}, {
-  category: "g2-2023",
-  s20: 14,
-  s21: 11
-}, {
-  category: "g2-2024",
-  s20: 19,
-  s21: 12
-}, {
-  category: ""
-}, {
-  category: "g3-2021",
-  s30: 5,
-  s31: 10
-}, {
-  category: "g3-2022",
-  s30: 7,
-  s31: 12
-}, {
-  category: "g3-2023",
-  s30: 15,
-  s31: 10
-}, {
-  category: "g3-2024",
-  s30: 13,
-  s31: 14
-}];
-
-
 // Create axes
 // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
 let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
@@ -151,14 +139,14 @@ let xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
 
 xAxis.get("renderer").labels.template.adapters.add("text", function(text, target) {
   if (target.dataItem) {
-    // return target.dataItem.get("category").split("-")[1];
+    return (target.dataItem.dataContext as any)?.displayCategory ?? text;
   }
   return text;
 });
 
 xAxis.get("renderer").grid.template.set("forceHidden", true);
 
-xAxis.data.setAll(data);
+xAxis.data.setAll(chartData);
 
 let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
   renderer: am5xy.AxisRendererY.new(root, {})
@@ -185,19 +173,20 @@ function makeSeries(name, fieldName, color) {
     tooltipY: 0
   });
 
-  series.data.setAll(data);
+  series.data.setAll(chartData);
   series.appear();
   legend.data.push(series);
 }
 
-makeSeries("Series #1", "s10", am5.color(0x133F3D));
-makeSeries("Series #2", "s11", am5.color(0x216E6A));
-
-makeSeries("Series #3", "s20", am5.color(0x20320C));
-makeSeries("Series #4", "s21", am5.color(0x4A731C));
-
-makeSeries("Series #5", "s30", am5.color(0x3A1603));
-makeSeries("Series #6", "s31", am5.color(0x883407));
+const seriesColors = [
+  am5.color(0x133F3D), am5.color(0x216E6A),
+  am5.color(0x20320C), am5.color(0x4A731C),
+  am5.color(0x3A1603), am5.color(0x883407)
+];
+seriesFields.forEach((field, index) => {
+  const seriesName = sourceData.find(item => item[`${field}_label`])?.[`${field}_label`] || field;
+  makeSeries(seriesName, field, seriesColors[index % seriesColors.length]);
+});
 
 // Make stuff animate on load
 // https://www.amcharts.com/docs/v5/concepts/animations/

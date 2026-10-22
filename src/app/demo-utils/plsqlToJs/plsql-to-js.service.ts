@@ -572,6 +572,11 @@ export class PlsqlToJsService {
     }
 
 
+    
+
+ if (data.includes("AJS_")) {
+      data = data.replaceAll("AJS_", "utilvar.dynamic_func.AJS_");
+    }
     if (data.includes("ROUND(")) {
       data = data.replaceAll("ROUND(", "utilvar.sqlutilserv.round(");
     }

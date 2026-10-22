@@ -11,6 +11,8 @@ import { CanvasModalService } from 'src/app/services/canvas-modal.service';
 import { STANDALONE_IMPORTS } from 'src/app/shared_modules/ionic.imports';
 import { isPlatformServer } from '@angular/common';
 import { CdEngineService } from 'src/app/services/cd-engine-service.service';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   standalone: true,
@@ -602,79 +604,216 @@ export class UploadButtonComponent implements OnInit {
     })
     // this.uploadPopupshow()
   }
-  downloadFile() {
-    if(this.button.item_enable_flag=='T'){
 
-      if (this.button.imgData) {
-        if (this.button.imgData) {
-          let data: any = ""
-          if (this.button.isFile) {
-            data = this.imgDataFile
-          } else {
-            data = this.button.imgData.changingThisBreaksApplicationSecurity
-          }
+
+
+  // downloadFile() {
+  //   console.log("chekk download file", this.button)
+  //   if(this.button.item_enable_flag=='T'){
+  //     console.log("download file", this.button.imgData)
+  //     if (this.button.imgData) {
+  //       if (this.button.imgData) {
+  //         let data: any = ""
+  //         if (this.button.isFile) {
+  //           data = this.imgDataFile
+  //         } else {
+  //           data = this.button.imgData.changingThisBreaksApplicationSecurity
+  //         }
   
-          if (data.startsWith("data:")) {
-            // base64 case
-            const a = document.createElement("a");
-            a.href = data;
-            a.download = this.button.file_name || "downloaded_file";
-            a.click();
-          } else {
-            // Server path case
-            const url = data.includes("http")
-              ?.data;
-            const a = document.createElement("a");
-            a.href = url;
-            a.target = "_blank";
-            a.download = this.button.file_name || "downloaded_file";
-            a.click();
-          }
-        }
-        else {
-          this.globalObjects.presentAlert("Download not available");
-        }
-        return
-      } else if (this.button.files && this.button.files.length > 0) {
-        const file = this.button.files[0];
+  //         if (data.startsWith("data:")) {
+  //           // base64 case
+  //           const a = document.createElement("a");
+  //           a.href = data;
+  //           a.download = this.button.file_name || "downloaded_file";
+  //           a.click();
+  //         } else {
+  //           // Server path case
+  //           const url = data.includes("http")
+  //             ?.data;
+  //           const a = document.createElement("a");
+  //           a.href = url;
+  //           a.target = "_blank";
+  //           a.download = this.button.file_name || "downloaded_file";
+  //           a.click();
+  //         }
+  //       }
+  //       else {
+  //         this.globalObjects.presentAlert("Download not available");
+  //       }
+  //       return
+  //     } else if (this.button.files && this.button.files.length > 0) {
+  //       console.log("else part download file", this.button.files)
+  //       const file = this.button.files[0];
   
-        if (file instanceof File) {
-          const url = URL.createObjectURL(file);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = file.name;
-          a.click();
-          URL.revokeObjectURL(url);
-        }
-        // Case 2: File came from backend (stored as value / base64 string / server path)
-        // else if (this.button.value) {
-        //   if (this.button.value.startsWith("data:")) {
-        //     // base64 case
-        //     const a = document.createElement("a");
-        //     a.href = this.button.value;
-        //     a.download = file.name || "downloaded_file";
-        //     a.click();
-        //   } else {
-        //     // Server path case
-        //     const url = this.button.value.includes("http") 
-        //       ?. this.button.value ;
-        //     const a = document.createElement("a");
-        //     a.href = url;
-        //     a.target = "_blank";
-        //     a.download = file.name || "downloaded_file";
-        //     a.click();
-        //   }
-        // } 
+  //       if (file instanceof File) {
+  //         const url = URL.createObjectURL(file);
+  //         const a = document.createElement("a");
+  //         a.href = url;
+  //         a.download = file.name;
+  //         a.click();
+  //         URL.revokeObjectURL(url);
+  //       }
+  //       // Case 2: File came from backend (stored as value / base64 string / server path)
+  //       // else if (this.button.value) {
+  //       //   if (this.button.value.startsWith("data:")) {
+  //       //     // base64 case
+  //       //     const a = document.createElement("a");
+  //       //     a.href = this.button.value;
+  //       //     a.download = file.name || "downloaded_file";
+  //       //     a.click();
+  //       //   } else {
+  //       //     // Server path case
+  //       //     const url = this.button.value.includes("http") 
+  //       //       ?. this.button.value ;
+  //       //     const a = document.createElement("a");
+  //       //     a.href = url;
+  //       //     a.target = "_blank";
+  //       //     a.download = file.name || "downloaded_file";
+  //       //     a.click();
+  //       //   }
+  //       // } 
   
   
-        else {
-          this.globalObjects.presentAlert("Download not available");
-        }
+  //       else {
+  //         this.globalObjects.presentAlert("Download not available");
+  //       }
+  //       return;
+  //     }
+  //     this.globalObjects.presentAlert("No file available to download");
+  //   }
+  // }
+
+
+async downloadFile() {
+  console.log('check download file', this.button);
+
+  if (this.button.item_enable_flag !== 'T') {
+    return;
+  }
+
+  try {
+    let data: any = '';
+
+    if (this.button.imgData) {
+
+      if (this.button.isFile) {
+        data = this.imgDataFile;
+      } else {
+        data = this.button.imgData.changingThisBreaksApplicationSecurity;
+      }
+
+    } else if (this.button.files?.length > 0) {
+
+      const file = this.button.files[0];
+
+      if (file instanceof File) {
+        data = await this.fileToDataUrl(file);
+      } else {
+        this.globalObjects.presentAlert('Download not available');
         return;
       }
-      this.globalObjects.presentAlert("No file available to download");
+
+    } else {
+      this.globalObjects.presentAlert('No file available to download');
+      return;
     }
+
+    // Desktop/Web
+    if (!Capacitor.isNativePlatform()) {
+      const a = document.createElement('a');
+      a.href = data;
+      a.download = this.button.file_name || 'downloaded_file';
+      a.click();
+      return;
+    }
+
+    // Android/iOS APK
+    if (data.startsWith('data:')) {
+
+      const base64 = data.split(',')[1];
+
+      const fileName =
+        this.button.file_name || `download_${Date.now()}`;
+
+      await Filesystem.writeFile({
+        path: fileName,
+        data: base64,
+        directory: Directory.Documents
+      });
+
+      console.log('File downloaded:', fileName);
+
+      this.globalObjects.presentAlert(
+        `File downloaded successfully: ${fileName}`
+      );
+
+    } else {
+
+      // Server URL
+      console.log('Server URL:', data);
+
+      // If server URL, fetch it first and save the response
+      const response = await fetch(data);
+
+      if (!response.ok) {
+        throw new Error(`Download failed: ${response.status}`);
+      }
+
+      const blob = await response.blob();
+
+      const base64 = await this.blobToBase64(blob);
+
+      const fileName =
+        this.button.file_name || `download_${Date.now()}`;
+
+      await Filesystem.writeFile({
+        path: fileName,
+        data: base64,
+        directory: Directory.Documents
+      });
+
+      console.log('File downloaded:', fileName);
+
+      this.globalObjects.presentAlert(
+        `File downloaded successfully: ${fileName}`
+      );
+    }
+
+  } catch (error) {
+    console.error('Download error:', error);
+    this.globalObjects.presentAlert('Unable to download file');
   }
+}
+
+
+private fileToDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+
+    const reader = new FileReader();
+
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+  });
+}
+
+
+private blobToBase64(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      resolve(result.split(',')[1]);
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(blob);
+  });
+}
 
 
   convertFile(files) {

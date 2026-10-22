@@ -31,7 +31,7 @@ export class HelpVideoComponent implements OnInit {
   openVideo(item: any) {
     if (item.item_default_value) {
       const embedUrl = this.getYouTubeEmbedUrl(item.item_default_value);
-      this.selectedVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+      this.selectedVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl)  ;
       this.showVideoModal = true;
     }
   }
@@ -48,7 +48,7 @@ export class HelpVideoComponent implements OnInit {
       return url; // Already in embed format
     }
     
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+    return videoId ? `https://www.youtube.com/embed/${videoId}?rel=0` : url;
   }
 
   closeVideo() {

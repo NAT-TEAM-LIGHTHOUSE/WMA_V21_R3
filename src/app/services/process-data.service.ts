@@ -574,7 +574,7 @@ export class ProcessDataService {
     this.stopProcessing$.complete();
   }
 
- async populateRows(frameSeq: any, tableData: any[], from?: any, to?: any, pageNo?: any, batchSize = 50): Promise<void> {
+  async populateRows(frameSeq: any, tableData: any[], from?: any, to?: any, pageNo?: any, batchSize = 50): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
         let frame = this.lhs_lib.get_frame_config(frameSeq);
@@ -1031,6 +1031,7 @@ export class ProcessDataService {
 
 
 
+
   // afterTableRows(frame, from?, to?, pageNo?, dont_set_active?) {
 
   //   if (frame.tableRows) { } else {
@@ -1327,7 +1328,6 @@ export class ProcessDataService {
 
         for (let i = 0; i < len; i++) {
           let rows = level4;
-          // frame.tableRows.push(rows);
           frame.tableRows.push(JSON.parse(JSON.stringify(rows)));
         }
       }
@@ -2581,7 +2581,6 @@ export class ProcessDataService {
             if ((item.item_type == 'SPECIAL') && (item.value == 'Y' || item.value == '1')) {
               item.initialVal = true;
             }
-            // item.indexcount = indexcount;
             item.indexcount = JSON.parse(JSON.stringify(indexcount));
           }
         }
@@ -2655,7 +2654,7 @@ export class ProcessDataService {
         if ((item.item_type == 'SPECIAL') && (item.value == 'Y' || item.value == '1')) {
           item.initialVal = true;
         }
-        item.indexcount = indexcount;
+        item.indexcount = JSON.parse(JSON.stringify(indexcount));
         if (!item.search) {
           item.search = "%%";
         }

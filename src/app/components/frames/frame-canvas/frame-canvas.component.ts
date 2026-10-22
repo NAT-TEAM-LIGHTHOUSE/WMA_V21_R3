@@ -50,7 +50,7 @@ import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 
 @Component({
   standalone: true,
-  imports: [STANDALONE_IMPORTS, ItemsComponent, CanvasItemSearchPipe, FocusDirective,MergeLevel5Pipe],
+  imports: [STANDALONE_IMPORTS, MergeLevel5Pipe, ItemsComponent, CanvasItemSearchPipe, FocusDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-frame-canvas',
   templateUrl: './frame-canvas.component.html',
@@ -336,12 +336,14 @@ export class FrameCanvasComponent implements OnInit {
       if (((!event.click_events_str && event.itemClicked != 'pre') || event.itemClicked == 'post' || event.itemClicked == 'load') && this.frame.tableRows && this.frame.tableRows.length > 0) {
         event.wsdpcl = [];
         // let newEvent = JSON.parse(JSON.stringify(event))
-        // let newEvent = event;
+        // let newEvent = event
         // newEvent.changeEvent = true;
         // newEvent.tabRows = this.frame.tableRows[rowindex];
         event.itemIndex = rowindex;
         event.wsdpcl[0] = this.lhs_lib.getWsdpcl(this.frame.tableRows[rowindex], event.itemIndex);
 
+        // this.emitPass.emit(newEvent);
+        
         this.emitPass.emit(event);
       }
       ////*******/////////  */

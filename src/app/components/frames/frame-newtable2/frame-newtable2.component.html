@@ -40,7 +40,7 @@
 
                 <ng-container *ngIf="!frame.collapse">
                   <div class="farme-right-hedaer">
-                    <!-- <div class="action-btn-bar toggle" *ngIf="frame.apps_frame_type == 'HORIZONTAL_TABLE' && frame.changeFrameType">
+                        <!-- <div class="action-btn-bar toggle" *ngIf="frame.apps_frame_type == 'HORIZONTAL_TABLE' && frame.changeFrameType">
             <ion-button  (click)="horizontalToTable()"  class="icon-btn horizental"> <a title="Table View"><b>Table View</b></a></ion-button>
           </div>  -->
 
@@ -87,7 +87,7 @@
                         </ng-container>
                       </ion-button>
 
-
+                  
                       <ng-container *ngIf="frame.apps_frame_sub_type == 'COLLAPSE'">
                         <ion-button class="icon-btn" (click)="toggleFrame(frame.apps_frame_sub_type)">
                           <ion-icon name="remove-circle-outline"></ion-icon>
@@ -118,13 +118,13 @@
                   [(rowCount)]="rowCount" [(page)]="page" [parentDiv]="parentDiv"
                   (aiInputData)="aiInputDataChange($event)"></app-table-tools>
 
-
+              
               </ng-container>
 
             </div>
           </div>
         </div>
-
+      
         <div class="table-filter-block entry_table_section c"
           *ngIf="!controlBreakFlag && !groupFlag && frame.apps_frame_type == 'ENTRY_TABLE' && !frame.collapse"
           (keydown.PageUp)="pageUp($event)" (keyup.PageDown)="pageDown($event)"
@@ -554,7 +554,7 @@
                             <table>
                               <tr>
                                 <ng-container *ngFor="let item of itemGroup.Level5; ">
-                                  @let input_item = item | mergeLevel5:frame.Level4;
+                                   @let input_item = item | mergeLevel5:frame.Level4;
                                   <ng-container *ngIf="input_item.item_visible_flag == 'T'
                           && input_item.item_type != 'FRAME_BUTTON_ICON'
                           && input_item.item_type != 'RIGHT_CLICK'">
@@ -588,7 +588,7 @@
                         <!-- SINGLE ITEM TD -->
                         <ng-template #childTd>
                           <ng-container *ngFor="let item of itemGroup.Level5;">
-                            @let input_item = item | mergeLevel5:frame.Level4;
+                             @let input_item = item | mergeLevel5:frame.Level4;
                             <td *ngIf="input_item.item_visible_flag == 'T'
                     && input_item.item_type != 'FRAME_BUTTON_ICON'
                     && input_item.item_type != 'RIGHT_CLICK' && (input_item.item_type === 'TEXT'
@@ -630,8 +630,9 @@
                           <ng-container *ngIf="input_item.sepFrame === 'SHOW'">
                             <ng-container *ngFor="let itemGrp of input_item.containerRowss;">
                               <ng-container *ngFor="let item of itemGrp.Level5; ">
-                                @let itm = item | mergeLevel5:frame.Level4;
-                                <td *ngIf="itm.item_visible_flag == 'T'" [ngStyle]="tdStyle(itm)"
+                                 @let itm = item | mergeLevel5:frame.Level4;
+                                <td *ngIf="itm.item_visible_flag == 'T'"
+                                  [ngStyle]="tdStyle(itm)"
                                   (click)="itemClicked(itm, tableData, rowindex)">
                                   <div *ngIf="itm.item_type === 'TEXT' || itm.item_type === 'TEXT_DISPLAY'"
                                     [ngClass]="itm.orignal_click_events_str && !frame.apps_page_frame_seqid.split('-')[2].includes('A') && !itm.dimensionItem? 'columnIsClickEventStr': '' ">
@@ -680,7 +681,7 @@
                     <ng-container *ngFor="let input_item of itemGroup.Level5;">
                       <ng-container
                         *ngIf="input_item.item_visible_flag == 'T' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type != 'RIGHT_CLICK'">
-
+                       
                         <!-- <ng-template #containerRowss> -->
                         <td
                           [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped,'activetable_summaryspan':input_item.summItemStyle}"
@@ -904,7 +905,7 @@
                 <!-- <app-para-text [itemInput]="itm" [frame_type]="frame.apps_frame_type">
                                           </app-para-text>bbb -->
                 <app-items [item]="input_item" [frame_type]="'ENTRY_TABLE'"
-                  (emitPass)="itemClicked(input_item,tableData,ij)" (LHSOnChange)="itemValueChange($event,ij,tableData)"
+                  (emitPass)="itemClick(input_item,tableData,ij)" (LHSOnChange)="itemValueChange($event,ij,tableData)"
                   [frame]="frame">
                 </app-items>
               </td>
@@ -950,13 +951,13 @@
               :frame.summary_rows[i].Level5[0].format_mask }} -->
 
               <ng-container
-                *ngIf="frame.summary_rows[i].Level5[0].input_pattern && frame.summary_rows[i].Level5[0].input_pattern.toLowerCase().includes('masked_field');else value">{{
-                getMaskedValue(frame.summary_rows[i].Level5[0].summaryValue) | formatMask
-                :frame.summary_rows[i].Level5[0].format_mask}}</ng-container>
-              <ng-template #value>
-                {{frame.summary_rows[i].Level5[0].summaryValue | formatMask
-                :frame.summary_rows[i].Level5[0].format_mask }}
-              </ng-template>
+              *ngIf="frame.summary_rows[i].Level5[0].input_pattern && frame.summary_rows[i].Level5[0].input_pattern.toLowerCase().includes('masked_field');else value">{{
+              getMaskedValue(frame.summary_rows[i].Level5[0].summaryValue) | formatMask
+              :frame.summary_rows[i].Level5[0].format_mask}}</ng-container>
+            <ng-template #value>
+             {{frame.summary_rows[i].Level5[0].summaryValue | formatMask
+              :frame.summary_rows[i].Level5[0].format_mask }}
+            </ng-template>
 
 
             </td>

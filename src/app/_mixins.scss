@@ -1853,8 +1853,10 @@ app-frame-external-iframe:has(.active_fullscreen),
    
 
     #quickactionmodel{
-        top:12% !important;
+        top:unset;
+        bottom:12% !important;
         z-index: 99999999999 !important;
+
     }
         .user-profile-p {
             min-width: auto !important;
@@ -3698,7 +3700,7 @@ li:last-child {
 }
 
 #quickactionmodel:has(.quickaction_section) .modal-body ul li a {
-    padding: 5px 5px 5px 10px !important;
+  
     background: #f7f7f7;
 }
 
@@ -4160,8 +4162,10 @@ app-text-band{
     }
     @media only screen and (max-width:576px){
 	 #quickactionmodel{
-        top:12% !important;
+        bottom:12% !important;
+        top:unset;
         z-index: 99999999999 !important;
+        overflow: visible;
     }
     .left_panel .sidebar {
     display: flex;

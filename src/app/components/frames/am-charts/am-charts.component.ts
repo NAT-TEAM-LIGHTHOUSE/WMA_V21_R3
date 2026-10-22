@@ -1075,7 +1075,7 @@ type: string = '';
         {
         chartName: "Grouped Stacks",
         flag: "groupedStackFlag",
-        dataType: "X1,Y1",
+        dataType: "X1,YN",
         chart_id: 44,
         componentName: GroupedStacksComponent
       },
@@ -1096,7 +1096,7 @@ type: string = '';
           {
         chartName: "Hybrid drill down Pie/Bar Chart",
         flag: "hybriddrilldown",
-        dataType: "X1,Y1",
+        dataType: "X1,YN",
         chart_id: 47,
         componentName: HybridDrillDownPieBarChartComponent
       },

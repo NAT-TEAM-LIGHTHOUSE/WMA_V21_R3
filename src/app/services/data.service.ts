@@ -13,10 +13,10 @@ import { Device } from '@awesome-cordova-plugins/device/ngx';
 import { applyLoggingDecorator } from './decorator-application';
 import { catchError, filter, merge, Observable, of, take } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
-import { EncryptionService } from './encryption.service';
 
 // var CryptoJS = require("crypto-js");
 import * as CryptoJS from 'crypto-js';
+import { EncryptionService } from './encryption.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,8 +34,8 @@ export class DataService {
 
   private _lhs_lib: LhsLibService | null = null;
 
-  constructor(public http: HttpClient,private encryption : EncryptionService,
-    private injector: Injector,
+  constructor(public http: HttpClient,
+    private injector: Injector,private encryption : EncryptionService,
     private camera: Camera, private pouchDBService: PouchDBService,
     public globalObjects: GlobalObjectsService, private file: File,
     private mediaCapture: MediaCapture, public device: Device,
@@ -153,6 +153,8 @@ export class DataService {
     if (reqData.event) {
       delete reqData["event"];
     }
+
+
   if(this.globalObjects.dataEncryptFlag){
 
       if (reqData.wslp) {
@@ -404,7 +406,7 @@ export class DataService {
     }
 
 
-  if (this.globalObjects.dataEncryptFlag) {
+       if (this.globalObjects.dataEncryptFlag) {
       if (dataToSend.wscp) {
         dataToSend.wscp = { enc: this.encryption.encryptData(dataToSend.wscp) };
       }
@@ -414,7 +416,6 @@ export class DataService {
     }
 
 
-    
     return dataToSend
   }
 

@@ -1,11 +1,32 @@
-<div class="quickaction_section" >
-  <ul>
-    <ng-container *ngFor="let itemGroup of frame.tableRows[0];let i=index">
-      <ng-container *ngFor="let item of itemGroup.Level5">
-        <ng-container *ngIf="item.item_visible_flag=='T'">
-          <li [class]="i == 0 ? 'first' : 'other' + i " (click)="itemClicked(item)"><a>{{item.prompt_name}}</a></li>
+<ng-container *ngIf="plt=='browser'; else mobileView">
+  <div class="quickaction_section">
+    <ul>
+      <ng-container *ngFor="let itemGroup of frame.tableRows[0];let i=index">
+        <ng-container *ngFor="let item of itemGroup.Level5">
+          <ng-container *ngIf="item.item_visible_flag=='T'">
+            <li [class]="i == 0 ? 'first' : 'other' + i " (click)="itemClicked(item)"><a>{{item.prompt_name}}</a></li>
+          </ng-container>
         </ng-container>
       </ng-container>
-    </ng-container>
-  </ul>
-</div>
+    </ul>
+  </div>
+</ng-container>
+<ng-template #mobileView>
+  <div class="quickaction_section">
+    <ul>
+      <ng-container *ngFor="let item of visibleItems">
+        <!-- <ng-container *ngIf="item.item_visible_flag=='T'"> -->
+        <li (click)="mobileViewItemClicked('visibleItem', item)"><a>{{item.prompt_name}}</a></li>
+        <!-- </ng-container> -->
+      </ng-container>
+      <ng-container *ngIf="sqlStudionFlag">
+        <li  (click)="mobileViewItemClicked('sqlStudionFlag')">
+          <a >
+            <!-- <ion-icon name="server-outline" title="" class="side-icon"></ion-icon> -->
+            Sql Studio
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</ng-template>

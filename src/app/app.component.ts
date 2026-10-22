@@ -27,7 +27,6 @@ import { BackgroundService } from './services/background.service';
 import { CdEngineService } from './services/cd-engine-service.service';
 import { DebugService } from './services/debug-service';
 import { environment } from 'src/environments/environment';
-import { EncryptionService } from './services/encryption.service'
 // import { LookAndFeelPage } from './pages/look-and-feel/look-and-feel.page';
 // import { ChangePasswordPage } from './pages/change-password/change-password.page';
 // import { PartylistPage } from './pages/partylist/partylist.page';
@@ -254,7 +253,6 @@ export class AppComponent {
 
   dbArr = [];
   constructor(
-    private enqrypt : EncryptionService,
     public menuCtrl: MenuController,
     private cdr: ChangeDetectorRef,
     private firebaseX: FirebaseX,
@@ -476,9 +474,8 @@ export class AppComponent {
     this.selectedPartyCode = this.globalObjects.getLocallData("partyCode");
     if (!isPlatformBrowser(this.platformId)) return;
     window.addEventListener('batterystatus', this.onBatteryStatus, false);
-        let appkey = this.globalObjects.getLocallData("appKey");
-   
-this.enqrypt.generateRequestId(appkey);
+
+
     // const channel = new BroadcastChannel('tab-communication');
 
     // if (this.userDetails && this.userDetails.login_session_id) {

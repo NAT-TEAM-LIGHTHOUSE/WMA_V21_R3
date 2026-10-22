@@ -41,8 +41,7 @@ export class EncryptionService {
 // }
 
 private SECRET_KEY = 'a3f1e78c3b6d4f09b9c2a8d7f60e451234567890abcdef01234567890abcdef';
-private readonly characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-     
+     private readonly characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
      private getKeyAndIV() {
        const key = CryptoJS.enc.Utf8.parse(this.SECRET_KEY.substring(0, 32));
        const iv = CryptoJS.enc.Utf8.parse(this.SECRET_KEY.substring(0, 16));
@@ -78,7 +77,32 @@ private readonly characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwx
        }
      }
 
-     generateRequestId(appKey: string): string {
+     decryptString(encryptedData: string): string {
+      try {
+        encryptedData = encryptedData.split("-").join("/").split("_").join("+");
+        const { key, iv } = this.getKeyAndIV();
+        const decrypted = CryptoJS.AES.decrypt(encryptedData, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7,
+        });
+        const plaintext = decrypted.toString(CryptoJS.enc.Utf8);
+        if (!plaintext) {
+          return '';
+        }
+
+        try {
+          const parsed = JSON.parse(plaintext);
+          return typeof parsed === 'string' ? parsed : plaintext;
+        } catch {
+          return plaintext;
+        }
+      } catch (error) {
+        return '';
+      }
+     }
+
+generateRequestId(appKey: string): string {
   if (!appKey || appKey.length < 3) {
     throw new Error('Invalid APPKEY');
   }
@@ -123,5 +147,5 @@ private readonly characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwx
     
     return result;
   }
-
+     
 }

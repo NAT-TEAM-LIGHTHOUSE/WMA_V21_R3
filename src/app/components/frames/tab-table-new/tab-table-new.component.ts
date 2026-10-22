@@ -45,7 +45,7 @@ export class TabTableNewComponent implements OnInit {
     let frame = JSON.parse(JSON.stringify(this.tabFrame));
     let str = frame.on_frame_load_str ? frame.on_frame_load_str.trim().replace(/[;]$/,'') : '';
 
-      this.frame.active_child_frame = frame.apps_page_frame_seqid;
+    this.frame.active_child_frame = frame.apps_page_frame_seqid;
     if(str){
 
 

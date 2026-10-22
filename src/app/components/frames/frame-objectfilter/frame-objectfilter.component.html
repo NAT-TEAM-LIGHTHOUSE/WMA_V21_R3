@@ -61,6 +61,9 @@
   <div class="row m-0">
     <div class="col-md-12 col-12 p-0 m-0">
       <h2 class="frame-title">Filter</h2>
+      <div class="manage_filter_button">
+
+      
       <div class="object-filter-tab-menu">
 
         <ul>
@@ -95,6 +98,34 @@
 
         </ul>
       </div>
+
+        <div class="filter-button">
+
+
+
+        <ng-container *ngFor="let framedata of frame.tableRows;let rowindex =index">
+          <ng-container *ngFor="let itemGroup of framedata">
+            <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+
+
+              <div class="" *ngIf="item.item_sub_type == 'SYS_CLEAR'" (keyup.enter)="handleEnterKey()">
+                <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+                  *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+                <ion-button [disabled]="item.item_enable_flag == 'F'"
+                  (click)="itemClicked(item,'SYS_CLEAR')">{{item.prompt_name}}</ion-button>
+              </div>
+
+              <div class="" *ngIf="item.item_sub_type == 'SYS_SHOW'" (keyup.enter)="handleEnterKey()">
+                <ion-icon class="code-btn" name="information-circle-outline" color="primary"
+                  *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+                <ion-button [disabled]="item.item_enable_flag == 'F'" (click)="itemClicked(item)">{{item.prompt_name}}
+                </ion-button>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+     </div>
     </div>
 
     <div class="col-md-12 col-12 p-0">
@@ -185,7 +216,7 @@
         </ng-container> -->
       </div>
     </div>
-    <div class="col-md-12 col-12 pr-2">
+    <!-- <div class="col-md-12 col-12 pr-2">
       <div class="filter-button">
 
 
@@ -212,6 +243,6 @@
           </ng-container>
         </ng-container>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

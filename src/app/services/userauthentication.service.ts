@@ -36,7 +36,7 @@ export class UserauthenticationService {
     return new Promise((resolve, reject) => {
       if (app && !this.isProcessing) {
         this.isProcessing = true;
-        this.globalObjects.setDataLocally("appKey", app.appkey);
+       this.globalObjects.setDataLocally("appKey", app.appkey.toUpperCase());
         this.globalObjects.setDataLocally("app_name", app.app_name);
         this.globalObjects.setDataLocally("appCode", app.resData.appcode);
         if (app.resData.tenantId) {

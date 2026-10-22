@@ -217,7 +217,7 @@
               <ng-container *ngFor="let items of data">
                 <ng-container *ngFor="let itemss of (items.Level5 | globalSearch: searchText) ">
   
-                   @let item = itemss | mergeLevel5:frame.Level4;
+                   @let item = itemss | mergeLevel5:frame.Level4:itemss.value:frame.Level4;
                   <ng-container *ngIf="item.item_visible_flag == 'T'">
                     <td>
                       <ng-container *ngIf="item.item_type == 'BUTTON'; else noButton">

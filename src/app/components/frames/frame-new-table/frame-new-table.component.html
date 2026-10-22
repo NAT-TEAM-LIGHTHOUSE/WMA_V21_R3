@@ -762,7 +762,7 @@
                         <ng-container *ngFor="let containerRows of input_item.containerRowss">
                           <ng-container *ngIf="containerRows.Level5">
                             <ng-container *ngFor="let item of containerRows.Level5">
-                               <td
+                              <td
                                 [ngClass]="{'wrap-text': frame.isTextWrapped, 'nowrap-text': !frame.isTextWrapped,'activetable_summaryspan':item.summItemStyle}"
                                 *ngIf="item.datatype == 'DATE' || item.datatype == 'DATETIME' || item.datatype == 'TIME' ; else formateMask"
                                 [ngStyle]="item.freezStyle ? item.freezStyle : item.display_setting_str"

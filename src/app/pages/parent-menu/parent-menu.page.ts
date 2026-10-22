@@ -18,6 +18,7 @@ export class ParentMenuPage implements OnInit {
   buttonName:any = 'Show';
   openNewTab:boolean = false;
   @Input() childItems:any;
+  @Input() copyValue:any;
   constructor( public popOverCtrl: PopoverController, private globalObjects:GlobalObjectsService,@Inject(PLATFORM_ID) private platformId: Object) {
     if(this.globalObjects.pagesFlag){
       return applyLoggingDecorator(this,"parent-menu-page")
@@ -62,4 +63,14 @@ export class ParentMenuPage implements OnInit {
     document.getElementById('openrightp').style.display='block';
     document.getElementById('closerightp').style.display='none';
    }
+
+  async copyValued() {
+    if (isPlatformServer(this.platformId)) return;
+    try {
+      await navigator.clipboard.writeText(String(this.copyValue ?? ''));
+    } catch (error) {
+      console.error('Copy failed', error);
+    }
+    this.popOverCtrl.dismiss();
+  }
 }

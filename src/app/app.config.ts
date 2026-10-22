@@ -48,6 +48,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideIonicAngular({
       innerHTMLTemplatesEnabled: true
-    }),InputFormatMaskPipe,  MergeLevel5Pipe // 👈 This makes it safely injectable anywhere!
+    }),InputFormatMaskPipe, MergeLevel5Pipe // 👈 This makes it safely injectable anywhere!
   ],
 };

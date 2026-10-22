@@ -31,7 +31,7 @@ export class FrameSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log('Frame Selector',this.frame);
+    console.log('Frame Selector',this.frame);
     // console.log('object_mast',this.object_mast);
   }
 

@@ -3,12 +3,38 @@
     <div class="sidebar-menu">
       <ul class="icon-menu">
         <div class="left_bar_mobile_v w-100">
-
+          <ng-container *ngIf="plt == 'browser';else mobileView">
           <ng-container *ngFor="let object of globalobjects.layoutObject" >
             <ng-container *ngFor="let obj of object.Level2">
               <ng-container *ngFor="let frame of obj.Level3">
                 <ng-container *ngIf="frame.apps_frame_type=='SYSTEM'&& frame.apps_frame_sub_type=='LAYOUT_OPTION'">
+                  
                   <ng-container *ngFor="let itemGroup of frame.Level4">
+                     <ng-container *ngIf="frame.quick_buttons">
+                    <ng-container *ngFor="let tableData of frame.quick_buttons">
+                      <ng-container *ngFor="let itemGroup of tableData">
+                        <ng-container *ngFor="let item of itemGroup.Level5;let i=index" style="padding: 1px 2px;">
+              
+                            <div class="new-sidebar-design">
+                              <ng-container *ngIf="item.item_visible_flag == 'T'">
+                                <li class="small-logo  lhscare " style="margin-bottom: 5px !important;">
+                                  <a class="p-0 m-0" titletip="Lighthouse Care" (click)="getToken(item)">
+                                    <ion-icon name="medkit-outline" title=""
+                                      [ngClass]="item.item_name==globalobjects.activeItems?'active':''">
+                                    </ion-icon>
+                                    <span>{{item.prompt_name}} </span>
+                                  </a>
+                                </li>
+                              </ng-container>
+
+
+
+                
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
                     <ng-container *ngFor="let item of itemGroup.Level5;let i=index" style="padding: 1px 2px;">
                       <div>
                         <div class="new-sidebar-design">
@@ -21,6 +47,8 @@
                             <span>Home</span>
                           </a>
                         </li> -->
+
+                                   
                           <li class="small-logo" style="margin-bottom: 5px !important;"
                             *ngIf="item.item_name == 'SYS_CALENDAR' && item.item_visible_flag == 'T'" (click)="openApplication(item)">
                             <!-- <ion-icon class="code-btn" name="information-circle-outline"
@@ -135,8 +163,109 @@
             </ng-container>
           </ng-container>
 
+          </ng-container>
+          <ng-template #mobileView>
+           
+            <ng-container *ngFor="let item of globalobjects.layoutObject|leftbaritem:4;let i=index" style="padding: 1px 2px;">
+              <ng-container *ngIf="i<4; else moreItem">
+
+              <ng-container *ngIf="item.isQuickAction;else layoutoption">
+                <div class="new-sidebar-design">
+            
+                  <li class="small-logo  lhscare " style="margin-bottom: 5px !important;">
+                    <a class="p-0 m-0" titletip="Lighthouse Care" (click)="quick_action_button(item)">
+                      <ion-icon name="medkit-outline" title="" [ngClass]="item.item_name==globalobjects.activeItems?'active':''">
+                      </ion-icon>
+                      <span>{{item.prompt_name}} </span>
+                    </a>
+                  </li>
+                </div>
+              </ng-container>
+              <ng-template #layoutoption>
+                <div class="new-sidebar-design">
+                <li class="small-logo" style="margin-bottom: 5px !important;"
+                            *ngIf="item.item_name == 'SYS_CALENDAR'" (click)="openApplication(item)">
+                            <ion-icon class="code-btn" name="information-circle-outline"
+                              style="position: absolute;right: 0;z-index: 99999;" color="primary"
+                              *ngIf="globalobjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+                            <a class="p-0 m-0" titletip="Calendar">
+
+                              <ion-icon name="calendar-outline" title="" class="side-icon"
+                                [ngClass]="item.item_name==globalobjects.activeItems?'active':''"></ion-icon>
+                              <span>Calendar</span>
+                            </a>
+                          </li>
+                          <li class="small-logo" style="margin-bottom: 5px !important;" (click)="openApplication(item)"
+                            *ngIf="item.item_name == 'SYS_APPLICATION'">
+                            <a class="p-0 m-0" titletip="Application">
+                              <ion-icon name="grid-outline" title=""
+                                [ngClass]="item.item_name==globalobjects.activeItems?'active':''"></ion-icon>
+                              <span>Apps</span>
+                            </a>
+                          </li>
+                          <li class="small-logo" style="margin-bottom: 5px !important;" (click)="notificationLinks(item)"
+                           *ngIf="item.item_name == 'SYS_NOTIFICATION'">
+                            <a class="p-0 m-0" titletip="Notification">
+                              <ion-icon name="notifications-outline" title=""
+                                [ngClass]="item.item_name==globalobjects.activeItems?'active':''"></ion-icon>
+                              <span style="white-space: nowrap;">Notification</span>
+                            </a>
+                          </li>
+                          <!-- <li class="small-logo"  *ngIf="item.item_name=='SYS_REMINDER'" (click)="reminderLinks(item)" style="margin-bottom: 5px !important;">
+                          <a titletip="Reminder" class="p-0 m-0">
+                             <ion-icon name="time-outline" title="" [ngClass]="item.item_name==globalobjects.activeItems?'active':''"></ion-icon>
+                            <span>Reminder</span></a>
+                        </li> -->
+
+                          <li class="small-logo " *ngIf="item.item_name=='SYS_MEMO'" (click)="notesLinks(item)"
+                            style="margin-bottom: 5px !important;">
+                            <a titletip="Notes" class="p-0 m-0">
+                              <ion-icon name="document-text-outline" title=""
+                                [ngClass]="item.item_name==globalobjects.activeItems?'active':''"></ion-icon>
+                              <span>Memo</span></a>
+                          </li>
+
+                          <li class="small-logo" *ngIf="item.item_name=='SYS_NOTES'" (click)="notesLinks(item)"
+                            style="margin-bottom: 5px !important;">
+                            <a titletip="Notes" class="p-0 m-0">
+                              <ion-icon name="document-text-outline" title=""
+                                [ngClass]="item.item_name==globalobjects.activeItems?'active':''"></ion-icon>
+                              <span>Notes</span></a>
+                          </li>
 
 
+
+                          <li class="small-logo  lhscare " style="margin-bottom: 5px !important;"
+                            *ngIf="item.item_name == 'SYS_LHSCARE' ">
+                            <a class="p-0 m-0" titletip="Lighthouse Care" (click)="getToken(item)">
+                              <ion-icon name="medkit-outline" title=""
+                                [ngClass]="item.item_name==globalobjects.activeItems?'active':''">
+                              </ion-icon>
+                              <span>LHS Care </span>
+                            </a>
+                          </li>
+                          </div>
+                </ng-template>
+                
+              </ng-container>
+              <ng-template #moreItem>
+                 <div class="new-sidebar-design" style="display: inherit;">
+                   <li>
+                  <a class="p-0 m-0" titletip="Calendar" (click)="QuickActionModal($event)">
+                  <ion-icon name="chevron-down-outline" class="quik-action-btn"></ion-icon>
+                  <span>More</span>
+                </a>
+                        <!-- <ion-button class="global-main-copy icons" title="More"
+                          (click)="QuickActionModal($event)">
+                          <ion-icon name="chevron-down-outline" class="quik-action-btn"></ion-icon>
+                        </ion-button> -->
+                      </li>
+                 </div>
+                
+              </ng-template> 
+                
+            </ng-container>
+            </ng-template>
 
         </div>
         <!-- <div class="left_bar_mobile_v w-100">

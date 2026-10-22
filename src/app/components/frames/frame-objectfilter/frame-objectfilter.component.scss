@@ -12,6 +12,7 @@
 .object-filter-tab{
     &-menu{
         padding: 15px 0px;
+        width: 100%;
         ul{
             margin:0px 0px;
             padding: 0px 0px;
@@ -31,7 +32,7 @@
                 margin-right: 5px;
                 background-color: var(--blue-light-6);
                 font-size: var(--font13);
-                max-width: 17%;
+                // max-width: 17%;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
@@ -57,7 +58,7 @@
         display: flex;
     text-align: right;
     float: right;
-    padding: 10px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
         
     //     div{
     //         width: 100%;
@@ -88,8 +89,24 @@
         }
     }
 }
+.manage_filter_button{
+    display: flex;
+    align-items: center;
+}
 
 
+@media screen and (max-width: 768px) {
+   .manage_filter_button{
+    flex-direction: column;
+    .filter-button{
+       order: 1;
+       width: 100%;
+    }
+    .object-filter-tab-menu{
+      order: 2;
+    }
+}
+}
 // #objectfilter{
    
     

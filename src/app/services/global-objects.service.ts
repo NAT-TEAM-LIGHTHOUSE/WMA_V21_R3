@@ -12,7 +12,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { from, throwError, EMPTY } from 'rxjs';
 import { concatMap, timeout, catchError, first } from 'rxjs';
-
+import { Geolocation as CapacitorGeolocation } from '@capacitor/geolocation';
 import { DocumentViewer } from '@awesome-cordova-plugins/document-viewer/ngx';
 import { FilePath } from '@awesome-cordova-plugins/file-path/ngx';
 import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
@@ -55,7 +55,7 @@ export class GlobalObjectsService {
   loadingTimerNew: any;
   // public newLoader: boolean = false;
   public newLoader = signal(false)
-    public clientLoginFlag = true;
+    public clientLoginFlag = false;
   urlArrCount: any = 0;
   quicklinkPageFlag: boolean = false;
   networkStatus: boolean = true;
@@ -88,7 +88,7 @@ export class GlobalObjectsService {
   public fontype = "";
   public networkType: any;
   public networkSpeed: any;
-  public dataEncryptFlag :boolean = true;
+    public dataEncryptFlag: boolean = false;
   isRecording: boolean = false;
   speechdata: string;
   countfortextband3d: number;
@@ -943,63 +943,87 @@ public isNotOpenTab=signal(false);
 
 
   // after IOS changes
+
 formatDate(date: any, format: string) {
   const datePipe = new DatePipe('en-US');
 
   try {
     console.log('check date', date);
 
-    // Case 1: { value: '2026-08-01T17:39:00.000' }
+    // { value: '2026-10-08T00:30:44.044' }
     if (date && typeof date === 'object' && date.value) {
       console.log('check date object value', date.value);
-
       date = date.value;
     }
 
     let date1: Date;
 
-    // Case 2: String date
-    if (typeof date === 'string') {
+    if (date instanceof Date) {
+      date1 = date;
+    }
+
+    // String date
+    else if (typeof date === 'string') {
 
       console.log('check date intry', date);
 
       // YYYY-MM-DDTHH:mm:ss
-      if (/^\d{4}-\d{2}-\d{2}/.test(date)) {
-        const [year, month, day] = date.substring(0, 10).split('-');
+      if (/^\d{4}-\d{2}-\d{2}T/.test(date)) {
+
+        // IMPORTANT:
+        // Do not remove the time portion
+        date1 = new Date(date);
+
+      }
+
+      // YYYY-MM-DD
+      else if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+
+        const [year, month, day] = date.split('-');
 
         date1 = new Date(
           Number(year),
           Number(month) - 1,
           Number(day)
         );
+
       }
 
       // DD-MMM-YYYY
       else if (/^\d{2}-[A-Za-z]{3}-\d{4}$/.test(date)) {
+
         const [day, monthName, year] = date.split('-');
 
-        const month = new Date(`${monthName} 1, 2000`).getMonth();
+        const month = new Date(
+          `${monthName} 1, 2000`
+        ).getMonth();
 
         date1 = new Date(
           Number(year),
           month,
           Number(day)
         );
+
       }
 
       // MMM-DD-YYYY
       else if (/^[A-Za-z]{3}-\d{2}-\d{4}$/.test(date)) {
+
         const [monthName, day, year] = date.split('-');
 
-        const month = new Date(`${monthName} 1, 2000`).getMonth();
+        const month = new Date(
+          `${monthName} 1, 2000`
+        ).getMonth();
 
         date1 = new Date(
           Number(year),
           month,
           Number(day)
         );
+
       }
 
+      // Other supported date strings
       else {
         date1 = new Date(date);
       }
@@ -1010,15 +1034,22 @@ formatDate(date: any, format: string) {
 
     console.log('check date after conversion', date1);
 
+    if (isNaN(date1.getTime())) {
+      console.error('Invalid date:', date);
+      return null;
+    }
+
     return datePipe.transform(date1, format);
 
   } catch (err) {
 
     console.error('Date parsing error:', err);
 
-    return datePipe.transform(new Date(), format);
+    return null;
   }
 }
+
+
   async presentToast(message) {
     if (!message) {
       let toast = await this.toastCtrl.create({
@@ -2278,32 +2309,57 @@ formatDate(date: any, format: string) {
     return MIMETypes[ext];
   }
 
-  checkGPSPermission() {
-    return new Promise((resolve, reject) => {
-      this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
-        result => {
-          if (result.hasPermission) {
-            console.log("Has permission");
-            //If having permission show 'Turn On GPS' dialogue
-            this.askToTurnOnGPS().then(res => {
-              resolve(res);
-            }, err => reject(err));
+checkGPSPermission() {
+   return new Promise((resolve, reject) => {
+     if (this.platform.is('ios')) {
+       CapacitorGeolocation.checkPermissions()
+         .then(async (permissions) => {
+           const locationPermission = permissions.location === 'prompt'
+             ? (await CapacitorGeolocation.requestPermissions({ permissions: ['location'] })).location
+             : permissions.location;
 
-          } else {
-            //If not having permission ask for permission
-            this.requestGPSPermission().then((res) => {
-              resolve(res);
-            }, err => reject(err));
-          }
-        },
-        err => {
-          reject(err);
-        }
-      );
-    })
-  }
 
-  // checkStoragePermission() {
+           if (locationPermission === 'granted') {
+             resolve('success');
+           } else {
+             reject('location permission denied');
+           }
+         })
+         .catch(error => reject(error));
+       return;
+     }
+
+
+     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
+       result => {
+         console.log('Has permission?', result.hasPermission);
+         if (result.hasPermission) {
+           console.log("Has permission");
+           //If having permission show 'Turn On GPS' dialogue
+           this.askToTurnOnGPS().then(res => {
+             resolve(res);
+           }, err => reject(err));
+
+
+         } else {
+           //If not having permission ask for permission
+           this.requestGPSPermission().then((res) => {
+             resolve(res);
+           }, err => reject(err));
+         }
+       },
+       err => {
+         reject(err);
+       }
+     );
+   })
+ }
+
+
+
+
+
+  // checkStoragePermission() {  new 
   //   return new Promise((resolve, reject) => {
   //     this.androidPermissions.hasPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE)
   //       .then(status => {

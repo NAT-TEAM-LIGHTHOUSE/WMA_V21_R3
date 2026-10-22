@@ -36,13 +36,13 @@ import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 
 @Component({
   standalone: true,
-  imports: [STANDALONE_IMPORTS, PaginationComponent, ItemsComponent, TableToolsComponent, ParaTextComponent, DownloadDocComponent, ButtonNComponent, FrameAiDataComponent, FormatMaskPipe, TableColumnToolComponent, TableGroupFilterComponent,MergeLevel5Pipe],
+  imports: [STANDALONE_IMPORTS,MergeLevel5Pipe, PaginationComponent, ItemsComponent, TableToolsComponent, ParaTextComponent, DownloadDocComponent, ButtonNComponent, FrameAiDataComponent, FormatMaskPipe, TableColumnToolComponent, TableGroupFilterComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-frame-new-table',
   templateUrl: './frame-new-table.component.html',
   styleUrls: ['./frame-new-table.component.scss'],
 })
-export class FrameNewTableComponent implements OnInit, AfterViewInit,DoCheck {
+export class FrameNewTableComponent implements OnInit, AfterViewInit, DoCheck {
   @ViewChild('tableBody') table2Body: ElementRef;
   @ViewChild("parentDiv") parentDiv: ElementRef;
   @ViewChild("searchInput") searchInput: IonInput;
@@ -62,15 +62,12 @@ export class FrameNewTableComponent implements OnInit, AfterViewInit,DoCheck {
   @Output() personalize: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(IonModal) modal: IonModal;
   @Input() sessionObj: any = {};
-
-    private longPressTimer: any;
-
-
   displayDataLen = 50
   current_page_parameter: any = {};
   thead: any = {};
   isOpen = false;
   userDetails: any;
+  private longPressTimer: any;
   l_total_rows: number;
   l_current_page: number;
   c_from_row: number;
@@ -232,9 +229,9 @@ export class FrameNewTableComponent implements OnInit, AfterViewInit,DoCheck {
     this.cdEngine.unregister(this.frame.apps_page_frame_seqid);
   }
 
- ngDoCheck() {
-  // console.trace('FrameNewTable DoCheck');
-}
+  ngDoCheck() {
+    // console.trace('FrameNewTable DoCheck');
+  }
 
   ngOnInit() {
 
@@ -2541,7 +2538,7 @@ export class FrameNewTableComponent implements OnInit, AfterViewInit,DoCheck {
         }
 
       } else {
-         this.lhs_lib.refresh_frames();
+        this.lhs_lib.refresh_frames();
       }
 
 
@@ -5234,16 +5231,16 @@ export class FrameNewTableComponent implements OnInit, AfterViewInit,DoCheck {
   handleItemClick(event) {
     this.itemClicked(event.item, event.tableData, event.rowindex)
   }
-  activetabshow(){
+  activetabshow() {
     if (this.tabAtive && this.tabAtive.x && this.tabAtive.index && this.tabAtive.itm) {
       this.toggleTabTable(this.tabAtive.x, this.tabAtive.index, this.tabAtive.itm)
-    }else{
+    } else {
       this.lhs_lib.refresh_frames();
     }
 
   }
-  toggleTabTable(x, index, itm){
-      if (itm.item_sub_type == 'TAB_OPEN') { } else {
+  toggleTabTable(x, index, itm) {
+    if (itm.item_sub_type == 'TAB_OPEN') { } else {
       this.tabAtive = {
         x: x,
         index: index,
@@ -5303,6 +5300,7 @@ export class FrameNewTableComponent implements OnInit, AfterViewInit,DoCheck {
     }
   }
 
+
   startLongPress(event: PointerEvent, tableData: any) {
 
     // Only handle touch devices
@@ -5319,7 +5317,8 @@ export class FrameNewTableComponent implements OnInit, AfterViewInit,DoCheck {
     }, 600); // 600ms
   }
 
-    cancelLongPress() {
+
+  cancelLongPress() {
 
     if (this.longPressTimer) {
       clearTimeout(this.longPressTimer);
@@ -5328,7 +5327,7 @@ export class FrameNewTableComponent implements OnInit, AfterViewInit,DoCheck {
 
   }
 
-    getMaskedValue(value) {
+  getMaskedValue(value) {
     if (!value) return '';
     return '*'.repeat(value.length);
   }

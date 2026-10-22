@@ -12,7 +12,7 @@ export class MergeLevel5Pipe implements PipeTransform {
   // transform(
   //   smallLevel5: any[],
   //   originalLevel4: any[],
-  //   value?:any
+  //   value: any
   // ): any[] {
 
 
@@ -41,30 +41,31 @@ export class MergeLevel5Pipe implements PipeTransform {
   //   });
 
   //   return data;
-
+   
   // }
 
-  // transform(
+  //   transform(
   //   itemMast: any,
   //   originalLevel4: any[],
-  //   value?: any
+  //   value?: any,
+  //  level4?: any[]
   // ): any {
 
   //   if (!itemMast || !originalLevel4?.length) {
   //     return itemMast;
   //   }
-
+  //   // console.log(enable)
   //   for (const itemGroup of originalLevel4) {
 
   //     for (const item of itemGroup.Level5 ?? []) {
 
   //       if (itemMast.item_name === item.item_name) {
-  //         let i = {...item};
-  //         return Object.assign(itemMast, i);
-  //         // return {
-  //         //   ...itemMast,
-  //         //   ...item
-  //         // };
+  //       //  return Object.assign(itemMast, item);
+  //         return {
+  //           ...item,
+  //           ...itemMast
+            
+  //         };
   //       }
   //     }
   //   }
@@ -73,25 +74,130 @@ export class MergeLevel5Pipe implements PipeTransform {
   // }
 
   // itemMerge(item_mast, originalLevel4) {
-  //   const newItem = {
-  //     ...item_mast
-  //   };
+  //   // const newItem = {
+  //   //   ...item_mast
+  //   // };
   //   for (const itemGroup of originalLevel4) {
   //     for (const item of itemGroup.Level5 ?? []) {
 
   //       if (item_mast.item_name === item.item_name) {
 
   //         // Merge into EXISTING object
-  //         Object.assign(newItem, item);
-
-  //         return newItem; // Stop immediately after match
+  //         // Object.assign(newItem, item);
+  //        return Object.assign(item_mast, item);
+  //         // return newItem; // Stop immediately after match
   //       }
   //     }
   //   }
-  //   return newItem;
+  //   // return newItem;
+  //   return item_mast;
   // }
 
- transform(
+
+
+
+private cache = new WeakMap<object, {
+    snapshot: any;
+    result: any;
+  }>();
+
+//   transform(
+//     itemMast: any,
+//     containerRows: any[],
+//     value: any,
+//     level4: any[]
+//   ): any {
+
+//     if (!itemMast) {
+//       return itemMast;
+//     }
+
+//     const cached = this.cache.get(itemMast);
+
+//     // --------------------------------
+//     // FIRST TIME
+//     // --------------------------------
+//     if (!cached) {
+
+//       const result = this.mergeLevel4(itemMast, containerRows);
+
+//       this.cache.set(itemMast, {
+//         snapshot: this.createSnapshot(itemMast),
+//         result
+//       });
+
+//       return result;
+//     }
+//     else{
+//       return itemMast;
+//     }
+
+//   }
+
+
+//   private createSnapshot(obj: any): string {
+
+//     return JSON.stringify(obj);
+//   }
+
+
+//   private isEqual(
+//     oldSnapshot: string,
+//     newSnapshot: string
+//   ): boolean {
+
+//     return oldSnapshot === newSnapshot;
+//   }
+
+
+//   private mergeLevel4(
+//     itemMast: any,
+//     source: any[]
+//   ): any {
+
+//     for (const group of source ?? []) {
+
+//       for (const item of group?.Level5 ?? []) {
+
+//         if (item?.item_name === itemMast?.item_name) {
+
+//           // return {
+           
+//           //   ...itemMast,...item,
+//           // };
+//           return  Object.assign(itemMast,item)
+//         }
+//       }
+//     }
+
+//     return itemMast;
+//   }
+
+//   itemMerge(itemMast: any, level4: any[]): any {
+
+
+//    const cached = this.cache.get(itemMast);
+
+//     // --------------------------------
+//     // FIRST TIME
+//     // --------------------------------
+//     if (!cached) {
+
+//       const result = this.mergeLevel4(itemMast, level4);
+
+//       this.cache.set(itemMast, {
+//         snapshot: this.createSnapshot(itemMast),
+//         result
+//       });
+
+//       return result;
+//     }else{
+//       return itemMast;
+//     }
+// }
+
+
+  transform(
     itemMast: any,
     containerRows: any[],
     value: any,
@@ -152,4 +258,8 @@ export class MergeLevel5Pipe implements PipeTransform {
 
     return itemMast;
   }
+
+
 }
+
+

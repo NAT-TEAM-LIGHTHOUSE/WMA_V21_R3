@@ -64,7 +64,7 @@ import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 
 @Component({
 standalone : true,
-imports : [STANDALONE_IMPORTS,FrameCanvasFilterComponent,TableToolsComponent,ScrollingModule,CanvasItemSearchPipe,ItemsComponent,FocusDirective,MergeLevel5Pipe],
+imports : [STANDALONE_IMPORTS,MergeLevel5Pipe,FrameCanvasFilterComponent,TableToolsComponent,ScrollingModule,CanvasItemSearchPipe,ItemsComponent,FocusDirective],
   selector: 'app-frame-card',
   templateUrl: './frame-card.component.html',
   styleUrls: ['./frame-card.component.scss'],

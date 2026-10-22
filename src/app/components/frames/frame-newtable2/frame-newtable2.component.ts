@@ -35,7 +35,7 @@ import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 
 @Component({
   standalone: true,
-  imports: [STANDALONE_IMPORTS, FormatMaskPipe, FrameAiDataComponent, PaginationComponent, DownloadDocComponent, ButtonNComponent, ParaTextComponent, ItemsComponent, TableToolsComponent, TableColumnToolComponent, TableGroupFilterComponent, FocusDirective,MergeLevel5Pipe],
+  imports: [STANDALONE_IMPORTS,MergeLevel5Pipe,FormatMaskPipe, FrameAiDataComponent, PaginationComponent, DownloadDocComponent, ButtonNComponent, ParaTextComponent, ItemsComponent, TableToolsComponent, TableColumnToolComponent, TableGroupFilterComponent, FocusDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-frame-newtable2',
   templateUrl: './frame-newtable2.component.html',
@@ -58,11 +58,6 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
   @Output() searchGlobalemit: EventEmitter<any> = new EventEmitter<any>();
   @Output() personalize: EventEmitter<any> = new EventEmitter<any>();
   @Input() sessionObj: any = {};
-
-
-    private longPressTimer: any;
-
-
   isTextWrapped: boolean = false;  // Initial state for wrapping text
   displayDataLen = 50
   current_page_parameter: any = {};
@@ -101,7 +96,7 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
   orderByParam: any = {};
   tbodyHeight: any;
   navCtrl: any;
-
+  private longPressTimer: any;
   loading: boolean = false;
   col9: any;
   loadMoreFlag: string;
@@ -2385,7 +2380,7 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
         this.filterColumn(item);
       }
     }
-     this.cdr.detectChanges();
+    this.cdr.detectChanges();
   });
 
   searchAllData() {
@@ -2668,12 +2663,12 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
       this.emitPass.emit(item);
 
     } else {
-      let eventDimention:any=''
+      let eventDimention: any = ''
       if (event.dimensionItem) {
         //  event = JSON.parse(JSON.stringify(event));
-         eventDimention = event.dimensionItem;
+        eventDimention = event.dimensionItem;
       }
-      let isDimentionItem=false;
+      let isDimentionItem = false;
       if (eventDimention && typeof eventDimention === 'object' && Object.keys(eventDimention).length > 0) {
         isDimentionItem = true
       }
@@ -2776,20 +2771,20 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
                     this.sessionObj[item.item_name] = item.value
                   }
                 }
-                if(isDimentionItem){
+                if (isDimentionItem) {
                   if (eventDimention.item_enable_flag != 'F') {
-                  if (eventDimention.item_type != 'BUTTON' && eventDimention.item_type != 'BT' && eventDimention.item_type != 'BUTTON_ICON' && !eventDimention.isAssociate && item.item_name == 'WMA_RECORD_STATUS') {
-                    item.frame_status = 'dirty';
+                    if (eventDimention.item_type != 'BUTTON' && eventDimention.item_type != 'BT' && eventDimention.item_type != 'BUTTON_ICON' && !eventDimention.isAssociate && item.item_name == 'WMA_RECORD_STATUS') {
+                      item.frame_status = 'dirty';
+                    }
                   }
-                }
-                }else{
-                
-                if (event.item_enable_flag != 'F') {
-                  if (event.item_type != 'BUTTON' && event.item_type != 'BT' && event.item_type != 'BUTTON_ICON' && !event.isAssociate && item.item_name == 'WMA_RECORD_STATUS') {
-                    item.frame_status = 'dirty';
+                } else {
+
+                  if (event.item_enable_flag != 'F') {
+                    if (event.item_type != 'BUTTON' && event.item_type != 'BT' && event.item_type != 'BUTTON_ICON' && !event.isAssociate && item.item_name == 'WMA_RECORD_STATUS') {
+                      item.frame_status = 'dirty';
+                    }
                   }
-                }
-                  
+
                 }
               }
             }
@@ -2813,7 +2808,7 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
               this.emitPass.emit(event);
             }
           }
-        }else{
+        } else {
           eventDimention.wsdpcl = [];
           eventDimention.wsdpcl.push(col);
           this.wscp_send_input.apps_item_seqid = eventDimention.apps_item_seqid;
@@ -2843,7 +2838,7 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
   searchData() {
     this.isSearch = true
     // this.searchInput.setFocus();
-     requestAnimationFrame(async () => {
+    requestAnimationFrame(async () => {
       await this.searchInput.setFocus();
     });
     this.item_search_flagData = true
@@ -3430,8 +3425,8 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
   selectedTable2Row(event) {
 
     let doc: any = document.activeElement;
-    if(doc.tagName=='TEXTAREA') {
-     return     
+    if (doc.tagName == 'TEXTAREA') {
+      return
     }
 
     let name = this.frame.apps_page_frame_seqid + "." + doc.id;
@@ -5110,16 +5105,16 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
     return input_item.freezStyle || input_item.display_setting_str;
   }
 
-  activetabshow(){
+  activetabshow() {
     if (this.tabAtive && this.tabAtive.x && this.tabAtive.index && this.tabAtive.itm) {
       this.toggleTabTable(this.tabAtive.x, this.tabAtive.index, this.tabAtive.itm)
-    }else{
+    } else {
       this.lhs_lib.refresh_frames();
     }
 
   }
-  toggleTabTable(x, index, itm){
-      if (itm.item_sub_type == 'TAB_OPEN') { } else {
+  toggleTabTable(x, index, itm) {
+    if (itm.item_sub_type == 'TAB_OPEN') { } else {
       this.tabAtive = {
         x: x,
         index: index,
@@ -5179,7 +5174,9 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
     }
   }
 
-startLongPress(event: PointerEvent, tableData: any) {
+
+
+  startLongPress(event: PointerEvent, tableData: any) {
 
     // Only handle touch devices
     if (event.pointerType !== 'touch') {

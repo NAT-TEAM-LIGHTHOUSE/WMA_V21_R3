@@ -237,6 +237,31 @@ ion-toolbar.ion-color-primary {
     text-decoration: underline;
   }
 
+
+#side_menu_bar{
+  app-frame-canvas{
+    padding-top: 35px !important;
+  }
+  &.sidebar-open{
+    flex: 0 0 250px;
+  max-width: 250px;
+  overflow: hidden;
+
+  transition: flex-basis 0.5s ease-in-out,
+              max-width 0.5s ease-in-out;
+  }
+   &.sidebar-close{
+    flex: 0 0 37px !important;
+  max-width: 37px !important;
+  overflow: hidden;
+
+  transition: flex-basis 0.5s ease-in-out,
+              max-width 0.5s ease-in-out;
+  }
+  
+}
+
+
   h1,
   p,
   h2,
@@ -6021,6 +6046,7 @@ app-frame-newtable-fast,
             padding: 10px 10px 10px 20px;
             transition: all 0.1s;
             cursor: pointer;
+                font-weight: 500;
 
             &:hover {
               text-decoration: none;
@@ -8479,8 +8505,10 @@ app-frame-newcalender,
     bottom: 0;
     margin: auto;
     z-index: 999999;
-    background: rgb(0 0 0 / 0%);
+    background: #00000021;
     ;
+    // -webkit-backdrop-filter: blur(5px);
+    // backdrop-filter: blur(2px);
 
 
   }

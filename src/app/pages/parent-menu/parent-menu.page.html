@@ -5,6 +5,7 @@
       <ng-container *ngFor="let c of childItems">
     <a *ngIf="c.item_visible_flag != 'F'" (click)="closePop(c)">{{c.prompt_name}}</a>
     </ng-container>
+    <a (click)="copyValued()">Copy Value</a>
   </div>
   </div>
   <div  class="dropdown-content" *ngIf="openNewTab">

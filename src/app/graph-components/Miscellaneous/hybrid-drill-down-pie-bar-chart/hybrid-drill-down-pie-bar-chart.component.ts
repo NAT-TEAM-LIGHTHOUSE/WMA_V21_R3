@@ -1,8 +1,11 @@
 import {
   AfterViewInit,
   Component,
-  OnDestroy
+  Input,
+  OnDestroy,
+  OnInit
 } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
@@ -31,117 +34,99 @@ interface ChartData {
   styleUrls: ['./hybrid-drill-down-pie-bar-chart.component.scss'],
 })
 export class HybridDrillDownPieBarChartComponent
-  implements AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy {
 
+  private static nextChartId = 0;
   private root!: am5.Root;
+  private subDataSubscription?: Subscription;
+  private chartData: ChartData[] = [];
+  @Input() frame: any;
+  @Input() data: any;
+  @Input() subData?: Subject<any>;
+  id = '';
 
   constructor() {}
 
+  ngOnInit(): void {
+    this.id = `hybridDrillDownChart${HybridDrillDownPieBarChartComponent.nextChartId++}`;
+  }
+
   ngAfterViewInit(): void {
+    const initialData = Array.isArray(this.data) && this.data.length
+      ? this.data
+      : this.frame?.chartData;
+    this.chartData = this.toChartData(initialData);
     this.displayChart();
+
+    this.subDataSubscription = this.subData?.subscribe(rows => {
+      if (Array.isArray(rows) && rows.length) {
+        this.chartData = this.toChartData(rows);
+        this.displayChart();
+      }
+    });
+  }
+
+  private toChartData(rows: any): ChartData[] {
+    if (!Array.isArray(rows)) {
+      return [];
+    }
+
+    const seriesFields = Array.from(new Set(rows.flatMap(row =>
+      Object.keys(row).filter(key => /^Y\d+$/.test(key))
+    ))).sort((first, second) => Number(first.slice(1)) - Number(second.slice(1)));
+    const categoryMap = new Map<string, Map<string, number>>();
+
+    for (const row of rows) {
+      const category = String(row.X1 ?? '');
+      if (!category) {
+        continue;
+      }
+
+      let breakdown = categoryMap.get(category);
+      if (!breakdown) {
+        breakdown = new Map<string, number>();
+        categoryMap.set(category, breakdown);
+      }
+
+      for (const field of seriesFields) {
+        const label = String(row[`${field}_label`] || field);
+        const value = Number(row[field]);
+        if (Number.isFinite(value) && value > 0) {
+          breakdown.set(label, (breakdown.get(label) || 0) + value);
+        }
+      }
+    }
+
+    const colors = [0xdc4534, 0xd7a700, 0x68ad5c, 0x4387c5, 0x8a63b8, 0xe27b35];
+    return Array.from(categoryMap, ([category, breakdown], index) => {
+      const details = Array.from(breakdown, ([detailCategory, value]) => ({
+        category: detailCategory,
+        value
+      }));
+      return {
+        category,
+        value: details.reduce((total, detail) => total + detail.value, 0),
+        sliceSettings: { fill: am5.color(colors[index % colors.length]) },
+        breakdown: details
+      };
+    }).filter(item => item.value > 0);
   }
 
   displayChart(): void {
+    if (!this.id || !this.chartData.length) {
+      return;
+    }
 
-    // ===============================
-    // Chart Data
-    // ===============================
-
-    const data: ChartData[] = [
-
-      {
-        category: "Critical",
-        value: 89,
-
-        sliceSettings: {
-          fill: am5.color(0xdc4534)
-        },
-
-        breakdown: [
-          {
-            category: "Sales inquiries",
-            value: 29
-          },
-          {
-            category: "Support requests",
-            value: 40
-          },
-          {
-            category: "Bug reports",
-            value: 11
-          },
-          {
-            category: "Other",
-            value: 9
-          }
-        ]
-      },
-
-      {
-        category: "Acceptable",
-        value: 71,
-
-        sliceSettings: {
-          fill: am5.color(0xd7a700)
-        },
-
-        breakdown: [
-          {
-            category: "Sales inquiries",
-            value: 22
-          },
-          {
-            category: "Support requests",
-            value: 30
-          },
-          {
-            category: "Bug reports",
-            value: 11
-          },
-          {
-            category: "Other",
-            value: 10
-          }
-        ]
-      },
-
-      {
-        category: "Good",
-        value: 120,
-
-        sliceSettings: {
-          fill: am5.color(0x68ad5c)
-        },
-
-        breakdown: [
-          {
-            category: "Sales inquiries",
-            value: 60
-          },
-          {
-            category: "Support requests",
-            value: 35
-          },
-          {
-            category: "Bug reports",
-            value: 15
-          },
-          {
-            category: "Other",
-            value: 10
-          }
-        ]
-      }
-
-    ];
+    this.root?.dispose();
 
     // ===============================
     // Create Root
     // ===============================
 
-    this.root = am5.Root.new("chartdiv");
+    this.root = am5.Root.new(this.id);
 
     const root = this.root;
+    const data = this.chartData;
 
     root.setThemes([
       am5themes_Animated.new(root)
@@ -364,7 +349,7 @@ pieSeries.slices.template.on(
   }
 
   ngOnDestroy(): void {
-
+    this.subDataSubscription?.unsubscribe();
     if (this.root) {
       this.root.dispose();
     }

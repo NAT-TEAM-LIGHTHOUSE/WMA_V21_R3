@@ -107,6 +107,118 @@
     <div class="error" *ngIf="dateinput.forced_error_msg">{{dateinput.forced_error_msg}}</div>
   </div>
 </ng-container>
+
+<ng-container
+  *ngIf="(frame_type == 'ENTRY_TABLE' || frame_type == 'TABLE' || frame_type == 'HORIZONTAL_TABLE') && platformValue == 'android'">
+   <div *ngIf="dateinput.datatype == 'DATETIME'">
+    <ion-item class="{{(dateinput.css_class !=null) ? dateinput.css_class : 'ion-input-item ion-input-item-border'}}  d">
+      <!-- <ion-label position="{{(dateinput.position !=null) ? dateinput.position : 'stacked'}}">{{dateinput.prompt_name}}
+      </ion-label> -->
+      <ion-icon class="code-btn" name="information-circle-outline" style="position: absolute;" color="primary"
+        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+      <ion-input type="text" id="{{dateinput.item_name ? dateinput.item_name : dateinput.apps_item_seqid}}"
+        (click)="showDateTimepicker($event)" [(ngModel)]="dateinput.value"
+        [ngStyle]="dateinput.display_setting_str ? dateinput.display_setting_str : ''"
+        [readonly]="dateinput.item_enable_flag && dateinput.item_enable_flag !='T'" (dblclick)="openCalendar($event)"
+        [disabled]="dateinput.item_enable_flag && dateinput.item_enable_flag =='F'" (ionChange)="onChange();"
+        title="{{dateinput.tool_tip}}">
+      </ion-input>
+      <div class="input-buttons-container a" [ngClass]="{'active-button': 'isButtonActive'}">
+        <button class="input-btn float-right"
+          [disabled]="dateinput.item_enable_flag && dateinput.item_enable_flag =='F'"
+          *ngIf="dateinput.item_enable_flag && dateinput.item_enable_flag =='T'" ion-button icon-only small>
+          <!-- <ion-icon name="calendar"></ion-icon> -->
+          <ion-icon name="calendar-outline"></ion-icon>
+        </button>
+        <ng-container *ngIf="dateinput.value && dateinput.item_enable_flag && dateinput.item_enable_flag =='T'">
+          <button class="input-btn float-right" ion-button icon-only small (click)="clear()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </ng-container>
+      </div>
+    </ion-item>
+    <div class="error" *ngIf="!dateinput.isValid && dateinput.vadidateMsg">
+      {{dateinput.vadidateMsg}}
+    </div>
+    <div class="error" *ngIf="dateinput.msgError">{{dateinput.msgError}}</div>
+    <div class="error" *ngIf="dateinput.forced_error_msg">{{dateinput.forced_error_msg}}</div>
+  </div>
+  <!-- DateTime picker Android End-->
+
+  <!-- Time picker Android Start-->
+  <div *ngIf="dateinput.datatype == 'TIME'">
+    <ion-item class="{{(dateinput.css_class!=null) ? dateinput.css_class : 'ion-input-item ion-input-item-border'}}  e">
+      <!-- <ion-label position="{{(dateinput.position !=null)? dateinput.position:'stacked'}}">{{dateinput.prompt_name}}
+      </ion-label> -->
+      <ion-icon class="code-btn" name="information-circle-outline" style="position: absolute; right: 0;" color="primary"
+        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+        <div class="m_time_input">
+      <ion-input type="text" id="{{dateinput.item_name ? dateinput.item_name : dateinput.apps_item_seqid}}"
+        (click)="showtimepicker()" [(ngModel)]="dateinput.value" (dblclick)="openCalendar($event)"
+        [ngStyle]="dateinput.display_setting_str ? dateinput.display_setting_str : ''"
+        [disabled]="dateinput.item_enable_flag && dateinput.item_enable_flag =='F'" [max]="2050" value="2017-06-01"
+        (ionChange)="onChange()" title="{{dateinput.tool_tip}}">
+      </ion-input>
+      <div class="input-buttons-container b">
+        <button class="input-btn float-right" *ngIf="dateinput.item_enable_flag && dateinput.item_enable_flag =='T'"
+          [disabled]="dateinput.item_enable_flag && dateinput.item_enable_flag =='F'" ion-button icon-only small>
+          <!-- <ion-icon name="calendar"></ion-icon> -->
+          <ion-icon name="calendar-outline"></ion-icon>
+        </button>
+        <button class="input-btn float-right"
+          *ngIf="dateinput.value && dateinput.item_enable_flag && dateinput.item_enable_flag =='T'" ion-button icon-only
+          small (click)="clear()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </div>
+      </div>
+    </ion-item>
+    <div class="error" *ngIf="!dateinput.isValid && dateinput.vadidateMsg">
+      {{dateinput.vadidateMsg}}
+    </div>
+    <div class="error" *ngIf="dateinput.msgError">{{dateinput.msgError}}</div>
+    <div class="error" *ngIf="dateinput.forced_error_msg">{{dateinput.forced_error_msg}}</div>
+  </div>
+  <!-- Time picker Android End-->
+
+  <!-- Date picker Android Start-->
+  <div *ngIf="dateinput.datatype == 'DATE' ">
+    <ion-item class="{{(dateinput.css_class!=null)? dateinput.css_class : 'ion-input-item ion-input-item-border'}} ">
+      <!-- <ion-label position="{{(dateinput.position !=null)? dateinput.position:'stacked'}}">{{dateinput.prompt_name}}
+      </ion-label> -->
+      <ion-icon class="code-btn" name="information-circle-outline" style="position: absolute;" color="primary"
+        *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData()"></ion-icon>
+        <div class="m_date_input">
+      <ion-input type="text" id="{{dateinput.item_name ? dateinput.item_name : dateinput.apps_item_seqid}}"
+        (click)="showDatepicker($event)" [(ngModel)]="dateinput.value"  
+        [ngStyle]="dateinput.display_setting_str ? dateinput.display_setting_str : ''"
+        [disabled]="dateinput.item_enable_flag && dateinput.item_enable_flag =='F'" (ionChange)="onChange()"
+        title="{{dateinput.tool_tip}}">
+      </ion-input>
+      <div class="input-buttons-container c"> 
+        <button class="input-btn float-right" *ngIf="dateinput.item_enable_flag && dateinput.item_enable_flag =='T'"
+          [disabled]="dateinput.item_enable_flag && dateinput.item_enable_flag =='F'" ion-button icon-only small>
+          <!-- <ion-icon name="calendar"></ion-icon> -->
+          <ion-icon name="calendar-outline"></ion-icon>
+        </button>
+        <button class="input-btn float-right"
+          *ngIf="dateinput.value && dateinput.item_enable_flag && dateinput.item_enable_flag =='T'" ion-button icon-only
+          small (click)="clear()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </div>
+    </div>
+    </ion-item>
+    <div class="error" *ngIf="!dateinput.isValid && dateinput.vadidateMsg">
+      {{dateinput.vadidateMsg}}
+    </div>
+    <div class="error" *ngIf="dateinput.msgError">{{dateinput.msgError}}</div>
+    <div class="error" *ngIf="dateinput.forced_error_msg">{{dateinput.forced_error_msg}}</div>
+  </div>
+</ng-container>
+
+
+
 <!-- Date picker Android End-->
 
 <!-- DateTime picker IOS Start -->
