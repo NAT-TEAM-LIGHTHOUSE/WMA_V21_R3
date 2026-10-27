@@ -378,14 +378,24 @@ export class AppComponent {
 
   @HostListener("keyup.F2")
   setDeveloperMode() {
-
-    this.globalObjects.toggleDevloperMode.set(!this.globalObjects.toggleDevloperMode());
-    this.globalObjects.getLocalDBData = !this.globalObjects.toggleDevloperMode();
-    this.cdEngine.detect();
+    this.globalObjects.approveStatus = false;
+    this.globalObjects.getUserRights(() => {
+      this.globalObjects.toggleDevloperMode.set(!this.globalObjects.toggleDevloperMode());
+      this.globalObjects.getLocalDBData = !this.globalObjects.toggleDevloperMode();
+      this.cdEngine.detect();
+    });
 
     // this.cdr.detectChanges();
 
   }
+
+
+
+  verifyRights() {
+    this.globalObjects.getUserRights();
+
+  }
+
   checkNetworkStatus() {
     let onlineCnt = 0;
     this.network.onConnect().subscribe(() => {
@@ -2316,8 +2326,6 @@ export class AppComponent {
   }
 
 }
-
-
 
 
 

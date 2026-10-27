@@ -390,11 +390,30 @@ serverAppBuildDate:any;
     this.fontRange = 0.9;
   }
 
-  toggleDevloperModeFunc(toggleDevloperMode) {
-    this.globalObjects.toggleDevloperMode.set(toggleDevloperMode);
-    this.globalObjects.getLocalDBData = !toggleDevloperMode;
-    this.executeQueryflag = toggleDevloperMode;
-    this.imageIconFlag = toggleDevloperMode;
+  toggleDevloperModeFunc(event: CustomEvent<{ checked: boolean }>) {
+    const enabled = event.detail.checked;
+    const toggle = event.target as HTMLIonToggleElement;
+
+    if (!enabled) {
+      this.applyDeveloperMode(false);
+      return;
+    }
+
+    toggle.checked = this.globalObjects.toggleDevloperMode();
+    this.globalObjects.approveStatus = false;
+    this.globalObjects.getUserRights(() => {
+      this.applyDeveloperMode(true);
+      toggle.checked = true;
+      this.cdr.detectChanges();
+    });
+  }
+
+  private applyDeveloperMode(enabled: boolean) {
+    this.globalObjects.toggleDevloperMode.set(enabled);
+    this.globalObjects.getLocalDBData = !enabled;
+    this.toggleDevloperMode = enabled;
+    this.executeQueryflag = enabled;
+    this.imageIconFlag = enabled;
   }
 
   closePage() {

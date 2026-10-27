@@ -205,7 +205,7 @@
         </div>
         <h2>Developer Mode</h2>
         <!-- <ion-toggle slot="end" [(ngModel)]="globalObjects.toggleDevloperMode()"> -->
-          <ion-toggle slot="end" [checked]="globalObjects.toggleDevloperMode()" (ionChange)="globalObjects.toggleDevloperMode.set($event.detail.checked)">
+          <ion-toggle slot="end" [checked]="globalObjects.toggleDevloperMode()" (ionChange)="toggleDevloperModeFunc($event)">
         </ion-toggle>
       </ion-item>
 

@@ -73,6 +73,7 @@ export class GlobalObjectsService {
   mydatavariable: any = [];
   tp_cnt: number = 0;
   appWorkingPara: any;
+  
   current_page_parameter: any = {};
   loaderToShow: any;
   isLoading: boolean;
@@ -106,6 +107,7 @@ export class GlobalObjectsService {
   public ios_version_numeric;
   public reloadObjectFlag = false
   public getLocalDBData: boolean = true;
+  public approveStatus: boolean = false;
   letterObj = {
     to: 'MCPLLOCP',
     from: 'Lighthouse India Pvt.Ltd',
@@ -3935,5 +3937,34 @@ console.log("navigator.geolocation.getCurrentPosition after position")
 
     }
 
+  }
+
+
+
+  getUserRights(onApproved?: () => void) {
+    this.approveStatus = false;
+    let server_url = this.getLocallData("server_url1");
+    let data = {
+      "user_code": this.userDetails.g_user_code,
+      "user_session_id": this.userDetails.session_id,
+      "user_login_session_id": this.userDetails.login_session_id,
+      "appkey": this.getLocallData("appKey"),
+      "group_code": this.getLocallData("g_group_code"),
+      "req_reason": "FOR TESING THE QUERIES"
+    };
+    this.http.post(server_url + 'api/developerMode/create', data).subscribe((res: any) => {
+      if (res && res.responseStatus === 'success') {
+        // this.setLocallData("userRights", res.data);
+        this.presentAlert(res.responseMsg);
+      } else if (res && res.responseStatus === 'pending') {
+        this.presentAlert(res.responseMsg);
+      } else if (res && res.responseStatus === 'approve') {
+        this.approveStatus = true;
+        this.presentAlert(res.responseMsg);
+        onApproved?.();
+      } else {
+        this.presentAlert(res.responseMsg);
+      }
+    });
   }
 }
