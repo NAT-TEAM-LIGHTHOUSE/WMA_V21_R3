@@ -2,7 +2,9 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { CanvasModalService } from 'src/app/services/canvas-modal.service';
 import { DataService } from 'src/app/services/data.service';
 import { applyLoggingDecorator } from 'src/app/services/decorator-application';
+import { Events } from 'src/app/services/events';
 import { GlobalObjectsService } from 'src/app/services/global-objects.service';
+import { LhsLibService } from 'src/app/services/lhs-lib.service';
 import { STANDALONE_IMPORTS } from 'src/app/shared_modules/ionic.imports';
 
 @Component({
@@ -27,7 +29,7 @@ export class ModulelinkComponent implements OnInit {
   no_of_days = 1;
 
   @ViewChild('subMenuCon', { static: true }) template: TemplateRef<any>;
-  constructor(private globalObjects: GlobalObjectsService, private canvasServ: CanvasModalService, private dataService: DataService) {
+  constructor(private globalObjects: GlobalObjectsService, private canvasServ: CanvasModalService, private dataService: DataService,private lhs_lib:LhsLibService,private events:Events) {
     if (this.globalObjects.layoutFlag) {
       return applyLoggingDecorator(this, "modulelink")
     }
@@ -248,4 +250,19 @@ export class ModulelinkComponent implements OnInit {
     return proc;
   }
 
+  set_bookmark(data){
+    this.tabSection('set_bookmark',data);
+  }
+  tabSection(type, item?) {
+    let tab = this.lhs_lib.dynamicTabs.find(x => x.instance.active);
+    if (tab) {
+      if (tab.instance.superId) {
+        this.events.publish(tab.instance.superId, { type: type, item: item ? item : '', flag: "T" });
+      }
+    }
+    else {
+      this.events.publish("homeTab", { type: type, item: item ? item : '', flag: "T" });
+    }
+
+  }
 } 

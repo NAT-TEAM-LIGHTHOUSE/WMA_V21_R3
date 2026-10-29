@@ -6,16 +6,12 @@
 <div class="main-footer-area" id="footer">
   <div class="top-footer-pn">
     <ul>
-      <li class="small-logo" (click)="themeLinks()">
+      <!-- <li class="small-logo" (click)="themeLinks()">
         <a titletip="Theme Setting"><ion-icon name="color-palette-outline" title=""></ion-icon>
           <span>Theme Setting</span>
         </a>
-      </li>
-       <li class="small-logo" (click)="shortcutLinks()">
-        <a titletip="Keyboard shortcuts"><ion-icon name="keypad-outline"  title=""></ion-icon>
-          <span>Keyboard shortcuts</span>
-        </a>
-        </li>
+      </li> -->
+      
       <ng-container *ngFor="let object of globalobjects.layoutObject">
         <ng-container *ngFor="let obj of object.Level2">
           <ng-container *ngFor="let frame of obj.Level3">
@@ -90,6 +86,7 @@
         <a titletip="Status Link"> <ion-icon name="link-outline"  title=""></ion-icon>
           <span>Status Link</span></a>
       </li> -->
+
      <div *ngFor="let object of globalobjects.layoutObject">
         <ng-container *ngFor="let obj of object.Level2">
           <ng-container *ngFor="let frame of obj.Level3">
@@ -181,6 +178,11 @@
         </a>
        
       </li>
+       <li class="small-logo" (click)="shortcutLinks()">
+        <a titletip="Keyboard shortcuts"><ion-icon name="keypad-outline"  title=""></ion-icon>
+          <span>Keyboard shortcuts</span>
+        </a>
+        </li>
     </ul>
   </div>
 

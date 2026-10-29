@@ -317,6 +317,8 @@ export class SuperParentPage implements OnInit {
         })
       }else if(detail.data=="resetLocalDb"){
         this.tabSection("refreshObjFab")
+      }else if(detail.data=="themeLinks"){
+        this.tabSection('themeLinks');
       }
     })
   }
@@ -344,6 +346,8 @@ export class SuperParentPage implements OnInit {
         })
       }else if(detail.data=="resetLocalDb"){
         this.tabSection("refreshObjFab")
+      }else if(detail.data=="themeLinks"){
+        this.tabSection('themeLinks');
       }
     })
 

@@ -9251,7 +9251,7 @@ app-frame-newcalender,
               display: flex;
               justify-content: space-between;
 
-              a:nth-child(2) {
+              a.time {
                 background: var(--blue-light-5);
                 padding: 2px 10px !important;
                 border-radius: 15px;
@@ -9262,7 +9262,7 @@ app-frame-newcalender,
               }
 
               ion-icon {
-                color: gray;
+                color: var(--blue-new);
                 min-width: 22px;
               }
             }

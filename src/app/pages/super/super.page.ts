@@ -760,6 +760,8 @@ export class SuperPage implements OnInit, OnDestroy {
       this.agentic_Chatbot(res.item)
     }else if(res.type=='quick_action_clicked'){
       this.quick_action_clicked(res.item);
+    }else if(res.type=='set_bookmark'){
+      this.set_bookmark(res.item);
     }
   }
   unSubscribeSuperParent() {
@@ -17667,7 +17669,7 @@ export class SuperPage implements OnInit, OnDestroy {
   }
   // }
 
-  set_bookmark() {
+  set_bookmark(item?) {
     // console.log("checkd set bookmark",this.object_mast);
     this.globalobjects.showLoading;
     this.wscp.service_type = "set_quick_menu";
@@ -17691,6 +17693,9 @@ export class SuperPage implements OnInit, OnDestroy {
 
       let data: any = res;
       if (data.responseStatus && data.responseStatus.includes("success")) {
+         if(item){
+          item.isFavorite=true;
+        }
         console.log(data);
         this.afterGetS2uresp(reqData, data);
         // reject("error");

@@ -120,4 +120,8 @@ export class UserLoginComponent implements OnInit {
     this.sqlServ.deleteAllObject();
     this.canvasModal.popDismiss("resetLocalDb")
   }
+
+  themeLinks() {
+    this.canvasModal.popDismiss("themeLinks")
+  }
 }

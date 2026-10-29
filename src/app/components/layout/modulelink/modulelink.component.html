@@ -131,10 +131,12 @@
           </li>
 
           <ng-container *ngIf="recentFrame && recentFrame.tableData">
-            <li *ngFor="let data of recentFrame.tableData" (click)="menuClicked(data,recentFrame)">
+            <li *ngFor="let data of recentFrame.tableData">
               <div class="title_sec">
-                 <a><ion-icon name="timer-outline"></ion-icon> <b>{{data.prompt_name}} </b></a>
-                 <a> {{data.login_time}} </a>
+               <div class="d-flex align-items-center gap-2">
+                   <ion-icon [name]="data.isFavorite ? 'star':'star-outline'" (click)="set_bookmark(data)"></ion-icon><a (click)="menuClicked(data,recentFrame)"><b>{{data.prompt_name}} </b></a>
+                 </div>
+                 <a class="time">{{data.login_time}}</a>
               </div> 
               <div class="list_title_sec">
                 <ul>
