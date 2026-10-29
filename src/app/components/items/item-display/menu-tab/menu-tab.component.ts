@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CdEngineService } from 'src/app/services/cd-engine-service.service';
 import { applyLoggingDecorator } from 'src/app/services/decorator-application';
 import { Events } from 'src/app/services/events';
 import { GlobalObjectsService } from 'src/app/services/global-objects.service';
@@ -19,7 +20,7 @@ export class MenuTabComponent implements OnInit {
   @Output() emitPass: EventEmitter<any> = new EventEmitter<any>();
   imgUrl: any;
   baseImg: any;
-  constructor(public globalObjects: GlobalObjectsService, private sqlServ: SqlLiteService, private sanitizer: DomSanitizer, private events: Events) {
+  constructor(private cdengine : CdEngineService,public globalObjects: GlobalObjectsService, private sqlServ: SqlLiteService, private sanitizer: DomSanitizer, private events: Events, private cdr: ChangeDetectorRef) {
     if (this.globalObjects.itemFlag) {
       return applyLoggingDecorator(this, "menu-tab")
     }
@@ -35,6 +36,8 @@ export class MenuTabComponent implements OnInit {
 
         this.sqlServ.getImageFromLocal(this.menutab, this.imgUrl).then((res: any) => {
           this.baseImg = this.sanitizer.bypassSecurityTrustUrl(res);
+          // this.cdengine.detect();
+           this.cdengine.detect(this.menutab.apps_item_seqid + '_' + this.menutab.indexcount + '#' + this.menutab.apps_page_frame_seqid);
         });
       }
     }
