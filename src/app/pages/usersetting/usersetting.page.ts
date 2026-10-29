@@ -1,9 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild, Injector } from '@angular/core';
-import { Router } from '@angular/router';
 import { ModalController, NavController, Platform, PopoverController } from '@ionic/angular/standalone';
 import { OverlayEventDetail } from '@ionic/core';
 import { AngularMyDatePickerDirective, IAngularMyDpOptions, Year } from 'angular-mydatepicker';
-
 import { DataService } from 'src/app/services/data.service';
 import { Events } from 'src/app/services/events';
 import { GlobalObjectsService } from 'src/app/services/global-objects.service';
@@ -14,9 +12,8 @@ import { applyLoggingDecorator } from 'src/app/services/decorator-application';
 import { AlertMsgBoxesPage } from '../alert-msg-boxes/alert-msg-boxes.page';
 import { LhsLibService } from 'src/app/services/lhs-lib.service';
 import { STANDALONE_IMPORTS } from 'src/app/shared_modules/ionic.imports';
-import { IonIcon,IonButton,IonCol,IonItem,IonGrid,IonLabel } from '@ionic/angular/standalone';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, isPlatformServer, TitleCasePipe } from '@angular/common';
+import {  isPlatformServer, TitleCasePipe } from '@angular/common';
+import { EncryptionService } from 'src/app/services/encryption.service';
 
 @Component({
 standalone: true,
@@ -105,7 +102,7 @@ export class UsersettingPage implements OnInit, OnDestroy {
   disableButton = false;
   isCollapsed = false;
   changeLoginPara = false
-  constructor(public modalCtrl: ModalController, public globalObjects: GlobalObjectsService, public popOverCtrl: PopoverController, private lhs_lib: LhsLibService,
+  constructor(public modalCtrl: ModalController, public globalObjects: GlobalObjectsService, public popOverCtrl: PopoverController, private encryption: EncryptionService, private lhs_lib: LhsLibService,
     public navCtrl: NavController, private dataService: DataService, private sqlLiteServ: SqlLiteService, private platform: Platform, private cdr: ChangeDetectorRef, private events: Events, @Inject(PLATFORM_ID) private platformId: Object) {
     this.userDetails = this.globalObjects.getLocallData('userDetails');
     // console.log(this.userDetails.first_login_time);
@@ -216,6 +213,7 @@ export class UsersettingPage implements OnInit, OnDestroy {
     if (isPlatformServer(this.platformId)) return;
     window.location.reload();
   }
+
   getUserDetails(type) {
 
     this.sidelovarray = this.globalObjects.getLocallData('sidemenulov');
@@ -234,6 +232,20 @@ export class UsersettingPage implements OnInit, OnDestroy {
       };
       this.dataService.postData(url, data).then(res => {
         let response: any = res;
+        if (response?.responseData?.enc) {
+          try {
+            response.responseData = JSON.parse(
+              this.encryption.decryptString(response.responseData.enc)
+            );
+          } catch {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+          if (!Array.isArray(response.responseData)) {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+        }
         if (response.responseData.length <= 0) {
           this.navCtrl.navigateRoot('super');
           this.modalCtrl.dismiss();
@@ -290,12 +302,31 @@ export class UsersettingPage implements OnInit, OnDestroy {
     userDetails.item_name = item_name;
     userDetails.apps_frame_seq_id = this.userValueList.length > 0 ? (this.userValueList[0].apps_frame_seq_id ? this.userValueList[0].apps_frame_seq_id : '0') : '0';
     let url = "getDependentValue";
-    var data = {
+    var data :any = {
       "parameters": userDetails
     }
 
+       if(url.includes("getDependentValue") && this.globalObjects.dataEncryptFlag){
+              data = { enc: this.encryption.encryptData(data) };
+
+          }
+
     this.dataService.postData(url, data).then(response => {
       let data: any = response;
+         if (data?.responseData?.enc) {
+          try {
+            data.responseData = JSON.parse(
+              this.encryption.decryptString(data.responseData.enc)
+            );
+          } catch {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+          if (!Array.isArray(data.responseData)) {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+        }
       let final_data = JSON.parse(JSON.stringify(data));
       if (final_data.responseStatus == 'Success') {
         let dependentVal: any = [];
@@ -428,11 +459,33 @@ export class UsersettingPage implements OnInit, OnDestroy {
 
         this.globalObjects.setDataLocally('userDetails', userDetails);
         let url = "getDependentValue";
-        var obj = {
+        var obj :any = {
           "parameters": userDetails
         }
+         if(url.includes("getDependentValue") && this.globalObjects.dataEncryptFlag){
+              obj = { enc: this.encryption.encryptData(obj) };
+
+          }
         this.dataService.postData(url, obj).then(response => {
           let data: any = response;
+          
+         if (data?.responseData?.enc) {
+          try {
+            data.responseData = JSON.parse(
+              this.encryption.decryptString(data.responseData.enc)
+            );
+          } catch {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+          if (!Array.isArray(data.responseData)) {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+        }
+
+
+
           let final_data = JSON.parse(JSON.stringify(data));
           if (final_data.responseStatus == 'Success') {
             let dependentVal: any = [];
@@ -498,11 +551,29 @@ export class UsersettingPage implements OnInit, OnDestroy {
 
     this.globalObjects.setDataLocally('userDetails', userDetails);
     let url = "getDependentValue";
-    var obj = {
+    var obj :any= {
       "parameters": userDetails
     }
+    if(url.includes("getDependentValue") && this.globalObjects.dataEncryptFlag){
+              obj = { enc: this.encryption.encryptData(obj) };
+
+          }
     this.dataService.postData(url, obj).then(response => {
       let data: any = response;
+         if (data?.responseData?.enc) {
+          try {
+            data.responseData = JSON.parse(
+              this.encryption.decryptString(data.responseData.enc)
+            );
+          } catch {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+          if (!Array.isArray(data.responseData)) {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+        }
       let final_data = JSON.parse(JSON.stringify(data));
       if (final_data.responseStatus == 'Success') {
         let dependentVal: any = [];

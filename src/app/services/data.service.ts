@@ -176,6 +176,10 @@ export class DataService {
           var l_url = this.globalObjects.getScopeUrl() + url + "/" + encFlag;
 
           let dataToSend = this.prePostData(reqData);
+          if(l_url.includes("getUserParams") && this.globalObjects.dataEncryptFlag){
+              dataToSend = { enc: this.encryption.encryptData(dataToSend) };
+
+          }
 
           let req = this.http.post(l_url, dataToSend, { 'headers': { 'requestId': new Date().getTime().toString() } })
             .subscribe((data: any) => {
@@ -253,6 +257,9 @@ export class DataService {
         // }
         // console.log(JSON.stringify(dataToSend));
         var l_url = this.globalObjects.getScopeUrl() + url;
+           if(l_url.includes("getUserParams") && this.globalObjects.dataEncryptFlag){
+              reqData = { enc: this.encryption.encryptData(reqData) };
+          }
         this.http.post(l_url, reqData)
           .subscribe(data => {
             resolve(data);

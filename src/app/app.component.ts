@@ -27,6 +27,7 @@ import { BackgroundService } from './services/background.service';
 import { CdEngineService } from './services/cd-engine-service.service';
 import { DebugService } from './services/debug-service';
 import { environment } from 'src/environments/environment';
+import { EncryptionService } from './services/encryption.service';
 // import { LookAndFeelPage } from './pages/look-and-feel/look-and-feel.page';
 // import { ChangePasswordPage } from './pages/change-password/change-password.page';
 // import { PartylistPage } from './pages/partylist/partylist.page';
@@ -279,7 +280,8 @@ export class AppComponent {
     public popoverController: PopoverController,
     public device: Device,
     private cdEngine: CdEngineService,
-    private debugService: DebugService
+    private debugService: DebugService,
+    private encryption : EncryptionService
   ) {
 
     if (environment.production) {
@@ -990,7 +992,22 @@ export class AppComponent {
         "parameters": userDetails
       }
       this.dataService.postData(url, data).then(res => {
+
         let response: any = res;
+        if (response?.responseData?.enc) {
+          try {
+            response.responseData = JSON.parse(
+              this.encryption.decryptString(response.responseData.enc)
+            );
+          } catch {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+          if (!Array.isArray(response.responseData)) {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+        }
         ////console.log("Userdde: " + JSON.stringify(res));
         if (response) {
           this.userValueList = response.responseData;
@@ -1054,12 +1071,29 @@ export class AppComponent {
 
     // userDetails.item_name = item_name;
     let url = "getDependentValue";
-    var data = {
+    var data :any= {
       "parameters": userDetails
     }
+if(url.includes("getDependentValue") && this.globalObjects.dataEncryptFlag){
+              data = { enc: this.encryption.encryptData(data) };
 
+          }
     this.dataService.postData(url, data).then(response => {
       let data: any = response;
+         if (data?.responseData?.enc) {
+          try {
+            data.responseData = JSON.parse(
+              this.encryption.decryptString(data.responseData.enc)
+            );
+          } catch {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+          if (!Array.isArray(data.responseData)) {
+            this.globalObjects.presentAlert('Unable to decrypt user parameters.');
+            return;
+          }
+        }
       let final_data = JSON.parse(JSON.stringify(data));
       if (final_data.responseStatus == 'Success') {
         let dependentVal: any = [];
@@ -2326,7 +2360,6 @@ export class AppComponent {
   }
 
 }
-
 
 
 
