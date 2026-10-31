@@ -399,6 +399,11 @@ serverAppBuildDate:any;
       return;
     }
 
+    if (!this.globalObjects.dataEncryptFlag) {
+      this.applyDeveloperMode(true);
+      return;
+    }
+
     toggle.checked = this.globalObjects.toggleDevloperMode();
     this.globalObjects.approveStatus = false;
     this.globalObjects.getUserRights(() => {

@@ -283,6 +283,11 @@
       </ul>
     </div>
     <div class="bottom_menu">
+      <ul>
+        <li class="system-health-button" (click)="openSystemHealth()">
+          <ion-icon name="pulse-outline" title="System Health"></ion-icon>
+        </li>
+      </ul>
       <ul *ngIf="globalobjects.patch_flag">
         <li class="bottom-alert" (click)="openPatchMessages()"><ion-icon name="information-circle-outline"></ion-icon>
         </li>

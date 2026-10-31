@@ -103,7 +103,7 @@ export class GlobalObjectsService {
   notiBellMannualMode: boolean = false;
   public appPageName: any;
   public newaddress: any;
-  public android_version_numeric = '1.0.3';
+  public android_version_numeric = '2.0.1';
   public ios_version_numeric;
   public reloadObjectFlag = false
   public getLocalDBData: boolean = true;
@@ -3847,6 +3847,35 @@ console.log("navigator.geolocation.getCurrentPosition after position")
     this.toggleDrag = false;
     this.notiBellMannualMode = false;
   }
+
+  async openFullscreenForCurrentScreen(): Promise<boolean> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return false;
+    }
+
+    const screenWidth = window.screen.width;
+    // if (screenWidth > 1440) {
+    //   return false;
+    // }
+
+    const element = document.documentElement as HTMLElement & {
+      webkitRequestFullscreen?: () => Promise<void> | void;
+    };
+    const requestFullscreen = element.requestFullscreen ?? element.webkitRequestFullscreen;
+    if (!requestFullscreen) {
+      console.warn('Fullscreen mode is not supported by this browser.');
+      return false;
+    }
+
+    try {
+      await requestFullscreen.call(element);
+      return true;
+    } catch (error) {
+      console.warn('Unable to enter fullscreen mode.', error);
+      return false;
+    }
+  }
+
   getParsedJson(json) {
     if (!json) {
       return {}
@@ -3958,7 +3987,7 @@ console.log("navigator.geolocation.getCurrentPosition after position")
         this.presentAlert(res.responseMsg);
       } else if (res && res.responseStatus === 'pending') {
         this.presentAlert(res.responseMsg);
-      } else if (res && res.responseStatus === 'approve') {
+      } else if (res && res.responseStatus === 'approved') {
         this.approveStatus = true;
         this.presentAlert(res.responseMsg);
         onApproved?.();

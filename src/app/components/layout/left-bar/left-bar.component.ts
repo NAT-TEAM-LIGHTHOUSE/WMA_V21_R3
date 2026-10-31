@@ -14,6 +14,7 @@ import { DataService } from 'src/app/services/data.service';
 import { HttpClient } from '@angular/common/http';
 import { LeftbaritemPipe } from 'src/app/pipes/leftbar/leftbaritem-pipe';
 import { QuickActionModalComponent } from '../quick-action-modal/quick-action-modal.component';
+import { SystemHealthPanelComponent } from '../system-health-panel/system-health-panel.component';
 
 @Component({
   standalone: true,
@@ -196,6 +197,29 @@ export class LeftBarComponent implements OnInit {
 
   }
 
+  // async openSystemHealth() {
+  //   const modal = await this.modalCtrl.create({
+  //     component: SystemHealthPanelComponent,
+  //     cssClass: 'offcanvasRight',
+  //     breakpoints: [0, 0.75, 1],
+  //     initialBreakpoint: 0.75,
+  //     handle: true,
+  //   });
+  //   await modal.present();
+  // }
+  
+
+
+
+  openSystemHealth() {
+    let id = 'offcanvasLeftnotificationLink';
+    let cssClass = 'offcanvasLeft';
+    let title = ""
+    let componentProps = {
+      test: "notification"
+    }
+    this.canvasModal.openoffCanvas(SystemHealthPanelComponent, componentProps, id, cssClass, title)
+  }
   sqlStudioTabRef: any = null;
   sqlStudioUrl: string = '';
 

@@ -85,6 +85,7 @@ export class LoginPage implements OnInit {
   upd_flag: any;
   OTPCode: any;
   userprofile: any = null;
+  openFullscreenOnLogin: boolean = false;
   userDetails: any;
   appDataArr = [];
   resetPassFlag: boolean = false;
@@ -145,6 +146,10 @@ msgShowotpEM_2FA:boolean=false
   }
 
   doLogin() {
+    if (this.openFullscreenOnLogin) {
+      void this.globalObjects.openFullscreenForCurrentScreen();
+    }
+
     this.globalObjects.logout = false;
     this.userAuth.isProcessingLogin = true;
     this.resStatus = true;

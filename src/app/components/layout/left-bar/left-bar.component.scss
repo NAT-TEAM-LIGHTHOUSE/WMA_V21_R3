@@ -57,5 +57,22 @@
     border: 1px solid rgb(255, 224, 224);
                 }
         }
+
+        .system-health-button {
+            cursor: pointer;
+
+            ion-icon {
+                color: #3478ec;
+                background: #eaf1ff;
+            }
+
+            &:hover ion-icon {
+                border-color: #b6ceff;
+            }
+
+            &::after {
+                display: none;
+            }
+        }
     }
 }

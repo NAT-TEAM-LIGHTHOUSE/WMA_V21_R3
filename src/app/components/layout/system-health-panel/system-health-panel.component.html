@@ -1,0 +1,319 @@
+<ion-content class="performance-content" [fullscreen]="true">
+  <div class="performance-page">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+      <div class="header-icon">
+        <ion-icon name="desktop-outline"></ion-icon>
+      </div>
+
+      <div class="header-title">
+        <h1>System Overview</h1>
+        <p>Your PC Performance</p>
+      </div>
+
+      <!-- <button class="close-button"
+              type="button"
+              aria-label="Close"
+              (click)="close()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button> -->
+    </header>
+
+    <div class="loading-state" *ngIf="loading">
+      <ion-spinner name="crescent"></ion-spinner>
+      <span>Collecting performance information...</span>
+    </div>
+
+    <div class="error-state" *ngIf="!loading && errorMessage">
+      <p>{{ errorMessage }}</p>
+      <ion-button fill="outline" size="small" (click)="refreshSystemInformation()">
+        Retry
+      </ion-button>
+    </div>
+
+    <ng-container *ngIf="!loading && !errorMessage">
+
+      <!-- Performance Gauges -->
+      <section class="gauge-grid">
+
+        <div class="gauge-item">
+          <div class="gauge"
+               [style.--gauge-value]="(cpuPercent ?? 0) + '%'">
+            <div class="gauge-inner">
+              <strong>{{ cpuPercent == null ? '—' : cpuPercent + '%' }}</strong>
+            </div>
+          </div>
+          <span class="gauge-label">CPU</span>
+        </div>
+
+        <div class="gauge-item">
+          <div class="gauge gauge-blue"
+               [style.--gauge-value]="(ramPercent ?? 0) + '%'">
+            <div class="gauge-inner">
+              <strong>{{ ramPercent == null ? '—' : ramPercent + '%' }}</strong>
+            </div>
+          </div>
+          <span class="gauge-label">RAM</span>
+        </div>
+
+        <div class="gauge-item">
+          <div class="gauge gauge-orange"
+               [style.--gauge-value]="(diskPercent ?? 0) + '%'">
+            <div class="gauge-inner">
+              <strong>{{ diskPercent == null ? '—' : diskPercent + '%' }}</strong>
+            </div>
+          </div>
+          <span class="gauge-label">Disk</span>
+        </div>
+
+      </section>
+
+      <!-- Hardware Details -->
+      <section class="hardware-details">
+        <div class="hardware-row">
+          <strong>CPU</strong>
+          <span>{{ cpuLabel }}</span>
+        </div>
+
+        <div class="hardware-row">
+          <strong>CPU Usage</strong>
+          <span>{{ cpuUsageLabel }}</span>
+        </div>
+
+        <div class="hardware-row">
+          <strong>GPU</strong>
+          <span>{{ gpuLabel }}</span>
+        </div>
+
+        <div class="hardware-row">
+          <strong>RAM</strong>
+          <span>{{ ramLabel }}</span>
+        </div>
+
+        <div class="hardware-row">
+          <strong>OS</strong>
+          <span>{{ osLabel }}</span>
+        </div>
+
+        <div class="hardware-row">
+          <strong>Uptime</strong>
+          <span>{{ uptimeLabel }}</span>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Network Performance -->
+      <section class="network-section">
+
+        <div class="section-header">
+          <div class="header-icon network-header-icon">
+            <ion-icon name="wifi-outline"></ion-icon>
+          </div>
+
+          <div class="header-title">
+            <h2>Network Performance</h2>
+          </div>
+
+          <span class="connection-badge"
+                [class.offline]="!snapshot?.networkOnline">
+            {{ snapshot?.networkOnline ? 'Connected' : 'Offline' }}
+          </span>
+        </div>
+
+        <div class="network-grid">
+
+          <div class="network-tile ping-tile">
+            <ion-icon name="pulse-outline"></ion-icon>
+            <span>Ping</span>
+            <strong>
+              {{ networkTest
+                ? (networkTest.pingMs | number:'1.0-0') + ' ms'
+                : '—' }}
+            </strong>
+          </div>
+
+          <div class="network-tile download-tile">
+            <ion-icon name="download-outline"></ion-icon>
+            <span>Download</span>
+            <strong>
+              {{ networkTest
+                ? (networkTest.download.mbps | number:'1.2-2') + ' Mbps'
+                : '—' }}
+            </strong>
+          </div>
+
+          <div class="network-tile upload-tile">
+            <ion-icon name="accessibility-outline"></ion-icon>
+            <span>Upload</span>
+            <strong>
+              {{ networkTest
+                ? (networkTest.upload.mbps | number:'1.2-2') + ' Mbps'
+                : '—' }}
+            </strong>
+          </div>
+
+        </div>
+
+        <!-- Decorative graph: replace with recorded measurements for a real trend -->
+        <div class="network-chart">
+          <svg viewBox="0 0 320 72"
+               preserveAspectRatio="none"
+               role="img"
+               aria-label="Network performance trend illustration">
+
+            <defs>
+              <linearGradient id="downloadArea"
+                              x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3478f6"
+                      stop-opacity=".28"/>
+                <stop offset="100%" stop-color="#3478f6"
+                      stop-opacity=".02"/>
+              </linearGradient>
+            </defs>
+
+            <path
+              d="M0 55 L18 52 L34 54 L50 48 L66 50 L82 44
+                 L98 46 L114 39 L130 42 L146 32 L162 35
+                 L178 25 L194 30 L210 17 L226 25 L242 13
+                 L258 20 L274 12 L290 19 L306 14 L320 18
+                 L320 72 L0 72 Z"
+              fill="url(#downloadArea)"/>
+
+            <polyline
+              points="0,55 18,52 34,54 50,48 66,50 82,44
+                      98,46 114,39 130,42 146,32 162,35
+                      178,25 194,30 210,17 226,25 242,13
+                      258,20 274,12 290,19 306,14 320,18"
+              fill="none"
+              stroke="#3478f6"
+              stroke-width="2"
+              vector-effect="non-scaling-stroke"/>
+
+            <polyline
+              points="0,60 18,59 34,61 50,58 66,59 82,56
+                      98,58 114,54 130,55 146,50 162,52
+                      178,46 194,49 210,44 226,47 242,41
+                      258,44 274,39 290,43 306,40 320,42"
+              fill="none"
+              stroke="#24b86a"
+              stroke-width="1.5"
+              vector-effect="non-scaling-stroke"/>
+          </svg>
+        </div>
+
+        <div class="speed-summary">
+          <div class="download-summary">
+            <ion-icon name="arrow-down-outline"></ion-icon>
+            <strong>
+              {{ networkTest
+                ? (networkTest.download.mbps | number:'1.2-2')
+                : '—' }}
+            </strong>
+            <span>Mbps</span>
+          </div>
+
+          <div class="upload-summary">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+            <strong>
+              {{ networkTest
+                ? (networkTest.upload.mbps | number:'1.2-2')
+                : '—' }}
+            </strong>
+            <span>Mbps</span>
+          </div>
+        </div>
+
+        <p class="network-error" *ngIf="networkErrorMessage">
+          {{ networkErrorMessage }}
+        </p>
+
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Server Details -->
+      <button class="server-card"
+              type="button"
+              [attr.aria-expanded]="serverDetailsExpanded"
+              (click)="openServerDetails()">
+
+        <div class="server-icon">
+          <ion-icon name="server-outline"></ion-icon>
+        </div>
+
+        <div class="server-card-content">
+          <h2>{{ serverDetailsExpanded ? 'Hide Server Details' : 'View Server Details' }}</h2>
+          <p>
+            {{ pcDetails.hostname || 'Server details' }}
+          </p>
+        </div>
+
+        <ion-icon class="server-chevron"
+                  [name]="serverDetailsExpanded ? 'chevron-down-outline' : 'chevron-forward-outline'">
+        </ion-icon>
+      </button>
+
+      <section class="server-details-panel" *ngIf="serverDetailsExpanded">
+        <h2>Server Details</h2>
+        <div class="hardware-details">
+          <div class="hardware-row">
+            <strong>Server</strong>
+            <span>{{ pcDetails.hostname || 'Unavailable' }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>IP Address</strong>
+            <span>{{ pcDetails.ipAddress || 'Unavailable' }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>OS</strong>
+            <span>{{ pcDetails.osName || 'Unavailable' }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>CPU Usage</strong>
+            <span>{{ cpuUsageLabel }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>GPU</strong>
+            <span>{{ gpuLabel }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>Disk Usage</strong>
+            <span>{{ diskPercent == null ? 'Unavailable' : diskPercent + '%' }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>Total RAM</strong>
+            <span>{{ pcDetails.ramTotalBytes == null ? 'Unavailable' : formatBytes(pcDetails.ramTotalBytes) }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>Used RAM</strong>
+            <span>{{ pcDetails.ramUsedBytes == null ? 'Unavailable' : formatBytes(pcDetails.ramUsedBytes) }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>Free RAM</strong>
+            <span>{{ pcDetails.ramFreeBytes == null ? 'Unavailable' : formatBytes(pcDetails.ramFreeBytes) }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>Uptime</strong>
+            <span>{{ uptimeLabel }}</span>
+          </div>
+          <div class="hardware-row">
+            <strong>Printers</strong>
+            <span>{{ pcDetails.printers.length ? pcDetails.printers.join(', ') : 'None reported' }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Refresh -->
+      <button class="refresh-button"
+              type="button"
+              [disabled]="loading"
+              (click)="refreshSystemInformation()">
+        <ion-icon name="refresh-outline"></ion-icon>
+        Refresh system information
+      </button>
+
+    </ng-container>
+  </div>
+</ion-content>

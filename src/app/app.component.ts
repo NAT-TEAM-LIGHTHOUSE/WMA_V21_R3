@@ -380,12 +380,19 @@ export class AppComponent {
 
   @HostListener("keyup.F2")
   setDeveloperMode() {
-    this.globalObjects.approveStatus = false;
-    this.globalObjects.getUserRights(() => {
+    const toggleDeveloperMode = () => {
       this.globalObjects.toggleDevloperMode.set(!this.globalObjects.toggleDevloperMode());
       this.globalObjects.getLocalDBData = !this.globalObjects.toggleDevloperMode();
       this.cdEngine.detect();
-    });
+    };
+
+    if (!this.globalObjects.dataEncryptFlag) {
+      toggleDeveloperMode();
+      return;
+    }
+
+    this.globalObjects.approveStatus = false;
+    this.globalObjects.getUserRights(toggleDeveloperMode);
 
     // this.cdr.detectChanges();
 
@@ -394,8 +401,9 @@ export class AppComponent {
 
 
   verifyRights() {
-    this.globalObjects.getUserRights();
-
+    if (this.globalObjects.dataEncryptFlag) {
+      this.globalObjects.getUserRights();
+    }
   }
 
   checkNetworkStatus() {
@@ -2360,7 +2368,6 @@ if(url.includes("getDependentValue") && this.globalObjects.dataEncryptFlag){
   }
 
 }
-
 
 
 

@@ -30,6 +30,7 @@ isBrowser: boolean = false;
   helpFaq: any;
   helpSupport: any;
   iframeUrl: SafeResourceUrl;
+  helpDocumentUrl: SafeResourceUrl | null = null;
   activeFrame: any;
    userdetails : any;
    loaderFlag: boolean = false;
@@ -39,6 +40,7 @@ isBrowser: boolean = false;
 
   ngOnInit() {
 this.userdetails = this.globalObjects.getLocallData('userDetails');
+    this.helpDocumentUrl = this.getSafeHelpDocumentUrl(this.userdetails?.g_help_doc_url);
     console.log("layoutttttt", this.userdetails);
     if (this.globalObjects.layoutObject) {
       for (let pageData of this.globalObjects.layoutObject) {
@@ -72,6 +74,31 @@ this.userdetails = this.globalObjects.getLocallData('userDetails');
     // });
     
 
+  }
+
+  private getSafeHelpDocumentUrl(value: unknown): SafeResourceUrl | null {
+    if (typeof value !== 'string' || !value.trim()) {
+      return null;
+    }
+
+    try {
+      const url = new URL(value);
+      if (
+        url.protocol !== 'https:' ||
+        url.hostname !== 'ai.lighthouseindia.com' ||
+        (url.port !== '' && url.port !== '443') ||
+        url.username ||
+        url.password
+      ) {
+        console.error('Help document URL is not from the trusted documentation host.');
+        return null;
+      }
+
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url.href);
+    } catch (error) {
+      console.error('Help document URL is invalid.', error);
+      return null;
+    }
   }
 
 //  tabclick(tab: string) {
@@ -170,7 +197,7 @@ postAndOpenInIframe() {
 
 getHeaderTitle() {
   switch(this.activeTab) {
-    case 'document': return 'Documents';
+    case 'document': return 'ERP Documentation';
     case 'video': return 'Videos';
     case 'faq': return 'FAQ';
     case 'aichat': return 'AI Chat';
@@ -190,4 +217,3 @@ getHeaderSubtitle() {
   }
 }
 }
-

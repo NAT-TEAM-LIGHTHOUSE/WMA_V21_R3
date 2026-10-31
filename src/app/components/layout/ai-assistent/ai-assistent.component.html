@@ -5,7 +5,7 @@
     <div *ngIf="activeTab === ''">
      <h2>{{ getHeaderTitle() }}</h2>
      <p>{{ getHeaderSubtitle() }}</p>
-    </div> 
+    </div>
   
     <button class="back_ai" (click)="goBack()" *ngIf="activeTab !== ''">
       <ion-icon name="arrow-back-outline"></ion-icon>
@@ -43,7 +43,7 @@
             <div class="ai-assistent-card text-center" (click)="tabclick('document')">
                 <!-- <ion-icon name="document-text"></ion-icon> -->
                   <img src="assets/imgs/docal.png" style="height: 70px;" />
-              <h3>Documents</h3>
+              <h3>ERP Documentation</h3>
               <p>Browser PDF guides & manuals</p>
              
             </div>
@@ -98,8 +98,12 @@
  </div> 
   
    <div class="ai-assistent-body document" *ngIf="activeTab === 'document'" style="height: 81vh;overflow: hidden;">
-                    <iframe src="http://192.168.100.21:8888/LHS_ERP_HELP/layout.html#" style=" width: 100%;height: 81dvh;overflow: hidden;"  ></iframe>
-                </div> 
+                    <iframe *ngIf="helpDocumentUrl; else invalidHelpDocumentUrl" [src]="helpDocumentUrl" style=" width: 100%;height: 81dvh;overflow: hidden;"></iframe>
+                    <ng-template #invalidHelpDocumentUrl>
+                      <p role="alert">Help documentation URL is unavailable or not trusted.</p>
+                    </ng-template>
+              <!-- src="https://ai.lighthouseindia.com/docs/v7/layout.html#modules"  -->
+                  </div>
 
 
                  <ng-container *ngIf="activeTab === 'video'" style="position: relative;"  >
