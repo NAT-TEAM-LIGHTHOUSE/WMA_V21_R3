@@ -65,7 +65,7 @@
                       <ng-container *ngIf="frame.tableRows && frame.tableRows[frame.active_row]">
                         <ng-container *ngFor="let itemGroup of frame.tableRows[frame.active_row]">
                           <ng-container *ngFor="let items of itemGroup.Level5">
-                            @let item = items | mergeLevel5:frame.Level4;
+                            @let item = items | mergeLevel5:(frame.apexFrameLevel4?.length ? frame.apexFrameLevel4 : frame.Level4);
                             <ng-container
                               *ngIf="item.item_type == 'FRAME_BUTTON_ICON' && item.item_visible_flag == 'T'">
                               <app-items [item]="item" [wscp]="wscp_send_input" [frame_type]="frame.apps_frame_type"
@@ -554,7 +554,7 @@
                             <table>
                               <tr>
                                 <ng-container *ngFor="let item of itemGroup.Level5; ">
-                                   @let input_item = item | mergeLevel5:frame.Level4;
+                                   @let input_item = item | mergeLevel5:(frame.apexFrameLevel4?.length ? frame.apexFrameLevel4 : frame.Level4);
                                   <ng-container *ngIf="input_item.item_visible_flag == 'T'
                           && input_item.item_type != 'FRAME_BUTTON_ICON'
                           && input_item.item_type != 'RIGHT_CLICK'">
@@ -588,7 +588,7 @@
                         <!-- SINGLE ITEM TD -->
                         <ng-template #childTd>
                           <ng-container *ngFor="let item of itemGroup.Level5;">
-                             @let input_item = item | mergeLevel5:frame.Level4;
+                             @let input_item = item | mergeLevel5:(frame.apexFrameLevel4?.length ? frame.apexFrameLevel4 : frame.Level4);
                             <td *ngIf="input_item.item_visible_flag == 'T'
                     && input_item.item_type != 'FRAME_BUTTON_ICON'
                     && input_item.item_type != 'RIGHT_CLICK' && (input_item.item_type === 'TEXT'
@@ -630,7 +630,7 @@
                           <ng-container *ngIf="input_item.sepFrame === 'SHOW'">
                             <ng-container *ngFor="let itemGrp of input_item.containerRowss;">
                               <ng-container *ngFor="let item of itemGrp.Level5; ">
-                                 @let itm = item | mergeLevel5:frame.Level4;
+                                 @let itm = item | mergeLevel5:(frame.apexFrameLevel4?.length ? frame.apexFrameLevel4 : frame.Level4);
                                 <td *ngIf="itm.item_visible_flag == 'T'"
                                   [ngStyle]="tdStyle(itm)"
                                   (click)="itemClicked(itm, tableData, rowindex)">

@@ -93,7 +93,7 @@
                       <ng-container *ngIf="frame.tableRows && frame.tableRows[frame.active_row]">
                         <ng-container *ngFor="let itemGroup of frame.tableRows[frame.active_row]">
                           <ng-container *ngFor="let items of itemGroup.Level5">
-                            @let item = items | mergeLevel5:frame.Level4;
+                            @let item = items | mergeLevel5: (frame.apexFrameLevel4?.length ? frame.apexFrameLevel4 : frame.Level4);
                             <ng-container
                               *ngIf="item.item_type == 'FRAME_BUTTON_ICON' && item.item_visible_flag == 'T'">
                               <app-items [item]="item" [wscp]="wscp_send_input" [frame_type]="frame.apps_frame_type"
@@ -595,7 +595,7 @@
                     *ngIf="tableItem.Level5 &&  tableItem.Level5.length > 0 && tableItem.Level5[0].item_type != 'FRAME_SEPARATOR'">
                     <ng-container *ngFor="let items of tableItem.Level5">
                       <!-- <ng-container *ngIf="(item | mergeLevel5:frame.Level4:item.value) as mergedItem"> -->
-                        @let item = items | mergeLevel5:frame.Level4;
+                        @let item = items | mergeLevel5:(frame.apexFrameLevel4?.length ? frame.apexFrameLevel4 : frame.Level4);
                       <td
                         *ngIf="item.item_visible_flag == 'T' && item.item_type != 'FRAME_BUTTON_ICON' && item.item_type != 'RIGHT_CLICK'"
                         [ngStyle]="item.display_setting_str ? item.display_setting_str : {}"
@@ -644,7 +644,7 @@
 
                             <ng-container *ngIf="itemGrp.Level5">
                               <ng-container *ngFor="let itms of itemGrp.Level5">
-                                    @let itm = itms | mergeLevel5:frame.Level4;
+                                    @let itm = itms | mergeLevel5:(frame.apexFrameLevel4?.length ? frame.apexFrameLevel4 : frame.Level4);
                                 <ng-container
                                   *ngIf="itm.item_visible_flag == 'T' && itm.item_type != 'FRAME_BUTTON_ICON' && itm.item_type != 'RIGHT_CLICK'">
 

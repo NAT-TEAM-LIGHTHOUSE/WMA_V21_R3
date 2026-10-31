@@ -676,6 +676,7 @@ export class ProcessDataService {
             }
 
             let baseStructure = frame.apexFrameLevel4?.length ? frame.apexFrameLevel4 : frame.Level4;
+           
             const newStructure = [];
 
 
@@ -706,6 +707,7 @@ export class ProcessDataService {
                     'item_sub_type': baseItem['item_sub_type'],
                     'prompt_name': baseItem['prompt_name'],
                     'display_setting_str': baseItem['display_setting_str'],
+                    'position':baseItem['position']
                   };
 
                   // for (const key of requiredKeys) {
