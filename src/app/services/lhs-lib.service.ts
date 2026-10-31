@@ -7833,21 +7833,32 @@ export class LhsLibService {
             } else {
               radioarr[0] = item.input_pattern;
             }
-            for (let item of radioarr) {
-              let obj: any = {};
-              obj.key = item.split("#")[1];
-              obj.val = item.split("#")[0];
-              obj.item = {
-                "Div Code~DEFAULT_CODE#display_setting_str~#item_visible_flag~#filter_flag~": item.split("#")[1],
-                "Div Name~DEFAULT_NAME#display_setting_str~#item_visible_flag~#filter_flag~": item.split("#")[0]
+            if (item.item_type == 'CHECK_BOX' || item.item_type == 'RADIO_BUTTON') {
+              for (let item of radioarr) {
+                let obj: any = {};
+                obj.key = item.split("#")[1];
+                obj.val = item.split("#")[0];
+                obj.isChecked = false
+                dropdownList.push(obj)
               }
-              dropdownList.push(obj)
+              item.radioArray = dropdownList;
+            } else {
+              for (let item of radioarr) {
+                let obj: any = {};
+                obj.key = item.split("#")[1];
+                obj.val = item.split("#")[0];
+                obj.item = {
+                  "Div Code~DEFAULT_CODE#display_setting_str~#item_visible_flag~#filter_flag~": item.split("#")[1],
+                  "Div Name~DEFAULT_NAME#display_setting_str~#item_visible_flag~#filter_flag~": item.split("#")[0]
+                }
+                dropdownList.push(obj)
+              }
+              item.dropdownList = dropdownList;
             }
-            item.dropdownList = dropdownList;
             // this.selectinput.value = "";
 
             if (item.value) {
-              item = item.value;
+              // item = item.value; //comment by arti - 28-10-2026
               // this.cdr.detectChanges();
             } else {
               // this.selectModel = this.selectinput.dropdownList[0].val;

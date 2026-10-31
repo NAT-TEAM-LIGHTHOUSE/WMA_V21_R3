@@ -146,7 +146,7 @@
                     <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
                       *ngFor="let itmGrp of frame.headerarr[j];let rowindex=index" appFocusDirective>
                       <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                         @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                         @let input_item = item | mergeLevel5:frame.Level4;
                         <ng-container *ngIf="input_item.item_visible_flag =='T'">
                           <ion-col class="px-1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
 
@@ -178,7 +178,7 @@
                       <div class="icon-center">
                         <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                              @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -224,7 +224,7 @@
                                             [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                             [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                             style="padding: 1px 2px;">
-                                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              @let itm = item | mergeLevel5:frame.Level4;
                                             <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                               [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                           </ion-col>
@@ -261,7 +261,7 @@
                                               [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                               [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                               style="padding: 1px 2px;">
-                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                @let itm = item | mergeLevel5:frame.Level4;
                                               <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                                 [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                             </ion-col>
@@ -277,7 +277,7 @@
                           </ng-container>
                           <ng-template #cardFrame>
                             <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
-                                @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                                @let input_item = items | mergeLevel5:frame.Level4;
                               <ng-container
                                 *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
                                 <ion-row class="px-1 py-0" appFocusDirective>
@@ -321,7 +321,7 @@
                                                 [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                                 [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                                 style="padding: 1px 2px;">
-                                                  @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                  @let itm = item | mergeLevel5:frame.Level4;
                                                 <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
                                                   (emitPass)="itemClicked($event,rowindex)"
                                                   (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -335,7 +335,7 @@
                                                 [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                                 [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                                 style="padding: 1px 2px;">
-                                                  @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                  @let itm = item | mergeLevel5:frame.Level4;
                                                 <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
                                                   (emitPass)="itemClicked($event,rowindex)"
                                                   (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -365,7 +365,7 @@
                       <div class="icon-center">
                         <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                              @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -393,7 +393,7 @@
                       <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
                         <ng-container *ngIf="ftI==0">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                              @let input_item = item | mergeLevel5:frame.Level4;
                             <div class="btn_div">
                               <app-items class="p-0" [item]="input_item" [wscp]="wscp"
                                 (emitPass)="itemClicked($event,j)" [frame]="frame"
@@ -408,7 +408,7 @@
                          <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
                         <ng-container *ngIf="ftI>0">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                              @let input_item = item | mergeLevel5:frame.Level4;
                             <div class="btn_div main-btn" >
                               <app-items class="p-0" [item]="input_item" [wscp]="wscp"
                                 (emitPass)="itemClicked($event,j)" [frame]="frame"
@@ -607,7 +607,7 @@
                     <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
                       *ngFor="let itmGrp of frame.headerarr[j];let rowindex=index" appFocusDirective>
                       <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                          @let input_item = item | mergeLevel5:frame.Level4;
                         <ng-container *ngIf="input_item.item_visible_flag =='T'">
                           <ion-col class="px-1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
 
@@ -639,7 +639,7 @@
                       <div class="icon-center">
                         <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                              @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -684,7 +684,7 @@
                                           [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                           [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                           style="padding: 1px 2px;">
-                                            @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                            @let itm = item | mergeLevel5:frame.Level4;
                                           <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                             [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                         </ion-col>
@@ -721,7 +721,7 @@
                                             [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                             [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                             style="padding: 1px 2px;">
-                                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              @let itm = item | mergeLevel5:frame.Level4;
                                             <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                               [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                           </ion-col>
@@ -738,7 +738,7 @@
                         <ng-template #cardFrame>
                           <ion-row class="px-1 py-0" appFocusDirective>
                             <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
-                                @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                                @let input_item = items | mergeLevel5:frame.Level4;
                               <ng-container
                                 *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
                                 <ion-col class="px=1 py-0" [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : 12 ">
@@ -781,7 +781,7 @@
                                               [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                               [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                               style="padding: 1px 2px;">
-                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                @let itm = item | mergeLevel5:frame.Level4;
                                               <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
                                                 (emitPass)="itemClicked($event,rowindex)"
                                                 (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -795,7 +795,7 @@
                                               [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                               [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                               style="padding: 1px 2px;">
-                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                @let itm = item | mergeLevel5:frame.Level4;
                                               <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
                                                 (emitPass)="itemClicked($event,rowindex)"
                                                 (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -825,7 +825,7 @@
                       <div class="icon-center">
                         <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                              @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -849,7 +849,7 @@
 
                       <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
                         <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            @let input_item = item | mergeLevel5:frame.Level4;
                           <ng-container *ngIf="ftI==0">
                             <div class="btn_div">
                               <app-items class="p-0" [item]="input_item" [wscp]="wscp"
@@ -864,7 +864,7 @@
   <div class="card_btn_new_section d-flex">
                       <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
                         <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            @let input_item = item | mergeLevel5:frame.Level4;
                           <ng-container *ngIf="ftI>0">
                             <div class="btn_div main-btn">
                               <app-items class="p-0" [item]="input_item" [wscp]="wscp"
@@ -1058,7 +1058,7 @@
                     <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
                       *ngFor="let itmGrp of frame.tableRows[frame.active_row];let rowindex=index" appFocusDirective>
                       <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                          @let input_item = item | mergeLevel5:frame.Level4;
                         <ng-container *ngIf="input_item.item_visible_flag =='T'">
                           <ion-col class="px-1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
 
@@ -1090,7 +1090,7 @@
                       <div class="icon-center">
                         <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                              @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -1133,7 +1133,7 @@
                                           [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                           [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                           style="padding: 1px 2px;">
-                                            @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                            @let itm = item | mergeLevel5:frame.Level4;
                                           <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                             [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                         </ion-col>
@@ -1170,7 +1170,7 @@
                                             [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                             [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                             style="padding: 1px 2px;">
-                                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              @let itm = item | mergeLevel5:frame.Level4;
                                             <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                               [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                           </ion-col>
@@ -1186,7 +1186,7 @@
                         </ng-container>
                         <ng-template #cardFrame>
                           <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
-                              @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                              @let input_item = items | mergeLevel5:frame.Level4;
                             <ng-container
                               *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
                               <ion-row class="px-1 py-0" appFocusDirective>
@@ -1231,7 +1231,7 @@
                                               [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                               [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                               style="padding: 1px 2px;">
-                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                @let itm = item | mergeLevel5:frame.Level4;
                                               <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
                                                 (emitPass)="itemClicked($event,rowindex)"
                                                 (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -1245,7 +1245,7 @@
                                               [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                               [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                               style="padding: 1px 2px;">
-                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                @let itm = item | mergeLevel5:frame.Level4;
                                               <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
                                                 (emitPass)="itemClicked($event,rowindex)"
                                                 (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -1272,7 +1272,7 @@
                       <div class="icon-center">
                         <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                              @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -1292,7 +1292,7 @@
                     <ion-row class="p-0 pt-1 pb-1" *ngFor="let itmGrp of frame.footerArr[j];let rowindex=index"
                       appFocusDirective>
                       <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                          @let input_item = item | mergeLevel5:frame.Level4;
                         <ion-col class="px=1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
                           <app-items class="p-0" [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                             [frame]="frame" (LHSOnChange)="itemValueChange($event,j)">
@@ -1462,7 +1462,7 @@
                     <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
                       *ngFor="let itmGrp of frame.headerarr[j];let rowindex=index" appFocusDirective>
                       <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                        @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                        @let input_item = item | mergeLevel5:frame.Level4;
                         <ng-container *ngIf="input_item.item_visible_flag =='T'">
                           <ion-col class="px-1 py-0" [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
 
@@ -1493,7 +1493,7 @@
                       <div class="icon-center">
                         <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -1521,7 +1521,7 @@
                                   <div class="container card-tabs-wrapper p-0 m-0">
                                     <div class="card-tabs">
                                       <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
-                                        @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                                        @let input_item = item | mergeLevel5:frame.Level4;
                                         <ion-button [ngClass]="input_item.sepFrame == 'SHOW' ? 'current-active' : '' "
                                           (click)="toggleCard(itemGroup, i)">
                                           {{input_item.value ? input_item.value : input_item.prompt_name}}
@@ -1539,7 +1539,7 @@
                                             [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                             [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                             style="padding: 1px 2px;">
-                                            @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                            @let itm = item | mergeLevel5:frame.Level4;
                                             <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                               [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                           </ion-col>
@@ -1576,7 +1576,7 @@
                                               [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                               [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                               style="padding: 1px 2px;">
-                                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                              @let itm = item | mergeLevel5:frame.Level4;
                                               <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                                 [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                             </ion-col>
@@ -1593,7 +1593,7 @@
 
                           <ng-template #cardFrame>
                             <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
-                              @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                              @let input_item = items | mergeLevel5:frame.Level4;
                               <ng-container
                                 *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
                                 <ion-row class="px-1 py-0" appFocusDirective>
@@ -1640,7 +1640,7 @@
                                                 <div *ngFor="let item of itemGroup.Level5;let i=index"
                                                   [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                                   style="padding: 1px 2px;">
-                                                  @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                  @let itm = item | mergeLevel5:frame.Level4;
                                                   <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
                                                     (emitPass)="itemClicked($event,rowindex)"
                                                     (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -1655,7 +1655,7 @@
                                                 [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                                 [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                                 style="padding: 1px 2px;">
-                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                @let itm = item | mergeLevel5:frame.Level4;
                                                 <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
                                                   (emitPass)="itemClicked($event,rowindex)"
                                                   (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -1684,7 +1684,7 @@
                       <div class="icon-center">
                         <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -1709,7 +1709,7 @@
 
                       <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
                         <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                          @let input_item = item | mergeLevel5:frame.Level4;
                           <ng-container *ngIf="ftI<2">
                             <div class="px=1 py-0">
                               <app-items class="p-0" [item]="input_item" [wscp]="wscp"
@@ -1875,7 +1875,7 @@
                     <ion-row class="px-1 py-0" style="display: flex; align-items: center;"
                       *ngFor="let itmGrp of frame.headerarr[j];let rowindex=index" appFocusDirective>
                       <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                        @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                        @let input_item = item | mergeLevel5:frame.Level4;
                         <ng-container *ngIf="input_item.item_visible_flag =='T'">
                           <ion-col class="px-1 py-0" size="12">
                             <!-- [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12" -->
@@ -1907,7 +1907,7 @@
                         <ion-row class="px-1 py-0 mb-1"
                           *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -1951,7 +1951,7 @@
                                           [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                           [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                           style="padding: 1px 2px;">
-                                          @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                          @let itm = item | mergeLevel5:frame.Level4;
                                           <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                             [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                         </ion-col>
@@ -1988,7 +1988,7 @@
                                             [hidden]="item.item_visible_flag && item.item_visible_flag !='T'"
                                             [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                             style="padding: 1px 2px;">
-                                            @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                            @let itm = item | mergeLevel5:frame.Level4;
                                             <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,j)"
                                               [frame]="frame" (LHSOnChange)="itemValueChange($event,j)"></app-items>
                                           </ion-col>
@@ -2005,7 +2005,7 @@
 
                         <ng-template #cardFrame>
                           <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
-                            @let input_item = items | mergeLevel5:frame.Level4:items.value;
+                            @let input_item = items | mergeLevel5:frame.Level4;
                             <ng-container
                               *ngIf="(input_item.item_visible_flag == 'T' && input_item.position!='CARD_RIGHT' && input_item.position!='CARD_LEFT' && input_item.position != 'CARD_FOOTER' && input_item.position != 'CARD_HEADER' && input_item.item_sub_type !='CARD_TITLE' && input_item.item_type != 'FRAME_BUTTON_ICON' && input_item.item_type !='RIGHT_CLICK')">
                               <ion-row class="px-1 py-0" appFocusDirective>
@@ -2052,7 +2052,7 @@
                                               <div *ngFor="let item of itemGroup.Level5;let i=index"
                                                 [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                                 style="padding: 1px 2px;">
-                                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                                @let itm = item | mergeLevel5:frame.Level4;
                                                 <app-items [item]="itm" [wscp]="wscp" [frame]="frame"
                                                   (emitPass)="itemClicked($event,rowindex)"
                                                   (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -2067,7 +2067,7 @@
                                               [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                                               [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''"
                                               style="padding: 1px 2px;">
-                                              @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                                              @let input_item = item | mergeLevel5:frame.Level4;
                                               <app-items [item]="item" [wscp]="wscp" [frame]="frame"
                                                 (emitPass)="itemClicked($event,rowindex)"
                                                 (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
@@ -2096,7 +2096,7 @@
                       <div class="icon-center">
                         <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index">
                           <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                            @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                            @let input_item = item | mergeLevel5:frame.Level4;
                             <ion-col class="px=1 py-0"
                               [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
                               [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -2120,7 +2120,7 @@
 
                       <ng-container *ngFor="let itmGrp of frame.footerArr[j];let ftI=index">
                         <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
-                          @let input_item = item | mergeLevel5:frame.Level4:item.value;
+                          @let input_item = item | mergeLevel5:frame.Level4;
                           <ng-container *ngIf="ftI<2">
                             <div class="px=1 py-0">
                               <app-items class="p-0" [item]="input_item" [wscp]="wscp"
