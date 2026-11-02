@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
 import { DeveloperModeLogPage } from 'src/app/pages/developer-mode-log/developer-mode-log.page';
+import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 import { CanvasModalService } from 'src/app/services/canvas-modal.service';
 import { DataService } from 'src/app/services/data.service';
 import { applyLoggingDecorator } from 'src/app/services/decorator-application';
@@ -32,7 +33,7 @@ export class NewTreeMenuComponent implements OnInit {
   no_of_days = 1;
   @Output() emitPass = new EventEmitter
   @ViewChild('subMenuCon', { static: true }) template: TemplateRef<any>;
-  constructor(public globalObjects: GlobalObjectsService, private canvasServ: CanvasModalService, private lhs_lib: LhsLibService,private modalController : ModalController) {
+  constructor(public globalObjects: GlobalObjectsService, private canvasServ: CanvasModalService, private lhs_lib: LhsLibService,private modalController : ModalController,private mergelevel5: MergeLevel5Pipe) {
     if (this.globalObjects.layoutFlag) {
       return applyLoggingDecorator(this, "modulelink")
     }
@@ -70,7 +71,8 @@ export class NewTreeMenuComponent implements OnInit {
     for (let itmGrp of frame.tableRows[menu.LROWINDEX]) {
       for (let itm of itmGrp.Level5) {
         if (itm.item_name.toLowerCase() == 'menu_option_name') {
-          item = itm;
+            item = this.mergelevel5.itemMerge(itm, frame.Level4)
+          // item = itm;
         }
       }
     }
@@ -106,7 +108,8 @@ export class NewTreeMenuComponent implements OnInit {
       for (let itm of itmGrp.Level5) {
         if (itm.item_name.toLowerCase() == 'cb_select') {
           itm.value=menu.cb_select
-          item = itm;
+         item = this.mergelevel5.itemMerge(itm, this.frame.Level4)
+          // item = itm;
         }
       }
     }
