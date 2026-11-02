@@ -102,7 +102,7 @@ serverAppBuildDate:any;
   ngOnInit() {
 
 
-    this.getServerAppInfo();
+    // this.getServerAppInfo();
     //     import CryptoJS from 'crypto-js';
 
     const secretKey = 'mySecretKey123'; // your encryption key123
