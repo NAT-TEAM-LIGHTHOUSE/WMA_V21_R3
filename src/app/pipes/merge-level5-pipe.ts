@@ -251,7 +251,13 @@ private cache = new WeakMap<object, {
            
           //   ...itemMast,...item,
           // };
-          return  Object.assign(itemMast,item)
+
+          for(let i in item){
+            if(itemMast[i] == undefined){
+              itemMast[i] = item[i];
+            }
+          }
+          return  itemMast;
         }
       }
     }
