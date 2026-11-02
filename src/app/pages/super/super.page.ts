@@ -7332,7 +7332,8 @@ export class SuperPage implements OnInit, OnDestroy {
             if (data && data.item) {
               data.item.itemClicked = 'post';
               data.item.some_post_events_str = data.event_arr.join(";");
-              this.itemClicked(data.item);
+               // this.itemClicked(data.item);
+              this.call_async_clicked(data.item,data.event_arr)
               console.log(data);
             }
           }
@@ -7347,7 +7348,8 @@ export class SuperPage implements OnInit, OnDestroy {
           if (data && data.item) {
             data.item.itemClicked = 'post';
             data.item.some_post_events_str = data.event_arr.join(";");
-            this.itemClicked(data.item);
+             // this.itemClicked(data.item);
+              this.call_async_clicked(data.item,data.event_arr)
             console.log(data);
           }
         }
