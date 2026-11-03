@@ -19,7 +19,8 @@
         <div class="dashboard_btn_container mb-3">
             <ng-container *ngFor="let framedata of frame.Level4">
 
-  <ng-container *ngFor="let itemdata of framedata.Level5">
+  <ng-container *ngFor="let item of framedata.Level5">
+     @let itemdata = item | mergeLevel5:frame.Level4;
           <ion-button *ngIf="itemdata.item_name =='SYS_LANDING_DASHBOARD'" class="dashboard_btn" 
           style="--background: var(--blue-light-4);background: var(--blue-light-4);  border:1px dashed var(--blue-new);color:var(--blue-new);" (click)="itemClicked(itemdata)" >Go to Landing Page</ion-button>
            <ion-button *ngIf="itemdata.item_name =='SYS_QUICK_MENU'" class="dashboard_btn ms-2"

@@ -81,6 +81,7 @@ import { AgenticChatbotComponent } from 'src/app/components/layout/agentic-chatb
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
 import { DynamicFunctionService } from 'src/app/services/dynamic-function-service';
+import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 
 
 
@@ -93,7 +94,7 @@ type AOA = any[][];
 
 @Component({
   standalone: true,
-  imports: [STANDALONE_IMPORTS, FrameOtpComponent, FrameCanvasComponent, FrameSelectorComponent, HeaderBarComponent],
+  imports: [STANDALONE_IMPORTS, FrameOtpComponent, FrameCanvasComponent, FrameSelectorComponent, HeaderBarComponent,MergeLevel5Pipe],
   // providers:[MultiLevelTabPage, DevFrameItemListPage, DevObjectMastEditorPage,TreeCallpagePage,
   //     DevFrameMastEditorPage, DevImageIconMastEditorPage,ParentMenuPage,DownloadPopoverComponent],
   selector: 'app-super',

@@ -32,9 +32,11 @@
           </ng-container>
           <ng-container *ngFor="let itemGrp of tableData">
             <ng-container *ngFor="let item of itemGrp.Level5">
+               @let input_item = item | mergeLevel5:frame.Level4;
               <ng-container *ngIf="item.item_name == 'PB_OBJECT_CODE'">
+               
           <div class="VisitNowbtn" >
-            <ion-button class="external_app_btn" (click)="itemClicked(item)">
+            <ion-button class="external_app_btn" (click)="itemClicked(input_item)">
                  <img src="assets/imgs/app_external.svg" />
                </ion-button>
           </div>
@@ -80,7 +82,8 @@
     <ion-row *ngFor="let itemGroup of framedata">
       <ion-col *ngFor="let item of itemGroup.Level5;let i=index" style="padding: 1px 2px;">
         <ng-container *ngIf="item.item_type != 'FRAME_SEPARATOR'">
-          <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event)" [frame]="frame"></app-items>
+           @let input_item = item | mergeLevel5:frame.Level4;
+          <app-items [item]="input_item" [wscp]="wscp" (emitPass)="itemClicked($event)" [frame]="frame"></app-items>
         </ng-container>
       </ion-col>
     </ion-row>
@@ -111,15 +114,16 @@
         <div class="reminder-section">
         <ng-container *ngFor="let itemGroup of framedata">
           <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+             @let input_item = item | mergeLevel5:frame.Level4;
             <div class="action-btnreminder" >
-              <ion-icon  *ngIf="item.item_name=='SYS_DELETE'" (click)="itemClicked(item)" name="trash-outline"></ion-icon>
+              <ion-icon  *ngIf="item.item_name=='SYS_DELETE'" (click)="itemClicked(input_item)" name="trash-outline"></ion-icon>
 
             </div>
             <div class="action-btnreminder_edit" >
-           <ion-icon   *ngIf="item.item_name=='SYS_EDIT'" (click)="itemClicked(item)"  name="create-outline"></ion-icon>
+           <ion-icon   *ngIf="item.item_name=='SYS_EDIT'" (click)="itemClicked(input_item)"  name="create-outline"></ion-icon>
             </div>
             <ion-icon class="code-btn" name="information-circle-outline" style="position: absolute;right: 0;"
-              color="primary" *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(item)"></ion-icon>
+              color="primary" *ngIf="globalObjects.toggleDevloperMode()" (click)="showDeveloperData(input_item)"></ion-icon>
           </ng-container></ng-container>
 
 
@@ -251,8 +255,8 @@
               <ng-container *ngFor="let items of itemGroup">
               <ng-container *ngFor="let item of items.Level5">
                 <ng-container *ngIf="item.item_type == 'BUTTON' && item.item_visible_flag == 'T'">
-           
-              <ion-button class="form-seq-menu-chips-container" (click)="itemClicked(item)" [disabled]="item.item_enable_flag == 'F'"> 
+                   @let input_item = item | mergeLevel5:frame.Level4;
+              <ion-button class="form-seq-menu-chips-container" (click)="itemClicked(input_item)" [disabled]="item.item_enable_flag == 'F'"> 
               {{item.prompt_name}}
             </ion-button>
            

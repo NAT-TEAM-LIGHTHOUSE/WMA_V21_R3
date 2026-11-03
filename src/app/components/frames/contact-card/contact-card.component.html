@@ -58,8 +58,8 @@
             <div *ngIf="frame.left_flag && frame.cardLeftArray && frame.cardLeftArray.length > 0" >
               <div class="icon-center">
                 <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardLeftArray[j];let rowindex=index" >
-                  <ng-container *ngFor="let input_item of itmGrp.Level5;let i=index">
-                
+                  <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                    @let input_item = item | mergeLevel5: frame.Level4;
                     <ion-col class="px=1 py-0"
                       [hidden]="(input_item.position!='CARD_LEFT' || input_item.item_visible_flag =='F') "
                       [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">
@@ -77,7 +77,8 @@
           <ion-col size="10">
 
             <ion-row *ngFor="let itemGroup of rows; let rowindex=index" class="px-1 py-0" focusDir>
-              <ng-container *ngFor="let input_item of itemGroup.Level5;let i=index">
+              <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                  @let input_item = item | mergeLevel5: frame.Level4;
                 <ion-col class="px=1 py-0"
                   [hidden]="(input_item.item_visible_flag != 'T' || input_item.position=='CARD_RIGHT' || input_item.position=='CARD_LEFT' || input_item.position == 'CARD_FOOTER' || input_item.position == 'CARD_HEADER' || input_item.item_type == 'SPECIAL')"
                   [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : 12 ">
@@ -94,7 +95,8 @@
           <ion-col size="1">
             <div class="icon-center" *ngIf="frame.right_flag && frame.cardRightArray && frame.cardRightArray.length > 0">
               <ion-row class="px-1 py-0" *ngFor="let itmGrp of frame.cardRightArray[j];let rowindex=index" >
-                <ng-container *ngFor="let input_item of itmGrp.Level5;let i=index">
+                <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                    @let input_item = item | mergeLevel5: frame.Level4;
                   <ion-col class="px=1 py-0"
                     [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
                     [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">

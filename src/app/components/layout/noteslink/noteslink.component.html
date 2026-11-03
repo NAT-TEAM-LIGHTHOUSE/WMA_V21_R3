@@ -1,6 +1,7 @@
 <div class="noteslink-container">
   <ng-container *ngFor="let framedata of frame.tableRows[0];let rowindex =index">
-    <ng-container *ngFor="let item of framedata.Level5;let i=index">
+    <ng-container *ngFor="let input_item of framedata.Level5;let i=index">
+      @let item = input_item | mergeLevel5: frame.Level4;
       <ng-container *ngIf="item.item_name=='SYS_ADD' && item.item_visible_flag == 'T'">
         <div (click)="itemClicked(item)">
           {{item.prompt_name}}

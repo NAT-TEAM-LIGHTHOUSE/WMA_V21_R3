@@ -50,7 +50,8 @@
   <ng-container *ngIf="frame.tableRows">
 
     <div  *ngFor="let itemGroup of frame.tableRows[0];let rowindex = index">
-      <div  *ngFor="let item of itemGroup.Level5">
+      <div  *ngFor="let input_item of itemGroup.Level5">
+        @let item = input_item | mergeLevel5: frame.Level4;
         <div class="profile_deskcard">
           <ng-container *ngIf="item.item_type=='IMAGE' &&  item.item_visible_flag =='T'">
             <div class="profile_deskcard_head">
@@ -78,30 +79,35 @@
      <ion-item class="user-profile-card" lines="none" [id]="frame.apps_page_frame_seqid">
 
       <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
-        <ion-col size="10" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
-          [hidden]="input_item.item_visible_flag!='T'">
+        <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+           @let input_item = item | mergeLevel5: frame.Level4;
+        <ion-col size="10" class="p-0" [hidden]="input_item.item_visible_flag!='T'">
           <div *ngIf="input_item.item_type =='IMAGE'">
             <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
               (LHSOnChange)="itemValueChange($event,j)"></app-items>
           </div>
         </ion-col>
+        </ng-container>
       </ion-row>
 
       <ion-label class="middle-card">
         <ion-row *ngFor="let itemGroup of rows; let i=index" class="p-0">
-          <ion-col size="12" class="p-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
-            [hidden]="input_item.item_visible_flag!='T'">
+          <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+            @let input_item = item | mergeLevel5: frame.Level4;
+          <ion-col size="12" class="p-0" [hidden]="input_item.item_visible_flag!='T'">
             <div *ngIf="input_item.item_type!='IMAGE' && input_item.position!='CARD_RIGHT'">
               <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,j)" [frame]="frame"
                 (LHSOnChange)="itemValueChange($event,j)"></app-items>
             </div>
           </ion-col>
+          </ng-container>
         </ion-row>
       </ion-label>
       <div class="left-border" *ngIf="right_flag && cardRightArray.length > 0" class="left-border">
         <div class="icon-center">
           <ion-row class="px-1 py-0" *ngFor="let itmGrp of cardRightArray[j];let rowindex=index">
-            <ng-container *ngFor="let input_item of itmGrp.Level5;let i=index">
+            <ng-container *ngFor="let item of itmGrp.Level5;let i=index">
+                  @let input_item = item | mergeLevel5: frame.Level4;
               <ion-col class="px=1 py-0"
                 [hidden]="(input_item.position!='CARD_RIGHT' || input_item.item_visible_flag =='F') "
                 [size]="itmGrp.groupCol ? itmGrp.groupCol[i] : 12">

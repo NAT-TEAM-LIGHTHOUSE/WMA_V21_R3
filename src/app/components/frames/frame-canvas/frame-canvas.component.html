@@ -123,13 +123,15 @@
                       <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
                         <ng-container *ngIf="item.sepFrame == 'SHOW'">
                           <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                           <ng-container *ngFor="let itm of itemGroup.Level5;let i=index">
+                            @let item = itm | mergeLevel5:frame.Level4;
+                            <ion-col [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
                               [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                             @let itm = item | mergeLevel5:frame.Level4;
-                              <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
+                             
+                              <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                 [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                             </ion-col>
+                            </ng-container>
                           </ion-row>
                         </ng-container>
                       </ng-container>
@@ -156,13 +158,14 @@
                           <ng-container *ngIf="item.sepFrame == 'SHOW'">
 
                             <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                              <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
-                                [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                                   @let itm = item | mergeLevel5:frame.Level4;
-                                <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
-                                  [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
-                              </ion-col>
+                              <ng-container *ngFor="let itm of itemGroup.Level5;let i=index">
+                                 @let item = itm | mergeLevel5:frame.Level4;
+                                <ion-col [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                  [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
+                                  <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
+                                    [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
+                                </ion-col>
+                              </ng-container>
                             </ion-row>
                           </ng-container>
                         </ng-container>
@@ -175,12 +178,12 @@
 
 
               <ng-template #elseTag>
-
-                <ion-col *ngFor="let items of itemGroup.Level5;let i=index"
-                  [hidden]="(current_page_parameter.MODE && !(items.item_visible_flag && (items.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )
-                  ||items.item_visible_flag!='T' || items.item_type == 'RIGHT_CLICK'"
+                <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
+                 @let item = items | mergeLevel5:frame.Level4;
+                <ion-col [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )
+                  ||item.item_visible_flag!='T' || item.item_type == 'RIGHT_CLICK'"
                   [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                       @let item = items | mergeLevel5:frame.Level4;
+
                   <ng-container
                     *ngIf="item.item_type != 'FRAME_SEPARATOR' && item.item_type != 'RIGHT_CLICK'; else sepFrame">
 
@@ -238,13 +241,14 @@
                           <ng-container *ngIf="item.item_sub_type == 'FRAME_BORDER'; else nor">
                             <div class="sep-frame-border">
                               <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                                <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                                   @let itm = item | mergeLevel5:frame.Level4;
+                                <ion-col [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                                   [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                                  @let itm = item | mergeLevel5:frame.Level4;
                                   <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                     [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                                 </ion-col>
+                                </ng-container>
                               </ion-row>
                             </div>
                           </ng-container>
@@ -253,13 +257,14 @@
                             <ng-container *ngIf="item.item_sub_type == 'FRAME_INPUT'">
                               <div class="sep-frame-border frame_input">
                                 <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                                  <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                    [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
-                                    [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                                     @let itm = item | mergeLevel5:frame.Level4;
+                                  <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                                    @let itm = item | mergeLevel5:frame.Level4;
+                                  <ion-col [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
+                                    [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">                               
                                     <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                       [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                                   </ion-col>
+                                 </ng-container>
                                 </ion-row>
                               </div>
                             </ng-container>
@@ -267,13 +272,15 @@
                             <ng-container
                               *ngIf="item.item_sub_type!='FOOTER_BUTTON' && item.item_sub_type != 'FRAME_INPUT'">
                               <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                                <ion-col *ngFor="let itemm of itemGroup.Level5;let i=index"
-                                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
-                                  [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                                   @let itm = itemm | mergeLevel5:frame.Level4;
+                                <ng-container *ngFor="let itemm of itemGroup.Level5;let i=index">
+                                  @let itm = itemm | mergeLevel5:frame.Level4;
+                                <ion-col
+                                  [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
+                                  [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">         
                                   <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                     [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                                 </ion-col>
+                                </ng-container>
                               </ion-row>
                             </ng-container>
                           </ng-template>
@@ -289,6 +296,7 @@
                   </ng-template>
 
                 </ion-col>
+                </ng-container>
               </ng-template>
             </ion-row>
 
@@ -300,26 +308,30 @@
 
       <ng-container *ngIf="frame.apps_frame_type == 'CANVAS' && frame.checkCardItem === 'T'">
         <ion-row *ngFor="let itemGroup of frame.tableRows[0]" class="align-center">
-          <ion-col *ngFor="let item of itemGroup.Level5;let i=index" [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag &&
-            (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)))||item.item_visible_flag !='T'"
-            [size]="itemGroup.groupCol[i]">
-            @let itm = item | mergeLevel5:frame.Level4;
+          <ng-container  *ngFor="let item of itemGroup.Level5;let i=index">
+             @let itm = item | mergeLevel5:frame.Level4;
+          <ion-col [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag &&
+            (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)))||itm.item_visible_flag !='T'"
+            [size]="itemGroup.groupCol[i]">          
             <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,0)" [frame]="frame"
               (LHSOnChange)="itemValueChange($event,0)"></app-items>
           </ion-col>
+          </ng-container>
         </ion-row>
       </ng-container>
 
       <ng-container *ngIf="frame.apps_frame_type == 'KPI_RECORDS'">
         <div *ngFor="let itemGroup of frame.tableRows;let rowindex =index">
           <ion-row class="align-center">
-            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+             <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+               @let itm = item | mergeLevel5:frame.Level4;
+             <ion-col [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
               [size]="itemGroup.groupCol[i]">
-            @let itm = item | mergeLevel5:frame.Level4;
+           
               <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClickedKpi($event,rowindex,i)" [frame]="frame"
                 (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
             </ion-col>
+            </ng-container>
           </ion-row>
         </div>
 
@@ -396,13 +408,16 @@
                       <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
                         <ng-container *ngIf="item.sepFrame == 'SHOW'">
                           <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                            <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                               @let itm = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col 
+                              [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                               [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                             
                               <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                 [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                             </ion-col>
+                            </ng-container>
                           </ion-row>
                         </ng-container>
                       </ng-container>
@@ -429,13 +444,15 @@
                           <ng-container *ngIf="item.sepFrame == 'SHOW'">
 
                             <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                              <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                              <ng-container  *ngFor="let item of itemGroup.Level5;let i=index">
+                                 @let itm = item | mergeLevel5:frame.Level4:item.value;
+                              <ion-col [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                                 [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                               
                                 <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                   [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                               </ion-col>
+                              </ng-container>
                             </ion-row>
                           </ng-container>
                         </ng-container>
@@ -448,11 +465,11 @@
 
 
               <ng-template #elseTag>
-
-                <ion-col *ngFor="let items of itemGroup.Level5;let i=index"
-                  [hidden]="(current_page_parameter.MODE && !(items.item_visible_flag && (items.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||items.item_visible_flag!='T'"
+                <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
+                   @let item = items | mergeLevel5:frame.Level4:items.value;
+                <ion-col [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag!='T'"
                   [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                  @let item = items | mergeLevel5:frame.Level4:items.value;
+                 
                   <ng-container
                     *ngIf="item.item_type != 'FRAME_SEPARATOR' && item.item_type != 'RIGHT_CLICK'; else sepFrame">
 
@@ -510,13 +527,16 @@
                           <ng-container *ngIf="item.item_sub_type == 'FRAME_BORDER'; else nor">
                             <div class="sep-frame-border">
                               <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                                <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
-                                  [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
+                                <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
                                    @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                <ion-col 
+                                  [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
+                                  [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
+                                  
                                   <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                     [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                                 </ion-col>
+                                </ng-container>
                               </ion-row>
                             </div>
                           </ng-container>
@@ -526,26 +546,32 @@
                             <ng-container *ngIf="item.item_sub_type == 'FRAME_INPUT'">
                               <div class="sep-frame-border frame_input">
                                 <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                                  <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                    [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                  <ng-container  *ngFor="let item of itemGroup.Level5;let i=index">
+                                   @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                  <ion-col
+                                    [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                                     [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                                      @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                     
                                     <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                       [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                                   </ion-col>
+                                  </ng-container>
                                 </ion-row>
                               </div>
                             </ng-container>
 
                             <ng-container *ngIf="item.item_sub_type != 'FRAME_INPUT'">
                               <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                                <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                                <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                                  @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                <ion-col
+                                  [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                                   [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                                    @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                  
                                   <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                     [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                                 </ion-col>
+                                </ng-container>
                               </ion-row>
                             </ng-container>
                           </ng-template>
@@ -560,6 +586,7 @@
                   </ng-template>
 
                 </ion-col>
+                </ng-container>
               </ng-template>
             </ion-row>
           </div>
@@ -572,26 +599,32 @@
 
       <ng-container *ngIf="frame.apps_frame_type == 'CANVAS' && frame.checkCardItem === 'T'">
         <ion-row *ngFor="let itemGroup of frame.tableRows[0]" class="align-center">
-          <ion-col *ngFor="let item of itemGroup.Level5;let i=index" [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag &&
-            (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)))||item.item_visible_flag !='T'"
+           <ng-container *ngFor="let item of itemGroup.Level5;let i=index" >
+          @let itm = item | mergeLevel5:frame.Level4:item.value;
+          <ion-col [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag &&
+            (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)))||itm.item_visible_flag !='T'"
             [size]="itemGroup.groupCol[i]">
-             @let itm = item | mergeLevel5:frame.Level4:item.value;
+             
             <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,0)" [frame]="frame"
               (LHSOnChange)="itemValueChange($event,0)"></app-items>
           </ion-col>
+          </ng-container>
         </ion-row>
       </ng-container>
 
       <ng-container *ngIf="frame.apps_frame_type == 'KPI_RECORDS'">
         <div *ngFor="let itemGroup of frame.tableRows;let rowindex =index">
           <ion-row class="align-center">
-            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+            <ng-container  *ngFor="let item of itemGroup.Level5;let i=index">
+             @let itm = item | mergeLevel5:frame.Level4:item.value;
+            <ion-col
+              [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
               [size]="itemGroup.groupCol[i]">
-               @let itm = item | mergeLevel5:frame.Level4:item.value;
+              
               <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClickedKpi($event,rowindex,i)" [frame]="frame"
                 (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
             </ion-col>
+            </ng-container>
           </ion-row>
         </div>
 
@@ -652,13 +685,16 @@
     <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
       <ng-container *ngFor="let itemGroup of framedata | canvasItemSearch :searchText;">
         <ng-container *ngIf="itemGroup.Level5 && itemGroup.Level5.length">
-          <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-            [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+          <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+            @let itm = item | mergeLevel5:frame.Level4:item.value;
+          <ion-col 
+            [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
             [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-             @let itm = item | mergeLevel5:frame.Level4:item.value;
+             
             <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)" [frame]="frame"
               (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
           </ion-col>
+          </ng-container>
         </ng-container>
       </ng-container>
     </ng-container>
@@ -688,14 +724,17 @@
           <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
             <ng-container *ngFor="let itemGroup of framedata | canvasItemSearch :searchText;">
               <ng-container *ngIf="itemGroup.Level5 && itemGroup.Level5.length">
-                <ion-col size="12" size-md="4" size-lg="4" *ngFor="let item of itemGroup.Level5;let i=index"
-                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
-                  style="padding: 1px 2px;">
+                 <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
                    @let itm = item | mergeLevel5:frame.Level4:item.value;
+                <ion-col size="12" size-md="4" size-lg="4" 
+                  [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
+                  style="padding: 1px 2px;">
+                  
                   <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)" [frame]="frame"
                     (LHSOnChange)="itemValueChange($event,rowindex)">
                   </app-items>
                 </ion-col>
+                </ng-container>
               </ng-container>
             </ng-container>
           </ng-container>
@@ -791,14 +830,16 @@
         <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
           <ng-container *ngFor="let itemGroup of framedata | canvasItemSearch :searchText;">
             <ng-container *ngIf="itemGroup.Level5 && itemGroup.Level5.length">
-              <ion-col size="12" size-md="4" size-lg="4" *ngFor="let item of itemGroup.Level5;let i=index"
-                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+              <ng-container  *ngFor="let item of itemGroup.Level5;let i=index">
+               @let itm = item | mergeLevel5:frame.Level4:item.value;
+              <ion-col size="12" size-md="4" size-lg="4"
+                [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                 style="padding: 1px 2px;">
-                 @let itm = item | mergeLevel5:frame.Level4:item.value;
                 <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)" [frame]="frame"
                   (LHSOnChange)="itemValueChange($event,rowindex)">
                 </app-items>
               </ion-col>
+              </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -829,14 +870,17 @@
         <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
           <ng-container *ngFor="let itemGroup of framedata | canvasItemSearch :searchText;">
             <ng-container *ngIf="itemGroup.Level5 && itemGroup.Level5.length">
-              <ion-col size="12" size-md="2" size-lg="2" *ngFor="let item of itemGroup.Level5;let i=index"
-                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+               <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                @let itm = item | mergeLevel5:frame.Level4:item.value;
+              <ion-col size="12" size-md="2" size-lg="2" 
+                [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                 style="padding: 1px 2px;">
-                 @let itm = item | mergeLevel5:frame.Level4:item.value;
+               
                 <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)" [frame]="frame"
                   (LHSOnChange)="itemValueChange($event,rowindex)">
                 </app-items>
               </ion-col>
+              </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -868,14 +912,17 @@
           <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
             <ng-container *ngFor="let itemGroup of framedata | canvasItemSearch :searchText;">
               <ng-container *ngIf="itemGroup.Level5 && itemGroup.Level5.length">
-                <ion-col size="12" size-md="12" size-lg="12" *ngFor="let item of itemGroup.Level5;let i=index"
-                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                <ng-container  *ngFor="let item of itemGroup.Level5;let i=index">
+                    @let itm = item | mergeLevel5:frame.Level4:item.value;
+                <ion-col size="12" size-md="12" size-lg="12"
+                  [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                   style="padding: 1px 2px;">
-                   @let itm = item | mergeLevel5:frame.Level4:item.value;
+                 
                   <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)" [frame]="frame"
                     (LHSOnChange)="itemValueChange($event,rowindex)">
                   </app-items>
                 </ion-col>
+                </ng-container>
               </ng-container>
             </ng-container>
           </ng-container>
@@ -910,16 +957,17 @@
         <ng-container *ngFor="let framedata of frame.canvasRows;let rowindex =index">
           <ng-container *ngFor="let itemGroup of framedata | canvasItemSearch :searchText;">
             <ng-container *ngIf="itemGroup.Level5 && itemGroup.Level5.length">
-
-              <ion-col size="" size-md="12" size-lg="12" *ngFor="let item of itemGroup.Level5;let i=index"
-                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+               <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+               @let itm = item | mergeLevel5:frame.Level4:item.value;
+              <ion-col size="" size-md="12" size-lg="12" 
+                [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                 style="padding: 1px 2px;">
-                 @let itm = item | mergeLevel5:frame.Level4:item.value;
+                
                 <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)" [frame]="frame"
                   (LHSOnChange)="itemValueChange($event,rowindex)">
                 </app-items>
               </ion-col>
-
+              </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -977,13 +1025,16 @@
                       <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
                         <ng-container *ngIf="item.sepFrame == 'SHOW'">
                           <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
-                              [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
+                             <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
                                @let itm = item | mergeLevel5:frame.Level4:item.value;
+                            <ion-col 
+                              [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
+                              [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
+                              
                               <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                 [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                             </ion-col>
+                            </ng-container>
                           </ion-row>
                         </ng-container>
                       </ng-container>
@@ -1010,13 +1061,16 @@
                           <ng-container *ngIf="item.sepFrame == 'SHOW'">
 
                             <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                              <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                              <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                              @let itm = item | mergeLevel5:frame.Level4:item.value;
+                              <ion-col 
+                                [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                                 [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                                 @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                 
                                 <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                   [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                               </ion-col>
+                              </ng-container>
                             </ion-row>
                           </ng-container>
                         </ng-container>
@@ -1029,11 +1083,12 @@
 
 
               <ng-template #elseTag>
-
-                <ion-col *ngFor="let items of itemGroup.Level5;let i=index"
-                  [hidden]="(current_page_parameter.MODE && !(items.item_visible_flag && (items.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||items.item_visible_flag!='T'"
+                <ng-container *ngFor="let items of itemGroup.Level5;let i=index">
+                    @let item = items | mergeLevel5:frame.Level4:items.value;
+                <ion-col 
+                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag!='T'"
                   [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                   @let item = items | mergeLevel5:frame.Level4:items.value;
+                 
                   <ng-container
                     *ngIf="item.item_type != 'FRAME_SEPARATOR' && item.item_type != 'RIGHT_CLICK'; else sepFrame">
 
@@ -1090,13 +1145,16 @@
                           <ng-container *ngIf="item.item_sub_type == 'FRAME_BORDER'; else nor">
                             <div class="sep-frame-border">
                               <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                                <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
-                                  [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
+                                 <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
                                    @let itm = item | mergeLevel5:frame.Level4:item.value;
-                                  <app-items [item]="itme" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
+                                <ion-col 
+                                  [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
+                                  [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
+                                  
+                                  <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                     [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                                 </ion-col>
+                                </ng-container>
                               </ion-row>
                             </div>
                           </ng-container>
@@ -1106,26 +1164,32 @@
                             <ng-container *ngIf="item.item_sub_type == 'FRAME_INPUT'">
                               <div class="sep-frame-border frame_input">
                                 <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                                  <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                    [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
-                                    [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
+                                  <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
                                      @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                  <ion-col 
+                                    [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
+                                    [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
+                                    
                                     <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                       [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                                   </ion-col>
+                                  </ng-container>
                                 </ion-row>
                               </div>
                             </ng-container>
 
                             <ng-container *ngIf="item.item_sub_type != 'FRAME_INPUT'">
                               <ion-row *ngFor="let itemGroup of item.containerRowss | canvasItemSearch :searchText;">
-                                <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-                                  [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
+                               <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+                                 @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                <ion-col 
+                                  [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
                                   [size]="itemGroup.groupCol ? itemGroup.groupCol[i] : ''" style="padding: 1px 2px;">
-                                   @let itm = item | mergeLevel5:frame.Level4:item.value;
+                                  
                                   <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)"
                                     [frame]="frame" (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
                                 </ion-col>
+                                </ng-container>
                               </ion-row>
                             </ng-container>
                           </ng-template>
@@ -1140,6 +1204,7 @@
                   </ng-template>
 
                 </ion-col>
+                </ng-container>
               </ng-template>
             </ion-row>
           </div>
@@ -1152,26 +1217,32 @@
 
       <ng-container *ngIf="frame.apps_frame_type == 'CANVAS' && frame.checkCardItem === 'T'">
         <ion-row *ngFor="let itemGroup of frame.tableRows[0]" class="align-center">
-          <ion-col *ngFor="let item of itemGroup.Level5;let i=index" [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag &&
-            (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)))||item.item_visible_flag !='T'"
+           <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+              @let itm = item | mergeLevel5:frame.Level4:item.value;
+          <ion-col [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag &&
+            (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)))||itm.item_visible_flag !='T'"
             [size]="itemGroup.groupCol[i]">
-             @let itm = item | mergeLevel5:frame.Level4:item.value;
+           
             <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClicked($event,0)" [frame]="frame"
               (LHSOnChange)="itemValueChange($event,0)"></app-items>
           </ion-col>
+          </ng-container>
         </ion-row>
       </ng-container>
 
       <ng-container *ngIf="frame.apps_frame_type == 'KPI_RECORDS'">
         <div *ngFor="let itemGroup of frame.tableRows;let rowindex =index">
           <ion-row class="align-center">
-            <ion-col *ngFor="let item of itemGroup.Level5;let i=index"
-              [hidden]="(current_page_parameter.MODE && !(item.item_visible_flag && (item.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||item.item_visible_flag !='T'"
-              [size]="itemGroup.groupCol[i]">
+             <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
                @let itm = item | mergeLevel5:frame.Level4:item.value;
+            <ion-col 
+              [hidden]="(current_page_parameter.MODE && !(itm.item_visible_flag && (itm.item_visible_flag.indexOf(current_page_parameter.MODE)>-1)) )||itm.item_visible_flag !='T'"
+              [size]="itemGroup.groupCol[i]">
+              
               <app-items [item]="itm" [wscp]="wscp" (emitPass)="itemClickedKpi($event,rowindex,i)" [frame]="frame"
                 (LHSOnChange)="itemValueChange($event,rowindex)"></app-items>
             </ion-col>
+            </ng-container>
           </ion-row>
         </div>
 

@@ -45,13 +45,15 @@
     <div *ngFor="let rows of frame.tableRows |tableSearch :tablerowsfilter;let j=index;">
       <div class="summary-card">
         <ion-row *ngFor="let itemGroup of rows; let i=index">
-          <ion-col class="px-1 py-0" *ngFor="let input_item of itemGroup.Level5;let i=index"
-            [hidden]="input_item.item_visible_flag!='T'" [size]="itemGroup.groupCol && itemGroup.groupCol.length > 0 ? itemGroup.groupCol[i] : '12'">
-            <div *ngIf="input_item.item_sub_type!='CARD_TITLE'">
-              <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,i)" [frame]="frame"
-              [wscp]="wscp"  (LHSOnChange)="itemValueChange($event,i)"></app-items>
-            </div>
-          </ion-col>
+          <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
+            @let input_item = item | mergeLevel5: frame.Level4;
+            <ion-col class="px-1 py-0" [hidden]="input_item.item_visible_flag!='T'" [size]="itemGroup.groupCol && itemGroup.groupCol.length > 0 ? itemGroup.groupCol[i] : '12'">
+              <div *ngIf="input_item.item_sub_type!='CARD_TITLE'">
+                <app-items class="p-0" [item]="input_item" (emitPass)="itemClicked($event,rows,i)" [frame]="frame"
+                [wscp]="wscp"  (LHSOnChange)="itemValueChange($event,i)"></app-items>
+              </div>
+            </ion-col>
+          </ng-container>
         </ion-row>
         <div class="clearfix"></div>
       </div>

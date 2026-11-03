@@ -11,7 +11,7 @@ import { STANDALONE_IMPORTS } from 'src/app/shared_modules/ionic.imports';
 
 @Component({
 standalone : true,
-imports : [STANDALONE_IMPORTS],
+imports : [STANDALONE_IMPORTS,MergeLevel5Pipe],
   selector: 'app-new-tree-menu',
   templateUrl: './new-tree-menu.component.html',
   styleUrls: ['./new-tree-menu.component.scss'],
