@@ -1438,7 +1438,7 @@ export class TableToolsComponent implements OnInit {
     let fullscreen_idai=frametable.apps_page_frame_seqid;
 
     if(statusai=='1'){ 
-      this.col9="4";
+      this.col9="9";
       this.col9Change.emit(this.col9)
           this.isAIUsed=true;
           this.isAIUsedChange.emit(this.isAIUsed)

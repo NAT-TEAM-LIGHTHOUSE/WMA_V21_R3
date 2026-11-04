@@ -18398,7 +18398,13 @@ export class SuperPage implements OnInit, OnDestroy {
   app_frame_fullScreen(frameName) {
     let frame = this.lhs_lib.get_frame_config(frameName);
     if (frame) {
-      this.commonMethodService.fullScreen(frame, "1");
+      if(frame.isFullScreen){
+        delete frame['isFullScreen'];
+        this.commonMethodService.fullScreen(frame, "0");
+      }else{
+        frame.isFullScreen=true;
+        this.commonMethodService.fullScreen(frame, "1");
+      }
     }
   }
 
