@@ -878,7 +878,8 @@
       <ng-container *ngFor="let itemGroup of tableData;let ij=index">
         <ng-container
           *ngIf="itemGroup.Level5[0].item_type != 'FRAME_BUTTON_ICON' && itemGroup.Level5[0].item_type != 'RIGHT_CLICK'">
-          <ng-container *ngFor="let input_item of itemGroup.Level5; let i = index">
+          <ng-container *ngFor="let item of itemGroup.Level5; let i = index">
+             @let input_item = item | mergeLevel5:(frame.apexFrameLevel4?.length ? frame.apexFrameLevel4 : frame.Level4);
             <ng-container
               *ngIf="input_item.item_type == 'TEXT_DISPLAY' || input_item.item_type == 'TEXT';else otherDataType ">
               <td [id]="frame.apps_page_frame_seqid + '--' + (itemGroup.Level5[0].indexcount)"

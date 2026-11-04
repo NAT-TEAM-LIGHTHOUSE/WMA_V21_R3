@@ -105,7 +105,7 @@
             <span>{{ datas.VALUE }}</span>
           </div>
         </ng-container>
-        <div class="collapse" id="collapseExample" *ngIf="(data.result && data.result.length) > 4">
+        <div class="collapse show" id="collapseExample" *ngIf="(data.result && data.result.length) > 4 && isCollapsed">
           <div class="child-calender" 
                *ngFor="let datas of getSortedYears(data.result, undefined, 4,data); trackBy: trackByFn" 
                [ngClass]="{'active': data.item_name1 === datas.VALUE}"

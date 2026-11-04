@@ -10,8 +10,9 @@
                   <ng-container *ngIf="item.item_visible_flag=='T'">
                     <ng-container *ngIf="item.item_name=='SYS_WHAT_TO_SEARCH'">
                       <div class="search_input pl-2 pr-0 col-lg-6 col-md-6 col-12" style="border-top-left-radius: 6px;border-bottom-left-radius: 6px;">
-                        <ion-input [clearInput]="true" placeholder="{{item.prompt_name}}" #myInput
-                          (click)="itemClicked1(item,frame)" (ionChange)="checkValid(item)" [(ngModel)]="item.value">
+                        @let itemdata = item | mergeLevel5:frame.Level4;
+                        <ion-input [clearInput]="true" placeholder="{{itemdata.prompt_name}}" #myInput
+                          (click)="itemClicked1(itemdata,frame)" (ionChange)="checkValid(itemdata)" [(ngModel)]="itemdata.value">
                         </ion-input>
                       </div>
                     </ng-container>
@@ -28,8 +29,8 @@
                         <ng-container *ngIf="item.item_visible_flag=='T'">
                           <ng-container *ngIf="item.item_name=='SYS_WHERE_TO_SEARCH'">
                             <div class="chip_container">
-
-                              <div class="chip" *ngFor="let selectedItem of item.displayChips" (click)="stop($event)">
+                               @let itemdata = item | mergeLevel5:frame.Level4;
+                              <div class="chip" *ngFor="let selectedItem of itemdata.displayChips" (click)="stop($event)">
                                 {{selectedItem.displayName}}
                                 <span class="chip-remove"></span>
                               </div>
@@ -41,8 +42,10 @@
 
                   <ul class="first_row">
                     <ng-container *ngFor="let items of data">
-                      <ng-container *ngFor="let item of items.Level5">
+                      <ng-container *ngFor="let itemdata of items.Level5">
+                          @let item = itemdata | mergeLevel5:frame.Level4;
                         <ng-container *ngIf="item.item_visible_flag=='T'">
+                         
                           <li *ngIf="item.item_name=='SYS_ALL'">
                             <label> <input [(ngModel)]="item.isChecked" (change)="toggleCheck(item)" type="checkbox"
                                 [checked]="item.value=='Y'" /> {{item.prompt_name}}</label>
@@ -64,7 +67,8 @@
                   <ul>
                     <li style="position: sticky; top: -14px;background: #fff;padding: 10px 0px 0px 0px;">
                       <ng-container *ngFor="let items of data">
-                        <ng-container *ngFor="let item of items.Level5">
+                        <ng-container *ngFor="let itemdata of items.Level5">
+                          @let item = itemdata | mergeLevel5:frame.Level4;
                           <ng-container *ngIf="item.item_visible_flag=='T'">
                             <ng-container *ngIf="item.item_name=='SYS_WHERE_TO_SEARCH'">
                               <div class="chip_container">
@@ -77,7 +81,8 @@
                           </ng-container></ng-container></ng-container>
                     </li>
                     <ng-container *ngFor="let items of data">
-                      <ng-container *ngFor="let item of items.Level5">
+                      <ng-container *ngFor="let itemdata of items.Level5">
+                        @let item = itemdata | mergeLevel5:frame.Level4;
                         <ng-container *ngIf="item.item_visible_flag=='T'">
                           <ng-container *ngIf="item.item_name=='SYS_WHERE_TO_SEARCH'">
                             <li *ngFor="let itm of whereData | globalSearch: searchText1">
@@ -94,7 +99,8 @@
 
           <div class="col-xl-3 col-lg-4 col-md-4 col-12  searchgloab-content-btn">
             <ng-container *ngFor="let items of data">
-              <ng-container *ngFor="let item of items.Level5">
+              <ng-container *ngFor="let itemdata of items.Level5">
+                @let item = itemdata | mergeLevel5:frame.Level4;
                 <ng-container *ngIf="item.item_visible_flag=='T'">
 
                   <ng-container *ngIf="item.item_name=='PB_SYS_SEARCH'">

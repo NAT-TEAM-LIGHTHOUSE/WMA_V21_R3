@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
+import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 import { STANDALONE_IMPORTS } from 'src/app/shared_modules/ionic.imports';
 @Component({
 standalone : true,
   selector: 'app-create-memo',
   templateUrl: './create-memo.component.html',
   styleUrls: ['./create-memo.component.scss'],
-   imports :[STANDALONE_IMPORTS,NgSelectModule]
+   imports :[STANDALONE_IMPORTS,NgSelectModule,MergeLevel5Pipe]
 })
 export class CreateMemoComponent implements OnInit {
   @Input() frame:any={}

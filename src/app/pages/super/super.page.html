@@ -179,8 +179,8 @@
 
 
                         <ul class="first_quick sub dikhana hai" [id]="frame.apps_page_frame_seqid">
-                          <ng-container *ngFor="let item of frame.tableRows[0][0].Level5; let i = index">
-
+                          <ng-container *ngFor="let input_item of frame.tableRows[0][0].Level5; let i = index">
+                              @let item = input_item | mergeLevel5: frame.Level4;
                             <ng-container *ngIf="item.item_visible_flag == 'T'">
 
 
@@ -210,7 +210,8 @@
                           [id]="frame.apps_page_frame_seqid">
                           <ng-container *ngFor="let itemGrp of frame.tableRows[0]; let i = index">
                             <ng-container *ngIf="i != 0">
-                              <ng-container *ngFor="let item of itemGrp.Level5; let j = index">
+                              <ng-container *ngFor="let input_item of itemGrp.Level5; let j = index">
+                                  @let item = input_item | mergeLevel5: frame.Level4;
                                 <ng-container *ngIf="item.item_visible_flag == 'T'">
 
                                   <li style="border:0px;padding:0px 0px;" class="desknew_display  ">
@@ -259,7 +260,8 @@
 
                       <ng-container *ngIf="frame.tableRows">
                         <ng-container *ngFor="let itemGrp of frame.tableRows[0]; let i = index">
-                          <ng-container *ngFor="let textinput of itemGrp.Level5">
+                          <ng-container *ngFor="let input_item of itemGrp.Level5">
+                              @let textinput = input_item | mergeLevel5: frame.Level4;
                             <ng-container
                               *ngIf="textinput.item_sub_type == 'KEY_FILTER_COLUMN' && textinput.item_visible_flag == 'T'">
                               <div class="topinput_header d-flex align-items-center">

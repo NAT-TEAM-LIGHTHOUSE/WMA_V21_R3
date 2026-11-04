@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 import { applyLoggingDecorator } from 'src/app/services/decorator-application';
 import { GlobalObjectsService } from 'src/app/services/global-objects.service';
 import { STANDALONE_IMPORTS } from 'src/app/shared_modules/ionic.imports';
 
 @Component({
 standalone : true,
-imports:[...STANDALONE_IMPORTS],
+imports:[...STANDALONE_IMPORTS,MergeLevel5Pipe],
   selector: 'app-noteslink',
   templateUrl: './noteslink.component.html',
   styleUrls: ['./noteslink.component.scss'],

@@ -4,10 +4,11 @@ import { GlobalObjectsService } from 'src/app/services/global-objects.service';
 import { SqlLiteService } from 'src/app/services/sql-lite.service';
 import { STANDALONE_IMPORTS } from 'src/app/shared_modules/ionic.imports';
 import { ItemsComponent } from '../../items/items.component';
+import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 
 @Component({
 standalone : true,
-imports : [...STANDALONE_IMPORTS,ItemsComponent],
+imports : [...STANDALONE_IMPORTS,ItemsComponent,MergeLevel5Pipe],
   selector: 'app-frame-integration-component',
   templateUrl: './frame-integration-component.component.html',
   styleUrls: ['./frame-integration-component.component.scss'],

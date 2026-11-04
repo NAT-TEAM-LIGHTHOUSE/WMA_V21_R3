@@ -13,7 +13,8 @@
           <ng-container *ngIf="itemGroup.Level5 && itemGroup.Level5.length">
             <ng-container *ngFor="let item of itemGroup.Level5;let i=index">
               <ng-container *ngIf="item.item_type=='BUTTON' && item.item_visible_flag=='T'">
-                  <ion-button (click)="itemClicked(item)" [disabled]="item.item_enable_flag == 'F'">{{item.prompt_name}}</ion-button>
+                 @let itemdata = item | mergeLevel5:frame.Level4;
+                  <ion-button (click)="itemClicked(itemdata)" [disabled]="item.item_enable_flag == 'F'">{{itemdata.prompt_name}}</ion-button>
               </ng-container>
             </ng-container>
           </ng-container>
@@ -33,7 +34,8 @@
             <!-- <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event,rowindex)" [frame]="frame"
             (LHSOnChange)="itemValueChange($event,rowindex)">
           </app-items> -->
-          <app-items [item]="item" [wscp]="wscp" (emitPass)="itemClicked($event)" [frame]="frame">
+           @let itemdata = item | mergeLevel5:frame.Level4;
+          <app-items [item]="itemdata" [wscp]="wscp" (emitPass)="itemClicked($event)" [frame]="frame">
           </app-items>
           </ng-container>
         </ng-container>
