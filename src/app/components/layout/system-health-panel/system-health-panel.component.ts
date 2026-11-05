@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
 import {
   ServerSystemDetails,
@@ -46,7 +46,12 @@ interface PcPerformanceDetails {
   imports: [STANDALONE_IMPORTS],
 })
 
-export class SystemHealthPanelComponent implements OnInit {
+export class SystemHealthPanelComponent implements OnInit, OnDestroy {
+  private readonly systemDetailsRefreshIntervalMs = 3000;
+  private systemDetailsRefreshInterval: ReturnType<typeof setInterval> | null = null;
+  private systemDetailsRefreshInProgress = false;
+  private networkTestInProgress = false;
+
   private readonly networkTestConfig = {
     pingUrl: 'https://speed.cloudflare.com/__down?bytes=0',
     downloadUrl: 'https://speed.cloudflare.com/__down?bytes=50000000',
@@ -58,6 +63,7 @@ export class SystemHealthPanelComponent implements OnInit {
 
   snapshot: SystemHealthSnapshot | null = null;
   networkTest: NetworkTestResult | null = null;
+  epaSystemDetailsJson: ServerSystemDetails | null = null;
   serverDetailsExpanded = false;
   loading = true;
   errorMessage = '';
@@ -71,6 +77,18 @@ export class SystemHealthPanelComponent implements OnInit {
 
   ngOnInit(): void {
     void this.refresh();
+    this.systemDetailsRefreshInterval = setInterval(() => {
+      if (!this.loading) {
+        void this.refreshSystemDetails();
+        void this.refreshNetworkPerformance();
+      }
+    }, this.systemDetailsRefreshIntervalMs);
+  }
+
+  ngOnDestroy(): void {
+    if (this.systemDetailsRefreshInterval !== null) {
+      clearInterval(this.systemDetailsRefreshInterval);
+    }
   }
 
   async refresh(): Promise<void> {
@@ -139,6 +157,7 @@ export class SystemHealthPanelComponent implements OnInit {
   }
 
   private applySystemDetails(details: ServerSystemDetails): void {
+    this.epaSystemDetailsJson = details;
     this.pcDetails = {
       ...this.pcDetails,
       gpuName: details.gpu,
@@ -153,6 +172,39 @@ export class SystemHealthPanelComponent implements OnInit {
       ramFreeBytes: details.freeRamMb == null ? null : details.freeRamMb * 1024 ** 2,
       uptime: details.uptime,
     };
+  }
+
+  private async refreshSystemDetails(): Promise<void> {
+    if (this.systemDetailsRefreshInProgress) {
+      return;
+    }
+
+    this.systemDetailsRefreshInProgress = true;
+    try {
+      const details = await this.systemHealth.getSystemDetails();
+      this.applySystemDetails(details);
+    } catch (error) {
+      console.error('Unable to refresh server system details.', error);
+    } finally {
+      this.systemDetailsRefreshInProgress = false;
+    }
+  }
+
+  private async refreshNetworkPerformance(): Promise<void> {
+    if (this.networkTestInProgress) {
+      return;
+    }
+
+    this.networkTestInProgress = true;
+    try {
+      this.networkTest = await this.runNetworkTest();
+      this.networkErrorMessage = '';
+    } catch (error) {
+      console.error('Unable to refresh network performance tests.', error);
+      this.networkErrorMessage = 'Network tests could not be completed.';
+    } finally {
+      this.networkTestInProgress = false;
+    }
   }
 
   private async fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {

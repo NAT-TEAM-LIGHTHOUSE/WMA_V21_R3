@@ -5,7 +5,8 @@
         <ul>
         <ng-container *ngFor="let framedata of frame.canvasRows">     
               <ng-container *ngFor="let itemGroup of framedata">
-                <ng-container *ngFor="let item of itemGroup.Level5,let i =index"  >
+                <ng-container *ngFor="let input_item of itemGroup.Level5,let i =index"  >
+                    @let item = input_item | mergeLevel5: frame.Level4;
                 <ng-container  *ngIf="item.item_visible_flag=='T'">
                  
                   <li  (click)="itemClicked(item,i)" [ngClass]="item.active && item.active == 'T' ? 'active' : ''">

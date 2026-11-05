@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 import { CdEngineService } from 'src/app/services/cd-engine-service.service';
 import { DataService } from 'src/app/services/data.service';
 import { GlobalObjectsService } from 'src/app/services/global-objects.service';
@@ -7,7 +8,7 @@ import { STANDALONE_IMPORTS } from 'src/app/shared_modules/ionic.imports';
 @Component({
 standalone : true,
 // changeDetection:ChangeDetectionStrategy.OnPush,
-imports : [...STANDALONE_IMPORTS],
+imports : [...STANDALONE_IMPORTS,MergeLevel5Pipe],
   selector: 'app-frame-dashboard-default',
   templateUrl: './frame-dashboard-default.component.html',
   styleUrls: ['./frame-dashboard-default.component.scss'],

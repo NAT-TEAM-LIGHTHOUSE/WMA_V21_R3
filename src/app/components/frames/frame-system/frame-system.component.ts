@@ -20,9 +20,10 @@ import { NoteslinkComponent } from '../../layout/noteslink/noteslink.component';
 import { ItemsComponent } from '../../items/items.component';
 import { FrameDesktopClendarComponent } from '../frame-desktop-clendar/frame-desktop-clendar.component';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { MergeLevel5Pipe } from 'src/app/pipes/merge-level5-pipe';
 @Component({
 standalone : true,
-imports : [STANDALONE_IMPORTS,CreateMemoComponent,FrameIntegrationComponentComponent,FrameDashboardDefaultComponent,SerchNewGlobalComponent,FrameReportEngineComponent,NotificationlinkComponent,FormTabsComponent,NoteslinkComponent,ItemsComponent,FrameDesktopClendarComponent],
+imports : [STANDALONE_IMPORTS,CreateMemoComponent,FrameIntegrationComponentComponent,FrameDashboardDefaultComponent,SerchNewGlobalComponent,FrameReportEngineComponent,NotificationlinkComponent,FormTabsComponent,NoteslinkComponent,ItemsComponent,FrameDesktopClendarComponent,MergeLevel5Pipe],
   selector: 'app-frame-system',
   templateUrl: './frame-system.component.html',
   styleUrls: ['./frame-system.component.scss'],
