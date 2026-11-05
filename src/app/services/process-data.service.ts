@@ -707,7 +707,8 @@ export class ProcessDataService {
                     'item_sub_type': baseItem['item_sub_type'],
                     'prompt_name': baseItem['prompt_name'],
                     'display_setting_str': baseItem['display_setting_str'],
-                    'position':baseItem['position']
+                    'position':baseItem['position'],
+                    'mirrored_items':baseItem['mirrored_items'] 
                   };
 
                   // for (const key of requiredKeys) {
