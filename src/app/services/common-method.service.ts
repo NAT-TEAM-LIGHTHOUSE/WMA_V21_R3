@@ -55,39 +55,69 @@ export class CommonMethodService {
     return this._processData;
   }
 
+  excelCol: any = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ', 'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP', 'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ', 'CA', 'CB', 'CC', 'CD', 'CE', 'CF', 'CG', 'CH', 'CI', 'CJ', 'CK', 'CL', 'CM', 'CN', 'CO', 'CP', 'CQ', 'CR', 'CS', 'CT', 'CU', 'CV', 'CW', 'CX', 'CY', 'CZ', 'DA', 'DB', 'DC', 'DD', 'DE', 'DF', 'DG', 'DH', 'DI', 'DJ', 'DK', 'DL', 'DM', 'DN', 'DO', 'DP', 'DQ', 'DR', 'DS', 'DT', 'DU', 'DV', 'DW', 'DX', 'DY', 'DZ', 'EA', 'EB', 'EC', 'ED', 'EE', 'EF', 'EG', 'EH', 'EI', 'EJ', 'EK', 'EL', 'EM', 'EN', 'EO', 'EP', 'EQ', 'ER', 'ES', 'ET', 'EU', 'EV', 'EW', 'EX', 'EY', 'EZ', 'FA', 'FB', 'FC', 'FD', 'FE', 'FF', 'FG', 'FH', 'FI', 'FJ', 'FK', 'FL', 'FM', 'FN', 'FO', 'FP', 'FQ', 'FR', 'FS', 'FT', 'FU', 'FV', 'FW', 'FX', 'FY', 'FZ', 'GA', 'GB', 'GC', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GJ', 'GK', 'GL', 'GM', 'GN', 'GO', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GV', 'GW', 'GX', 'GY', 'GZ', 'HA', 'HB', 'HC', 'HD', 'HE', 'HF', 'HG', 'HH', 'HI', 'HJ', 'HK', 'HL', 'HM', 'HN', 'HO', 'HP', 'HQ', 'HR', 'HS', 'HT', 'HU', 'HV', 'HW', 'HX', 'HY', 'HZ', 'IA', 'IB', 'IC', 'ID', 'IE', 'IF', 'IG', 'IH', 'II', 'IJ', 'IK', 'IL', 'IM', 'IN', 'IO', 'IP', 'IQ', 'IR', 'IS', 'IT', 'IU', 'IV', 'IW', 'IX', 'IY', 'IZ', 'JA', 'JB', 'JC', 'JD', 'JE', 'JF', 'JG', 'JH', 'JI', 'JJ', 'JK', 'JL', 'JM', 'JN', 'JO', 'JP', 'JQ', 'JR', 'JS', 'JT', 'JU', 'JV', 'JW', 'JX', 'JY', 'JZ', 'KA', 'KB', 'KC', 'KD', 'KE', 'KF', 'KG', 'KH', 'KI', 'KJ', 'KK', 'KL', 'KM', 'KN', 'KO', 'KP', 'KQ', 'KR', 'KS', 'KT', 'KU', 'KV', 'KW', 'KX', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LD', 'LE', 'LF', 'LG', 'LH', 'LI', 'LJ', 'LK', 'LL', 'LM', 'LN', 'LO', 'LP', 'LQ', 'LR', 'LS', 'LT', 'LU', 'LV', 'LW', 'LX', 'LY', 'LZ', 'MA', 'MB', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MI', 'MJ', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NB', 'NC', 'ND', 'NE', 'NF', 'NG', 'NH', 'NI', 'NJ', 'NK', 'NL', 'NM', 'NN', 'NO', 'NP', 'NQ', 'NR', 'NS', 'NT', 'NU', 'NV', 'NW', 'NX', 'NY', 'NZ', 'OA', 'OB', 'OC', 'OD', 'OE', 'OF', 'OG', 'OH', 'OI', 'OJ', 'OK', 'OL', 'OM', 'ON', 'OO', 'OP', 'OQ', 'OR', 'OS', 'OT', 'OU', 'OV', 'OW', 'OX', 'OY', 'OZ', 'PA', 'PB', 'PC', 'PD', 'PE', 'PF', 'PG', 'PH', 'PI', 'PJ', 'PK', 'PL', 'PM', 'PN', 'PO', 'PP', 'PQ', 'PR', 'PS', 'PT', 'PU', 'PV', 'PW', 'PX', 'PY', 'PZ', 'QA', 'QB', 'QC', 'QD', 'QE', 'QF', 'QG', 'QH', 'QI', 'QJ', 'QK', 'QL', 'QM', 'QN', 'QO', 'QP', 'QQ', 'QR', 'QS', 'QT', 'QU', 'QV', 'QW', 'QX', 'QY', 'QZ', 'RA', 'RB', 'RC', 'RD', 'RE', 'RF', 'RG', 'RH', 'RI', 'RJ', 'RK', 'RL', 'RM', 'RN', 'RO', 'RP', 'RQ', 'RR', 'RS', 'RT', 'RU', 'RV', 'RW', 'RX', 'RY', 'RZ', 'SA', 'SB', 'SC', 'SD', 'SE', 'SF', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SP', 'SQ', 'SR', 'SS', 'ST', 'SU', 'SV', 'SW', 'SX', 'SY', 'SZ', 'TA', 'TB', 'TC', 'TD', 'TE', 'TF', 'TG', 'TH', 'TI', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TP', 'TQ', 'TR', 'TS', 'TT', 'TU', 'TV', 'TW', 'TX', 'TY', 'TZ', 'UA', 'UB', 'UC', 'UD', 'UE', 'UF', 'UG', 'UH', 'UI', 'UJ', 'UK', 'UL', 'UM', 'UN', 'UO', 'UP', 'UQ', 'UR', 'US', 'UT', 'UU', 'UV', 'UW', 'UX', 'UY', 'UZ', 'VA', 'VB', 'VC', 'VD', 'VE', 'VF', 'VG', 'VH', 'VI', 'VJ', 'VK', 'VL', 'VM', 'VN', 'VO', 'VP', 'VQ', 'VR', 'VS', 'VT', 'VU', 'VV', 'VW', 'VX', 'VY', 'VZ', 'WA', 'WB', 'WC', 'WD', 'WE', 'WF', 'WG', 'WH', 'WI', 'WJ', 'WK', 'WL', 'WM', 'WN', 'WO', 'WP', 'WQ', 'WR', 'WS', 'WT', 'WU', 'WV', 'WW', 'WX', 'WY', 'WZ', 'XA', 'XB', 'XC', 'XD', 'XE', 'XF', 'XG', 'XH', 'XI', 'XJ', 'XK', 'XL', 'XM', 'XN', 'XO', 'XP', 'XQ', 'XR', 'XS', 'XT', 'XU', 'XV', 'XW', 'XX', 'XY', 'XZ', 'YA', 'YB', 'YC', 'YD', 'YE', 'YF', 'YG', 'YH', 'YI', 'YJ', 'YK', 'YL', 'YM', 'YN', 'YO', 'YP', 'YQ', 'YR', 'YS', 'YT', 'YU', 'YV', 'YW', 'YX', 'YY', 'YZ', 'ZA', 'ZB', 'ZC', 'ZD', 'ZE', 'ZF', 'ZG', 'ZH', 'ZI', 'ZJ', 'ZK', 'ZL', 'ZM', 'ZN', 'ZO', 'ZP', 'ZQ', 'ZR', 'ZS', 'ZT', 'ZU', 'ZV', 'ZW', 'ZX', 'ZY', 'ZZ']
+
   constructor(private injector: Injector, @Inject(PLATFORM_ID) private platformId: Object,private events: Events,private popoverController: PopoverController) { }
   /*start export functionality */
 
-  getDataForGraph(fileType, shareType, thisData) {
-    let grapgRows = [];
-    let wscp: any = {};
-    wscp.service_type = "execute_query";
-    wscp.from_row = "1";
-    wscp.to_row = "1000000";
-    wscp.apps_item_seqid = thisData.wscp_send_input.apps_item_seqid;
-    wscp.apps_page_frame_seqid = thisData.frame.apps_page_frame_seqid;
-    wscp.item_sub_type = thisData.wscp_send_input.item_sub_type;
-    wscp.orignal_apps_item_seqid = thisData.wscp_send_input.orignal_apps_item_seqid;
-    let wsdp = [];
+  getDataForGraph(fileType, shareType, thisData, frameSeq?) {
+     let grapgRows = [];
 
-    if (thisData.l_where_str) {
-      wscp.where_str = thisData.l_where_str.join(" ");
-    } else {
-      wscp.where_str = null;
+    let frame = this.lhs_lib.get_frame_config(frameSeq);
+    let exelHeads=[]
+    let pdfHeads=[]
+    let frameLevel4= frame.apexFrameLevel4  ? frame.apexFrameLevel4 : frame.Level4;
+    for (let itemGroup of frameLevel4) {
+      for (let itemMast of itemGroup.Level5) {
+      
+        if (itemMast.item_type.indexOf('WHERE') > -1 || itemMast.item_visible_flag == 'F') { } else {
+
+          if (itemMast.item_type == 'BT' || itemMast.item_type == 'DISPLAY_PHOTO' || itemMast.item_type == 'DOWNLOAD_DOC' || itemMast.item_type == 'BUTTON_ICON' || itemMast.item_type == 'FRAME_SEPARATOR' || itemMast.item_type == 'FRAME_BUTTON_ICON' || itemMast.item_name.toLowerCase().includes("wma_") || itemMast.item_visible_flag != 'T'  || itemMast.item_type == 'RIGHT_CLICK') {
+
+          } else {
+            // if(!itemMast.prompt_name){
+            //   if((this.frame.apps_page_frame_seqid).charAt((this.frame.apps_page_frame_seqid).length - 1) == 'A' ){
+            //  exelHeads.push(itemMast.tool_tip);
+            //   }else{
+            //     exelHeads.push(itemMast.prompt_name);
+            //   }
+            // } else{
+            //     exelHeads.push(itemMast.prompt_name);
+            // }
+            if(!itemMast.prompt_name){
+              exelHeads.push(itemMast.tool_tip);
+            } else{
+              
+              exelHeads.push(itemMast.prompt_name);
+            }
+            // exelHeads.push(itemMast.prompt_name);
+          }
+
+          if (itemMast.item_type == 'BT' || itemMast.item_type == 'DOWNLOAD_DOC' || itemMast.item_type == 'BUTTON_ICON' || itemMast.item_type == 'FRAME_SEPARATOR' || itemMast.item_type == 'FRAME_BUTTON_ICON' || itemMast.item_name.toLowerCase().includes("wma_") || itemMast.item_type == 'RIGHT_CLICK') {
+
+          } else {
+            // pdfHeads.push(itemMast.prompt_name ?? "");
+             if(!itemMast.prompt_name){
+              pdfHeads.push(itemMast.tool_tip);
+            } else{
+              pdfHeads.push(itemMast.prompt_name ?? "");
+            }
+          }
+        }
+        if (itemMast.item_visible_flag == 'F') {
+          if (itemMast.mirrored_items) {
+                  if(!itemMast.prompt_name){
+              exelHeads.push(itemMast.tool_tip);
+            } else{
+              exelHeads.push(itemMast.prompt_name);
+            }
+          }
+        }
+      }
     }
-    if (wscp.service_type == "execute_query") {
-
-      wsdp = this.lhs_lib.getWsdp("").wsdp;
-    } else {
-      wsdp = thisData.wsdp;
-    }
-
-    var data = {
-      wslp: thisData.userDetails,
-      wscp: wscp,
-      wsdp: thisData.wsdp,
-      wsdpcl: thisData.wsdpcl
-    };
+    thisData.excelheads=exelHeads
+    thisData.pdfheads=pdfHeads
+    thisData.frame = frame;
     if (thisData.selectedExportDataType == 'allData') {
       grapgRows = thisData.frame.tableRows;
     } else {
@@ -678,7 +708,7 @@ excelDateSerial(jsDate: Date): number {
 }
 
   numberFormateChange(celldata) {
-    let celD = celldata.split("~")[2]
+    let celD = celldata.split("@~@")[2]
     if(celD.includes(".")){
       let maskInt = celD.split(".")[0].replaceAll("9", "#")
       let maskDec = celD.split(".")[1].replaceAll("9", "0")

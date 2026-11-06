@@ -1866,7 +1866,7 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
       excelheads: this.excelheads,
       excelCol: this.excelCol
     }
-    this.commonMethod.getDataForGraph(fileType, shareType, obj)
+    this.commonMethod.getDataForGraph(fileType, shareType, obj,this.frame.app_page_frame_seqid)
     return
 
 

@@ -217,6 +217,7 @@ export class DynamicEventEngine {
 
     set_error_msg: { target: 'set_error_msg' },
     remove_error_msg: { target: 'remove_error_msg' },
+    table_export: { target: 'table_export'},
   };
 
 

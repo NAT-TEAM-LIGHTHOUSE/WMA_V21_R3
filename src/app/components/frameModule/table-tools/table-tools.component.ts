@@ -184,60 +184,63 @@ export class TableToolsComponent implements OnInit {
   
   }
   getDataForGraph(fileType, shareType) {
-    let exelHeads=[]
-    let pdfHeads=[]
-    let frameLevel4= this.frame.apexFrameLevel4  ? this.frame.apexFrameLevel4 : this.frame.Level4;
-    for (let itemGroup of frameLevel4) {
-      for (let itemMast of itemGroup.Level5) {
+    // let exelHeads=[]
+    // let pdfHeads=[]
+    // let frameLevel4= this.frame.apexFrameLevel4  ? this.frame.apexFrameLevel4 : this.frame.Level4;
+    // for (let itemGroup of frameLevel4) {
+    //   for (let itemMast of itemGroup.Level5) {
       
-        if (itemMast.item_type.indexOf('WHERE') > -1 || itemMast.item_visible_flag == 'F') { } else {
+    //     if (itemMast.item_type.indexOf('WHERE') > -1 || itemMast.item_visible_flag == 'F') { } else {
 
-          if (itemMast.item_type == 'BT' || itemMast.item_type == 'DISPLAY_PHOTO' || itemMast.item_type == 'DOWNLOAD_DOC' || itemMast.item_type == 'BUTTON_ICON' || itemMast.item_type == 'FRAME_SEPARATOR' || itemMast.item_type == 'FRAME_BUTTON_ICON' || itemMast.item_name.toLowerCase().includes("wma_") || itemMast.item_visible_flag != 'T'  || itemMast.item_type == 'RIGHT_CLICK') {
+    //       if (itemMast.item_type == 'BT' || itemMast.item_type == 'DISPLAY_PHOTO' || itemMast.item_type == 'DOWNLOAD_DOC' || itemMast.item_type == 'BUTTON_ICON' || itemMast.item_type == 'FRAME_SEPARATOR' || itemMast.item_type == 'FRAME_BUTTON_ICON' || itemMast.item_name.toLowerCase().includes("wma_") || itemMast.item_visible_flag != 'T'  || itemMast.item_type == 'RIGHT_CLICK') {
 
-          } else {
-            // if(!itemMast.prompt_name){
-            //   if((this.frame.apps_page_frame_seqid).charAt((this.frame.apps_page_frame_seqid).length - 1) == 'A' ){
-            //  exelHeads.push(itemMast.tool_tip);
-            //   }else{
-            //     exelHeads.push(itemMast.prompt_name);
-            //   }
-            // } else{
-            //     exelHeads.push(itemMast.prompt_name);
-            // }
-            if(!itemMast.prompt_name){
-              exelHeads.push(itemMast.tool_tip);
-            } else{
-              exelHeads.push(itemMast.prompt_name);
-            }
-            // exelHeads.push(itemMast.prompt_name);
-          }
+    //       } else {
+    //         // if(!itemMast.prompt_name){
+    //         //   if((this.frame.apps_page_frame_seqid).charAt((this.frame.apps_page_frame_seqid).length - 1) == 'A' ){
+    //         //  exelHeads.push(itemMast.tool_tip);
+    //         //   }else{
+    //         //     exelHeads.push(itemMast.prompt_name);
+    //         //   }
+    //         // } else{
+    //         //     exelHeads.push(itemMast.prompt_name);
+    //         // }
+    //         if(!itemMast.prompt_name){
+    //           exelHeads.push(itemMast.tool_tip);
+    //         } else{
+    //           exelHeads.push(itemMast.prompt_name);
+    //         }
+    //         // exelHeads.push(itemMast.prompt_name);
+    //       }
 
-          if (itemMast.item_type == 'BT' || itemMast.item_type == 'DOWNLOAD_DOC' || itemMast.item_type == 'BUTTON_ICON' || itemMast.item_type == 'FRAME_SEPARATOR' || itemMast.item_type == 'FRAME_BUTTON_ICON' || itemMast.item_name.toLowerCase().includes("wma_") || itemMast.item_type == 'RIGHT_CLICK') {
+    //       if (itemMast.item_type == 'BT' || itemMast.item_type == 'DOWNLOAD_DOC' || itemMast.item_type == 'BUTTON_ICON' || itemMast.item_type == 'FRAME_SEPARATOR' || itemMast.item_type == 'FRAME_BUTTON_ICON' || itemMast.item_name.toLowerCase().includes("wma_") || itemMast.item_type == 'RIGHT_CLICK') {
 
-          } else {
-            // pdfHeads.push(itemMast.prompt_name ?? "");
-             if(!itemMast.prompt_name){
-              pdfHeads.push(itemMast.tool_tip);
-            } else{
-              pdfHeads.push(itemMast.prompt_name ?? "");
-            }
-          }
-        }
-        if (itemMast.item_visible_flag == 'F') {
-          if (itemMast.mirrored_items) {
-                  if(!itemMast.prompt_name){
-              exelHeads.push(itemMast.tool_tip);
-            } else{
-              exelHeads.push(itemMast.prompt_name);
-            }
-          }
-        }
-      }
-    }
-    this.toolsExport.excelheads=exelHeads
-    this.toolsExport.pdfheads=pdfHeads
-    this.toolsExport.selectedExportDataType=this.selectedExportDataType
-    this.commonMethod.getDataForGraph(fileType,shareType,this.toolsExport)
+    //       } else {
+    //         // pdfHeads.push(itemMast.prompt_name ?? "");
+    //          if(!itemMast.prompt_name){
+    //           pdfHeads.push(itemMast.tool_tip);
+    //         } else{
+    //           pdfHeads.push(itemMast.prompt_name ?? "");
+    //         }
+    //       }
+    //     }
+    //     if (itemMast.item_visible_flag == 'F') {
+    //       if (itemMast.mirrored_items) {
+    //               if(!itemMast.prompt_name){
+    //           exelHeads.push(itemMast.tool_tip);
+    //         } else{
+    //           exelHeads.push(itemMast.prompt_name);
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    // this.toolsExport.excelheads=exelHeads
+    // this.toolsExport.pdfheads=pdfHeads
+    // this.toolsExport.selectedExportDataType=this.selectedExportDataType
+    let toolsExport={
+      selectedExportDataType:this.selectedExportDataType
+    } 
+    this.commonMethod.getDataForGraph(fileType,shareType,toolsExport, this.frame.apps_page_frame_seqid)
   }
   selectFile(type) {
     this.fileTyle = type
