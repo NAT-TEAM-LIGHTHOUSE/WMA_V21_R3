@@ -287,7 +287,7 @@
               Slno
             </th> 
             <th>
-              Column name
+              Column name   <input type="search" placeholder="Search..." [(ngModel)]="searchTextColumn"/>
             </th>
              <th>
               New Slno
@@ -295,7 +295,8 @@
           </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let a of  columnsData;let i=index">
+              <!-- <tr *ngFor="let a of  columnsData;let i=index"> -->
+              <tr *ngFor="let a of columnsData | searchColumn:searchTextColumn:'colName'; let i=index">
               <td>
                 <ion-checkbox [checked]="a.checked" (ionChange)="personalizationColumn($event,a)"></ion-checkbox>
               </td> 

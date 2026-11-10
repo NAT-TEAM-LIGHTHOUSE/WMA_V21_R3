@@ -672,7 +672,7 @@ export class CommonMethodService {
     for (let i = 4; i <= (tableData.length + 4); i++) {
       for (let l = 0; l < thisData.excelheads.length; l++) {
 
-        worksheet.getCell(thisData.excelCol[l] + i).border = {
+        worksheet.getCell(this.excelCol[l] + i).border = {
           top: { style: "dotted" },
           left: { style: "dotted" },
           bottom: { style: "dotted" },

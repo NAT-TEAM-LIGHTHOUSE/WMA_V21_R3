@@ -9,9 +9,10 @@ import { DataService } from 'src/app/services/data.service';
 import { GlobalObjectsService } from 'src/app/services/global-objects.service';
 import { STANDALONE_IMPORTS } from 'src/app/shared_modules/ionic.imports';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { SearchColumnPipe } from 'src/app/pipes/search-column-pipe';
 @Component({
 standalone: true,
-imports : [NgSelectModule,NgbDatepickerModule,STANDALONE_IMPORTS],
+imports : [NgSelectModule,NgbDatepickerModule,STANDALONE_IMPORTS,SearchColumnPipe],
   selector: 'app-apex-action-filter',
   templateUrl: './apex-action-filter.page.html',
   styleUrls: ['./apex-action-filter.page.scss'],
