@@ -15,7 +15,7 @@
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
   <ion-button [title]="button.tool_tip ? button.tool_tip : ''" tabindex="0" shape="round" size="small"
-    class="mr-1 globe-btn   form-button  data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()"
+    class="mr-1 globe-btn   form-button  data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ?(button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()"
     (contextmenu)="onRightClick($event)" [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     {{button.value ? button.value : button.prompt_name}}
   </ion-button>
@@ -34,7 +34,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" tabindex="0" shape="round" class="mr-1 globe-btn-dimension   data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''"
+  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" tabindex="0" shape="round" class="mr-1 globe-btn-dimension   data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <!-- {{button.value ? button.value : button.prompt_name}} --><ion-icon name="link-outline"></ion-icon>
@@ -52,7 +52,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" tabindex="0" shape="round" class="mr-1 icon-btn globe-btn-prompt data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''"
+  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" tabindex="0" shape="round" class="mr-1 icon-btn globe-btn-prompt data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     {{button.value ? button.value : button.prompt_name}}
@@ -81,7 +81,7 @@
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
   <ion-button [title]="button.tool_tip ? button.tool_tip : ''" tabindex="0" [id]="button.apps_item_seqid + button.indexcount" size="block"
-    class="mr-1 globe-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" [disabled]="button.item_enable_flag == 'F'"
+    class="mr-1 globe-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" [disabled]="button.item_enable_flag == 'F'"
     [ngStyle]="button.display_setting_str" (click)="buttonClick()" (contextmenu)="onRightClick($event)">
     {{button.value ? button.value : button.prompt_name}}
   </ion-button>
@@ -92,7 +92,7 @@
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
   <ion-button [title]="button.tool_tip ? button.tool_tip : ''" tabindex="0" [id]="button.apps_item_seqid + button.indexcount" size="block"
-    class="global-main-copy data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" [disabled]="button.item_enable_flag == 'F'"
+    class="global-main-copy data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" [disabled]="button.item_enable_flag == 'F'"
     [ngStyle]="button.display_setting_str" (click)="buttonClick()" (contextmenu)="onRightClick($event)">
     {{button.value ? button.value : button.prompt_name}}
   </ion-button>
@@ -123,7 +123,7 @@
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
   <ion-button [title]="button.tool_tip ? button.tool_tip : ''" tabindex="0" [id]="button.apps_item_seqid + button.indexcount" size=""
-    class="mr-1 icon-btn  api_button data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" [disabled]="button.item_enable_flag == 'F'"
+    class="mr-1 icon-btn  api_button data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" [disabled]="button.item_enable_flag == 'F'"
     [ngStyle]="button.display_setting_str" (click)="buttonClick()" (contextmenu)="onRightClick($event)">
   <div class="api_button_section">
     <img src="assets/imgs/ap_button.svg" style="height: 19px;margin-right: 0px;" alt="API CALL" /> {{button.value ? button.value : button.prompt_name}}
@@ -135,7 +135,7 @@
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
   <ion-button [title]="button.tool_tip ? button.tool_tip : ''" tabindex="0" [id]="button.apps_item_seqid + button.indexcount" size=""
-    class="mr-1 icon-btn  ocr_button data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" [disabled]="button.item_enable_flag == 'F'"
+    class="mr-1 icon-btn  ocr_button data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" [disabled]="button.item_enable_flag == 'F'"
     [ngStyle]="button.display_setting_str" (click)="buttonClick()" (contextmenu)="onRightClick($event)">
     <div class="api_button_section">
    <img src="assets/imgs/ocr_button.svg" style="height: 19px;margin-right: 0px;" alt="API CALL" /> {{button.value ? button.value : button.prompt_name}}
@@ -174,7 +174,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="add-circle-outline"></ion-icon>
@@ -183,7 +183,7 @@
 
 <div ion-text-center *ngIf="button.item_sub_type == 'ADD'  && platformFlag == 'ios'">
 
-  <button ion-button round small  class="icon-btn_ios a data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" [disabled]="button.item_enable_flag == 'F'"
+  <button ion-button round small  class="icon-btn_ios a data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" [disabled]="button.item_enable_flag == 'F'"
   (click)="buttonClick()" (contextmenu)="onRightClick($event)" [id]="button.apps_item_seqid + button.indexcount" [ngStyle]="button.display_setting_str">
   <!-- {{button.value ? button.value : button.prompt_name}} -->
   <ion-icon name="add-circle-outline"></ion-icon>
@@ -196,7 +196,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small"
+  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <!-- <ion-icon name="document"></ion-icon> -->
@@ -220,7 +220,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="close-outline" style="--ionicon-stroke-width: 50px; color:black"></ion-icon>
@@ -242,7 +242,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <!-- <ion-icon name="create-outline"></ion-icon> -->
@@ -263,7 +263,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="create-outline" class="text-warning"></ion-icon>
@@ -302,7 +302,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="trash-outline" class="text-danger"></ion-icon>
   </ion-button>
@@ -322,7 +322,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="print-outline"></ion-icon>
@@ -344,7 +344,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="exit-outline"></ion-icon>
@@ -364,7 +364,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon  name="checkmark-outline"></ion-icon>
@@ -384,7 +384,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="arrow-up-outline"></ion-icon>
@@ -405,7 +405,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="arrow-down-outline"></ion-icon>
@@ -429,7 +429,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="shuffle-outline"></ion-icon> 
@@ -449,7 +449,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <!-- <ion-icon color="success" name="checkmark-done-outline"></ion-icon> -->
@@ -471,7 +471,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <!-- <ion-icon color="warning" name="eye"></ion-icon> -->
@@ -490,7 +490,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button class="icon-btn data-tooltip-shortcut top alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear" [disabled]="button.item_enable_flag == 'F'"
+  <ion-button class="icon-btn data-tooltip-shortcut top alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear" [disabled]="button.item_enable_flag == 'F'"
     (click)="buttonClick()" (contextmenu)="onRightClick($event)" [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <!-- <ion-icon color="tertiary" name="save"></ion-icon> -->
     <ion-icon name="save-outline"></ion-icon>
@@ -510,7 +510,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear" [disabled]="button.item_enable_flag == 'F'"
+  <ion-button class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear" [disabled]="button.item_enable_flag == 'F'"
     (click)="buttonClick()" (contextmenu)="onRightClick($event)" [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon  name="close-circle-outline" ></ion-icon>
   </ion-button>
@@ -529,7 +529,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon color="medium" name="close-circle"></ion-icon>
@@ -548,7 +548,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon color="dark" name="arrow-forward-outline"></ion-icon>
@@ -567,7 +567,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon color="dark" name="arrow-round-back"></ion-icon>
@@ -587,7 +587,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="mr-1 iconText-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" fill="outline"
+  <ion-button [title]="button.tool_tip ? button.tool_tip : ''" class="mr-1 iconText-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" fill="outline"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon class="mr-1" name="checkmark-done-outline"></ion-icon>
@@ -609,7 +609,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon style="color: #002975 !important;" name="chevron-down-outline"></ion-icon>
@@ -630,7 +630,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="eye-outline"></ion-icon>
@@ -651,7 +651,7 @@
   <ion-button *ngIf="globalObjects.toggleDevloperMode()" [title]="button.apps_item_seqid" class="code-btn developer_btn" (click)="showDeveloperData()">
     <ion-icon class="code-btn" name="information-circle-outline" color="primary" ></ion-icon>
  </ion-button>
-  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? button.aliases:''" size="small" fill="clear"
+  <ion-button [title]="button.tool_tip ? button.tool_tip :''" class="icon-btn data-tooltip-shortcut bottom alt" [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && button.aliases ? (button.aliases.includes('^') ? button.aliases.split('^')[0] : button.aliases):''" size="small" fill="clear"
     [disabled]="button.item_enable_flag == 'F'" (click)="buttonClick()" (contextmenu)="onRightClick($event)"
     [ngStyle]="button.display_setting_str" [id]="button.apps_item_seqid + button.indexcount">
     <ion-icon name="add-circle-outline"></ion-icon>

@@ -105,7 +105,7 @@ export class CommonMethodService {
           }
         }
         if (itemMast.item_visible_flag == 'F') {
-          if (itemMast.mirrored_items) {
+          if (itemMast.mirror_item_seqid) {
                   if(!itemMast.prompt_name){
               exelHeads.push(itemMast.tool_tip);
             } else{
@@ -319,7 +319,7 @@ export class CommonMethodService {
               }
             }
             else {
-              if (item.mirrored_items) {
+              if (item.mirror_item_seqid) {
                 // data.push(item.value + "~" + item.datatype);
                 if (item.format_mask) {
                   data.push(item.value + "@~@" + item.datatype + "@~@" + item.format_mask);
@@ -640,7 +640,7 @@ export class CommonMethodService {
                 
               }
             }else{
-              if (input_item.mirrored_items) {
+              if (input_item.mirror_item_seqid) {
                 // data.push(item.value + "~" + item.datatype);
                if (input_item.summaryValue) {
                     // summaryRows.push(input_item.summaryValue);

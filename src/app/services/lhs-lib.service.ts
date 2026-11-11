@@ -9630,10 +9630,17 @@ export class LhsLibService {
             //     itemName
             //   };
             // }
-            if (item.aliases && item.item_visible_flag == 'T' && item.item_enable_flag == 'T' && item.item_type != 'RIGHT_CLICK') {
+            if (item.aliases && ((item.item_visible_flag == 'T' && item.item_enable_flag == 'T')|| (item.aliases.includes('^') && item.item_enable_flag == 'T')) && item.item_type != 'RIGHT_CLICK') {
+              let isItemActive = true;
+              if((item.aliases.includes('^') && item.item_enable_flag == 'T') || (item.item_visible_flag == 'T' && item.item_enable_flag == 'T)')){
+                isItemActive = true;
+              }else{
+                isItemActive = false;
+              }
               itmAlias = {
                 frameSeqid,
-                itemName
+                itemName,
+                isItemActive
               };
             }
 
@@ -9673,7 +9680,8 @@ export class LhsLibService {
 
 
             if (itmAlias) {
-              let key = 'ALT_' + item.aliases.toUpperCase();
+              let aliaskey=item.aliases.includes('^')?item.aliases.split('^')[0]:item.aliases;
+              let key = 'ALT_' + aliaskey.toUpperCase();
               // if (indexes.byAliases[key] && indexes.byAliases[key].page_no == frame.apps_page_no) {
               //   indexes.byAliases[key].value.push(itmAlias)
               // } else {
@@ -10056,13 +10064,21 @@ export class LhsLibService {
 
  set_aliese_altkey(item, frameId, page_no) {
     if (item.aliases && item.item_type != 'RIGHT_CLICK') {
+      let isItemActive = true;
+      if((item.aliases.includes('^') && item.item_enable_flag == 'T') || (item.item_visible_flag == 'T' && item.item_enable_flag == 'T)')){
+        isItemActive = true;
+      }else{
+        isItemActive = false;
+      }
       let itmAlias = {
         frameSeqid: frameId,
-        itemName: item.item_name
+        itemName: item.item_name,
+        isItemActive
       };
-      let key = 'ALT_' + item.aliases.toUpperCase();
+      let aliaskey=item.aliases.includes('^')?item.aliases.split('^')[0]:item.aliases;
+      let key = 'ALT_' + aliaskey.toUpperCase();
       let getkey = this.object_mast._object_indexes.byAliases[key];
-      if (item.item_visible_flag == 'T' && item.item_enable_flag == 'T') {
+      if((item.item_visible_flag == 'T' && item.item_enable_flag == 'T')||(item.aliases.includes('^') && item.item_enable_flag == 'T')) {
         if (getkey) {
           let keyvalue = getkey.find(list => list.page_no == page_no);
           if (keyvalue && keyvalue.value) {

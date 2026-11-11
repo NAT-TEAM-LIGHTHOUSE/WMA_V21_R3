@@ -20097,10 +20097,28 @@ export class SuperPage implements OnInit, OnDestroy {
   }
 
   table_export(fileType,frameSeq){
+    this.lhs_lib.refresh_frames();
    let toolsExport={
       selectedExportDataType:"allData"
     } 
     
     this.commonMethod.getDataForGraph(fileType,'',toolsExport, frameSeq)
  }
+ isShortcutKeyActive(shortcutkey_count, shortkey_name) {
+    
+   
+    if (shortcutkey_count >= shortkey_name.value.length) {
+        this.shortcutkey_count.count = 0;
+        return this.isShortcutKeyActive(0, shortkey_name);
+    }
+
+    let item = shortkey_name.value[shortcutkey_count];
+
+    if (item && item.isItemActive) {
+        this.shortcutkey_count.count = shortcutkey_count + 1;
+        return item;
+    }
+
+    return this.isShortcutKeyActive(shortcutkey_count + 1, shortkey_name);
+  }
 }
