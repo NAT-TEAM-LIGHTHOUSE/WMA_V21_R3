@@ -136,6 +136,11 @@ ion-toolbar.ion-color-primary {
     // padding-top: var(--ion-safe-area-top, 0);
 }
 
+.item.sc-ion-label-md-h, .item .sc-ion-label-md-h{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 // &:not(:has(.iosheight)) {
 //     @include android_mobile();
@@ -513,9 +518,9 @@ table td{
   }
 
   .table_pagination_frame {
-    background: #ffffff;
+    background: var(--white);
     padding: 0px 5px;
-    border: 1px solid #dddddd;
+    border: 1px solid #dddddd83;
     border-top: 0px !important;
     display: flex;
     justify-content: space-between;
@@ -534,6 +539,7 @@ table td{
       border-radius: 3px;
       // width: 5vh;
       margin: 0px 5px 0px 5px;
+      background: var(--white);
     }
 
 
@@ -554,7 +560,7 @@ table td{
     }
 
     .pagination_btn {
-      --background: #ffffff;
+      --background: #ffffff7a;
       height: 25px;
       min-height: 25px;
       border-radius: 3px;
@@ -562,7 +568,7 @@ table td{
       padding: 0px 0px;
       margin: 0px 3px 0px 5px;
       color: var(--blackNew);
-      background: #ffffff;
+      background: #ffffff7a;
       --padding-start: 5px;
       --padding-end: 5px;
       @include btn_border();
@@ -637,8 +643,8 @@ table td{
   }
 
   .dim-container {
-    border: 1px solid #cdcdcd;
-    background: #ffffff;
+    border: 1px solid #cdcdcd8a;
+    background: var(--white);
     border-radius: 3px;
     width: 100%;
     .form-control,
@@ -659,7 +665,11 @@ table td{
   }
 
   .dim-container:has(.form-control[readonly], ion-input[readonly]) {
-    background: #efefef !important;
+    background: #efefef00 !important;
+  }
+
+ .theme-black .dim-container:has(.form-control[readonly], ion-input[readonly]) {
+    background: #efefef00 !important;
   }
 
 
@@ -1336,7 +1346,7 @@ app-frame-external-iframe:has(.active_fullscreen),
 
   .table_inputdiv {
     border: 1px solid rgb(216, 216, 216);
-    background: #ffffff;
+    background: var(--white);
     padding: 0px 0px 0px 0px !important;
     display: flex;
     height: 30px;
@@ -2078,7 +2088,7 @@ app-frame-external-iframe:has(.active_fullscreen),
   .outline-globe-button-container,
   .new-button-container {
     // padding: 10px;
-    background: #ffffff;
+    background: var(--white);
     // border: 1px solid var(--common-border);
     border-radius: 3px;
     // margin: 0 5px;
@@ -2088,7 +2098,7 @@ app-frame-external-iframe:has(.active_fullscreen),
     .outline-globe-btn {
       --border-radius: 3px;
       border-radius: 3px;
-      --background: #ffffff;
+      --background: var(--white);
       border: 1px solid var(--blue-new);
       --box-shadow: none;
       color: var(--primary-text-color);
@@ -2102,7 +2112,7 @@ app-frame-external-iframe:has(.active_fullscreen),
       padding: 0px 1px;
 
       &:hover {
-        --background-hover: #fff !important;
+        --background-hover: var(--white) !important;
         color: var(--blue-new);
         border-color: var(--blue-new);
       }
@@ -2272,7 +2282,8 @@ app-frame-external-iframe:has(.active_fullscreen),
   }
 
   table {
-    tr td .box_top_input {
+    tr td {
+      .box_top_input {
       border: none;
       background: transparent;
       background-color: transparent !important;
@@ -2282,6 +2293,12 @@ app-frame-external-iframe:has(.active_fullscreen),
       --padding-start: 0px;
       --padding-bottom: 0px;
       --padding-top: 0px;
+    }
+
+    ion-input[readonly], ion-input[disabled], input[readonly], input[disabled]{
+      background-color: transparent !important;
+      background: transparent !important;
+    }
     }
 
     ion-select.box_top_input {
@@ -2377,7 +2394,8 @@ app-frame-external-iframe:has(.active_fullscreen),
 
   table thead tr th {
     background: var(--table-bg-header);
-    background-image: linear-gradient(var(--table-bg-header) 98%, rgb(161, 161, 161) 2%);
+    border: 1px solid var(--common-border);
+    // background-image: linear-gradient(var(--table-bg-header) 98%, rgb(161, 161, 161) 2%);
     color: var(--label-text);
     // padding: 5px 10px !important;
   }
@@ -2411,7 +2429,7 @@ app-frame-external-iframe:has(.active_fullscreen),
   }
 
   table .tfooter tr td {
-    background: #dbdbdb !important;
+    background: var(--white) !important;
     color: var(--theadcolor);
     font-weight: 700;
     text-align: right;
@@ -2459,7 +2477,7 @@ app-frame-external-iframe:has(.active_fullscreen),
   }
 
   ion-toolbar.ion-color-primary {
-    --ion-color-base: linear-gradient(to top, var(--blue-new), var(--blue-new)) !important;
+    --ion-color-base: linear-gradient(to top, var(--toolbar), var(--toolbar)) !important;
     // height: auto;
     // --min-height: 45px;
     // padding: 1px 0px 1px 0px !important;
@@ -3209,7 +3227,7 @@ app-frame-external-iframe:has(.active_fullscreen),
     }
 
     ion-thumbnail {
-      background: var(--white);
+      // background: var(--white);
       // border: 1px solid var(--white);
       // box-shadow: var(--light-blue-shadow);
     }
@@ -4752,7 +4770,7 @@ app-frame-external-iframe:has(.active_fullscreen),
   .input-type6-containter {
     .newIp-type3 {
       .input-group-label {
-        color: var(--label-text);
+        color: var(--text-dark);
         text-align: right;
       }
 
@@ -5258,10 +5276,14 @@ ion-button
   //     background: #1c63b5 !important;
   //     border-radius: 35px;
   // }
+  .customradio ion-item:has(.radio-checked) ,
   .customradio ion-item.item-radio-checked {
     --background-hover: var(--blue);
     --background: var(--blue) !important;
     border-radius: 35px 35px;
+    ion-label{
+      color: #ffffff !important;
+    }
   }
 
   .new_custom_radio_round ion-item,
@@ -5270,9 +5292,15 @@ ion-button
     --background-hover: #ffffff;
   }
 
+  .new_custom_radio_sqr ion-item:has(.radio-checked),
+.new_custom_radio_round ion-item:has(.radio-checked),
   .new_custom_radio_round ion-item.item-radio-checked,
   .new_custom_radio_sqr ion-item.item-radio-checked {
     --background: var(--blue-new);
+
+    ion-label{
+      color: #ffffff !important;
+    }
   }
 
   .prompt-area {
@@ -5437,7 +5465,7 @@ ion-button
         color: var(--text-dark);
         font-size: var(--font14);
         padding: 0px 5px;
-        background: #fff !important;
+        background: var(--white) !important;
 
 
         &:focus-visible {
@@ -5468,7 +5496,7 @@ ion-button
       .form-control:disabled,
       .form-control[readonly] {
 
-        background-color: #efefef !important;
+        background-color: #efefef00 !important;
 
         opacity: 1;
 
@@ -5500,9 +5528,22 @@ ion-button
 
   }
 
+
+.theme-black .input-new {
+    .input-group {
+       .form-control:disabled,
+      .form-control[readonly] {
+        background-color: #efefef81 !important;
+        opacity: 1;
+      }
+    }
+  }
+
+
+
   .ul-left-desk {
     p.input-group-label {
-      color: var(--label-text);
+      color: var(--text-dark);
       font-weight: 400 !important;
       padding-right: 10px !important;
     }
@@ -5565,7 +5606,7 @@ ion-button
       }
 
       .bg-input[readonly] {
-        background-color: #efefef !important;
+        background-color: rgb(239 239 239 / 65%) !important;
       }
 
     }
@@ -5602,7 +5643,7 @@ ion-button
       // bottom: 21px;
       // top: 26px;
       z-index: 7;
-      background-color: #fff;
+      // background-color: #fff;
 
     }
 
@@ -5666,7 +5707,7 @@ app-frame-parent-child-order,
 
     table tbody tr:nth-child(odd) td {
       cursor: pointer !important;
-      background: #ffffff;
+      background: var(--white);
 
     }
 
@@ -5678,7 +5719,7 @@ app-frame-parent-child-order,
 
     table tbody tr {
       &:hover {
-        background: #d5d5d5;
+        background: #d5d5d591;
       }
 
     }
@@ -5859,7 +5900,7 @@ app-frame-parent-child-order,
         border: 1px solid #c1c1c1;
         padding: 3px;
         border-radius: 4px !important;
-        background: #fff !important;
+        background: var(--white) !important;
 
       }
 
@@ -6152,7 +6193,7 @@ app-frame-newtable-fast,
     .alert-div,
     .danger-alert-type1 {
       padding: 10px 0;
-      background: #ffff !important;
+          background: var(--white) !important;
 
       .head,
       .alert-header {
@@ -6205,7 +6246,7 @@ app-frame-newtable-fast,
           h5 {
             font-size: var(--font22);
             font-weight: 600;
-            color: #000000;
+            color: var(--text-dark);
             margin: 0px 0 5px;
             display: block !important;
           }
@@ -6367,17 +6408,18 @@ app-frame-newtable-fast,
     .model-msg {
       padding-bottom: 15px;
       font-size: var(--font14);
+      color:var(--text-dark);
 
       h5 {
         font-size: var(--font20);
         font-weight: 500;
-        color: var(--blackNew);
+        color:var(--text-dark);
         margin: 0 0 13px;
         display: block !important;
       }
 
       p {
-        color: var(--blackNew) !important;
+        color: var(--text-dark) !important;
         font-size: var(--font13);
       }
 
@@ -6393,7 +6435,7 @@ app-frame-newtable-fast,
         height: 36px !important;
         border-radius: 6px !important;
         --box-shadow: none !important;
-        --background: #ffffff !important;
+        --background: var(--white) !important;
         color: var(--blue-new);
         border: 1px solid var(--blue-new);
 
@@ -7113,7 +7155,7 @@ app-frame-newtable-fast,
           height: 36px;
           position: sticky;
          top: 0;
-         z-index: 999;
+         z-index: 9999;
 
           th {
             font-size: var(--font13);
@@ -7538,7 +7580,7 @@ app-frame-newtable-fast,
             // background: #e7e7e7;
             // border-radius: 20px;
             font-size: var(--font14);
-            color: #000;
+            color: var(--text-dark);
             // padding: 1px 12px
           }
         }
@@ -7812,7 +7854,7 @@ app-frame-newcalender,
   app-frame-table2,
   app-frame-canvas,
   app-frame-terms-conditions,app-frame-addon {
-    border: 1px solid #CDCDCD;
+    border: 1px solid #cdcdcda6;
     border-radius: 3px;
     height: 100%;
   }
@@ -8477,6 +8519,8 @@ app-frame-newcalender,
     position: absolute;
     top: 0;
     right: 0;
+    color: var(--text-dark);
+       
   }
 
   .offcanvas {
@@ -8487,7 +8531,8 @@ app-frame-newcalender,
       padding: 0px 0px !important;
       position: relative !important;
       top: 0;
-      right: 0;
+      right: 0; 
+      color: var(--text-dark);
     }
   }
 
@@ -8518,7 +8563,7 @@ app-frame-newcalender,
 @for $i from 1 through 30 {
   #globalNewModal.no_css_popup:nth-child(#{$i}) {
     .modal-content {
-      width: calc(100% - (20px * #{$i})) !important;
+      width: calc(100% - (20px * #{$i})) ;
       top: #{2 * $i}px !important;
     }
   }
@@ -8625,7 +8670,7 @@ app-frame-newcalender,
               top: 5px;
               right: 0px;
               font-size: var(--font12);
-              background: #eeeeee;
+              background: #eeeeee75;
               border-radius: 50%;
             }
 
@@ -8696,7 +8741,7 @@ app-frame-newcalender,
           }
 
           .right-menu {
-            background: #eeeeee;
+            background: #eeeeee81;
           }
 
         }
@@ -8706,7 +8751,7 @@ app-frame-newcalender,
           top: 5px;
           right: 0px;
           font-size: var(--font12);
-          background: #eeeeee;
+          background: #eeeeee71;
           border-radius: 50%;
           transform: rotate(90deg);
         }
@@ -8837,7 +8882,7 @@ app-frame-newcalender,
             position: sticky;
             top: 0;
             padding: 5px 0px 5px 0px !important;
-            background: #ffffff;
+            background: var(--white);
             z-index: 999;
           }
 
@@ -8977,7 +9022,7 @@ app-frame-newcalender,
           overflow-y: auto;
           overflow-x: hidden;
           position: absolute !important;
-          background: #ffffff !important;
+          background: var(--white) !important;
           z-index: 999 !important;
           right: 30px;
           left: 30px;
@@ -9031,7 +9076,7 @@ app-frame-newcalender,
               top: 5px;
               right: 0px;
               font-size: var(--font12);
-              background: #eeeeee;
+              background: #eeeeee79;
               border-radius: 50%;
             }
 
@@ -9093,7 +9138,7 @@ app-frame-newcalender,
           }
 
           .right-menu {
-            background: #eeeeee;
+            background: #eeeeee77;
           }
 
         }
@@ -9103,7 +9148,7 @@ app-frame-newcalender,
           top: 5px;
           right: 0px;
           font-size: var(--font12);
-          background: #eeeeee;
+          background: #eeeeee77;
           border-radius: 50%;
           transform: rotate(90deg);
         }
@@ -9234,7 +9279,7 @@ app-frame-newcalender,
             position: sticky;
             top: 0;
             padding: 5px 0px 5px 0px !important;
-            background: #ffffff;
+            background: var(--white);
             z-index: 999;
           }
 
@@ -9262,7 +9307,7 @@ app-frame-newcalender,
               }
 
               ion-icon {
-                color: var(--blue-new);
+                color:var(--blue-new);
                 min-width: 22px;
               }
             }
@@ -9895,9 +9940,9 @@ app-frame-newcalender,
     }
 
     .input-head ion-input {
-      background: #fff;
+      background: var(--white);
       border-radius: 5px;
-      border: 0px solid #e1e1e1;
+      border: 0px solid #e1e1e1b9;
     }
 
     .table-responsive,
@@ -9927,7 +9972,7 @@ app-frame-newcalender,
       // padding: 0px 8px 0px 0px;
 
       ion-title {
-        color: var(--dark-grey) !important;
+        color: var(--text-dark) !important;
         text-align: start;
         padding: 0px 0px;
         font-weight: 600;
@@ -9955,7 +10000,7 @@ app-frame-newcalender,
         height: 30px;
         --padding-end: 10px;
         --padding-start: 10px;
-        --color: #363636;
+        --color: var(--text-dark);
         margin: 0px 5px;
         font-weight: 500;
         cursor: pointer;
@@ -12461,7 +12506,7 @@ app-frame-newcalender,
       margin: 10vh auto;
       height: calc(100vh - 20vh); //65
       border: none;
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      box-shadow: rgb(77 77 77 / 42%) 0px 5px 15px;
     }
 
     .modal-body {
@@ -12648,12 +12693,13 @@ app-frame-newcalender,
       border-radius: 0px !important;
       border: 0px !important;
       box-shadow: 0 24px 54px rgba(0, 0, 0, .15), 0 4.5px 13.5px rgba(0, 0, 0, .08);
+      background: var(--white);
     }
 
 
     app-user-login {
       margin-top: 40px;
-      background: #fff;
+      background: var(--white);
 
       .userinfo_menubar {
         border-radius: 10px;
@@ -13002,7 +13048,7 @@ app-frame-newcalender,
       transition: all .4s;
       padding-top: 45px; //28
       // box-shadow: 0 0 1px;
-      box-shadow: 0 0px 1px rgba(0, 0, 0, 0.15), 0 1.5px 1.5px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 0px 1px rgb(225 225 225 / 62%), 0 1.5px 1.5px rgb(113 113 113 / 51%);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -13623,6 +13669,9 @@ app-frame-newcalender,
       letter-spacing: 2px;
       color: var(--blue-new);
     }
+    span{
+      color:var(--label-text);
+    }
 
     &:after {
       content: "";
@@ -13928,7 +13977,7 @@ app-frame-newcalender,
         position: absolute;
         top: 3%;
         right: 36px;
-        background: rgb(255, 255, 255);
+        background: var(--white);
         color: var(--blackNew);
         padding: 6px 10px;
         border-radius: 3px;
@@ -14020,13 +14069,13 @@ app-frame-newcalender,
         position: absolute;
         top: 3%;
         right: 36px;
-        background: rgb(255, 255, 255);
+        background: var(--white);;
         color: var(--blackNew);
         padding: 6px 10px;
         border-radius: 3px;
         font-size: var(--font13);
         white-space: nowrap;
-        border: 1px solid var;
+        border: 1px solid  #dcdcdc99;
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       }
 
@@ -14309,7 +14358,7 @@ ion-button
           position: absolute;
           right: 0;
           z-index: 9999;
-          background-color: #efefef;
+          background-color: #efefef78;
           text-align: center;
 
           &:hover{
@@ -14762,7 +14811,7 @@ ion-button
 
   /*info popup*/
   .info_popup {
-    background-color: #fff;
+    background-color: var(--white);
     position: fixed;
     right: 11.5%;
     z-index: 9999999999;
@@ -14813,7 +14862,7 @@ ion-button
       position: absolute;
       top: -8px;
       right: 2px;
-      background-color: rgb(255 255 255);
+      background-color:var(--white);
       height: 15px;
       width: 25px;
       clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -21371,7 +21420,7 @@ max-width: 70vw;
 
   .mmt-filter-area {
     padding: 0px 0px 0px 0px;
-    background-color: #fff;
+    background-color: var(--white);
     border-radius: 3px;
     width: 100%;
 

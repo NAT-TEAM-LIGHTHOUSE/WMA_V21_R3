@@ -286,13 +286,14 @@
             <th>
               Slno
             </th> 
-            <th>
-              Column name   <input type="search" placeholder="Search..." [(ngModel)]="searchTextColumn"/>
+            <th class="py-2">
+              Column name   
             </th>
              <th>
               New Slno
              </th>
           </tr>
+          <tr><th></th><th></th><th><input type="search" placeholder="Search..." class="m-1 " style="height: 27px;" [(ngModel)]="searchTextColumn"/></th><th></th></tr>
           </thead>
           <tbody>
               <!-- <tr *ngFor="let a of  columnsData;let i=index"> -->

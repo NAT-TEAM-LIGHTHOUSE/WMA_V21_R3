@@ -360,6 +360,48 @@ background: var(--bgtheme-default) !important;
         }
       }
 }
+&:has(.bgtheme-black) {
+	background: #444444 !important;
+    background-color: #444444 !important;
+.left2-title,
+.bg-shrink{
+	background: #444444 !important;
+	--background: #444444 !important;
+	background-color: #444444 !important;
+}
+.left_panel .sidebar,
+.main-footer-area,
+.left_panel{
+background: #444444 !important;
+    background-color: #444444 !important;
+}
+
+.offcanvas{
+	.bg-shrink{
+		background-color: transparent !important;
+		background: transparent !important;
+		height: 98%;
+	}
+}
+
+	.theme-segment {
+        .default-bgtheme-btn {
+          &::before {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            // background: url(../assets/imgs/sidebarIcons/check_dark.png) no-repeat;
+            background-size: contain;
+            left: 0;
+            top: 0; 
+            right: 0;
+            bottom: 0;
+            margin: auto;
+          }
+        }
+      }
+}
 }
  
 
@@ -546,7 +588,7 @@ app-textrich-model{
 	text-align: center;
 }
 .alert-head.sc-ion-alert-md{
-    padding: 8px 0px;
+    padding: 8px 15px;
     margin: 0px 0px 0px 0px;
 }
 
@@ -1208,6 +1250,7 @@ g[opacity="0.4"] {
 		padding: 5px 10px;
 		border-top: 1px solid #d9d9d9;
 		border-right: 1px solid #d9d9d9;
+		color:var(--text-dark);
 		
 		&:last-child{
 			border-right: 0px !important;
@@ -1594,7 +1637,14 @@ ion-calendar {
 }
 
 
-
+#exitApp{
+	.alert-head.sc-ion-alert-md{
+      text-align: center;
+	}
+	.alert-message.sc-ion-alert-md{
+		text-align: center;
+	}
+}
 
 /* Sub Select  css start*/
 @media only screen and (max-width:576px) {
@@ -1742,7 +1792,7 @@ table tbody {
 
 	.booked-activity {
 		background: #d22323;
-		color: #fff;
+		color: var(--white);
 		padding: 4px;
 	}
 
@@ -1756,11 +1806,11 @@ table tbody {
 }
 
 table tbody tr:nth-child(even) {
-	background: #ffffff;
+	background: var(--white);
 }
 
 .input-head {
-	background: #fff !important;
+	background: var(--white) !important;
 }
 
 .bg-info {
@@ -1790,7 +1840,7 @@ table tbody tr:nth-child(even) {
 
 	table {
 		margin: 0;
-		background: #fff;
+		background: var(--white);
 		border-collapse: separate;
 	}
 }
@@ -1798,7 +1848,7 @@ table tbody tr:nth-child(even) {
 .table-responsive {
 	table {
 		margin: 0;
-		background: #fff;
+		background: var(--white);
 		border-collapse: separate;
 	}
 }
@@ -1834,7 +1884,7 @@ table {
 		float: right;
 		padding: 5px;
 		font-size: 26px;
-		color: #fff;
+		color: var(--white);
 		opacity: 0.8;
 		cursor: pointer;
 	}
@@ -1924,12 +1974,12 @@ app-items {
      padding: 5px;
 	}
 	table td{
-    border-bottom: 1px solid rgb(209, 209, 209);
+    border-bottom: 1px solid rgba(209, 209, 209, 0.699);
 	padding: 0px 5px;
-	border-right: 1px solid #cbcbcb;
+	border-right: 1px solid #cbcbcbb0;
 	}
 	table {
-		border:1px solid rgb(209, 209, 209);
+		border:1px solid rgba(209, 209, 209, 0.726);
 	}
 	table tr:nth-child(even) td{
       background: #f1f1f1;
@@ -1996,7 +2046,7 @@ ion-popover .input-type6-containter .newIp-type3 .input-div ngb-popover-window.b
 ion-popover .input-type6-containter .newIp-type3 .input-div ngb-popover-window.bs-popover-top>.arrow:after {
 	right: 1px;
 	border-width: 0.5rem 0 0.5rem 0.5rem;
-	border-left-color: #fff;
+	border-left-color: #ffffffce;
 	border-top-color: transparent;
 }
 
@@ -2016,8 +2066,8 @@ ion-row.cdk-drop-list ion-col.cdk-drag {
 				--background: transparent;
 				--box-shadow: none;
 				margin: 0;
-				--background-hover: #cecece !important;
-				--background-focused: #cecece !important;
+				--background-hover: var(--bgtheme) !important;
+				--background-focused: var(--bgtheme) !important;
 			}
 		}
 
@@ -5209,6 +5259,3 @@ z-index: 0 !important;
 .has-focus.sc-ion-textarea-md-h textarea.sc-ion-textarea-md {
     caret-color: rgb(20, 20, 20) !important;
 }
-
-
-
