@@ -2589,6 +2589,12 @@ export class SuperPage implements OnInit, OnDestroy {
     if (frame) {
       frame.tableRows = [];
       frame.canvasRows = [];
+      if(frame.searchableData){
+        delete frame['searchableData']
+        if(frame.search){
+          delete frame['search']
+        }
+      }
       if (frame.apps_frame_type != 'TABLE') {
         frame.headers = [];
       }
@@ -17312,6 +17318,7 @@ export class SuperPage implements OnInit, OnDestroy {
     // alert(JSON.stringify(reqData.wscp.object_code));
     // this.get_object_config(item, item.calling_object_code, 'TAB');
     this.itemClicked(item)
+    console.log(item);
     // }
   })
 

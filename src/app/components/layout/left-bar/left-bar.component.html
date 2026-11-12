@@ -69,7 +69,8 @@
                               <span>Apps</span>
                             </a>
                           </li>
-                          <li class="small-logo" style="margin-bottom: 5px !important;" (click)="notificationLinks(item)"
+                           <!-- <li class="small-logo" style="margin-bottom: 5px !important;" (click)="notificationLinks(item)" -->
+                          <li class="small-logo" style="margin-bottom: 5px !important;" (click)="openApplication(item)"
                            *ngIf="item.item_name == 'SYS_NOTIFICATION' && item.item_visible_flag == 'T'">
                             <a class="p-0 m-0" titletip="Notification">
                               <ion-icon name="notifications-outline" title=""
@@ -203,7 +204,7 @@
                               <span>Apps</span>
                             </a>
                           </li>
-                          <li class="small-logo" style="margin-bottom: 5px !important;" (click)="notificationLinks(item)"
+                          <li class="small-logo" style="margin-bottom: 5px !important;" (click)="openApplication(item)"
                            *ngIf="item.item_name == 'SYS_NOTIFICATION'">
                             <a class="p-0 m-0" titletip="Notification">
                               <ion-icon name="notifications-outline" title=""
