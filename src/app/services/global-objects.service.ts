@@ -266,7 +266,13 @@ export class GlobalObjectsService {
 
   // currentRole = this.roleSource.asObservable();
 
-  public frameFlag = false;
+  // public frameFlag = true;
+  // public itemFlag = true;
+  // public pagesFlag = true;
+  // public serviceFlag = true;
+  // public layoutFlag = true;
+
+   public frameFlag = false;
   public itemFlag = false;
   public pagesFlag = false;
   public serviceFlag = false;

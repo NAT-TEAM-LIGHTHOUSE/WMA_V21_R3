@@ -128,7 +128,7 @@ export class FrameCanvasComponent implements OnInit {
       if (x.toUpperCase() === 'SEARCH_BAR') {
         this.searchFlag = true;
       }
-    } 
+    }
 
     if (this.frame.collapse == undefined) {
       if (this.frame.apps_frame_sub_type && this.frame.apps_frame_sub_type.toLowerCase().indexOf('collapse') > -1) {
@@ -333,20 +333,33 @@ export class FrameCanvasComponent implements OnInit {
 
 
       //////  for change super events /////
+      // if (((!event.click_events_str && event.itemClicked != 'pre') || event.itemClicked == 'post' || event.itemClicked == 'load') && this.frame.tableRows && this.frame.tableRows.length > 0) {
+      //   event.wsdpcl = [];
+      //   // let newEvent = JSON.parse(JSON.stringify(event))
+      //   // let newEvent = event
+      //   // newEvent.changeEvent = true;
+      //   // newEvent.tabRows = this.frame.tableRows[rowindex];
+      //   event.itemIndex = rowindex;
+      //   event.wsdpcl[0] = this.lhs_lib.getWsdpcl(this.frame.tableRows[rowindex], event.itemIndex);
+
+      //   // this.emitPass.emit(newEvent);
+
+      //   this.emitPass.emit(event);
+      // }
+
       if (((!event.click_events_str && event.itemClicked != 'pre') || event.itemClicked == 'post' || event.itemClicked == 'load') && this.frame.tableRows && this.frame.tableRows.length > 0) {
         event.wsdpcl = [];
-        // let newEvent = JSON.parse(JSON.stringify(event))
-        // let newEvent = event
-        // newEvent.changeEvent = true;
-        // newEvent.tabRows = this.frame.tableRows[rowindex];
+        let newEvent = JSON.parse(JSON.stringify(event))
+        newEvent.changeEvent = true;
+        newEvent.tabRows = this.frame.tableRows[rowindex];
         event.itemIndex = rowindex;
         event.wsdpcl[0] = this.lhs_lib.getWsdpcl(this.frame.tableRows[rowindex], event.itemIndex);
 
-        // this.emitPass.emit(newEvent);
-        
-        this.emitPass.emit(event);
+        this.emitPass.emit(newEvent);
       }
       ////*******/////////  */
+
+
 
 
       if (event.dependent_column_str) {

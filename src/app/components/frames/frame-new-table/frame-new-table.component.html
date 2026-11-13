@@ -587,8 +587,8 @@
               [id]="frame.apps_page_frame_seqid + '--' + (tableData ? tableData[0]?.Level5[0]?.indexcount : 0)"
               (dblclick)="dbClickpopover(true,tableData,i)" expand="block" tabindex="0"
               [class]="(tableData && tableData[0] && tableData[0].Level5[0] && frame.active_row == tableData[0].Level5[0].indexcount) ? 'trow-active table-row' : 'table-row'"
-              (contextmenu)="onRightClick($event, tableData)" (pointerdown)="startLongPress($event, tableData)"
-              (pointerup)="cancelLongPress()" (pointercancel)="cancelLongPress()" (pointermove)="cancelLongPress()">
+              (contextmenu)="onRightClick($event, tableData)" 
+             >
               <ng-container *ngIf="tableData.length > 0">
                 <ng-container *ngFor="let tableItem of tableData">
                   <ng-container

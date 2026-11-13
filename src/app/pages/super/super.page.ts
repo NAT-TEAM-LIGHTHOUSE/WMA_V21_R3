@@ -94,7 +94,7 @@ type AOA = any[][];
 
 @Component({
   standalone: true,
-  imports: [STANDALONE_IMPORTS, FrameOtpComponent, FrameCanvasComponent, FrameSelectorComponent, HeaderBarComponent,MergeLevel5Pipe],
+  imports: [STANDALONE_IMPORTS, FrameOtpComponent, FrameCanvasComponent, FrameSelectorComponent, HeaderBarComponent, MergeLevel5Pipe],
   // providers:[MultiLevelTabPage, DevFrameItemListPage, DevObjectMastEditorPage,TreeCallpagePage,
   //     DevFrameMastEditorPage, DevImageIconMastEditorPage,ParentMenuPage,DownloadPopoverComponent],
   selector: 'app-super',
@@ -346,7 +346,7 @@ export class SuperPage implements OnInit, OnDestroy {
     private ngZone: NgZone, private sqlutilserv: SqlUtilsService,
     private sqlLiteServ: SqlLiteService, public lhs_lib: LhsLibService, private convert_plsq_js: PlsqlToJsService,
     public sanitizer: DomSanitizer, private processData: ProcessDataService, private el: ElementRef, private ren: Renderer2, private canvasModal: CanvasModalService, private modalGlobal: CanvasModalService,
-    public chatAiService: ChatAiService, private appRef: ApplicationRef, private coord: DbCoordinatorService, @Inject(PLATFORM_ID) private platformId: Object, private injector: Injector, private cdEngine: CdEngineService,private dynamic_func:DynamicFunctionService
+    public chatAiService: ChatAiService, private appRef: ApplicationRef, private coord: DbCoordinatorService, @Inject(PLATFORM_ID) private platformId: Object, private injector: Injector, private cdEngine: CdEngineService, private dynamic_func: DynamicFunctionService
   ) {
 
     this.eventEngine = new DynamicEventEngine(this);
@@ -759,9 +759,9 @@ export class SuperPage implements OnInit, OnDestroy {
       this.afterModalOnDismiss(data.detail, data.componentProps)
     } else if (res.type == 'agentic_Chatbot') {
       this.agentic_Chatbot(res.item)
-    }else if(res.type=='quick_action_clicked'){
+    } else if (res.type == 'quick_action_clicked') {
       this.quick_action_clicked(res.item);
-    }else if(res.type=='set_bookmark'){
+    } else if (res.type == 'set_bookmark') {
       this.set_bookmark(res.item);
     }
   }
@@ -1428,10 +1428,10 @@ export class SuperPage implements OnInit, OnDestroy {
             case 'SIDE_BAR': sideBar = frame; break;
 
             case 'TAB_FRAMES': tabs.push(frame); break;
-            case 'CANVAS': 
-            switch (frame.apps_frame_sub_type) {
-              case 'SIDE_MENU': this.side_menu = frame; break;
-            }; break;
+            case 'CANVAS':
+              switch (frame.apps_frame_sub_type) {
+                case 'SIDE_MENU': this.side_menu = frame; break;
+              }; break;
             case 'SYSTEM':
               switch (frame.apps_frame_sub_type) {
                 case 'OBJECT_INFO': objMast.frame_object_info = frame; break;
@@ -1768,7 +1768,7 @@ export class SuperPage implements OnInit, OnDestroy {
       // if(!this.plt){
       //   this.mobileViewQuickAction();
       // }
-      
+
 
       // this.globalobjects.hideLoadingSide();
 
@@ -2787,7 +2787,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
                   if (item.value || str.toLowerCase() != "post_events_str" || e.includes("_force")) {
                     let strs = item[e.toLowerCase().replace("_force", "")];
-                    if(strs.includes('ajs_')){
+                    if (strs.includes('ajs_')) {
                       strs = strs.replaceAll("ajs_", "utilvar.dynamic_func.ajs_");;
                     }
                     await this.execute_js(strs, item, e);
@@ -2814,7 +2814,7 @@ export class SuperPage implements OnInit, OnDestroy {
                     }
                   }
                   if (strs) {
-                    const supercomp=this
+                    const supercomp = this
                     strs = strs.replaceAll("await ", " ");
                     strs = strs.replaceAll("event,", "item,");
                     strs = strs.replaceAll("this.", "supercomp.");
@@ -3139,7 +3139,7 @@ export class SuperPage implements OnInit, OnDestroy {
       } else if (details.data.verifiedFlag == "T") {
         this.openPage(componentProps);
       }
-        if(!this.plt){
+      if (!this.plt) {
         this.mobileViewQuickAction();
       }
     });
@@ -5448,9 +5448,9 @@ export class SuperPage implements OnInit, OnDestroy {
       }
 
     }
-      if(!this.plt){
-        this.mobileViewQuickAction();
-      }
+    if (!this.plt) {
+      this.mobileViewQuickAction();
+    }
     this.lhs_lib.setObjectMastTab()
     // if (this.lhs_lib.dynamicTabs.length > 0) {
     //   let tabs: any = document.getElementsByTagName('app-my-tabs')
@@ -5626,7 +5626,7 @@ export class SuperPage implements OnInit, OnDestroy {
           //  this.back_refresh();
         }
       }
-        if(!this.plt){
+      if (!this.plt) {
         this.mobileViewQuickAction();
       }
     });
@@ -6979,7 +6979,7 @@ export class SuperPage implements OnInit, OnDestroy {
     setTimeout(async () => {
 
       let event = this.globalobjects.mouseEvent;
-      let copyValue= event.target.innerText;
+      let copyValue = event.target.innerText;
       let popUp = await this.popOverCtrl.create({
         animated: false,
         component: ParentMenuPage,
@@ -7333,8 +7333,8 @@ export class SuperPage implements OnInit, OnDestroy {
             if (data && data.item) {
               data.item.itemClicked = 'post';
               data.item.some_post_events_str = data.event_arr.join(";");
-               // this.itemClicked(data.item);
-              this.call_async_clicked(data.item,data.event_arr)
+              // this.itemClicked(data.item);
+              this.call_async_clicked(data.item, data.event_arr)
               console.log(data);
             }
           }
@@ -7349,8 +7349,8 @@ export class SuperPage implements OnInit, OnDestroy {
           if (data && data.item) {
             data.item.itemClicked = 'post';
             data.item.some_post_events_str = data.event_arr.join(";");
-             // this.itemClicked(data.item);
-              this.call_async_clicked(data.item,data.event_arr)
+            // this.itemClicked(data.item);
+            this.call_async_clicked(data.item, data.event_arr)
             console.log(data);
           }
         }
@@ -7437,7 +7437,7 @@ export class SuperPage implements OnInit, OnDestroy {
             }
           }
         }
-        const supercomp=this;
+        const supercomp = this;
         let evStr = conArr[1].trim().charAt(0) == ")" ? "(event,supercomp" : "(event,supercomp,";
         let newStr = conArr[0] + evStr + lstr;
         // alert(newStr);
@@ -7447,14 +7447,14 @@ export class SuperPage implements OnInit, OnDestroy {
         convertedVal = newStr;
         // functions.push(convertedVal);
         try {
-          const supercomp=this;
+          const supercomp = this;
           let c = convertedVal;
           // let ev = { ...event };
           event = { ...event };
           // c = c.replaceAll("event.", "ev.");
           c = c.replaceAll("this.", "supercomp.");
-         let fun= this.dynamic_func.registerFunction(c)
-         console.log(fun);
+          let fun = this.dynamic_func.registerFunction(c)
+          console.log(fun);
           //  c = c.replaceAll("oajs", "ajs");
           //   c = c.replaceAll("gajs", "ajs");
           // console.log(c);
@@ -7512,15 +7512,15 @@ export class SuperPage implements OnInit, OnDestroy {
 
         // functions.push(convertedVal);
         try {
-          const supercomp=this;
+          const supercomp = this;
           let c = convertedVal.toLowerCase();
           // let ev = { ...event };
           event = { ...event };
           // c = c.replaceAll("event.", "ev.");
           c = c.replaceAll("this.", "supercomp.");
           console.log(c);
-            let fun= this.dynamic_func.registerFunction(c)
-         console.log(fun);
+          let fun = this.dynamic_func.registerFunction(c)
+          console.log(fun);
           // eval.call(this, c);
         } catch (err) {
           alert(err);
@@ -9371,7 +9371,7 @@ export class SuperPage implements OnInit, OnDestroy {
     let event = JSON.parse(JSON.stringify(item));
     event.click_events_arr = [];
     delete event['click_events_count'];
-    const supercomp=this;
+    const supercomp = this;
     const utilvar = this;
     // supercomp = this;
     // utilvar = this;
@@ -9561,7 +9561,7 @@ export class SuperPage implements OnInit, OnDestroy {
   lhs_lib_util(value, event) {
 
     if (!value) return '';
-    const supercomp=this;
+    const supercomp = this;
     value = value.replaceAll("this.", "");
     value = value.replaceAll("supercomp.", "");
     value = value.replaceAll("event,", "");
@@ -12571,7 +12571,20 @@ export class SuperPage implements OnInit, OnDestroy {
         let itemCon = this.lhs_lib.get_item(data.item_name, 0);
         if (itemCon) {
           itemCon.oldValue = "";
+
+          let errorItem = itemCon;
+          if (errorItem && data && data.para_value) {
+            errorItem.msgError = data.para_value;
+            errorItem.forcedInvalid = true;
+            errorItem.isValid = false;
+            delete errorItem['oldValue'];
+          }
+          this.globalobjects.focusedItem = '';
+          this.lhs_lib.go_item(errorItem.apps_page_frame_seqid + "." + errorItem.item_name, errorItem.indexcount, true);
         }
+
+
+
 
       } else if (res.data.statusType == "MWY") {
         mwType = true;
@@ -12638,6 +12651,16 @@ export class SuperPage implements OnInit, OnDestroy {
         let itemCon = this.lhs_lib.get_item(data.item_name, data.row_slno);
         if (itemCon.oldValue) {
           itemCon.oldValue = "";
+
+          let errorItem = itemCon;
+          if (errorItem && data && data.para_value) {
+            errorItem.msgError = data.para_value;
+            errorItem.forcedInvalid = true;
+            errorItem.isValid = false;
+            delete errorItem['oldValue'];
+          }
+          this.globalobjects.focusedItem = '';
+          this.lhs_lib.go_item(errorItem.apps_page_frame_seqid + "." + errorItem.item_name, errorItem.indexcount, true);
         }
       }
     })
@@ -14175,7 +14198,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
 
   async processObjectMast(objMast) {
-   
+
     if (this.globalobjects.layoutObject && this.globalobjects.layoutObject.length > 0 && !this.plt) {
       for (let object of this.globalobjects.layoutObject) {
         for (let obj of object.Level2) {
@@ -14183,7 +14206,7 @@ export class SuperPage implements OnInit, OnDestroy {
             if (lFrame.apps_frame_type == 'SYSTEM' && lFrame.apps_frame_sub_type == 'LAYOUT_OPTION') {
               if (lFrame.quick_buttons) {
                 delete lFrame['quick_buttons'];
-                 this.globalobjects.layoutObject = [...this.globalobjects.layoutObject];
+                this.globalobjects.layoutObject = [...this.globalobjects.layoutObject];
               }
 
             }
@@ -14191,7 +14214,7 @@ export class SuperPage implements OnInit, OnDestroy {
         }
       }
     }
-  
+
     if (objMast && objMast.Level2 && objMast.Level2[this.page_no]) {
       for (let frame of objMast.Level2[this.page_no].Level3) {
         this.parseFrame(frame);
@@ -14200,7 +14223,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
   }
 
-    parseFrame(frame) {
+  parseFrame(frame) {
 
     if (frame.Level4 && frame.Level4.length > 0 && frame.apps_frame_type != 'TABLE' && frame.apps_frame_type != 'ENTRY_TABLE' && frame.frame_alias != 'DISP_COL' &&
       frame.apps_frame_type != 'TREE_TABLE' && frame.apps_frame_type != 'TAB_FRAMES' && frame.apps_frame_sub_type != 'GLOBAL_SEARCH_BODY' && frame.frame_alias != 'ADV_FILTER') {
@@ -14224,25 +14247,25 @@ export class SuperPage implements OnInit, OnDestroy {
       // } else if (frame.apps_frame_type == 'TAB_FRAMES') {
       //   this.parseTabFrame(frame);
     } else {
-      if(this.globalobjects.layoutObject && this.globalobjects.layoutObject.length>0 && !this.plt){
-      if (frame.apps_frame_sub_type == 'QUICK_ACTION_BUTTON') {
-        for (let object of this.globalobjects.layoutObject) {
-          for (let obj of object.Level2) {
-            for (let lFrame of obj.Level3) {
-              // if(lFrame.quick_buttons){
-              //   delete lFrame['quick_buttons'];
-              // }
-              if (lFrame.apps_frame_type == 'SYSTEM' && lFrame.apps_frame_sub_type == 'LAYOUT_OPTION') {
-                // let arr = [...frame.tabelRows,...lFrame.tableRows];
-                lFrame.quick_buttons = frame.tableRows;
-                 this.globalobjects.layoutObject = [...this.globalobjects.layoutObject];
+      if (this.globalobjects.layoutObject && this.globalobjects.layoutObject.length > 0 && !this.plt) {
+        if (frame.apps_frame_sub_type == 'QUICK_ACTION_BUTTON') {
+          for (let object of this.globalobjects.layoutObject) {
+            for (let obj of object.Level2) {
+              for (let lFrame of obj.Level3) {
+                // if(lFrame.quick_buttons){
+                //   delete lFrame['quick_buttons'];
+                // }
+                if (lFrame.apps_frame_type == 'SYSTEM' && lFrame.apps_frame_sub_type == 'LAYOUT_OPTION') {
+                  // let arr = [...frame.tabelRows,...lFrame.tableRows];
+                  lFrame.quick_buttons = frame.tableRows;
+                  this.globalobjects.layoutObject = [...this.globalobjects.layoutObject];
+                }
               }
             }
           }
-        }
 
+        }
       }
-    }
 
       if (frame.frame_alias != 'ADV_FILTER') {
 
@@ -15901,7 +15924,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
   async_a(item, event_str) {
 
-    const supercomp=this
+    const supercomp = this
     let eventArr = event_str ? (event_str.includes(";") ? event_str.trim().split(";") : [event_str]) : [];
     const pattern = /^"(.*)"$/;
     for (let e of eventArr) {
@@ -15936,7 +15959,7 @@ export class SuperPage implements OnInit, OnDestroy {
     // }
 
     const promises = eventArr.map(call => {
-      const supercomp=this
+      const supercomp = this
       let match = this.lhs_lib_util(call, item);
       if (match) {
         match = match.replaceAll("await", "").replaceAll("this.", 'supercomp.').trim(); // Extract frameId and action
@@ -17000,7 +17023,7 @@ export class SuperPage implements OnInit, OnDestroy {
     }
     this.canvasModal.openoffCanvas(SuperPage, componentProps, id, cssClass, title).then((detail) => {
       this.lhs_lib.object_mast = this.object_mast;
-        if(!this.plt){
+      if (!this.plt) {
         this.mobileViewQuickAction();
       }
     });
@@ -17050,7 +17073,7 @@ export class SuperPage implements OnInit, OnDestroy {
       this.lhs_lib.object_mast = this.object_mast
       this.lhs_lib.setObjectMastTab()
       this.openCanvas = false
-        if(!this.plt){
+      if (!this.plt) {
         this.mobileViewQuickAction();
       }
     });
@@ -17086,7 +17109,7 @@ export class SuperPage implements OnInit, OnDestroy {
       this.lhs_lib.object_mast = this.object_mast
       this.lhs_lib.setObjectMastTab()
       this.openCanvas = false
-        if(!this.plt){
+      if (!this.plt) {
         this.mobileViewQuickAction();
       }
     });
@@ -17121,7 +17144,7 @@ export class SuperPage implements OnInit, OnDestroy {
       this.lhs_lib.object_mast = this.object_mast
       this.lhs_lib.setObjectMastTab()
       this.openCanvas = false
-        if(!this.plt){
+      if (!this.plt) {
         this.mobileViewQuickAction();
       }
     });
@@ -17696,8 +17719,8 @@ export class SuperPage implements OnInit, OnDestroy {
 
       let data: any = res;
       if (data.responseStatus && data.responseStatus.includes("success")) {
-         if(item){
-          item.isFavorite=true;
+        if (item) {
+          item.isFavorite = true;
         }
         console.log(data);
         this.afterGetS2uresp(reqData, data);
@@ -18398,11 +18421,11 @@ export class SuperPage implements OnInit, OnDestroy {
   app_frame_fullScreen(frameName) {
     let frame = this.lhs_lib.get_frame_config(frameName);
     if (frame) {
-      if(frame.isFullScreen){
+      if (frame.isFullScreen) {
         delete frame['isFullScreen'];
         this.commonMethodService.fullScreen(frame, "0");
-      }else{
-        frame.isFullScreen=true;
+      } else {
+        frame.isFullScreen = true;
         this.commonMethodService.fullScreen(frame, "1");
       }
     }
@@ -18695,7 +18718,7 @@ export class SuperPage implements OnInit, OnDestroy {
   async itemClicked_new(event, click_event_arr = null, frame?, itsFrame?, async_event?) {
 
     let clickEventStr = "";
-  const supercomp=this;
+    const supercomp = this;
     let event_arr = click_event_arr ?? this.event_que_arr;
 
     for await (let ev of event_arr) {
@@ -18955,9 +18978,9 @@ export class SuperPage implements OnInit, OnDestroy {
           if (!key) {
             key = "";
           }
-           if(key.includes('ajs_')){
+          if (key.includes('ajs_')) {
             key = key.replaceAll("ajs_", "utilvar.dynamic_func.ajs_");;
-           }
+          }
           await this.execute_js(key, event, ev);
         } else {
           continue;
@@ -19518,7 +19541,7 @@ export class SuperPage implements OnInit, OnDestroy {
 
   lhs_lib_util_new(value: string, event?: any): string {
     if (!value) return '';
-    const supercomp=this
+    const supercomp = this
     let output = value;
 
     output = output.replaceAll('this.', '');
@@ -20037,9 +20060,9 @@ export class SuperPage implements OnInit, OnDestroy {
   }
 
 
-  sidebar:boolean = true;
+  sidebar: boolean = true;
 
-  toggleSideMenubar(){
+  toggleSideMenubar() {
     this.sidebar = !this.sidebar;
   }
 
