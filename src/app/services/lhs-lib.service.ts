@@ -2021,7 +2021,7 @@ export class LhsLibService {
                   if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                     for (let item of itemGroup.Level5) {
                       if (frame && itemName.toUpperCase() == "ALL") {
-                        this.set_config(name, item, paraName, paraValue, frameId)
+                        this.set_config(name, item, paraName, paraValue, frameId,frame.apps_page_no)
                         this.isSetDimension(item, paraName, frameId)
                         //For pipe detect
                         // itemGroup.Level5 = [...itemGroup.Level5];
@@ -2031,7 +2031,7 @@ export class LhsLibService {
                     if (itemGroup && itemGroup.length > 0) {
                       for (let item of itemGroup) {
                         if (frame && itemName.toUpperCase() == "ALL") {
-                          this.set_config(name, item, paraName, paraValue, frameId)
+                          this.set_config(name, item, paraName, paraValue, frameId,frame.apps_page_no)
                           this.isSetDimension(item, paraName, frameId)
                           //For pipe detect
                           // itemGroup = [...itemGroup];
@@ -2050,7 +2050,7 @@ export class LhsLibService {
                 if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                   for (let item of itemGroup.Level5) {
                     if (frame && itemName.toUpperCase() == "ALL") {
-                      this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                      this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                       this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                       //For pipe detect
                       // itemGroup.Level5 = [...itemGroup.Level5];
@@ -2061,7 +2061,7 @@ export class LhsLibService {
                   if (itemGroup && itemGroup.length > 0) {
                     for (let item of itemGroup) {
                       if (frame && itemName.toUpperCase() == "ALL") {
-                        this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                        this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                         this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                         //For pipe detect
                         // itemGroup = [...itemGroup];
@@ -2081,7 +2081,7 @@ export class LhsLibService {
                     if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                       for (let item of itemGroup.Level5) {
                         if (frame && itemName.toUpperCase() == "ALL") {
-                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                           this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                           //For pipe detect
                           // itemGroup.Level5 = [...itemGroup.Level5];
@@ -2091,7 +2091,7 @@ export class LhsLibService {
                       if (itemGroup && itemGroup.length > 0) {
                         for (let item of itemGroup) {
                           if (frame && itemName.toUpperCase() == "ALL") {
-                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                             this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                             //For pipe detect
                             // itemGroup = [...itemGroup];
@@ -2117,7 +2117,7 @@ export class LhsLibService {
                     if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                       for (let item of itemGroup.Level5) {
                         if (frame && itemName.toUpperCase() == "ALL") {
-                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                           this.isSetDimension(item, paraName, frame.apps_page_frame_seqid);
                           //For pipe detect
                           // itemGroup.Level5 = [...itemGroup.Level5];
@@ -2127,7 +2127,7 @@ export class LhsLibService {
                       if (itemGroup && itemGroup.length > 0) {
                         for (let item of itemGroup) {
                           if (frame && itemName.toUpperCase() == "ALL") {
-                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                             this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                             //For pipe detect
                             // itemGroup = [...itemGroup];
@@ -2245,7 +2245,7 @@ export class LhsLibService {
               if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                 for (let item of itemGroup.Level5) {
                   if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                    this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                    this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                     this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                     //For pipe detect
                     // itemGroup.Level5 = [...itemGroup.Level5];
@@ -2256,7 +2256,7 @@ export class LhsLibService {
                 if (itemGroup && itemGroup.length > 0) {
                   for (let item of itemGroup) {
                     if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                      this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                      this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                       this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                       //For pipe detect
                       // itemGroup = [...itemGroup];
@@ -2279,7 +2279,7 @@ export class LhsLibService {
                     if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                       for (let item of itemGroup.Level5) {
                         if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                           this.isSetDimension(item, paraName, frame.apps_page_frame_seqid);
                           //For pipe detect
                           // itemGroup.Level5 = [...itemGroup.Level5];
@@ -2293,7 +2293,7 @@ export class LhsLibService {
                       if (itemGroup && itemGroup.length > 0) {
                         for (let item of itemGroup) {
                           if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                             this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                             //For pipe detect
                             // itemGroup = [...itemGroup];
@@ -2322,7 +2322,7 @@ export class LhsLibService {
                   if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                     for (let item of itemGroup.Level5) {
                       if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                        this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                        this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                         this.isSetDimension(item, paraName, frame.apps_page_frame_seqid);
                         //For pipe detect
                         // itemGroup.Level5 = [...itemGroup.Level5];
@@ -2333,7 +2333,7 @@ export class LhsLibService {
                     if (itemGroup && itemGroup.length > 0) {
                       for (let item of itemGroup) {
                         if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no);
                           this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                           //For pipe detect
                           // itemGroup = [...itemGroup];
@@ -2404,7 +2404,7 @@ export class LhsLibService {
                   if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                     for (let item of itemGroup.Level5) {
                       if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                        this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                        this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                         this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                         //For pipe detect
                         // itemGroup.Level5 = [...itemGroup.Level5];
@@ -2414,7 +2414,7 @@ export class LhsLibService {
                     if (itemGroup && itemGroup.length > 0) {
                       for (let item of itemGroup) {
                         if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                           this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                           //For pipe detect
                           // itemGroup = [...itemGroup];
@@ -6889,7 +6889,9 @@ export class LhsLibService {
       if (item.value && item.format_mask && item.datatype != 'DATE' && item.datatype != 'DATETIME' && item.datatype != 'TIME' && item.datatype != 'NUMBER') {
         if ((frame_type == 'TABLE' || frame_type == 'HORIZONTAL_TABLE' || frame_type == 'ENTRY_TABLE' || frame_type == 'FRAME_COLLAPSE' || frame_type == 'PLASTO_SUMMARY')
           && (item.item_visible_flag == 'T' || item.flag_auto_card == 'T')) { } else {
-          item.value = this.formatMastPipe.transform(item.value, item.format_mask);
+            if (item.item_type == 'TEXT_INPUT' && (item.datatype && item.datatype.toUpperCase() == 'NUMBER')) { } else {
+            item.value = this.formatMastPipe.transform(item.value, item.format_mask);
+          }
         }
       } else {
         if ((frame_type == 'TABLE' || frame_type == 'HORIZONTAL_TABLE' || frame_type == 'ENTRY_TABLE' || frame_type == 'FRAME_COLLAPSE' || frame_type == 'PLASTO_SUMMARY')
@@ -7769,7 +7771,7 @@ export class LhsLibService {
     }
   }
 
-  set_config(name, item, paraName, paraValue, frameId) {
+  set_config(name, item, paraName, paraValue, frameId,page_no?) {
     if (paraName.toLowerCase() == "display_setting_str") {
       let obj = {};
       for (let d in paraValue) {
@@ -7872,6 +7874,9 @@ export class LhsLibService {
     }
     // console.log("set_config",item,paraName,paraValue)
     // this.cdEngine.detect(item.apps_item_seqid + '_' + item.indexcount + '#' + frameId);
+    if(paraName=='item_visible_flag' || paraName=='item_enable_flag'){
+      this.set_aliese_altkey(item, frameId, page_no) 
+    }
     this.refreshFrameItems[item.apps_item_seqid + '_' + (item.indexcount ?? 0) + '#' + frameId] = "Y";
     this.refreshFrames[frameId] = "Y";
     return;
@@ -8551,14 +8556,14 @@ export class LhsLibService {
         for (let itemGroup of tableRows[rowIndex]) {
           if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
             for (let item of itemGroup.Level5) {
-              this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+              this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid,frame.apps_page_no)
               //For pipe detect
               // itemGroup.Level5 = [...itemGroup.Level5];
             }
           } else {
             if (itemGroup && itemGroup.length > 0) {
               for (let item of itemGroup) {
-                this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid,frame.apps_page_no)
                 //For pipe detect
                 // itemGroup = [...itemGroup];
 
@@ -8574,7 +8579,7 @@ export class LhsLibService {
       for (let itemGroup of frameLevel4) {
         if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
           for (let item of itemGroup.Level5) {
-            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid,frame.apps_page_no)
             //For pipe detect
             // itemGroup.Level5 = [...itemGroup.Level5];
 
@@ -8583,7 +8588,7 @@ export class LhsLibService {
         } else {
           if (itemGroup && itemGroup.length > 0) {
             for (let item of itemGroup) {
-              this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+              this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid,frame.apps_page_no)
               //For pipe detect
               // itemGroup = [...itemGroup];
             }
@@ -8598,14 +8603,14 @@ export class LhsLibService {
           for (let itemGroup of tableData) {
             if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
               for (let item of itemGroup.Level5) {
-                this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid,frame.apps_page_no)
 
 
 
                 if (item.containerRowss && item.containerRowss.length > 0) {
                   for (let cGrp of item.containerRowss) {
                     for (let cItem of cGrp.Level5) {
-                      this.set_config(name, cItem, paraName, paraValue, frame.apps_page_frame_seqid)
+                      this.set_config(name, cItem, paraName, paraValue, frame.apps_page_frame_seqid,frame.apps_page_no)
 
                     }
                   }
@@ -8616,7 +8621,7 @@ export class LhsLibService {
             } else {
               if (itemGroup && itemGroup.length > 0) {
                 for (let item of itemGroup) {
-                  this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                  this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid,frame.apps_page_no)
                   //For pipe detect
                   // itemGroup= [...itemGroup];
                 }
@@ -8633,7 +8638,7 @@ export class LhsLibService {
             if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
               for (let item of itemGroup.Level5) {
                 if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                  this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                  this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid,frame.apps_page_no);
                   this.isSetDimension(item, paraName, frame.apps_page_frame_seqid);
                   //For pipe detect
                   // itemGroup.Level5 = [...itemGroup.Level5];
@@ -8644,7 +8649,7 @@ export class LhsLibService {
               if (itemGroup && itemGroup.length > 0) {
                 for (let item of itemGroup) {
                   if ((frame && itemName.toUpperCase() == "ALL") || (itemName ? ((itemName == item.apps_item_seqid) || (item.item_name && itemName && (itemName.toLowerCase() == item.item_name.toLowerCase()))) : true)) {
-                    this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid);
+                    this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid,frame.apps_page_no);
                     this.isSetDimension(item, paraName, frame.apps_page_frame_seqid)
                     //For pipe detect
                     // itemGroup= [...itemGroup];
@@ -9153,14 +9158,14 @@ export class LhsLibService {
                     if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                       for (let item of itemGroup.Level5) {
                         if (itemName && item.group_no_str && (itemName.toLowerCase() == item.group_no_str.toLowerCase())) {
-                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                         }
                       }
                     } else {
                       if (itemGroup && itemGroup.length > 0) {
                         for (let item of itemGroup) {
                           if (itemName && item.group_no_str && (itemName.toLowerCase() == item.group_no_str.toLowerCase())) {
-                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                           }
                         }
                       }
@@ -9177,7 +9182,7 @@ export class LhsLibService {
                   if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                     for (let item of itemGroup.Level5) {
                       if (itemName && item.group_no_str && (itemName.toLowerCase() == item.group_no_str.toLowerCase())) {
-                        this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                        this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                       }
                     }
 
@@ -9185,7 +9190,7 @@ export class LhsLibService {
                     if (itemGroup && itemGroup.length > 0) {
                       for (let item of itemGroup) {
                         if (itemName && item.group_no_str && (itemName.toLowerCase() == item.group_no_str.toLowerCase())) {
-                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                          this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                         }
                       }
                     }
@@ -9200,14 +9205,14 @@ export class LhsLibService {
                       if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                         for (let item of itemGroup.Level5) {
                           if (itemName && item.group_no_str && (itemName.toLowerCase() == item.group_no_str.toLowerCase())) {
-                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                           }
                         }
                       } else {
                         if (itemGroup && itemGroup.length > 0) {
                           for (let item of itemGroup) {
                             if (itemName && item.group_no_str && (itemName.toLowerCase() == item.group_no_str.toLowerCase())) {
-                              this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                              this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                             }
                           }
                         }
@@ -9227,7 +9232,7 @@ export class LhsLibService {
                       if (itemGroup.Level5 && itemGroup.Level5.length > 0) {
                         for (let item of itemGroup.Level5) {
                           if (itemName && item.group_no_str && (itemName.toLowerCase() == item.group_no_str.toLowerCase())) {
-                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                            this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                           }
                           // if (item.containerRowss && item.containerRowss.length > 0) {
                           //   for (let cGrp of item.containerRowss) {
@@ -9243,7 +9248,7 @@ export class LhsLibService {
                         if (itemGroup && itemGroup.length > 0) {
                           for (let item of itemGroup) {
                             if (itemName && item.group_no_str && (itemName.toLowerCase() == item.group_no_str.toLowerCase())) {
-                              this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid)
+                              this.set_config(name, item, paraName, paraValue, frame.apps_page_frame_seqid, frame.apps_page_no)
                             }
                           }
                         }
@@ -9625,10 +9630,17 @@ export class LhsLibService {
             //     itemName
             //   };
             // }
-            if (item.aliases && item.item_visible_flag == 'T' && item.item_enable_flag == 'T' && item.item_type != 'RIGHT_CLICK') {
+            if (item.aliases && ((item.item_visible_flag == 'T' && item.item_enable_flag == 'T')|| (item.aliases.includes('^') && item.item_enable_flag == 'T')) && item.item_type != 'RIGHT_CLICK') {
+              let isItemActive = true;
+              if((item.aliases.includes('^') && item.item_enable_flag == 'T') || (item.item_visible_flag == 'T' && item.item_enable_flag == 'T)')){
+                isItemActive = true;
+              }else{
+                isItemActive = false;
+              }
               itmAlias = {
                 frameSeqid,
-                itemName
+                itemName,
+                isItemActive
               };
             }
 
@@ -9668,7 +9680,8 @@ export class LhsLibService {
 
 
             if (itmAlias) {
-              let key = 'ALT_' + item.aliases.toUpperCase();
+              let aliaskey=item.aliases.includes('^')?item.aliases.split('^')[0]:item.aliases;
+              let key = 'ALT_' + aliaskey.toUpperCase();
               // if (indexes.byAliases[key] && indexes.byAliases[key].page_no == frame.apps_page_no) {
               //   indexes.byAliases[key].value.push(itmAlias)
               // } else {
@@ -10049,18 +10062,26 @@ export class LhsLibService {
     }
   }
 
-  set_aliese_altkey(item, frameId, page_no) {
+ set_aliese_altkey(item, frameId, page_no) {
     if (item.aliases && item.item_type != 'RIGHT_CLICK') {
+      let isItemActive = true;
+      if((item.aliases.includes('^') && item.item_enable_flag == 'T') || (item.item_visible_flag == 'T' && item.item_enable_flag == 'T)')){
+        isItemActive = true;
+      }else{
+        isItemActive = false;
+      }
       let itmAlias = {
         frameSeqid: frameId,
-        itemName: item.item_name
+        itemName: item.item_name,
+        isItemActive
       };
-      let key = 'ALT_' + item.aliases.toUpperCase();
+      let aliaskey=item.aliases.includes('^')?item.aliases.split('^')[0]:item.aliases;
+      let key = 'ALT_' + aliaskey.toUpperCase();
       let getkey = this.object_mast._object_indexes.byAliases[key];
-      if (item.item_visible_flag == 'T' && item.item_enable_flag == 'T') {
+      if((item.item_visible_flag == 'T' && item.item_enable_flag == 'T')||(item.aliases.includes('^') && item.item_enable_flag == 'T')) {
         if (getkey) {
           let keyvalue = getkey.find(list => list.page_no == page_no);
-          if (keyvalue) {
+          if (keyvalue && keyvalue.value) {
             let val = keyvalue.value.filter(value => value.itemName == item.item_name && value.frameSeqid == frameId)
             if (val && val.length > 0) {
               return
@@ -10086,7 +10107,9 @@ export class LhsLibService {
       } else {
         if (getkey) {
           let keyvalue = getkey.find(list => list.page_no == page_no);
-          keyvalue.value = keyvalue.value.filter(value => !(value.itemName == item.item_name && value.frameSeqid == frameId))
+          if(keyvalue && keyvalue.value){
+            keyvalue.value = keyvalue.value.filter(value => !(value.itemName == item.item_name && value.frameSeqid == frameId))
+          }
         }
       }
 

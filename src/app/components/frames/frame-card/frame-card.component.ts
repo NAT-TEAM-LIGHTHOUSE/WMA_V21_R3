@@ -1020,7 +1020,7 @@ export class FrameCardComponent implements OnInit {
       excelheads: this.excelheads,
       excelCol: this.excelCol
     }
-    this.commonMethod.getDataForGraph(this.fileTyle, '', obj)
+    this.commonMethod.getDataForGraph(this.fileTyle, '', obj,this.frame.app_page_frame_seqid)
     this.selectedExportDataType = "selectData"
   }
 
@@ -1045,7 +1045,7 @@ export class FrameCardComponent implements OnInit {
       excelheads: this.excelheads,
       excelCol: this.excelCol
     }
-    this.commonMethod.getDataForGraph('pdf', event, obj)
+    // this.commonMethod.getDataForGraph('pdf', event, obj)
     // this.getDataForGraph(this.fileTyle, '')
     this.selectedExportDataType = "selectData"
   }

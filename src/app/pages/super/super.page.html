@@ -194,7 +194,7 @@
 
                                 <ion-button [disabled]="item.item_enable_flag=='F'"
                                   class="global-main-copy data-tooltip-shortcut left alt"
-                                  [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && item.aliases ? item.aliases:''"
+                                  [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && item.aliases ? (item.aliases.includes('^') ? item.aliases.split('^')[0] : item.aliases):''"
                                   (click)="quick_action_clicked(item)" title="{{item.prompt_name}}"
                                   [attr.name]="'canvasClick#'+item.apps_page_frame_seqid+'#'+item.item_name+'#'+item.indexcount"
                                   [id]='item.apps_item_seqid + item.indexcount'>
@@ -227,7 +227,7 @@
 
                                     <ion-button [disabled]="item.item_enable_flag=='F'"
                                       class="global-main-copy data-tooltip-shortcut left alt"
-                                      [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && item.aliases ? item.aliases:''"
+                                      [attr.data-shortcut]="this.globalobjects.toggle_shortcutkey_tooltip() && item.aliases ? (item.aliases.includes('^') ? item.aliases.split('^')[0] : item.aliases):''"
                                       (click)="quick_action_clicked(item)" title="{{item.prompt_name}}"
                                       [attr.name]="'canvasClick#'+item.apps_page_frame_seqid+'#'+item.item_name+'#'+item.indexcount"
                                       [id]='item.apps_item_seqid + item.indexcount'>

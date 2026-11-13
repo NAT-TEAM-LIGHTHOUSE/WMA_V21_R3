@@ -260,6 +260,8 @@
         letter-spacing: 0px;
         font-size: var(--font13);
             padding: 0.2px 0.2px;
+                text-overflow: ellipsis;
+    white-space: nowrap;
                 // padding: 0px 0.2px;
         width:100%;
         // --padding-end: 5px;
@@ -401,7 +403,7 @@
         --padding-top: 0px;
         --padding-bottom: 0px;
         --background: none !important;
-        background: #fff !important;
+        background: var(--white) !important;
         color: var(--blue-new);
         border: 1px solid var(--blue-new);
         --box-shadow: none !important;
@@ -3628,7 +3630,7 @@ ion-toolbar.ios ion-buttons[slot=end]{
         height: 30px !important;
         width: 150px !important;
         min-width: 150px !important;
-        background: #ffffff;
+        background: var(--white);
     }
     .primary-search-section-filer-action ion-icon {
         padding: 5px 0px !important;
@@ -4184,6 +4186,7 @@ app-text-band{
         .title{
             font-size: var(--font16) !important;
             font-weight: 600 !important;
+            color: var(--text-dark);
         }
         .personalization_table{
             margin-top :10px;
@@ -4202,6 +4205,7 @@ app-text-band{
             padding: 9px 9px;
             font-size: var(--font14);
             font-weight: 400;
+            color: var(--text-dark);
             border:1px solid rgb(199, 199, 199);
             &:first-child{
                 text-align: center;

@@ -307,7 +307,7 @@ export class LeftBarComponent implements OnInit {
             this.openApplication(item);
           }
           else if (item.item_name == 'SYS_NOTIFICATION') {
-            this.notificationLinks(item);
+            this.openApplication(item);
           }
           else if (item.item_name == 'SYS_MEMO' || item.item_name == 'SYS_NOTES') {
             this.notesLinks(item)

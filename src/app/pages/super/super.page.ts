@@ -346,7 +346,7 @@ export class SuperPage implements OnInit, OnDestroy {
     private ngZone: NgZone, private sqlutilserv: SqlUtilsService,
     private sqlLiteServ: SqlLiteService, public lhs_lib: LhsLibService, private convert_plsq_js: PlsqlToJsService,
     public sanitizer: DomSanitizer, private processData: ProcessDataService, private el: ElementRef, private ren: Renderer2, private canvasModal: CanvasModalService, private modalGlobal: CanvasModalService,
-    public chatAiService: ChatAiService, private appRef: ApplicationRef, private coord: DbCoordinatorService, @Inject(PLATFORM_ID) private platformId: Object, private injector: Injector, private cdEngine: CdEngineService, private dynamic_func: DynamicFunctionService
+    public chatAiService: ChatAiService, private appRef: ApplicationRef, private coord: DbCoordinatorService, @Inject(PLATFORM_ID) private platformId: Object, private injector: Injector, private cdEngine: CdEngineService,private dynamic_func:DynamicFunctionService,private commonMethod: CommonMethodService
   ) {
 
     this.eventEngine = new DynamicEventEngine(this);
@@ -2589,6 +2589,12 @@ export class SuperPage implements OnInit, OnDestroy {
     if (frame) {
       frame.tableRows = [];
       frame.canvasRows = [];
+      if(frame.searchableData){
+        delete frame['searchableData']
+        if(frame.search){
+          delete frame['search']
+        }
+      }
       if (frame.apps_frame_type != 'TABLE') {
         frame.headers = [];
       }
@@ -4785,7 +4791,7 @@ export class SuperPage implements OnInit, OnDestroy {
               item.touched = true;
               item.vadidateMsg = item.tool_tip ? item.tool_tip : "Please enter valid " + (item.prompt_name ? item.prompt_name : item.item_name);
               // this.cdEngine.detect(item.apps_item_seqid + '_' + item.indexcount + '#' + frame.apps_page_frame_seqid);
-              this.lhs_lib.refreshFrameItems[event.apps_item_seqid + '_' + (event.indexcount ?? 0) + '#' + event.apps_page_frame_seqid] = "Y";
+              this.lhs_lib.refreshFrameItems[item.apps_item_seqid + '_' + (item.indexcount ?? 0) + '#' + item.apps_page_frame_seqid] = "Y";
               if (count < 2) {
                 res.item_str = res.item_str + "," + (item.prompt_name ? item.prompt_name : item.item_name);
                 res.error_item = res.item_str;
@@ -9826,7 +9832,20 @@ export class SuperPage implements OnInit, OnDestroy {
 
     }
 
+     if (value.toLowerCase().indexOf("table_export(") > -1) {
 
+      var regex4 = new RegExp("table_export", "ig");
+      var replace = "table_export(";
+
+      let str = "";
+      let arr = value.match(regex4);
+      for (let a of arr) {
+        let fun = a + "("
+        str = value.replaceAll(replace, fun).replaceAll(fun, replace);
+      }
+      value = str;
+
+    }
 
     if (value.toLowerCase().indexOf("app_show_frame(") > -1) {
 
@@ -17322,6 +17341,7 @@ export class SuperPage implements OnInit, OnDestroy {
     // alert(JSON.stringify(reqData.wscp.object_code));
     // this.get_object_config(item, item.calling_object_code, 'TAB');
     this.itemClicked(item)
+    console.log(item);
     // }
   })
 
@@ -19713,6 +19733,7 @@ export class SuperPage implements OnInit, OnDestroy {
       evLower.includes('sys_last_item') ||
       evLower.includes('sys_current_record') ||
       evLower.includes('set_item_config(') ||
+      evLower.includes('table_export(') ||
       evLower === 'raise' ||
       evLower.includes('raise;') ||
       evLower.includes(';')
@@ -20105,4 +20126,29 @@ export class SuperPage implements OnInit, OnDestroy {
     }
   }
 
+  table_export(fileType,frameSeq){
+    this.lhs_lib.refresh_frames();
+   let toolsExport={
+      selectedExportDataType:"allData"
+    } 
+    
+    this.commonMethod.getDataForGraph(fileType,'',toolsExport, frameSeq)
+ }
+ isShortcutKeyActive(shortcutkey_count, shortkey_name) {
+    
+   
+    if (shortcutkey_count >= shortkey_name.value.length) {
+        this.shortcutkey_count.count = 0;
+        return this.isShortcutKeyActive(0, shortkey_name);
+    }
+
+    let item = shortkey_name.value[shortcutkey_count];
+
+    if (item && item.isItemActive) {
+        this.shortcutkey_count.count = shortcutkey_count + 1;
+        return item;
+    }
+
+    return this.isShortcutKeyActive(shortcutkey_count + 1, shortkey_name);
+  }
 }

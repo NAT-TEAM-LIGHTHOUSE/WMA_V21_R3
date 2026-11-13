@@ -327,8 +327,8 @@ border: 1px solid #cdcdcd;
         box-shadow: none !important;
         background: none;
        // border-bottom: 1px solid #dddddd;
-        position: relative;
-        background: #efefef;
+        position: relative; 
+        background: #efefefa1;
         color:var(--blackNew);
     }
     ul{
@@ -341,6 +341,7 @@ border: 1px solid #cdcdcd;
             padding: 0px 0px 10px 0px;
           .item_filter{
             display: inline-flex;
+                color: var(--text-dark);
             .columnData_input{
                 margin-right: 5px;
             }

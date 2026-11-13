@@ -82,16 +82,16 @@ export class InputFormatMaskPipe implements PipeTransform {
 
       
 
-        if (typeof (value) == 'number') {
+         if (typeof (value) == 'number') {
           value = value.toString();
           if (value && value.indexOf(formatSymbol) > -1) {
             value = value.replaceAll(formatSymbol, "");
-          } else {
+          } 
+        } else {
             if (value && value.indexOf(formatSymbol) > -1) {
               value = value.replaceAll(formatSymbol, "");
             }
           }
-        }
 
 
          if (value < 0) {

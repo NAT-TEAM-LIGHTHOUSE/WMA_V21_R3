@@ -882,7 +882,7 @@ export class FrameTreeTableComponent implements OnInit, OnDestroy {
       excelheads: this.excelheads,
       excelCol: this.excelCol
     }
-    this.commonMethod.getDataForGraph(fileType, shareType, obj)
+    this.commonMethod.getDataForGraph(fileType, shareType, obj,this.frame.app_page_frame_seqid)
     return
   }
 

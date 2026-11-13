@@ -2144,9 +2144,15 @@ export class ProcessDataService {
               if (idx) {
                 let itemGroup = tabledata[idx.level4Index];
                 for (let item of itemGroup.Level5) {
+                  let value
+                  if(item.value && typeof(item.value) == 'string'){
+                    value = item.value.replaceAll(",","");
+                  } else {
+                    value = item.value ? item.value.toString().replaceAll(",","") : "";
+                  }
                   if (item.item_name.toLowerCase() == it.item_name.toLowerCase() && !item.extra_record) {
                     if (it.fun == "S") {
-                      obj[item.item_name] = item.value ? Number((parseFloat(item.value) + (obj[item.item_name] ?? 0)).toFixed(it.decimal)) : 0 + (obj[item.item_name] ?? 0);
+                      obj[item.item_name] = value ? Number((parseFloat(value) + (obj[item.item_name] ?? 0)).toFixed(it.decimal)) : 0 + (obj[item.item_name] ?? 0);
                     }
                     if (it.fun == "A" && item.value != undefined && item.value != null) {
                       if (!obj[item.item_name]) {
@@ -2155,7 +2161,7 @@ export class ProcessDataService {
                           count: 0
                         };
                       }
-                      obj[item.item_name].val = (obj[item.item_name].val ?? 0) + (item.value ? parseFloat((item.value).replace(/,/g, "")) : 0);
+                      obj[item.item_name].val = (obj[item.item_name].val ?? 0) + (value ? parseFloat((value).replace(/,/g, "")) : 0);
                       obj[item.item_name].count = obj[item.item_name].count + 1;
                       // avgCount = avgCount + 1;
                     }
@@ -2165,13 +2171,13 @@ export class ProcessDataService {
                         if (!obj[item.item_name]) {
                           obj[item.item_name] = [];
                         }
-                        obj[item.item_name].push(item.value ? (new Date((item.value).toString().replace(/,/g, ""))) : "");
+                        obj[item.item_name].push(value ? (new Date((value).toString().replace(/,/g, ""))) : "");
                       } else {
                         if (!obj[item.item_name]) {
                           obj[item.item_name] = [];
                         }
                         if(item.value != null || item.value != undefined){
-                          obj[item.item_name].push(item.value ? (parseFloat((item.value).toString().replace(/,/g, ""))) : "");
+                          obj[item.item_name].push(value ? (parseFloat((value).toString().replace(/,/g, ""))) : "");
                         }
                       }
                     }
@@ -2181,13 +2187,13 @@ export class ProcessDataService {
                         if (!obj[item.item_name]) {
                           obj[item.item_name] = [];
                         }
-                        obj[item.item_name].push(item.value ? (new Date((item.value).toString().replace(/,/g, ""))) : "");
+                        obj[item.item_name].push(value ? (new Date((value).toString().replace(/,/g, ""))) : "");
                       } else {
                         if (!obj[item.item_name]) {
                           obj[item.item_name] = [];
                         }
                         if(item.value != null || item.value != undefined){
-                          obj[item.item_name].push(item.value ? (parseFloat((item.value).toString().replace(/,/g, ""))) : "");
+                          obj[item.item_name].push(value ? (parseFloat((value).toString().replace(/,/g, ""))) : "");
                         }
                       }
                     }

@@ -1744,7 +1744,7 @@ export class FrameNewTableComponent implements OnInit, AfterViewInit, DoCheck {
       excelheads: this.excelheads,
       excelCol: this.excelCol
     }
-    this.commonMethod.getDataForGraph(fileType, shareType, obj)
+    this.commonMethod.getDataForGraph(fileType, shareType, obj,this.frame.app_page_frame_seqid)
     return
   }
   cleanString(input) {
