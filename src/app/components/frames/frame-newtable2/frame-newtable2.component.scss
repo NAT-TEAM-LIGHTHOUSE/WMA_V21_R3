@@ -1575,3 +1575,7 @@ p{
     }
    
 }
+.horizental_container .trow-active{
+  background: var(--table-active);
+    cursor: pointer;
+}
