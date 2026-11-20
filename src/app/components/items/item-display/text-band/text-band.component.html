@@ -706,6 +706,9 @@
           <ng-container *ngIf="textband.val && textband.val.length > 0 ;else elsetag">
 
             <div class="target_kpi-count">
+               @if(baseImg){
+              <img [src]="baseImg"  >
+               }
               <h4 title="{{textband.val[1]}}">{{textband.val[0]}}</h4>
             </div>
             <div class="d-flex align-items-center justify-content-end">
@@ -718,11 +721,17 @@
           </ng-container>
           <ng-template #elsetag>
             <div class="target_kpi-count">
-              <h4 title="{{textband.value}}">{{textband.value}}</h4>
-            </div>
-          </ng-template>
+              @if(baseImg){
 
-          <ion-icon *ngIf="targetItem" (click)="targetClick()" style="position: absolute;top: 5px;left: 5px;cursor: pointer;padding: 5px;" name="open-outline"></ion-icon>
+                <img [src]="baseImg" >
+              }
+                <h4 title="{{textband.value}}">{{textband.value}}</h4>
+              </div>
+          </ng-template>
+<!-- @if(!baseImg){ -->
+
+  <ion-icon *ngIf="targetItem" (click)="targetClick()" style="position: absolute;top: 5px;left: 5px;cursor: pointer;padding: 5px;" name="open-outline"></ion-icon>
+<!-- } -->
           <!-- <ion-icon name="refresh-outline" *ngIf="isIconVisible" (click)="refreshItem($event)"></ion-icon>
         <img *ngIf="!isIconVisible" src="../../../../../assets/page-small-loader-img2.gif" alt="Icon 2"
           (click)="toggleIcon()" /> -->

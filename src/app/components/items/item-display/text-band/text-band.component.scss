@@ -245,11 +245,12 @@ ion-icon[name="refresh-outline"]{
 }
 
 .twod-kpi.blue {
-  background: #ffffff;
+  background: var(--white);
     border: 1px solid #e5e5e5;
 
   .kpi-header {
-    background: #e5e5e5;
+    background: var(--bgtheme-default);
+    color:var(--white);
   }
 
   .kpi-body {
@@ -499,16 +500,16 @@ border-radius: 50%;
 .summary-item-blue {
 
   ion-note {
-    color: var(--blue);
+    color: var(--blue-new);
   }
 
   ion-label {
-    color: var(--blue);
+    color: var(--blue-new);
   }
 
   ion-avatar {
 
-    background: var(--blue);
+    background: var(--blue-new);
 
 
   }
@@ -783,7 +784,7 @@ $secondary-text: var(--text-light-1);
     }
 
     ion-label {
-      color: #423f3f;
+      color: var(--text-dark);
 
       font-size: var(--font14) !important;
       padding-right: 45px;
@@ -1065,7 +1066,7 @@ $secondary-text: var(--text-light-1);
     text-align: center;
     border-radius: 3px;
     margin-bottom: 0.5rem !important;
-    border: 1px solid #d6d6d6;
+    border: 1px solid #d6d6d687;
     // background: var(--white);
   
     &:hover{
@@ -1206,6 +1207,7 @@ $secondary-text: var(--text-light-1);
       margin-top: 5px;
       font-size: var(--font14);
       font-weight: 500;
+      color: var(--text-dark);
     }
   }
 
@@ -1339,13 +1341,23 @@ $secondary-text: var(--text-light-1);
     // background: #ffffffad;
 }
   .target_kpi-count{
-
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+   padding: 4px 0px;
+       img{
+        width: 32px;
+    height: 32px;
+    min-width: 32px;
+       }
   }
   h4{
 
-    font-size: var(--font18);
+    font-size: var(--font16);
     margin: 3px 0px;
     font-weight: 600;
+    width: 100%;
+    text-align: right;
 
   }
   p{
@@ -1363,7 +1375,7 @@ $secondary-text: var(--text-light-1);
   display: flex;
   flex-direction: column;
   border: 1px solid #e5e5e5;
-  background: #fff;
+  background: var(--white);
   padding: 0.5rem;
   margin: 5px 5px;
   position: relative;
@@ -1380,7 +1392,7 @@ h3{
 
 .application-card-image{
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--white);
   padding: 0rem 0 5px 0;
   /* border-radius: 0.3rem; */
   height: 7vh;
