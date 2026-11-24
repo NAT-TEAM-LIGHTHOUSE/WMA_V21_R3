@@ -24,6 +24,7 @@
     ion-radio{
         margin-top: 0;
         margin-bottom: 0;
+        --color:var(--text-dark);
     }
 }
 
@@ -33,7 +34,8 @@
     height: 1rem !important;
 }
 .radio-item ion-label {
-  margin-left: 6px;
+  color: var(--text-dark);
+  margin-left: 3px;
   font-size: var(--font14);
       white-space: nowrap;
       font-weight: 500;
@@ -53,8 +55,45 @@
 
 //
 
+.border-radio-button{
+    padding: 4px 5px;
+    border: 1px solid #cacacaa9;
+    border-radius: 8px;
+    margin-bottom: 5px;
+
+    &:has(.radio-checked){
+      border: 1px solid var(--blue-new);
+      box-shadow: rgba(249, 252, 255, 0.2) 0px 2px 8px 0px;
+      background: var(--blue-light-5);
+    }
+}
+
+.newIp-type3 ion-list > div:has(.checkbox-card){
+  height:auto !important;
+  }
+
+.checkbox-card {
+    padding: 5px 6px;
+    border: 1px solid #c9c9c9bf;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 4px;
+    margin-right: 4px;
+
+    .label-text-wrapper{
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
 
 
+
+    &:has(ion-checkbox[aria-checked="true"]){
+      border: 1px solid var(--blue-new);
+      box-shadow: rgba(249, 252, 255, 0.2) 0px 2px 8px 0px;
+      background: var(--blue-light-5);
+    }
+}
 
 .checkbox-item{
     display: block;
