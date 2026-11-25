@@ -76,44 +76,46 @@ export class UploadButtonComponent implements OnInit {
         if (this.button.value == '#') {
           this.button.value = '';
         }
-        if (this.button.converToBase64imgData && this.button.value) {
-          this.button.imgData = this.sanitizer.bypassSecurityTrustResourceUrl(this.button.converToBase64imgData);
-          this.imgData = this.button.converToBase64imgData
-          this.button.isImage = false;
-          this.button.isFile = false;
-          let ext = this.button.file_name.split(".")[1].toLowerCase();
-          if (ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif") {
-            this.button.isImage = true
+        if(this.button.value){
+          if (this.button.converToBase64imgData) {
+            this.button.imgData = this.sanitizer.bypassSecurityTrustResourceUrl(this.button.converToBase64imgData);
+            this.imgData = this.button.converToBase64imgData
+            this.button.isImage = false;
+            this.button.isFile = false;
+            let ext = this.button.file_name.split(".")[1].toLowerCase();
+            if (ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif") {
+              this.button.isImage = true
 
+            } else {
+              // if (ext == "doc" || ext == "ppt" || ext == "pptx") {
+              //   this.notPpopupShow = true
+              // }
+              this.button.isFile = true
+              this.imgDataFile = this.imgData
+            }
+            if (ext == "doc" || ext == "docx") {
+              this.button.FileImage = "./assets/imgs/wordnfile.png"
+            } else if (ext == "xlsx" || ext == "xls") {
+              this.button.FileImage = "./assets/imgs/excelnfile.png"
+            } else if (ext == "txt") {
+              this.button.FileImage = "./assets/imgs/txtFile.png"
+            } else if (ext == "pdf") {
+              this.button.FileImage = "./assets/imgs/pdfnfile.png"
+            }
           } else {
-            // if (ext == "doc" || ext == "ppt" || ext == "pptx") {
-            //   this.notPpopupShow = true
-            // }
-            this.button.isFile = true
-            this.imgDataFile = this.imgData
-          }
-          if (ext == "doc" || ext == "docx") {
-            this.button.FileImage = "./assets/imgs/wordnfile.png"
-          } else if (ext == "xlsx" || ext == "xls") {
-            this.button.FileImage = "./assets/imgs/excelnfile.png"
-          } else if (ext == "txt") {
-            this.button.FileImage = "./assets/imgs/txtFile.png"
-          } else if (ext == "pdf") {
-            this.button.FileImage = "./assets/imgs/pdfnfile.png"
-          }
-        } else {
-          let filename = this.button.value.split("#")[1]
-          let ext = filename.split(".")[1].toLowerCase();
-          if (ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif") {
-            // if ((this.button.value.includes('jpeg') || this.button.value.includes('jpg') || this.button.value.includes('png') || this.button.value.includes('gif'))) {
-            // this.button.imgData = this.sanitizer.bypassSecurityTrustUrl(data);
-            this.button.file_name = this.button.value.split("~")[1].split("#")[1]
-            this.showItemImage(this.button.value.split("~")[1].split("#")[0]);
-            this.button.isImage = true
-          } else if (this.button.value) {
-            this.button.isFile = true
-            this.button.file_name = this.button.value.split("~")[1].split("#")[1]
-            this.showfile(this.button.value.split("~")[1].split("#")[0])
+            let filename = this.button.value.split("#")[1]
+            let ext = filename.split(".")[1].toLowerCase();
+            if (ext == "jpeg" || ext == "jpg" || ext == "png" || ext == "gif") {
+              // if ((this.button.value.includes('jpeg') || this.button.value.includes('jpg') || this.button.value.includes('png') || this.button.value.includes('gif'))) {
+              // this.button.imgData = this.sanitizer.bypassSecurityTrustUrl(data);
+              this.button.file_name = this.button.value.split("~")[1].split("#")[1]
+              this.showItemImage(this.button.value.split("~")[1].split("#")[0]);
+              this.button.isImage = true
+            } else if (this.button.value) {
+              this.button.isFile = true
+              this.button.file_name = this.button.value.split("~")[1].split("#")[1]
+              this.showfile(this.button.value.split("~")[1].split("#")[0])
+            }
           }
         }
 

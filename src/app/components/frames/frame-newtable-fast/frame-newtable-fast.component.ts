@@ -1781,6 +1781,11 @@ export class FrameNewtableFastComponent implements OnInit, AfterViewInit {
         index: index,
         itm: itm
       }
+      this.frame.tabAtive = {
+        x: x,
+        index: index,
+        itm: itm
+      }
       let tHWidth: any = document.getElementsByClassName('thWidth');
       // console.log(tHWidth);
       if (tHWidth && tHWidth.length > 0) {

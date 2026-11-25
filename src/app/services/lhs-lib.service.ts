@@ -2145,7 +2145,7 @@ export class LhsLibService {
 
 
 
-              if ((frame.apps_frame_type == "ENTRY_TABLE" || frame.apps_frame_type == "TABLE" || frame.apps_frame_type == "HORIZONTAL_TABLE") && paraName && paraName.toLowerCase() != "calling_object_code") {
+              if ((frame.apps_frame_type == "ENTRY_TABLE" || frame.apps_frame_type == "TABLE" || frame.apps_frame_type == "HORIZONTAL_TABLE") && paraName && paraName.toLowerCase() != "calling_object_code" &&  paraName.toLowerCase() != "item_enable_flag" ) {
                 // frame.headers = JSON.parse(JSON.stringify(frameLevel4));
 
                 let level4 = [];
@@ -2153,6 +2153,11 @@ export class LhsLibService {
                   level4[0] = JSON.parse(JSON.stringify(frameLevel4))
                   let sepdata = this.seprateData(frame, level4)
                   frame.headers = sepdata[0];
+                 
+                    if(frame.tabAtive){
+                       this.toggleTable(frame,"header")
+                    }
+                  
 
                 }
 
@@ -2162,7 +2167,7 @@ export class LhsLibService {
 
                   this.calculateFrames[frame.apps_page_frame_seqid] = "Y";
                 }
-
+                
 
                 //  frame.headers = JSON.parse(JSON.stringify(frameLevel4));;
                 let tHead = [];
@@ -2350,14 +2355,18 @@ export class LhsLibService {
               }
 
 
-              if (frame.apps_frame_type == "ENTRY_TABLE" || frame.apps_frame_type == "TABLE" || frame.apps_frame_type == "HORIZONTAL_TABLE") {
+              if (frame.apps_frame_type == "ENTRY_TABLE" || frame.apps_frame_type == "TABLE" || frame.apps_frame_type == "HORIZONTAL_TABLE" && paraName && paraName.toLowerCase() != "item_enable_flag") {
 
                 let level4 = [];
                 if (frameLevel4 && frameLevel4.length > 0) {
                   level4[0] = JSON.parse(JSON.stringify(frameLevel4))
                   let sepdata = this.seprateData(frame, level4)
                   frame.headers = sepdata[0];
-
+                 
+                    if(frame.tabAtive){
+                      this.toggleTable(frame,"header")
+                    }
+                  
                 }
 
                 if (frame.summary_flag) {
@@ -2367,7 +2376,7 @@ export class LhsLibService {
                   this.calculateFrames[frame.apps_page_frame_seqid] = "Y";
                 }
 
-
+                
                 //  frame.headers = JSON.parse(JSON.stringify(frameLevel4));;
                 let tHead = [];
                 for (let itemGroup of frameLevel4) {
@@ -9731,6 +9740,9 @@ export class LhsLibService {
 
         if (frame) {
           this.processDataServ.calculateTableRows(frame);
+           if(frame.tabAtive){
+            this.toggleTable(frame)
+           }
         }
       }
       this.calculateFrames = {}
@@ -10115,5 +10127,67 @@ export class LhsLibService {
 
     }
     return;
+  }
+  
+  toggleTable(frame,isHeader?) {
+     let x=frame.tabAtive.x;
+    let index=frame.tabAtive.index;
+    let itm=frame.tabAtive.itm;
+    if (itm.item_sub_type == 'TAB_OPEN') { } else {
+    
+    /*  let tHWidth: any = document.getElementsByClassName('thWidth');
+      // console.log(tHWidth);
+      if (tHWidth && tHWidth.length > 0) {
+        let width = tHWidth[0].clientWidth;
+        if (this.thFlag) {
+          for (let t of tHWidth) {
+            if (width < t.clientWidth) {
+              width = t.clientWidth;
+
+              this.thWidth = {
+                'min-width': width + 2 + 'px',
+                'max-width': width + 2 + 'px',
+                'width': width + 2 + 'px'
+              }
+            }
+          }
+          this.thFlag = false;
+        }
+        this.thFlag = false;
+      }*/
+      if(isHeader){
+        
+        for (let rows of frame.canvasRows) {
+          for (let i = 0; i < rows[x].Level5.length; i++) {
+            if (i == index) {
+              rows[x].Level5[i].sepFrame = 'SHOW';
+            } else {
+              rows[x].Level5[i].sepFrame = 'HIDE';
+            }
+          }
+        }
+
+        for (let i = 0; i < frame.headers[x].Level5.length; i++) {
+          if (i == index) {
+            frame.headers[x].Level5[i].sepFrame = 'SHOW';
+          } else {
+            frame.headers[x].Level5[i].sepFrame = 'HIDE';
+          }
+        }
+  
+      }
+
+      if (frame.summary_rows && frame.summary_rows.length > 0) {
+
+        for (let i = 0; i < frame.summary_rows[x].Level5.length; i++) {
+          if (i == index) {
+            frame.summary_rows[x].Level5[i].sepFrame = 'SHOW';
+          } else {
+            frame.summary_rows[x].Level5[i].sepFrame = 'HIDE';
+          }
+        }
+      }
+    }
+    // this.cdr.detectChanges();
   }
 }

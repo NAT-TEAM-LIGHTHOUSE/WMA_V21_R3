@@ -2831,9 +2831,10 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
         this.lhs_lib.refresh_frames();
       }
 
-
+    
 
     }
+     
   }
   searchData() {
     this.isSearch = true
@@ -3924,6 +3925,11 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
   toggleTable(x, index, itm) {
     if (itm.item_sub_type == 'TAB_OPEN') { } else {
       this.tabAtive = {
+        x: x,
+        index: index,
+        itm: itm
+      }
+       this.frame.tabAtive = {
         x: x,
         index: index,
         itm: itm
@@ -5116,6 +5122,11 @@ export class FrameNewtable2Component implements OnInit, AfterViewInit {
   toggleTabTable(x, index, itm) {
     if (itm.item_sub_type == 'TAB_OPEN') { } else {
       this.tabAtive = {
+        x: x,
+        index: index,
+        itm: itm
+      }
+     this.frame.tabAtive = {
         x: x,
         index: index,
         itm: itm

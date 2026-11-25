@@ -2256,7 +2256,7 @@ export class ProcessDataService {
             value = f.mulSum / f.itm2Sum;
           }
 
-          if (f.fun != "C" && f.dataType.toLowerCase() != "date") {
+          if (f.fun != "C" && f.dataType?.toLowerCase() != "date") {
             if (f.decimal && f.decimal != 0) {
               dataObj[f.item_name] = this.preciseAddAndTruncate(value, f.decimal).toString();
             } else {

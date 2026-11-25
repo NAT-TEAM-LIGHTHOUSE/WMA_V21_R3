@@ -2594,7 +2594,11 @@ export class SuperPage implements OnInit, OnDestroy {
         if(frame.search){
           delete frame['search']
         }
+        
       }
+      if(frame.tabAtive){
+          delete frame['tabAtive']
+        }
       if (frame.apps_frame_type != 'TABLE') {
         frame.headers = [];
       }
